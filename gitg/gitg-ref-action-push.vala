@@ -20,16 +20,12 @@
 namespace Gitg
 {
 
-class RefActionPush : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Object
+class RefActionPush : CommitActionPush, GitgExt.RefAction
 {
 	// Do this to pull in config.h before glib.h (for gettext...)
 	private const string version = Gitg.Config.VERSION;
 
-	public GitgExt.Application? application { owned get; construct set; }
-	public GitgExt.RefActionInterface action_interface { get; construct set; }
 	public Gitg.Ref reference { get; construct set; }
-
-	private Gitg.Remote? d_remote;
 
 	public RefActionPush(GitgExt.Application        application,
 	                      GitgExt.RefActionInterface action_interface,
@@ -38,115 +34,48 @@ class RefActionPush : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Obje
 		Object(application:      application,
 		       action_interface: action_interface,
 		       reference:        reference);
-
-		var branch = reference as Ggit.Branch;
-
-		if (branch != null)
-		{
-			try
-			{
-				var d_remote_ref = branch.get_upstream() as Gitg.Ref;
-				d_remote = application.remote_lookup.lookup(d_remote_ref.parsed_name.remote_name);
-			} catch {}
-		}
 	}
 
-	public string id
+	public override string id
 	{
 		owned get { return "/org/gnome/gitg/ref-actions/push"; }
 	}
 
-	public string display_name
+	public override string description
 	{
-		owned get
-		{
-			if (d_remote != null)
-			{
-				return _("Push to %s").printf(d_remote.get_name());
-			}
-			else
-			{
-				return "";
-			}
-		}
+		owned get { return _("Push ref to a remote"); }
 	}
 
-	public string description
+	public override string get_ref_name()
 	{
-		owned get { return _("Push branch to %s").printf(d_remote.get_name()); }
+		return reference.get_name();
+	}
+
+	public override Object get_ref()
+	{
+		return reference;
 	}
 
 	public bool available
 	{
-		get
-		{
-			return (d_remote != null) && reference.is_branch() && ((Gitg.Branch)reference).get_upstream() != null;
-		}
+		get { return !reference.is_remote(); }
 	}
 
-	public async bool push(string branch)
+
+	protected override void after_successful_push(bool set_upstream, string remote_name, string
+												 remote_ref_name)
 	{
-		var notification = new RemoteNotification(d_remote);
-		application.notifications.add(notification);
-
-		notification.text = _("Pushing to %s").printf(d_remote.get_url());
-
-		try
+		if (set_upstream && reference.is_branch())
 		{
-			yield d_remote.push(branch, null);
-			((Gtk.ApplicationWindow)application).activate_action("reload", null);
+			var branch = reference as Gitg.Branch;
+			try
+			{
+				var upstream_ref = @"$remote_name/$remote_ref_name";
+				branch.set_upstream(upstream_ref);
+			} catch {}
 		}
-		catch (Error e)
-		{
-			notification.error(_("Failed to push to %s: %s").printf(d_remote.get_url(), e.message));
-			stderr.printf("Failed to push: %s\n", e.message);
-
-			return false;
-		}
-
-		/* Translators: the %s will get replaced with the remote url, */
-		notification.success(_("Pushed to %s").printf(d_remote.get_url()));
-
-		return true;
-	}
-
-	public void activate()
-	{
-		var query = new GitgExt.UserQuery();
-
-		var branch_name = reference.get_shorthand();
-
-		query.title = (_("Push branch %s")).printf(branch_name);
-		query.message = (_("Are you sure that you want to push the branch %s?")).printf(branch_name);
-
-		query.set_responses(new GitgExt.UserQueryResponse[] {
-			new GitgExt.UserQueryResponse(_("Cancel"), Gtk.ResponseType.CANCEL),
-			new GitgExt.UserQueryResponse(_("Push"), Gtk.ResponseType.OK)
-		});
-
-		query.default_response = Gtk.ResponseType.OK;
-		query.response.connect(on_response);
-
-		action_interface.application.user_query(query);
-	}
-
-	private bool on_response(Gtk.ResponseType response)
-	{
-		if (response != Gtk.ResponseType.OK)
-		{
-			return true;
-		}
-
-		var branch_name = reference.get_shorthand();
-
-		push.begin(branch_name, (obj, res) => {
-			push.end(res);
-		});
-
-		return true;
 	}
 }
-
 }
 
 // ex:set ts=4 noet

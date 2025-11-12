@@ -781,6 +781,11 @@ namespace GitgHistory
 			                                                  af,
 			                                                  commit));
 
+			add_commit_action(actions,
+			                  new Gitg.CommitActionPush(application,
+			                                                  af,
+			                                                  commit));
+
 			var exts = new Peas.ExtensionSet(Gitg.PluginsEngine.get_default(),
 			                                 typeof(GitgExt.CommitAction),
 			                                 "application",
