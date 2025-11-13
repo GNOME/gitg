@@ -340,7 +340,7 @@ public class Remote : Ggit.Remote
 		reset_transfer_progress(true);
 	}
 
-	private async void download_intern(string? message, Ggit.RemoteCallbacks? callbacks) throws Error
+	private async void download_intern(string? message, Ggit.RemoteCallbacks? callbacks, Ggit.RemoteDownloadTagsType? download_tags) throws Error
 	{
 		bool dis = false;
 
@@ -358,6 +358,8 @@ public class Remote : Ggit.Remote
 			yield Async.thread(() => {
 				var options = new Ggit.FetchOptions();
 				options.set_remote_callbacks(d_callbacks);
+				if (download_tags != null)
+					options.set_download_tags(download_tags);
 
 				base.download(null, options);
 
@@ -380,7 +382,7 @@ public class Remote : Ggit.Remote
 
 	public new async void download(Ggit.RemoteCallbacks? callbacks = null) throws Error
 	{
-		yield download_intern(null, callbacks);
+		yield download_intern(null, callbacks, null);
 	}
 
 	public new async void push(bool force, string local_ref, string remote_ref, Ggit.RemoteCallbacks? callbacks = null) throws Error
@@ -388,7 +390,7 @@ public class Remote : Ggit.Remote
 		yield push_to(force, local_ref, remote_ref, callbacks);
 	}
 
-	public new async void fetch(string? message, Ggit.RemoteCallbacks? callbacks = null) throws Error
+	public new async void fetch(string? message, Ggit.RemoteCallbacks? callbacks = null, Ggit.RemoteDownloadTagsType? download_tags = null) throws Error
 	{
 		var msg = message;
 
@@ -411,7 +413,7 @@ public class Remote : Ggit.Remote
 			}
 		}
 
-		yield download_intern(msg, callbacks);
+		yield download_intern(msg, callbacks, download_tags);
 	}
 
 	public string[]? fetch_specs
