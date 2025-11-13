@@ -20,12 +20,13 @@
 namespace Gitg
 {
 
-class FetchAllRemotesAction : GitgExt.UIElement, GitgExt.Action, Object
+class FetchAllRemotesAction : GitgExt.UIElement, GitgExt.Action, GitgExt.FetchAvoidTags, Object
 {
 	// Do this to pull in config.h before glib.h (for gettext...)
 	private const string version = Gitg.Config.VERSION;
 
 	public GitgExt.Application? application { owned get; construct set; }
+	public bool no_tags { get; construct set; }
 	public GitgHistory.RefsList refs_list;
 
 	public FetchAllRemotesAction(GitgExt.Application application, GitgHistory.RefsList refs_list)
@@ -41,12 +42,17 @@ class FetchAllRemotesAction : GitgExt.UIElement, GitgExt.Action, Object
 
 	public string display_name
 	{
-		owned get { return _("Fetch all remotes"); }
+		owned get {
+			var suffix = no_tags ? _(" (without tags)"): "";
+			return _("Fetch all remotes%s").printf(suffix);
+		}
 	}
 
 	public string description
 	{
-		owned get { return _("Fetch objects from all remotes"); }
+		owned get {
+			return _("Fetch objects from all remotes. (Shift to ignore tags)");
+		}
 	}
 
 	public void activate()
@@ -54,7 +60,10 @@ class FetchAllRemotesAction : GitgExt.UIElement, GitgExt.Action, Object
 		refs_list.references.foreach((r) => {
 			var remote_name = r.parsed_name.remote_name;
 			var remote = application.remote_lookup.lookup(remote_name);
-			remote.fetch.begin(null, null, (obj, res) => {
+			Ggit.RemoteDownloadTagsType? download_tags = null;
+			if (no_tags)
+				download_tags = Ggit.RemoteDownloadTagsType.NONE;
+			remote.fetch.begin(null, null, download_tags, (obj, res) => {
 				remote.fetch.end(res);
 			});
 			return true;

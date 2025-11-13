@@ -13,6 +13,7 @@ sources = files(
   'gitg-ext-command-line.vala',
   'gitg-ext-command-lines.vala',
   'gitg-ext-commit-action.vala',
+  'gitg-ext-fetch-avoid-tags.vala',
   'gitg-ext-history-panel.vala',
   'gitg-ext-history.vala',
   'gitg-ext-message-bus.vala',

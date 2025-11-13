@@ -698,7 +698,7 @@ namespace GitgHistory
 				return null;
 			}
 
-			return popup_menu_for_ref(reference);
+			return popup_menu_for_ref(reference, event);
 		}
 
 		private Gtk.Menu? on_commit_list_populate_menu(Gdk.EventButton? event)
@@ -867,7 +867,7 @@ namespace GitgHistory
 			return populate_menu_for_commit(commit);
 		}
 
-		private Gtk.Menu? popup_menu_for_ref(Gitg.Ref reference)
+		private Gtk.Menu? popup_menu_for_ref(Gitg.Ref reference, Gdk.EventButton? event)
 		{
 			var actions = new Gee.LinkedList<GitgExt.RefAction?>();
 
@@ -886,7 +886,8 @@ namespace GitgHistory
 			add_ref_action(actions, new Gitg.RefActionDelete(application, af, reference));
 			add_ref_action(actions, new Gitg.RefActionCopyName(application, af, reference));
 
-			var fetch = new Gitg.RefActionFetch(application, af, reference);
+			bool shift_pressed = (event.state & Gdk.ModifierType.SHIFT_MASK) != 0;
+			var fetch = new Gitg.RefActionFetch(application, af, reference, null, shift_pressed);
 
 			if (fetch.available)
 			{
@@ -1035,6 +1036,12 @@ namespace GitgHistory
 					{
 						if (ac != null)
 						{
+							if (ac is GitgExt.FetchAvoidTags)
+							{
+								var fat = ac as GitgExt.FetchAvoidTags;
+								bool shift_pressed = (event.state & Gdk.ModifierType.SHIFT_MASK) != 0;
+								fat.no_tags = shift_pressed;
+							}
 							ac.populate_menu(menu);
 						}
 						else
@@ -1051,7 +1058,7 @@ namespace GitgHistory
 					return null;
 				}
 			} else if (!references.is_empty && references.first() == references.last()) {
-				return popup_menu_for_ref(references.first());
+				return popup_menu_for_ref(references.first(), event);
 			} else {
 				return null;
 			}
