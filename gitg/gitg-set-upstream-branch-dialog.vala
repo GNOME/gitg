@@ -34,6 +34,7 @@ class SetUpstreamBranchDialog : Gtk.Dialog
 
 	private Gitg.Repository d_repository;
 	private Ggit.Ref? d_remote_reference;
+	private Ggit.Branch d_branch;
 
 	public string branch_name;
 
@@ -41,7 +42,20 @@ class SetUpstreamBranchDialog : Gtk.Dialog
 	{
 		set_default(d_button_set_upstream);
 		set_default_response(Gtk.ResponseType.OK);
+		d_remote_branch_name.changed.connect(input_changed);
 	}
+
+	private void input_changed () {
+		var upstream_name = "";
+		try
+		{
+			var upstream = d_branch.get_upstream();
+			if (upstream != null)
+				upstream_name = upstream.get_shorthand();
+		} catch {}
+		set_response_sensitive(Gtk.ResponseType.OK, upstream_name != d_remote_branch_name.get_active_text());
+	}
+
 
 	public SetUpstreamBranchDialog(Gtk.Window? parent, Gitg.Repository? repository, Gitg.Ref reference)
 	{
@@ -61,8 +75,8 @@ class SetUpstreamBranchDialog : Gtk.Dialog
 
 		try
 		{
-			var branch = reference as Gitg.Branch;
-			d_remote_reference = branch.get_upstream();
+			d_branch = reference as Gitg.Branch;
+			d_remote_reference = d_branch.get_upstream();
 		}
 		catch (Error e)
 		{
