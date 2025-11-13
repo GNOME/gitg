@@ -58,7 +58,7 @@ class RefActionDelete : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Ob
 		get
 		{
 			return (reference.is_branch() && !((Ggit.Branch)reference).is_head())
-			       || reference.is_tag();
+			       || reference.is_tag() || reference.is_remote();
 		}
 	}
 
@@ -110,7 +110,18 @@ class RefActionDelete : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Ob
 
 		try
 		{
-			reference.delete();
+			if (reference.is_remote())
+			{
+				var remote_name = reference.parsed_name.remote_name;
+				var remote = application.remote_lookup.lookup(remote_name);
+				var remote_branch = "refs/heads/%s".printf(reference.parsed_name.remote_branch);
+
+				delete_remote_branch.begin(remote, remote_branch, (obj, res) => {
+					delete_remote_branch.end(res);
+				});
+			}
+			else
+				reference.delete();
 		}
 		catch (Error e)
 		{
@@ -127,13 +138,21 @@ class RefActionDelete : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Ob
 				// Translators: the first %s is the name of the tag, the second is an error message
 				message = _("The tag %s could not be deleted: %s").printf(name, e.message);
 			}
-			else
+			else if (reference.is_branch())
 			{
 				// Translators: %s is the name of the branch
 				title = _("Failed to delete branch %s").printf(name);
 
 				// Translators: the first %s is the name of the branch, the second is an error message
 				message = _("The branch %s could not be deleted: %s").printf(name, e.message);
+			}
+			else /*if (reference.is_remote())*/
+			{
+				// Translators: %s is the name of the branch
+				title = _("Failed to delete remote branch %s").printf(name);
+
+				// Translators: the first %s is the name of the branch, the second is an error message
+				message = _("The remote branch %s could not be deleted: %s").printf(name, e.message);
 			}
 
 			action_interface.application.show_infobar(title,
@@ -145,6 +164,33 @@ class RefActionDelete : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Ob
 
 		action_interface.remove_ref(reference);
 		action_interface.refresh();
+		return true;
+	}
+
+	public async bool delete_remote_branch(Gitg.Remote remote, string remote_branch)
+	{
+		var notification = new RemoteNotification(remote);
+		application.notifications.add(notification);
+
+		notification.text = _("Deleting branch %s from %s").printf(remote_branch, remote.get_url());
+
+		try
+		{
+			yield remote.push(false, "", remote_branch, null);
+			((Gtk.ApplicationWindow)application).activate_action("reload", null);
+		}
+		catch (Error e)
+		{
+			notification.error(_("Failed to delete branch %s from %s: %s")
+							   .printf(remote_branch, remote.get_url(), e.message));
+			stderr.printf("Failed to delete: %s\n", e.message);
+
+			return false;
+		}
+
+		/* Translators: the %s will get replaced with the remote url, */
+		notification.success(_("Deleted from %s").printf(remote.get_url()));
+
 		return true;
 	}
 }
