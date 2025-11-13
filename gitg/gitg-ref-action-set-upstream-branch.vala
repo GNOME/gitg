@@ -73,13 +73,13 @@ class RefActionSetUpstreamBranch : GitgExt.UIElement, GitgExt.Action, GitgExt.Re
 		dlg.response.connect((d, resp) => {
 			if (resp == Gtk.ResponseType.OK)
 			{
-                Gitg.Branch? branch = null;
+				Gitg.Branch? branch = null;
 				try
 				{
 					branch = reference as Gitg.Branch;
-                    var upstream = dlg.remote_branch_name;
-                    if (upstream == "")
-                        upstream = null;
+					var upstream = dlg.remote_branch_name;
+					if (upstream == "")
+						upstream = null;
 					branch.set_upstream(upstream);
 				}
 				catch (Error e)
