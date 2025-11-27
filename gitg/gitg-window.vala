@@ -168,7 +168,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		{"reload", on_reload_activated},
 		{"author-details-repo", on_repo_author_details_activated},
 		{"preferences", on_preferences_activated},
-		{"select", on_select_activated, null, "false", null}
+		{"select", on_select_activated, null, "false", null},
+		{"open-externally", on_open_externally}
 	};
 
 #if GTK_SHORTCUTS_WINDOW
@@ -1304,6 +1305,22 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		}
 
 		base.present();
+	}
+
+	private void on_open_externally()
+	{
+		if (d_repository != null)
+		{
+			var uri = d_repository.get_location().get_uri();
+			try
+			{
+				GLib.AppInfo.launch_default_for_uri (uri, null);
+			}
+			catch(Error e)
+			{
+				warning ("Cannot open %s: %s", uri, e.message);
+			}
+		}
 	}
 
 	private void on_select_activated(SimpleAction action)
