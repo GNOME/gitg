@@ -241,15 +241,15 @@ public class StageStatusEnumerator : Object
 		{
 			d_ignored_submodules = new Gee.HashSet<string>();
 
-			repository.get_config().snapshot().match_foreach(s_ignore_regex, (match, val) => {
-				if (val != "true")
-				{
-					return 0;
-				}
+			//repository.get_config().snapshot().match_foreach(s_ignore_regex, (match, val) => {
+			//	if (val != "true")
+			//	{
+			//		return 0;
+			//	}
 
-				d_ignored_submodules.add(match.fetch(1));
-				return 0;
-			});
+			//	d_ignored_submodules.add(match.fetch(1));
+			//	return 0;
+			//});
 		} catch {}
 
 		try

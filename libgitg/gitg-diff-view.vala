@@ -283,6 +283,7 @@ public class Gitg.DiffView : Gtk.Grid
 		{
 			return minfo.fetch_named("message");
 		}
+		minfo = null;
 
 		return "";
 	}
@@ -340,6 +341,7 @@ public class Gitg.DiffView : Gtk.Grid
 
 				matchInfo.next();
 			}
+			matchInfo = null;
 		}
 		catch(Error e)
 		{
@@ -601,30 +603,30 @@ public class Gitg.DiffView : Gtk.Grid
 			try
 			{
 				var conf = repository.get_config().snapshot();
-				conf.match_foreach(regex_custom_links, (match_info, value) => {
-					string group = match_info.fetch(1);
-					debug ("found custom-link group: %s", group);
-					string custom_link_regexp = value;
-					string replacement_key = "gitg.custom-link.%s.replacement".printf(group);
-					try
-					{
-						string custom_link_replacement = conf.get_string(replacement_key);
-						string color_key = "gitg.custom-link.%s.color".printf(group);
-						string custom_color = conf.get_string(color_key);
-						Gdk.RGBA color = d_color_link;
-						bool is_custom_color = custom_color != null;
-						if (is_custom_color)
-						{
-							color = Gdk.RGBA();
-							color.parse(custom_color);
-						}
-						apply_link_tags(buffer, new Regex (custom_link_regexp), custom_link_replacement, color, is_custom_color, true);
-					} catch (Error e)
-					{
-						warning ("Cannot read git config: %s", e.message);
-					}
-					return 0;
-				});
+				//conf.match_foreach(regex_custom_links, (match_info, value) => {
+				//	string group = match_info.fetch(1);
+				//	debug ("found custom-link group: %s", group);
+				//	string custom_link_regexp = value;
+				//	string replacement_key = "gitg.custom-link.%s.replacement".printf(group);
+				//	try
+				//	{
+				//		string custom_link_replacement = conf.get_string(replacement_key);
+				//		string color_key = "gitg.custom-link.%s.color".printf(group);
+				//		string custom_color = conf.get_string(color_key);
+				//		Gdk.RGBA color = d_color_link;
+				//		bool is_custom_color = custom_color != null;
+				//		if (is_custom_color)
+				//		{
+				//			color = Gdk.RGBA();
+				//			color.parse(custom_color);
+				//		}
+				//		apply_link_tags(buffer, new Regex (custom_link_regexp), custom_link_replacement, color, is_custom_color, true);
+				//	} catch (Error e)
+				//	{
+				//		warning ("Cannot read git config: %s", e.message);
+				//	}
+				//	return 0;
+				//});
 			} catch (Error e)
 			{
 				warning ("Cannot read git config: %s", e.message);

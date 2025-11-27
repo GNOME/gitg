@@ -281,6 +281,7 @@ public class Date : Object, Initable
 
 			return true;
 		}
+		info = null;
 
 		if (s_iso8601.match(date_string, 0, out info))
 		{
@@ -288,6 +289,7 @@ public class Date : Object, Initable
 
 			return true;
 		}
+		info = null;
 
 		if (s_rfc2822.match(date_string, 0, out info))
 		{
@@ -295,6 +297,7 @@ public class Date : Object, Initable
 
 			return true;
 		}
+		info = null;
 
 		throw new DateError.INVALID_FORMAT("Invalid date format");
 	}

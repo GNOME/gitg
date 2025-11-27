@@ -95,14 +95,15 @@ class RemoteManager : Object, GitgExt.RemoteLookup
 
 		try
 		{
-			config.match_foreach(r, (info, value) => {
-				d_insteadof += InsteadOf() {
-					prefix = value,
-					replacement = info.fetch(1)
-				};
+			//config.match_foreach(r, (info, value) => {
+			//	d_insteadof += InsteadOf() {
+			//		prefix = value,
+			//		replacement = info.fetch(1)
+			//	};
+			//	info = null;
 
-				return 0;
-			});
+			//	return 0;
+			//});
 		} catch {}
 	}
 

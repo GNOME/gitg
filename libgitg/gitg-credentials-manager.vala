@@ -71,10 +71,10 @@ public class CredentialsManager
 				{
 					var r = new Regex("credential\\.(.*)\\.username");
 
-					d_config.snapshot().match_foreach(r, (info, value) => {
-						d_usermap[info.fetch(1)] = value;
-						return 0;
-					});
+					//d_config.snapshot().match_foreach(r, (info, value) => {
+					//	d_usermap[info.fetch(1)] = value;
+					//	return 0;
+					//});
 				}
 				catch (Error e)
 				{
@@ -222,6 +222,7 @@ public class CredentialsManager
 				scheme = "ssh";
 				host = minfo.fetch_named("host");
 			}
+			minfo = null;
 		}
 		else
 		{
@@ -235,7 +236,7 @@ public class CredentialsManager
 				{
 					host = @"$(host):$(uri.get_port())";
 				}
-		
+
 				scheme = uri.get_scheme();
 			}
 		}

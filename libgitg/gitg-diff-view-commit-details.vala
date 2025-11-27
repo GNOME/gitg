@@ -346,6 +346,7 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 				result = result.replace(text, "<a href=\"%s\">%s</a>".printf(text, text));
 				matchInfo.next();
 			}
+			matchInfo = null;
 
 			result = parse_smart_text(result);
 		}
@@ -364,46 +365,47 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 			try
 			{
 				var conf = repository.get_config().snapshot();
-				conf.match_foreach(regex_custom_links, (match_info, value) => {
-					string group = match_info.fetch(1);
-					debug ("found custom-link group: %s", group);
-					debug (value == null ? "es nulo": "es vacio");
-					string custom_link_regexp = value;
-					string replacement_key = "gitg.custom-link.%s.replacement".printf(group);
-					try
-					{
-						string custom_link_replacement = conf.get_string(replacement_key);
+				//conf.match_foreach(regex_custom_links, (match_info, value) => {
+				//	string group = match_info.fetch(1);
+				//	debug ("found custom-link group: %s", group);
+				//	debug (value == null ? "es nulo": "es vacio");
+				//	string custom_link_regexp = value;
+				//	string replacement_key = "gitg.custom-link.%s.replacement".printf(group);
+				//	try
+				//	{
+				//		string custom_link_replacement = conf.get_string(replacement_key);
 
-						var custom_regex = new Regex (custom_link_regexp);
-						try
-						{
-							GLib.MatchInfo matchInfo;
+				//		var custom_regex = new Regex (custom_link_regexp);
+				//		try
+				//		{
+				//			GLib.MatchInfo matchInfo;
 
-							custom_regex.match (subject_text, 0, out matchInfo);
+				//			custom_regex.match (subject_text, 0, out matchInfo);
 
-							while (matchInfo.matches ())
-							{
-								string text = matchInfo.fetch(0);
-								string link = text.dup();
-								debug ("found: %s", link);
-								if (custom_link_replacement != null)
-								{
-									link = custom_regex.replace(link, text.length, 0, custom_link_replacement);
-								}
-								result = result.replace(text, "<a href=\"%s\" title=\"%s\">%s</a>".printf(link, link, text));
+				//			while (matchInfo.matches ())
+				//			{
+				//				string text = matchInfo.fetch(0);
+				//				string link = text.dup();
+				//				debug ("found: %s", link);
+				//				if (custom_link_replacement != null)
+				//				{
+				//					link = custom_regex.replace(link, text.length, 0, custom_link_replacement);
+				//				}
+				//				result = result.replace(text, "<a href=\"%s\" title=\"%s\">%s</a>".printf(link, link, text));
 
-								matchInfo.next();
-							}
-						}
-						catch(Error e)
-						{
-						}
-					} catch (Error e)
-					{
-						warning ("Cannot read git config: %s", e.message);
-					}
-					return 0;
-				});
+				//				matchInfo.next();
+				//			}
+				//			matchInfo = null;
+				//		}
+				//		catch(Error e)
+				//		{
+				//		}
+				//	} catch (Error e)
+				//	{
+				//		warning ("Cannot read git config: %s", e.message);
+				//	}
+				//	return 0;
+				//});
 			}
 			catch(Error e)
 			{

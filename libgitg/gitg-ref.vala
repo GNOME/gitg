@@ -227,20 +227,22 @@ public interface Ref : Ggit.Ref
 				s_remote_key_regex = new Regex("remote\\.(.*)\\.push");
 			}
 
-			cfg.match_foreach(s_remote_key_regex, (info, val) => {
-				MatchInfo vinfo;
+			//cfg.match_foreach(s_remote_key_regex, (info, val) => {
+			//	MatchInfo vinfo;
 
-				if (!valregex.match(val, 0, out vinfo))
-				{
-					return 0;
-				}
+			//	if (!valregex.match(val, 0, out vinfo))
+			//	{
+			//		return 0;
+			//	}
 
-				var rname = info.fetch(1);
-				var pref = vinfo.fetch(1);
+			//	var rname = info.fetch(1);
+			//	var pref = vinfo.fetch(1);
+			//	info = null;
+			//	vinfo = null;
 
-				add_push_ref(@"refs/remotes/$rname/$pref");
-				return 0;
-			});
+			//	add_push_ref(@"refs/remotes/$rname/$pref");
+			//	return 0;
+			//});
 
 		} catch { return; }
 	}

@@ -1295,12 +1295,13 @@ public class RefsList : Gtk.ListBox
 			var r = new Regex("remote\\.(.*)\\.url");
 
 			//remotes not valid but existing in git config
-			d_repository.get_config().snapshot().match_foreach(r, (info, value) => {
-				var name = info.fetch(1);
-				if (!d_header_map.has_key(name))
-				  add_remote_header(name);
-				return 0;
-			});
+			//d_repository.get_config().snapshot().match_foreach(r, (info, value) => {
+			//	var name = info.fetch(1);
+			//	info = null;
+			//	if (!d_header_map.has_key(name))
+			//	  add_remote_header(name);
+			//	return 0;
+			//});
 		} catch {}
 
 		d_selected_row = null;
