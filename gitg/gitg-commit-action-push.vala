@@ -63,6 +63,35 @@ class CommitActionPush : GitgExt.UIElement, GitgExt.Action, GitgExt.CommitAction
 		return commit;
 	}
 
+	class PushCallbacks:Ggit.RemoteCallbacks {
+		public GitgExt.Application? application { owned get; construct set; }
+
+		public PushResultDialog push_dlg;
+
+		public PushCallbacks(GitgExt.Application application)
+		{
+			Object(application: application);
+			push_dlg = new PushResultDialog((Gtk.Window)application);
+			push_dlg.response.connect((d, resp) => {
+				push_dlg.destroy();
+			});
+		}
+
+		public override void progress(string message) {
+			if (message == "")
+				return;
+
+			push_dlg.append_message(message);
+
+			if (!push_dlg.is_visible()) {
+				Idle.add(() => {
+					push_dlg.show();
+					return false;
+				});
+			}
+		}
+	}
+
 	public async bool push(Gitg.Remote remote, bool force, string local_branch, string remote_branch)
 	{
 		var notification = new RemoteNotification(remote);
@@ -72,7 +101,7 @@ class CommitActionPush : GitgExt.UIElement, GitgExt.Action, GitgExt.CommitAction
 
 		try
 		{
-			yield remote.push(force, local_branch, remote_branch, null);
+			yield remote.push(force, local_branch, remote_branch, new PushCallbacks(application));
 			((Gtk.ApplicationWindow)application).activate_action("reload", null);
 		}
 		catch (Error e)
