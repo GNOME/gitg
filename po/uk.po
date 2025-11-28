@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2025-11-05 02:26+0000\n"
-"PO-Revision-Date: 2025-11-05 08:43+0200\n"
+"POT-Creation-Date: 2025-11-28 13:24+0000\n"
+"PO-Revision-Date: 2025-11-28 20:54+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -835,7 +835,7 @@ msgstr ""
 #: gitg/gitg-action-support.vala:133
 #: gitg/gitg-commit-action-cherry-pick.vala:163
 #: gitg/gitg-ref-action-delete.vala:94 gitg/gitg-ref-action-merge.vala:194
-#: gitg/gitg-ref-action-push.vala:123 gitg/gitg-remove-remote-action.vala:67
+#: gitg/gitg-remove-remote-action.vala:67
 #: libgitg/gitg-repository-list-box.vala:560
 msgid "Cancel"
 msgstr "Скасувати"
@@ -896,7 +896,7 @@ msgstr "Отримуємо дані з %s"
 
 # нових
 #. Translators: new refers to a new remote reference having been fetched,
-#: gitg/gitg-add-remote-action.vala:65 gitg/gitg-ref-action-fetch.vala:115
+#: gitg/gitg-add-remote-action.vala:65 gitg/gitg-ref-action-fetch.vala:122
 msgid "new"
 msgstr "нове"
 
@@ -913,7 +913,7 @@ msgstr "Не вдалося отримати дані з доданого від
 
 #. Translators: the first %s is the remote url to fetch from,
 #. * the second is a list of references that got updated.
-#: gitg/gitg-add-remote-action.vala:90 gitg/gitg-ref-action-fetch.vala:149
+#: gitg/gitg-add-remote-action.vala:90 gitg/gitg-ref-action-fetch.vala:159
 #, c-format
 msgid "Fetched from %s: %s"
 msgstr "Отримано з %s: %s"
@@ -1343,60 +1343,106 @@ msgstr "Вилучити"
 
 # Не вдалося вилучити притон
 #. Translators: %s is the name of the tag
-#: gitg/gitg-ref-action-delete.vala:125
+#: gitg/gitg-ref-action-delete.vala:136
 #, c-format
 msgid "Failed to delete tag %s"
 msgstr "Не вдалося вилучити мітку %s"
 
 # Теги<%s>не може бути успішно вилучений
 #. Translators: the first %s is the name of the tag, the second is an error message
-#: gitg/gitg-ref-action-delete.vala:128
+#: gitg/gitg-ref-action-delete.vala:139
 #, c-format
 msgid "The tag %s could not be deleted: %s"
 msgstr "Не вдалося вилучити мітку %s: %s"
 
 # Не вдалося створити філію
 #. Translators: %s is the name of the branch
-#: gitg/gitg-ref-action-delete.vala:133
+#: gitg/gitg-ref-action-delete.vala:144
 #, c-format
 msgid "Failed to delete branch %s"
 msgstr "Не вдалося вилучити гілку %s"
 
 # Відділення не може бути успішно створена
 #. Translators: the first %s is the name of the branch, the second is an error message
-#: gitg/gitg-ref-action-delete.vala:136
+#: gitg/gitg-ref-action-delete.vala:147
 #, c-format
 msgid "The branch %s could not be deleted: %s"
 msgstr "не вдалося вилучити гілку %s: %s"
 
-#: gitg/gitg-ref-action-fetch.vala:83
+# Не вдалося створити філію
+#. Translators: %s is the name of the branch
+#: gitg/gitg-ref-action-delete.vala:152
 #, c-format
-msgid "Fetch from %s"
-msgstr "Отримати з %s"
+#| msgid "Failed to delete branch %s"
+msgid "Failed to delete remote branch %s"
+msgstr "Не вдалося вилучити віддалену гілку %s"
 
-#: gitg/gitg-ref-action-fetch.vala:94
+# Відділення не може бути успішно створена
+#. Translators: the first %s is the name of the branch, the second is an error message
+#: gitg/gitg-ref-action-delete.vala:155
 #, c-format
-msgid "Fetch remote objects from %s"
-msgstr "Отримати віддалені об'єкти з %s"
+#| msgid "The branch %s could not be deleted: %s"
+msgid "The remote branch %s could not be deleted: %s"
+msgstr "не вдалося вилучити віддалену гілку %s: %s"
 
-#: gitg/gitg-ref-action-fetch.vala:107
+# Виберіть філія
+#: gitg/gitg-ref-action-delete.vala:175
+#, c-format
+#| msgid "Delete branch %s"
+msgid "Deleting branch %s from %s"
+msgstr "Вилучення гілки %s з %s"
+
+# Не вдалося створити філію
+#: gitg/gitg-ref-action-delete.vala:184
+#, c-format
+#| msgid "Failed to delete branch %s"
+msgid "Failed to delete branch %s from %s: %s"
+msgstr "Не вдалося вилучити гілку %s з %s: %s"
+
+# Вилучити віддаленого філії
+#. Translators: the %s will get replaced with the remote url,
+#: gitg/gitg-ref-action-delete.vala:192
+#, c-format
+#| msgid "Delete remote %s"
+msgid "Deleted from %s"
+msgstr "Вилучено з %s"
+
+#: gitg/gitg-ref-action-fetch.vala:87
+msgid " (without tags)"
+msgstr " (без міток)"
+
+#: gitg/gitg-ref-action-fetch.vala:88
+#, c-format
+#| msgid "Fetch from %s"
+msgid "Fetch from %s%s"
+msgstr "Отримати з %s%s"
+
+#: gitg/gitg-ref-action-fetch.vala:100
+#, c-format
+#| msgid "Fetch remote objects from %s"
+msgid "Fetch remote objects from %s (hold Shift to ignore tags)"
+msgstr ""
+"Отримати віддалені об'єкти з %s (утримуйте натиснутою Shift, щоб ігнорувати"
+" мітки)"
+
+#: gitg/gitg-ref-action-fetch.vala:114
 #, c-format
 msgid "Fetching from <a href='%s'>%s</a>"
 msgstr "Отримуємо дані з <a href='%s'>%s</a>"
 
 #. Translators: updated refers to a remote reference having been updated,
-#: gitg/gitg-ref-action-fetch.vala:120
+#: gitg/gitg-ref-action-fetch.vala:127
 msgid "updated"
 msgstr "оновлено"
 
 # Не вдалося зберегти поточний стан індекс
-#: gitg/gitg-ref-action-fetch.vala:130
+#: gitg/gitg-ref-action-fetch.vala:140
 #, c-format
 msgid "Failed to fetch from <a href='%s'>%s</a>: <b>%s</b>"
 msgstr "Не вдалося отримати дані з <a href='%s'>%s</a>: <b>%s</b>"
 
 #. Translators: the %s will get replaced with the remote url,
-#: gitg/gitg-ref-action-fetch.vala:143
+#: gitg/gitg-ref-action-fetch.vala:153
 #, c-format
 msgid "Fetched from <a href='%s'>%s</a>: <b>everything is up to date</b>"
 msgstr "Отримано з <a href='%s'>%s</a>: <b>нічого не потребує оновлення</b>"
@@ -1483,50 +1529,11 @@ msgstr "Злити «%s» до гілки «%s»"
 msgid "Tags"
 msgstr "Мітки"
 
-#: gitg/gitg-ref-action-push.vala:65
-#, c-format
-msgid "Push to %s"
-msgstr "Надіслати до %s"
-
-# Натисніть гілки…
-#: gitg/gitg-ref-action-push.vala:76
-#, c-format
-msgid "Push branch to %s"
-msgstr "Надіслати гілку до %s"
-
-#: gitg/gitg-ref-action-push.vala:92
-#, c-format
-msgid "Pushing to %s"
-msgstr "Надсилаємо до %s"
-
-# Не вдалося зберегти поточний стан індекс
-#: gitg/gitg-ref-action-push.vala:101
-#, c-format
-msgid "Failed to push to %s: %s"
-msgstr "Не вдалося надіслати до %s: %s"
-
-#. Translators: the %s will get replaced with the remote url,
-#: gitg/gitg-ref-action-push.vala:108
-#, c-format
-msgid "Pushed to %s"
-msgstr "Надіслано до %s"
-
-# Натисніть гілки…
-#: gitg/gitg-ref-action-push.vala:119
-#, c-format
-msgid "Push branch %s"
-msgstr "Надіслати гілку %s"
-
-# Ви впевнені, що хочете вилучити віддаленого філії<%s>?
-#: gitg/gitg-ref-action-push.vala:120
-#, c-format
-msgid "Are you sure that you want to push the branch %s?"
-msgstr "Ви справді хочете надіслати гілку %s до сховища?"
-
-# Поштовх
-#: gitg/gitg-ref-action-push.vala:124
-msgid "Push"
-msgstr "Надіслати"
+# Не вдалося вилучити теги
+#: gitg/gitg-ref-action-push.vala:46
+#| msgid "Failed to add remote"
+msgid "Push ref to a remote"
+msgstr "Записати посилання до віддаленого сховища"
 
 # Перейменувати філія
 #: gitg/gitg-ref-action-rename.vala:48
@@ -1736,7 +1743,7 @@ msgstr "Журнал"
 msgid "Examine the history of the repository"
 msgstr "Вивчення журналу сховища"
 
-#: gitg/history/gitg-history.vala:969
+#: gitg/history/gitg-history.vala:980
 msgid "Mainline"
 msgstr "Основа"
 
@@ -2692,16 +2699,47 @@ msgstr "Файли"
 msgid "Show the files in the tree of the selected commit"
 msgstr "Показати файли у ієрархії вибраного внеску"
 
+#, c-format
+#~ msgid "Push to %s"
+#~ msgstr "Надіслати до %s"
+
+# Натисніть гілки…
+#, c-format
+#~ msgid "Push branch to %s"
+#~ msgstr "Надіслати гілку до %s"
+
+#, c-format
+#~ msgid "Pushing to %s"
+#~ msgstr "Надсилаємо до %s"
+
+# Не вдалося зберегти поточний стан індекс
+#, c-format
+#~ msgid "Failed to push to %s: %s"
+#~ msgstr "Не вдалося надіслати до %s: %s"
+
+#, c-format
+#~ msgid "Pushed to %s"
+#~ msgstr "Надіслано до %s"
+
+# Натисніть гілки…
+#, c-format
+#~ msgid "Push branch %s"
+#~ msgstr "Надіслати гілку %s"
+
+# Ви впевнені, що хочете вилучити віддаленого філії<%s>?
+#, c-format
+#~ msgid "Are you sure that you want to push the branch %s?"
+#~ msgstr "Ви справді хочете надіслати гілку %s до сховища?"
+
+# Поштовх
+#~ msgid "Push"
+#~ msgstr "Надіслати"
+
 #~ msgid "@binary@"
 #~ msgstr "@binary@"
 
 #~ msgid "Edits the remote from the remotes list"
 #~ msgstr "Редагування запису віддаленого сховища зі списку віддалених сховищ"
-
-# Виберіть філія
-#, c-format
-#~ msgid "Delete branch %s"
-#~ msgstr "Вилучити гілку %s"
 
 # Створіть тег
 #, c-format
@@ -2712,11 +2750,6 @@ msgstr "Показати файли у ієрархії вибраного вн�
 #, c-format
 #~ msgid "Delete remote branch %s"
 #~ msgstr "Вилучити віддалену гілку %s"
-
-# Вилучити віддаленого філії
-#, c-format
-#~ msgid "Delete remote %s"
-#~ msgstr "Вилучити віддалене сховище %s"
 
 #~ msgctxt "shortcut window"
 #~ msgid "Open the help"
