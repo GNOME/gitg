@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2025-11-05 06:54+0000\n"
-"PO-Revision-Date: 2025-11-06 07:17+0800\n"
+"POT-Creation-Date: 2025-11-27 22:14+0000\n"
+"PO-Revision-Date: 2025-11-28 09:46+0800\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -720,7 +720,7 @@ msgstr "你的工作目录中似乎有未暂存的更改。你希望先保存进
 #: gitg/gitg-action-support.vala:133
 #: gitg/gitg-commit-action-cherry-pick.vala:163
 #: gitg/gitg-ref-action-delete.vala:94 gitg/gitg-ref-action-merge.vala:194
-#: gitg/gitg-ref-action-push.vala:123 gitg/gitg-remove-remote-action.vala:67
+#: gitg/gitg-remove-remote-action.vala:67
 #: libgitg/gitg-repository-list-box.vala:560
 msgid "Cancel"
 msgstr "取消"
@@ -771,7 +771,7 @@ msgid "Fetching from %s"
 msgstr "正在从 %s 取回"
 
 #. Translators: new refers to a new remote reference having been fetched,
-#: gitg/gitg-add-remote-action.vala:65 gitg/gitg-ref-action-fetch.vala:115
+#: gitg/gitg-add-remote-action.vala:65 gitg/gitg-ref-action-fetch.vala:122
 msgid "new"
 msgstr "新的"
 
@@ -786,7 +786,7 @@ msgstr "从添加的远程仓库获取失败"
 
 #. Translators: the first %s is the remote url to fetch from,
 #. * the second is a list of references that got updated.
-#: gitg/gitg-add-remote-action.vala:90 gitg/gitg-ref-action-fetch.vala:149
+#: gitg/gitg-add-remote-action.vala:90 gitg/gitg-ref-action-fetch.vala:159
 #, c-format
 msgid "Fetched from %s: %s"
 msgstr "已从 %s 获取：%s"
@@ -1180,57 +1180,89 @@ msgid "Delete"
 msgstr "删除"
 
 #. Translators: %s is the name of the tag
-#: gitg/gitg-ref-action-delete.vala:125
+#: gitg/gitg-ref-action-delete.vala:136
 #, c-format
 msgid "Failed to delete tag %s"
 msgstr "删除标签 %s 失败"
 
 #. Translators: the first %s is the name of the tag, the second is an error message
-#: gitg/gitg-ref-action-delete.vala:128
+#: gitg/gitg-ref-action-delete.vala:139
 #, c-format
 msgid "The tag %s could not be deleted: %s"
 msgstr "标签 %s 无法删除：%s"
 
 #. Translators: %s is the name of the branch
-#: gitg/gitg-ref-action-delete.vala:133
+#: gitg/gitg-ref-action-delete.vala:144
 #, c-format
 msgid "Failed to delete branch %s"
 msgstr "删除分支 %s 失败"
 
 #. Translators: the first %s is the name of the branch, the second is an error message
-#: gitg/gitg-ref-action-delete.vala:136
+#: gitg/gitg-ref-action-delete.vala:147
 #, c-format
 msgid "The branch %s could not be deleted: %s"
 msgstr "分支 %s 无法删除：%s"
 
-#: gitg/gitg-ref-action-fetch.vala:83
+#. Translators: %s is the name of the branch
+#: gitg/gitg-ref-action-delete.vala:152
 #, c-format
-msgid "Fetch from %s"
-msgstr "从 %s 获取"
+msgid "Failed to delete remote branch %s"
+msgstr "删除远程分支 %s 失败"
 
-#: gitg/gitg-ref-action-fetch.vala:94
+#. Translators: the first %s is the name of the branch, the second is an error message
+#: gitg/gitg-ref-action-delete.vala:155
 #, c-format
-msgid "Fetch remote objects from %s"
-msgstr "从 %s 获取远程对象"
+msgid "The remote branch %s could not be deleted: %s"
+msgstr "远程分支 %s 无法删除：%s"
 
-#: gitg/gitg-ref-action-fetch.vala:107
+#: gitg/gitg-ref-action-delete.vala:175
+#, c-format
+msgid "Deleting branch %s from %s"
+msgstr "正在从 %2$s 删除分支 %1$s"
+
+#: gitg/gitg-ref-action-delete.vala:184
+#, c-format
+msgid "Failed to delete branch %s from %s: %s"
+msgstr "从 %2$s 删除分支 %1$s 失败：%3$s"
+
+#. Translators: the %s will get replaced with the remote url,
+#: gitg/gitg-ref-action-delete.vala:192
+#, c-format
+msgid "Deleted from %s"
+msgstr "已从 %s 删除"
+
+#: gitg/gitg-ref-action-fetch.vala:87
+msgid " (without tags)"
+msgstr "（无标签）"
+
+#: gitg/gitg-ref-action-fetch.vala:88
+#, c-format
+msgid "Fetch from %s%s"
+msgstr "从 %s%s 获取"
+
+#: gitg/gitg-ref-action-fetch.vala:100
+#, c-format
+msgid "Fetch remote objects from %s (hold Shift to ignore tags)"
+msgstr "从 %s 获取远程对象（按住 Shift 键忽略标签）"
+
+#: gitg/gitg-ref-action-fetch.vala:114
 #, c-format
 msgid "Fetching from <a href='%s'>%s</a>"
 msgstr "正在从 <a href='%s'>%s</a> 取回"
 
 # Translating as up-to-date
 #. Translators: updated refers to a remote reference having been updated,
-#: gitg/gitg-ref-action-fetch.vala:120
+#: gitg/gitg-ref-action-fetch.vala:127
 msgid "updated"
 msgstr "已最新"
 
-#: gitg/gitg-ref-action-fetch.vala:130
+#: gitg/gitg-ref-action-fetch.vala:140
 #, c-format
 msgid "Failed to fetch from <a href='%s'>%s</a>: <b>%s</b>"
 msgstr "从 <a href='%s'>%s</a> 获取失败：<b>%s</b>"
 
 #. Translators: the %s will get replaced with the remote url,
-#: gitg/gitg-ref-action-fetch.vala:143
+#: gitg/gitg-ref-action-fetch.vala:153
 #, c-format
 msgid "Fetched from <a href='%s'>%s</a>: <b>everything is up to date</b>"
 msgstr "已从 <a href='%s'>%s</a> 取回：<b>一切都已最新</b>"
@@ -1312,45 +1344,9 @@ msgstr "将“%s”合并进分支“%s”"
 msgid "Tags"
 msgstr "标签"
 
-#: gitg/gitg-ref-action-push.vala:65
-#, c-format
-msgid "Push to %s"
-msgstr "推送至 %s"
-
-#: gitg/gitg-ref-action-push.vala:76
-#, c-format
-msgid "Push branch to %s"
-msgstr "推送分支至 %s"
-
-#: gitg/gitg-ref-action-push.vala:92
-#, c-format
-msgid "Pushing to %s"
-msgstr "正在推送至 %s"
-
-#: gitg/gitg-ref-action-push.vala:101
-#, c-format
-msgid "Failed to push to %s: %s"
-msgstr "推送至 %s 失败：%s"
-
-#. Translators: the %s will get replaced with the remote url,
-#: gitg/gitg-ref-action-push.vala:108
-#, c-format
-msgid "Pushed to %s"
-msgstr "已推送至 %s"
-
-#: gitg/gitg-ref-action-push.vala:119
-#, c-format
-msgid "Push branch %s"
-msgstr "推送分支 %s"
-
-#: gitg/gitg-ref-action-push.vala:120
-#, c-format
-msgid "Are you sure that you want to push the branch %s?"
-msgstr "您确定要推送分支 %s 吗？"
-
-#: gitg/gitg-ref-action-push.vala:124
-msgid "Push"
-msgstr "推送"
+#: gitg/gitg-ref-action-push.vala:46
+msgid "Push ref to a remote"
+msgstr "将引用推送至远程仓库"
 
 #: gitg/gitg-ref-action-rename.vala:48
 msgid "Rename…"
@@ -1538,7 +1534,7 @@ msgstr "历史"
 msgid "Examine the history of the repository"
 msgstr "查看仓库的历史"
 
-#: gitg/history/gitg-history.vala:969
+#: gitg/history/gitg-history.vala:980
 msgid "Mainline"
 msgstr "主线"
 
@@ -2401,15 +2397,42 @@ msgstr "文件"
 msgid "Show the files in the tree of the selected commit"
 msgstr "显示选中提交的树中的文件"
 
+#, c-format
+#~ msgid "Push to %s"
+#~ msgstr "推送至 %s"
+
+#, c-format
+#~ msgid "Push branch to %s"
+#~ msgstr "推送分支至 %s"
+
+#, c-format
+#~ msgid "Pushing to %s"
+#~ msgstr "正在推送至 %s"
+
+#, c-format
+#~ msgid "Failed to push to %s: %s"
+#~ msgstr "推送至 %s 失败：%s"
+
+#, c-format
+#~ msgid "Pushed to %s"
+#~ msgstr "已推送至 %s"
+
+#, c-format
+#~ msgid "Push branch %s"
+#~ msgstr "推送分支 %s"
+
+#, c-format
+#~ msgid "Are you sure that you want to push the branch %s?"
+#~ msgstr "您确定要推送分支 %s 吗？"
+
+#~ msgid "Push"
+#~ msgstr "推送"
+
 #~ msgid "@binary@"
 #~ msgstr "@binary@"
 
 #~ msgid "Edits the remote from the remotes list"
 #~ msgstr "从远程仓库列表编辑远程仓库"
-
-#, c-format
-#~ msgid "Delete branch %s"
-#~ msgstr "删除分支 %s"
 
 #, c-format
 #~ msgid "Delete tag %s"
@@ -2418,10 +2441,6 @@ msgstr "显示选中提交的树中的文件"
 #, c-format
 #~ msgid "Delete remote branch %s"
 #~ msgstr "删除远程分支 %s"
-
-#, c-format
-#~ msgid "Delete remote %s"
-#~ msgstr "删除远程仓库 %s"
 
 #~ msgid "The GNOME Project"
 #~ msgstr "GNOME 项目"
