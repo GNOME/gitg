@@ -150,7 +150,7 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 
 	private GLib.Regex regex_url = /\w+:(\/?\/?)[^\s]+/;
 	private Ggit.Config config {get; set;}
-	private GLib.Regex regex_custom_links = /gitg\.custom-link\.(.+)\.regex/;
+	private static GLib.Regex? regex_custom_links;
 
 	private void on_change_datetime(Settings settings, string key) {
 		datetime_format = settings.get_string("datetime-selection") == "custom"
@@ -364,6 +364,8 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 			try
 			{
 				var conf = repository.get_config().snapshot();
+				if (regex_custom_links == null)
+					regex_custom_links = new Regex("gitg\\.custom-link\\.(.+)\\.regex", RegexCompileFlags.OPTIMIZE);
 				conf.match_foreach(regex_custom_links, (match_info, val) => {
 					string group = match_info.fetch(1);
 					debug ("found custom-link group: %s", group);

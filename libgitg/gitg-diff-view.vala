@@ -127,7 +127,7 @@ public class Gitg.DiffView : Gtk.Grid
 
 	private Repository? d_repository;
 
-	private GLib.Regex regex_custom_links = /gitg\.custom-link\.(.+)\.regex/;
+	private static GLib.Regex? regex_custom_links;
 
 	public Repository? repository {
 		get { return d_repository; }
@@ -601,6 +601,8 @@ public class Gitg.DiffView : Gtk.Grid
 			try
 			{
 				var conf = repository.get_config().snapshot();
+				if (regex_custom_links == null)
+					regex_custom_links = new Regex("gitg\\.custom-link\\.(.+)\\.regex", RegexCompileFlags.OPTIMIZE);
 				conf.match_foreach(regex_custom_links, (match_info, value) => {
 					string group = match_info.fetch(1);
 					debug ("found custom-link group: %s", group);
