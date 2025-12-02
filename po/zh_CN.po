@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2025-11-27 22:14+0000\n"
-"PO-Revision-Date: 2025-11-28 09:46+0800\n"
+"POT-Creation-Date: 2025-12-02 23:37+0000\n"
+"PO-Revision-Date: 2025-12-03 07:54+0800\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -612,7 +612,7 @@ msgstr "确定要永久丢弃选中的变更吗？"
 #: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
 #: gitg/commit/gitg-commit.vala:1606
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:469
-#: gitg/gitg-window.vala:209 gitg/gitg-window.vala:740
+#: gitg/gitg-window.vala:210 gitg/gitg-window.vala:741
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
 #: gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
@@ -1411,60 +1411,60 @@ msgstr "移除"
 msgid "Failed to remove remote"
 msgstr "移除远程仓库失败"
 
-#: gitg/gitg-window.vala:206
+#: gitg/gitg-window.vala:207
 msgid "Add Repository"
 msgstr "添加仓库"
 
-#: gitg/gitg-window.vala:210
+#: gitg/gitg-window.vala:211
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:34
 #: gitg/resources/ui/gitg-window.ui:64
 msgid "_Add"
 msgstr "添加(_A)"
 
-#: gitg/gitg-window.vala:212
+#: gitg/gitg-window.vala:213
 msgid "_Scan for all git repositories from this directory"
 msgstr "在本目录寻找所有 Git 仓库(_S)"
 
-#: gitg/gitg-window.vala:552
+#: gitg/gitg-window.vala:553
 msgid "Projects"
 msgstr "工程"
 
-#: gitg/gitg-window.vala:738
+#: gitg/gitg-window.vala:739
 msgid "Open Repository"
 msgstr "打开仓库"
 
-#: gitg/gitg-window.vala:741 gitg/resources/ui/gitg-commit-submodule-info.ui:70
+#: gitg/gitg-window.vala:742 gitg/resources/ui/gitg-commit-submodule-info.ui:70
 msgid "_Open"
 msgstr "打开(_O)"
 
-#: gitg/gitg-window.vala:881
+#: gitg/gitg-window.vala:882
 msgid "Select items"
 msgstr "选择项目"
 
-#: gitg/gitg-window.vala:1099
+#: gitg/gitg-window.vala:1100
 #, c-format
 msgid "“%s” is not a Git repository."
 msgstr "“%s”不是有效的 Git 仓库。"
 
-#: gitg/gitg-window.vala:1246
+#: gitg/gitg-window.vala:1247
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
 msgstr "您的用户名和邮箱尚未配置。请转到用户配置，填写您的姓名和邮箱。"
 
-#: gitg/gitg-window.vala:1250
+#: gitg/gitg-window.vala:1251
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
 msgstr "您的用户名尚未配置。请转到用户配置，填写您的姓名。"
 
-#: gitg/gitg-window.vala:1254
+#: gitg/gitg-window.vala:1255
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
 msgstr "您的邮箱尚未配置。请转到用户配置，填写您的邮箱。"
 
-#: gitg/gitg-window.vala:1257
+#: gitg/gitg-window.vala:1258
 msgid "Missing author details"
 msgstr "作者详情缺失"
 
@@ -1544,23 +1544,23 @@ msgid "Commit"
 msgstr "提交"
 
 #. Translators: Unif stands for unified diff format
-#: gitg/preferences/gitg-preferences-interface.vala:141
+#: gitg/preferences/gitg-preferences-interface.vala:143
 #: libgitg/gitg-diff-view-file.vala:160
 msgid "Unif"
 msgstr "统一"
 
 #. Translators: Split stands for the noun
-#: gitg/preferences/gitg-preferences-interface.vala:142
+#: gitg/preferences/gitg-preferences-interface.vala:144
 #: libgitg/gitg-diff-view-file.vala:165
 msgid "Split"
 msgstr "拆分"
 
-#: gitg/preferences/gitg-preferences-interface.vala:159
+#: gitg/preferences/gitg-preferences-interface.vala:161
 #, c-format
 msgid "_Use the system fixed width font (%s)"
 msgstr "使用系统固定宽度字体（%s）(_U)"
 
-#: gitg/preferences/gitg-preferences-interface.vala:196
+#: gitg/preferences/gitg-preferences-interface.vala:198
 msgid "Interface"
 msgstr "界面"
 
@@ -1751,26 +1751,30 @@ msgid "Edit Remote"
 msgstr "编辑远程仓库"
 
 #: gitg/resources/ui/gitg-menus.ui:7
+msgid "_Open externally"
+msgstr "外部打开(_O)"
+
+#: gitg/resources/ui/gitg-menus.ui:13
 msgid "_Reload"
 msgstr "重新加载(_R)"
 
-#: gitg/resources/ui/gitg-menus.ui:13 gitg/resources/ui/gitg-menus.ui:49
+#: gitg/resources/ui/gitg-menus.ui:19 gitg/resources/ui/gitg-menus.ui:55
 msgid "_Preferences"
 msgstr "首选项(_P)"
 
-#: gitg/resources/ui/gitg-menus.ui:19 gitg/resources/ui/gitg-menus.ui:43
+#: gitg/resources/ui/gitg-menus.ui:25 gitg/resources/ui/gitg-menus.ui:49
 msgid "_Author Details"
 msgstr "作者详情(_A)"
 
-#: gitg/resources/ui/gitg-menus.ui:25 gitg/resources/ui/gitg-menus.ui:55
+#: gitg/resources/ui/gitg-menus.ui:31 gitg/resources/ui/gitg-menus.ui:61
 msgid "_Keyboard Shortcuts"
 msgstr "键盘快捷键(_K)"
 
-#: gitg/resources/ui/gitg-menus.ui:29 gitg/resources/ui/gitg-menus.ui:59
+#: gitg/resources/ui/gitg-menus.ui:35 gitg/resources/ui/gitg-menus.ui:65
 msgid "_About gitg"
 msgstr "关于 Gitg(_A)"
 
-#: gitg/resources/ui/gitg-menus.ui:37
+#: gitg/resources/ui/gitg-menus.ui:43
 msgid "_New Window"
 msgstr "新建窗口(_N)"
 
@@ -2389,11 +2393,11 @@ msgstr "从列表中移除仓库（仍在磁盘上保留）"
 msgid "Show the changes introduced by the selected commit"
 msgstr "显示选中的提交所进行的变更"
 
-#: plugins/files/gitg-files.vala:68
+#: plugins/files/gitg-files.vala:71
 msgid "Files"
 msgstr "文件"
 
-#: plugins/files/gitg-files.vala:73
+#: plugins/files/gitg-files.vala:76
 msgid "Show the files in the tree of the selected commit"
 msgstr "显示选中提交的树中的文件"
 
