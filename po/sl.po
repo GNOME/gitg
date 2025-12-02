@@ -10,18 +10,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2025-11-29 14:53+0000\n"
-"PO-Revision-Date: 2025-11-29 17:48+0100\n"
+"POT-Creation-Date: 2025-12-02 15:35+0000\n"
+"PO-Revision-Date: 2025-12-02 20:42+0100\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
-"n%100==4 ? 3 : 0);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
+"%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Poedit 2.2.1\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
@@ -662,7 +662,7 @@ msgstr "Ali ste prepričani, da želite trajno izbrisati izbrane spremembe?"
 #: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
 #: gitg/commit/gitg-commit.vala:1606
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:469
-#: gitg/gitg-window.vala:209 gitg/gitg-window.vala:740
+#: gitg/gitg-window.vala:210 gitg/gitg-window.vala:741
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
 #: gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
@@ -902,8 +902,8 @@ msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
 "\n"
-"If you manually compiled libgit2, then please configure libgit2 with "
-"-DTHREADSAFE:BOOL=ON.\n"
+"If you manually compiled libgit2, then please configure libgit2 with -"
+"DTHREADSAFE:BOOL=ON.\n"
 "\n"
 "Otherwise, report a bug in your distributions’ bug reporting system for "
 "providing libgit2 without threading support."
@@ -1480,42 +1480,42 @@ msgstr "Odstrani"
 msgid "Failed to remove remote"
 msgstr "Odstranjevanje oddaljenega skladišča je spodletelo"
 
-#: gitg/gitg-window.vala:206
+#: gitg/gitg-window.vala:207
 msgid "Add Repository"
 msgstr "Dodaj skladišče"
 
-#: gitg/gitg-window.vala:210
+#: gitg/gitg-window.vala:211
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:34
 #: gitg/resources/ui/gitg-window.ui:64
 msgid "_Add"
 msgstr "_Dodaj"
 
-#: gitg/gitg-window.vala:212
+#: gitg/gitg-window.vala:213
 msgid "_Scan for all git repositories from this directory"
 msgstr "_Preišči mapo za skladišča git"
 
-#: gitg/gitg-window.vala:552
+#: gitg/gitg-window.vala:553
 msgid "Projects"
 msgstr "Projekti"
 
-#: gitg/gitg-window.vala:738
+#: gitg/gitg-window.vala:739
 msgid "Open Repository"
 msgstr "Odpri skladišče"
 
-#: gitg/gitg-window.vala:741 gitg/resources/ui/gitg-commit-submodule-info.ui:70
+#: gitg/gitg-window.vala:742 gitg/resources/ui/gitg-commit-submodule-info.ui:70
 msgid "_Open"
 msgstr "_Odpri"
 
-#: gitg/gitg-window.vala:881
+#: gitg/gitg-window.vala:882
 msgid "Select items"
 msgstr "Izbor predmetov"
 
-#: gitg/gitg-window.vala:1099
+#: gitg/gitg-window.vala:1100
 #, c-format
 msgid "“%s” is not a Git repository."
 msgstr "Mesto »%s« ni skladišče Git."
 
-#: gitg/gitg-window.vala:1246
+#: gitg/gitg-window.vala:1247
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1523,14 +1523,14 @@ msgstr ""
 "Uporabniško ime in elektronski naslov še nista nastavljena. Ta in druge "
 "podatke uporabnika je mogoče vpisati med nastavitvami uporabnika."
 
-#: gitg/gitg-window.vala:1250
+#: gitg/gitg-window.vala:1251
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
 msgstr ""
 "Vaše ime še ni nastavljeno. Odprite nastavitve uporabnika in vnesite podatek."
 
-#: gitg/gitg-window.vala:1254
+#: gitg/gitg-window.vala:1255
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1538,7 +1538,7 @@ msgstr ""
 "Vaš elektronski naslov še ni nastavljen. Odprite nastavitve uporabnika in "
 "vnesite podatek."
 
-#: gitg/gitg-window.vala:1257
+#: gitg/gitg-window.vala:1258
 msgid "Missing author details"
 msgstr "Manjkajo podrobnosti avtorja"
 
@@ -1618,23 +1618,23 @@ msgid "Commit"
 msgstr "Uveljavi"
 
 #. Translators: Unif stands for unified diff format
-#: gitg/preferences/gitg-preferences-interface.vala:141
+#: gitg/preferences/gitg-preferences-interface.vala:143
 #: libgitg/gitg-diff-view-file.vala:160
 msgid "Unif"
 msgstr "Unif"
 
 #. Translators: Split stands for the noun
-#: gitg/preferences/gitg-preferences-interface.vala:142
+#: gitg/preferences/gitg-preferences-interface.vala:144
 #: libgitg/gitg-diff-view-file.vala:165
 msgid "Split"
 msgstr "Razdeli"
 
-#: gitg/preferences/gitg-preferences-interface.vala:159
+#: gitg/preferences/gitg-preferences-interface.vala:161
 #, c-format
 msgid "_Use the system fixed width font (%s)"
 msgstr "_Uporabi sistemsko pisavo s stalno širino (%s)"
 
-#: gitg/preferences/gitg-preferences-interface.vala:196
+#: gitg/preferences/gitg-preferences-interface.vala:198
 msgid "Interface"
 msgstr "Vmesnik"
 
@@ -1829,26 +1829,30 @@ msgid "Edit Remote"
 msgstr "Uredi oddaljeno mesto"
 
 #: gitg/resources/ui/gitg-menus.ui:7
+msgid "_Open externally"
+msgstr "_Odpri v zunanjem programu"
+
+#: gitg/resources/ui/gitg-menus.ui:13
 msgid "_Reload"
 msgstr "_Ponovno naloži"
 
-#: gitg/resources/ui/gitg-menus.ui:13 gitg/resources/ui/gitg-menus.ui:49
+#: gitg/resources/ui/gitg-menus.ui:19 gitg/resources/ui/gitg-menus.ui:55
 msgid "_Preferences"
 msgstr "_Možnosti"
 
-#: gitg/resources/ui/gitg-menus.ui:19 gitg/resources/ui/gitg-menus.ui:43
+#: gitg/resources/ui/gitg-menus.ui:25 gitg/resources/ui/gitg-menus.ui:49
 msgid "_Author Details"
 msgstr "Podrobnosti _avtorja"
 
-#: gitg/resources/ui/gitg-menus.ui:25 gitg/resources/ui/gitg-menus.ui:55
+#: gitg/resources/ui/gitg-menus.ui:31 gitg/resources/ui/gitg-menus.ui:61
 msgid "_Keyboard Shortcuts"
 msgstr "_Tipkovne bližnjice‫"
 
-#: gitg/resources/ui/gitg-menus.ui:29 gitg/resources/ui/gitg-menus.ui:59
+#: gitg/resources/ui/gitg-menus.ui:35 gitg/resources/ui/gitg-menus.ui:65
 msgid "_About gitg"
 msgstr "_O programu gitg"
 
-#: gitg/resources/ui/gitg-menus.ui:37
+#: gitg/resources/ui/gitg-menus.ui:43
 msgid "_New Window"
 msgstr "_Novo okno"
 
@@ -2483,10 +2487,10 @@ msgstr "Odstrani skladišče iz seznama (ne izbriši seznama z diska)"
 msgid "Show the changes introduced by the selected commit"
 msgstr "Pokaži spremembe, ki so uvedene z izbrano uveljavitvijo"
 
-#: plugins/files/gitg-files.vala:68
+#: plugins/files/gitg-files.vala:71
 msgid "Files"
 msgstr "Datoteke"
 
-#: plugins/files/gitg-files.vala:73
+#: plugins/files/gitg-files.vala:76
 msgid "Show the files in the tree of the selected commit"
 msgstr "Pokaži datoteke v drevesni strukturi za izbrano uveljavitev"
