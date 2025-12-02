@@ -60,11 +60,15 @@ class PushDialog : Gtk.Dialog
 	private unowned Gtk.CheckButton d_upstream;
 
 	[GtkChild]
+	private unowned Gtk.CheckButton d_smart;
+
+	[GtkChild]
 	private unowned Gtk.Button d_button_restart;
 
 	private Gitg.Repository d_repository;
 	private Object d_reference;
 	private Gitg.Ref? d_remote_reference;
+	public bool smart {get { return d_smart.active;} set {d_smart.active = value;}}
 
 	construct
 	{
@@ -88,7 +92,7 @@ class PushDialog : Gtk.Dialog
 		set_response_sensitive(Gtk.ResponseType.OK, full_info_filled);
 		var push_from_to_branches = d_local_ref_branch.active && d_remote_ref_branch.active;
 		if (push_from_to_branches) {
-			var remote_is_not_branch_upstream = false;
+			var remote_is_upstream_branch = false;
 			var r = d_reference as Gitg.Ref;
 			if (r != null)
 			{
@@ -98,17 +102,17 @@ class PushDialog : Gtk.Dialog
 					try
 					{
 						var upstream = branch.get_upstream();
-						remote_is_not_branch_upstream = upstream.parsed_name.remote_branch != remote_ref_name;
+						remote_is_upstream_branch = upstream.parsed_name.remote_branch == remote_ref_name;
 					} catch {}
 				}
 			}
-			d_upstream.sensitive = full_info_filled && remote_is_not_branch_upstream;
+			d_upstream.sensitive = full_info_filled && !remote_is_upstream_branch;
 		}
 	}
 
-	public PushDialog(Gtk.Window? parent, Gitg.Repository? repository, Object reference)
+	public PushDialog(Gtk.Window? parent, Gitg.Repository? repository, Object reference, bool smart = false)
 	{
-		Object(use_header_bar : 1);
+		Object(use_header_bar : 1, smart : smart);
 
 		if (parent != null)
 		{
@@ -149,6 +153,8 @@ class PushDialog : Gtk.Dialog
 			d_local_ref.set_text(commit.get_id().to_string());
 			d_local_ref_commit.active = true;
 		}
+		//Avoid to trigger smart load until all info is collected
+		d_smart.toggled.connect(update_smart);
 	}
 
 	public string local_ref
@@ -228,6 +234,11 @@ class PushDialog : Gtk.Dialog
 		}
 	}
 
+	private void update_smart()
+	{
+		update_remote_entries();
+	}
+
 	private void update_remote_entries()
 	{
 		var r = d_reference as Gitg.Ref;
@@ -251,12 +262,22 @@ class PushDialog : Gtk.Dialog
 			d_remote_ref_custom.active = true;
 		}
 		d_remote_name.remove_all();
-		foreach (var remote_name in d_repository.list_remotes()) {
+		var remotes =d_repository.list_remotes();
+		foreach (var remote_name in remotes) {
 			d_remote_name.append(remote_name, remote_name);
 		}
 
 		if(d_remote_reference != null)
 			d_remote_name.set_active_id(d_remote_reference.parsed_name.remote_name);
+		else if (smart && remotes.length == 1)
+			d_remote_name.set_active_id(remotes[0]);
+		else if (smart && remotes.length > 1)
+			try {
+				var main_remote = Gitg.Utils.get_config_value(d_repository, "gitg.main-remote", "origin");
+				var gremotes = new Gee.ArrayList<string>.wrap(remotes);
+				if (gremotes.contains(main_remote))
+					d_remote_name.set_active_id(main_remote);
+			} catch {}
 	}
 
 	private void update_remote_ref_entries()
@@ -301,6 +322,12 @@ class PushDialog : Gtk.Dialog
 
 		if(d_remote_reference != null)
 			d_remote_ref_name.set_active_id(d_remote_reference.parsed_name.remote_branch);
+		else if (smart) {
+			var r = d_reference as Gitg.Ref;
+			if (r != null)
+				if (r.is_branch() || r.is_tag())
+					entry.set_text(r.parsed_name.shortname);
+		}
 	}
 }
 

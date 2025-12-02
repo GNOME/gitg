@@ -51,6 +51,11 @@ class RefActionPush : CommitActionPush, GitgExt.RefAction
 		return reference.get_name();
 	}
 
+	public override string get_ref_shortname()
+	{
+		return reference.parsed_name.shortname;
+	}
+
 	public override Object get_ref()
 	{
 		return reference;

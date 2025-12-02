@@ -17,11 +17,13 @@
 
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="@APPLICATION_ID@.preferences" path="@SCHEMA_PATH@/preferences/">
     <child name="main" schema="@APPLICATION_ID@.preferences.main" />
+    <child name="general" schema="@APPLICATION_ID@.preferences.general" />
     <child name="history" schema="@APPLICATION_ID@.preferences.history" />
     <child name="branch" schema="@APPLICATION_ID@.preferences.branch" />
     <child name="commit" schema="@APPLICATION_ID@.preferences.commit" />
     <child name="diff" schema="@APPLICATION_ID@.preferences.diff" />
   </schema>
+
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="@APPLICATION_ID@.preferences.main" path="@SCHEMA_PATH@/preferences/main/">
     <key name="clone-directory" type="s">
       <default>""</default>
@@ -89,6 +91,15 @@
       <default>"unified"</default>
       <summary>Text Diff Mode</summary>
       <description>Text diff mode.</description>
+    </key>
+  </schema>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="@APPLICATION_ID@.preferences.general" path="@SCHEMA_PATH@/preferences/general/">
+    <key name="smart-push" type="b">
+      <default>false</default>
+      <description>
+        Setting that indicates whether push dialog is configured figuring out
+        expected values to push.
+      </description>
     </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="@APPLICATION_ID@.preferences.history" path="@SCHEMA_PATH@/preferences/history/">

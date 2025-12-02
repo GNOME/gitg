@@ -64,6 +64,7 @@ class PreferencesDialog : Gtk.Dialog, Gtk.Buildable
 
 		var pages = new HashTable<string, Gtk.Box>(str_hash, str_equal);
 
+		add_page(new PreferencesGeneral(), pages);
 		add_page(new PreferencesInterface(), pages);
 		add_page(new PreferencesHistory(), pages);
 		add_page(new PreferencesCommit(), pages);

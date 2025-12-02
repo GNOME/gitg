@@ -20,6 +20,7 @@ sources = gitg_sources + files(
   'history/gitg-history.vala',
   'preferences/gitg-preferences-commit.vala',
   'preferences/gitg-preferences-dialog.vala',
+  'preferences/gitg-preferences-general.vala',
   'preferences/gitg-preferences-history.vala',
   'preferences/gitg-preferences-interface.vala',
   'gitg-edit-remote-dialog.vala',

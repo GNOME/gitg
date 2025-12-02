@@ -565,6 +565,43 @@ public class Utils
 		dialog.destroy ();
 		return result;
 	}
+
+	public static bool is_main_remote(Gitg.Repository? repository, string name) {
+		var main_remote = get_config_value(repository, "gitg.main-remote", null);
+		return main_remote == null
+			? name == "origin"
+			: main_remote == name;
+	}
+
+	public static string?  get_config_value(Gitg.Repository? repository,
+	                                  string key,
+	                                  string? default_value)
+	{
+		string? result = default_value;
+
+		if (repository == null)
+		{
+			return result;
+		}
+
+		Ggit.Config config;
+
+		try
+		{
+			config = repository.get_config();
+		} catch {
+			return result;
+		}
+
+		if (config != null) {
+			try
+			{
+				result = config.snapshot().get_string(key);
+			}
+			catch {}
+		}
+		return result;
+	}
 }
 }
 

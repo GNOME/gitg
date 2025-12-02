@@ -66,9 +66,10 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="halign">end</property>
-                <property name="label" translatable="yes">Local _ref:</property>
+                <property name="label" translatable="yes">_Local ref:</property>
                 <property name="use_underline">True</property>
                 <property name="mnemonic_widget">d_local_ref</property>
+                <property name="tooltip_text" translatable="yes">Local reference to push from</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -166,7 +167,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="halign">end</property>
-                <property name="label" translatable="yes">_Remote:</property>
+                <property name="label" translatable="yes">Re_mote:</property>
                 <property name="use_underline">True</property>
                 <property name="mnemonic_widget">d_remote_name</property>
               </object>
@@ -197,7 +198,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="halign">end</property>
-                <property name="label" translatable="yes">_Remote ref:</property>
+                <property name="label" translatable="yes">Rem_ote ref:</property>
                 <property name="use_underline">True</property>
                 <property name="mnemonic_widget">d_remote_ref_name</property>
               </object>
@@ -292,6 +293,23 @@
               </packing>
             </child>
             <child>
+              <object class="GtkCheckButton" id="d_smart">
+                <property name="label" translatable="yes">_Smart</property>
+                <property name="use_underline">True</property>
+                <property name="sensitive">True</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="draw_indicator">True</property>
+                <property name="active">False</property>
+                <property name="tooltip_text" translatable="yes">Fill form based on config</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">7</property>
+              </packing>
+            </child>
+            <child>
               <object class="GtkCheckButton" id="d_upstream">
                 <property name="label" translatable="yes">_Set Upstream</property>
                 <property name="use_underline">True</property>
@@ -301,6 +319,7 @@
                 <property name="receives_default">False</property>
                 <property name="draw_indicator">True</property>
                 <property name="active">False</property>
+                <property name="tooltip_text" translatable="yes">Mark remote as upstream for branch</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -316,6 +335,7 @@
                 <property name="receives_default">False</property>
                 <property name="draw_indicator">True</property>
                 <property name="active">False</property>
+                <property name="tooltip_text" translatable="yes">Override remote ref if already exists</property>
               </object>
               <packing>
                 <property name="left_attach">2</property>

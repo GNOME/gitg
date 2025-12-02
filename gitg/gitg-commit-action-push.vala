@@ -29,6 +29,15 @@ class CommitActionPush : GitgExt.UIElement, GitgExt.Action, GitgExt.CommitAction
 	public GitgExt.RefActionInterface action_interface { get; construct set; }
 	public Gitg.Commit commit { get; construct set; }
 
+	construct
+	{
+		var settings = new Settings(Gitg.Config.APPLICATION_ID + ".preferences.general");
+		settings.bind("smart-push",
+		              this,
+		              "smart-push",
+		              SettingsBindFlags.DEFAULT);
+	}
+
 	public CommitActionPush(GitgExt.Application        application,
 	                        GitgExt.RefActionInterface action_interface,
 	                        Gitg.Commit                commit)
@@ -38,6 +47,13 @@ class CommitActionPush : GitgExt.UIElement, GitgExt.Action, GitgExt.CommitAction
 		       commit:           commit);
 	}
 
+	public bool smart_push { get; set; }
+
+	public bool enabled
+	{
+		get { return application.repository.list_remotes().length > 0; }
+	}
+
 	public virtual string id
 	{
 		owned get { return "/org/gnome/gitg/commit-actions/push"; }
@@ -45,15 +61,20 @@ class CommitActionPush : GitgExt.UIElement, GitgExt.Action, GitgExt.CommitAction
 
 	public string display_name
 	{
-		owned get { return _("Push to…"); }
+		owned get { return _("Push “%s”…").printf(get_ref_shortname()); }
 	}
 
 	public virtual string description
 	{
-		owned get { return _("Push to remote the selected commit"); }
+		owned get { return _("Push “%s” to some remote").printf(get_ref_shortname()); }
 	}
 
 	public virtual string get_ref_name()
+	{
+		return commit.get_id().to_string();
+	}
+
+	public virtual string get_ref_shortname()
 	{
 		return commit.get_id().to_string();
 	}
@@ -120,7 +141,7 @@ class CommitActionPush : GitgExt.UIElement, GitgExt.Action, GitgExt.CommitAction
 
 	public virtual void activate()
 	{
-		var dlg = new PushDialog((Gtk.Window)application, application.repository, get_ref());
+		var dlg = new PushDialog((Gtk.Window)application, application.repository, get_ref(), smart_push);
 		dlg.response.connect(on_push_dialog_response);
 
 		dlg.show();
@@ -142,6 +163,14 @@ class CommitActionPush : GitgExt.UIElement, GitgExt.Action, GitgExt.CommitAction
 		var force = dlg.force;
 		var set_upstream = dlg.set_upstream;
 
+		run_push(ref_name, remote_name, remote_ref_name, remote, remote_ref, force, set_upstream);
+
+		dlg.destroy();
+		finished();
+	}
+
+	void run_push(string ref_name, string remote_name, string remote_ref_name, Gitg.Remote remote,
+					  string remote_ref, bool force, bool set_upstream) {
 		bool do_push = false;
 		if (force)
 		{
@@ -173,8 +202,6 @@ class CommitActionPush : GitgExt.UIElement, GitgExt.Action, GitgExt.CommitAction
 					after_successful_push(set_upstream, remote_name, remote_ref_name);
 			});
 		}
-		dlg.destroy();
-		finished();
 	}
 
 	protected virtual void after_successful_push(bool set_upstream, string remote_name, string

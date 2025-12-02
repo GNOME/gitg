@@ -56,6 +56,7 @@ namespace GitgHistory
 		private Gitg.PopupMenu d_commit_list_popup;
 
 		private string[] d_mainline;
+		private string d_main_remote;
 		private bool d_ignore_external;
 
 		private Gitg.UIElements<GitgExt.HistoryPanel> _d_panels;
@@ -159,7 +160,7 @@ namespace GitgHistory
 			application.bind_property("repository", this,
 			                          "repository", BindingFlags.DEFAULT);
 
-			reload_mainline();
+			reload_main_references();
 
 			d_externally_changed_id = application.repository_changed_externally.connect(repository_changed_externally);
 			d_commits_changed_id = application.repository_commits_changed.connect(repository_commits_changed);
@@ -386,7 +387,7 @@ namespace GitgHistory
 			return -1;
 		}
 
-		private void store_changed_mainline()
+		private void store_changed_gitg_value(string key, string? val)
 		{
 			var repo = application.repository;
 
@@ -402,25 +403,27 @@ namespace GitgHistory
 				config = repo.get_config();
 			} catch { return; }
 
-			store_mainline(config, string.joinv(",", d_mainline));
-		}
-
-		private void store_mainline(Ggit.Config? config, string mainline)
-		{
-			if (config != null && mainline.length > 0)
+			if (config != null)
 			{
-				try
+				if( val != null && val.length > 0)
 				{
-					config.set_string("gitg.mainline", mainline);
+					try
+					{
+						config.set_string(key, val);
+					}
+					catch (Error e)
+					{
+						stderr.printf("Failed to set %s: %s\n", key, e.message);
+					}
 				}
-				catch (Error e)
+				else
 				{
-					stderr.printf("Failed to set gitg.mainline: %s\n", e.message);
+					config.delete_entry(key);
 				}
 			}
 		}
 
-		private void reload_mainline()
+		private void reload_main_references()
 		{
 			d_reload_when_mapped = null;
 
@@ -478,7 +481,11 @@ namespace GitgHistory
 				}
 			}
 
-			store_mainline(config, string.joinv(",", d_mainline));
+			store_changed_gitg_value("gitg.mainline", string.joinv(",", d_mainline));
+			try
+			{
+				d_main_remote = config.snapshot().get_string("gitg.main-remote");
+			} catch {}
 		}
 
 		public RefsList refs_list
@@ -498,7 +505,7 @@ namespace GitgHistory
 
 			double vadj = d_main.refs_list.get_adjustment().get_value();
 
-			reload_mainline();
+			reload_main_references();
 
 			d_selected.clear();
 
@@ -713,7 +720,7 @@ namespace GitgHistory
 			// event is most likely null.
 			if (ret == null)
 			{
-				ret = popup_menu_for_selection();
+				ret = popup_menu_for_selection(event);
 			}
 
 			return ret;
@@ -754,7 +761,7 @@ namespace GitgHistory
 		private static Regex regex_custom_actions_commits;
 		private static Regex regex_custom_actions_commits_group;
 
-		private Gtk.Menu? populate_menu_for_commit(Gitg.Commit commit)
+		private Gtk.Menu? populate_menu_for_commit(Gitg.Commit commit, Gdk.EventButton? event)
 		{
 			var af = new ActionInterface(application, d_main.refs_list);
 
@@ -776,8 +783,8 @@ namespace GitgHistory
 
 			add_commit_action(actions,
 			                  new Gitg.CommitActionCheckout(application,
-			                                                    af,
-			                                                    commit));
+			                                                af,
+			                                                commit));
 
 			add_commit_action(actions,
 			                  new Gitg.CommitActionCreatePatch(application,
@@ -791,8 +798,8 @@ namespace GitgHistory
 
 			add_commit_action(actions,
 			                  new Gitg.CommitActionPush(application,
-			                                                  af,
-			                                                  commit));
+			                                            af,
+			                                            commit));
 
 			var exts = new Peas.ExtensionSet(Gitg.PluginsEngine.get_default(),
 			                                 typeof(GitgExt.CommitAction),
@@ -856,7 +863,7 @@ namespace GitgHistory
 			return menu;
 		}
 
-		private Gtk.Menu? popup_menu_for_selection()
+		private Gtk.Menu? popup_menu_for_selection(Gdk.EventButton? event)
 		{
 			var selection = d_main.commit_list_view.get_selection();
 
@@ -874,7 +881,7 @@ namespace GitgHistory
 				return null;
 			}
 
-			return populate_menu_for_commit(commit);
+			return populate_menu_for_commit(commit, event);
 		}
 
 		private Gtk.Menu? popup_menu_for_commit(Gdk.EventButton? event)
@@ -908,7 +915,7 @@ namespace GitgHistory
 
 			d_main.commit_list_view.get_selection().select_path(path);
 
-			return populate_menu_for_commit(commit);
+			return populate_menu_for_commit(commit, event);
 		}
 
 		private static Regex regex_custom_actions_reference;
@@ -942,7 +949,6 @@ namespace GitgHistory
 				add_ref_action(actions, fetch);
 			}
 
-
 			var push = new Gitg.RefActionPush(application, af, reference);
 
 			if (push.available)
@@ -950,7 +956,6 @@ namespace GitgHistory
 				actions.add(null);
 				add_ref_action(actions, push);
 			}
-
 
 			var merge = new Gitg.RefActionMerge(application, af, reference);
 
@@ -1102,7 +1107,7 @@ namespace GitgHistory
 					d_mainline = nml;
 				}
 
-				store_changed_mainline();
+				store_changed_gitg_value("gitg.mainline", string.joinv(",", d_mainline));
 				update_walker();
 			});
 
@@ -1124,7 +1129,8 @@ namespace GitgHistory
 
 			Gee.LinkedList<GitgExt.Action> actions = null;
 			if (selection != null && selection.get_type () == typeof(RefHeader)) {
-				if ((actions = ((RefHeader)selection).actions) != null && actions.size > 0) {
+				var ref_header = ((RefHeader)selection);
+				if ((actions = ref_header.actions) != null && actions.size > 0) {
 					var menu = new Gtk.Menu();
 
 					foreach (var ac in actions)
@@ -1147,6 +1153,23 @@ namespace GitgHistory
 						}
 					}
 
+					var item = new Gtk.CheckMenuItem.with_label(_("Main remote"));
+					item.active = ref_header.ref_name == d_main_remote;
+					item.activate.connect(() => {
+
+						string? main_remote = null;
+						if (item.active)
+						{
+							main_remote = ref_header.ref_name;
+						}
+
+						store_changed_gitg_value("gitg.main-remote", main_remote);
+						d_main_remote = main_remote;
+						((Gtk.ApplicationWindow)application).activate_action("reload", null);
+					});
+
+					item.show();
+					menu.append(item);
 					menu.set_data("gitg-ext-actions", actions);
 					return menu;
 				} else {
