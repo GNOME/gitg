@@ -412,6 +412,29 @@ public class RefHeader : RefTyped, Gtk.ListBoxRow
 	private string d_name;
 	public Gee.LinkedList<GitgExt.Action> actions { get; set; }
 
+	private Gitg.Remote? d_remote;
+
+	[GtkChild( name = "progress_bin" )]
+	private unowned Gitg.ProgressBin d_progress_bin;
+
+	[GtkChild( name = "expander" )]
+	private unowned Gtk.Expander d_expander;
+
+	[GtkChild( name = "label" )]
+	private unowned Gtk.Label d_label;
+
+	[GtkChild( name = "icon" )]
+	private unowned Gtk.Image d_icon;
+
+	[GtkChild( name = "select_icon" )]
+	private unowned Gtk.Image d_select_icon;
+
+	[GtkChild( name = "op_icon" )]
+	private unowned Gtk.Image d_op_icon;
+
+	[GtkChild( name = "event_box_op_icon" )]
+	private unowned Gtk.EventBox d_event_box_op_icon;
+
 	public Gitg.RemoteState remote_state
 	{
 		set
@@ -433,26 +456,6 @@ public class RefHeader : RefTyped, Gtk.ListBoxRow
 			}
 		}
 	}
-
-	private Gitg.Remote? d_remote;
-
-	[GtkChild( name = "progress_bin" )]
-	private unowned Gitg.ProgressBin d_progress_bin;
-
-	[GtkChild( name = "expander" )]
-	private unowned Gtk.Expander d_expander;
-
-	[GtkChild( name = "label" )]
-	private unowned Gtk.Label d_label;
-
-	[GtkChild( name = "icon" )]
-	private unowned Gtk.Image d_icon;
-
-	[GtkChild( name = "op_icon" )]
-	private unowned Gtk.Image d_op_icon;
-
-	[GtkChild( name = "event_box_op_icon" )]
-	private unowned Gtk.EventBox d_event_box_op_icon;
 
 	public bool expanded { get; set; default = true; }
 
@@ -533,6 +536,16 @@ public class RefHeader : RefTyped, Gtk.ListBoxRow
 		{
 			d_op_icon.icon_name = value;
 			d_op_icon.visible = (value != null);
+		}
+	}
+
+	public string? select_icon_name
+	{
+		owned get { return d_select_icon.icon_name; }
+		set
+		{
+			d_select_icon.icon_name = value;
+			d_select_icon.visible = (value != null);
 		}
 	}
 
@@ -986,6 +999,8 @@ public class RefsList : Gtk.ListBox
 		}
 
 		var header = new RefHeader.remote(name, remote);
+		if (get_config_value("gitg.main-remote", null) == name)
+			header.select_icon_name = "object-select-symbolic";
 		init_header(header);
 		var actions = new Gee.LinkedList<GitgExt.Action>();
 		var af = new ActionInterface(application, this);
@@ -999,6 +1014,38 @@ public class RefsList : Gtk.ListBox
 		add(header);
 
 		return header;
+	}
+
+	private string?  get_config_value(string key,
+	                                  string? default_value)
+	{
+		string? result = default_value;
+
+		if (d_repository == null)
+		{
+			return result;
+		}
+
+		Ggit.Config config;
+
+		try
+		{
+			config = d_repository.get_config();
+		} catch {
+			return result;
+		}
+
+		if (config != null) {
+			try
+			{
+				result = config.snapshot().get_string(key);
+			}
+			catch (Error e)
+			{
+				stderr.printf("Failed to get %s: %s\n", key, e.message);
+			}
+		}
+		return result;
 	}
 
 	private RefRow add_ref_row(Gitg.Ref? reference, RefAnimation animation = RefAnimation.NONE)
