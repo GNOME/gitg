@@ -74,6 +74,84 @@ public class Utils
 
 		return path;
 	}
+
+	public static Gtk.SourceStyleSchemeManager get_source_style_manager()
+	{
+		var style_manager = Gtk.SourceStyleSchemeManager.get_default();
+		style_manager.append_search_path(Path.build_filename (PlatformSupport.get_data_dir(), "styles"));
+		style_manager.force_rescan();
+		return style_manager;
+	}
+
+	public static void update_style_value(Settings? settings, string to, string from)
+	{
+		var style = settings.get_string("style-scheme");
+		if (style.has_suffix(to))
+			return;
+		var manager = Gitg.Utils.get_source_style_manager();
+		var style_prefix = style;
+		if (style.has_suffix(from)) {
+			style_prefix = style.substring(0, style_prefix.length-6);
+			if (manager.get_scheme(style_prefix) != null) {
+				settings.set_string("style-scheme", style_prefix);
+				return;
+			}
+		}
+		var new_style = style_prefix+to;
+		if (manager.get_scheme(new_style) != null) {
+			settings.set_string("style-scheme", new_style);
+		}
+	}
+
+	public static Gee.HashMap<string, string>? theme_light_dark;
+
+	public static void update_style_by_theme(Settings? settings)
+	{
+		if (theme_light_dark == null)
+		{
+			theme_light_dark = new Gee.HashMap<string, string>();
+			var m = theme_light_dark;
+			m.set("adwaita", "adwaita-dark");
+			m.set("classic", "classic-dark");
+			m.set("solarized-light", "solarized-dark");
+			m.set("tango", "oblivion");
+			m.set("kate", "kate-dark");
+			m.set("cobalt-light", "cobalt");
+		}
+
+		var dark = Hdy.StyleManager.get_default ().dark;
+		var scheme = settings.get_string("style-scheme");
+		if (dark) {
+			if (theme_light_dark.has_key(scheme)) {
+				settings.set_string("style-scheme", theme_light_dark.get(scheme));
+			} else {
+				update_style_value(settings, "-dark", "light");
+			}
+		} else {
+			bool set_style = false;
+			foreach (string k in theme_light_dark.keys) {
+				if (theme_light_dark.get (k) == scheme) {
+					settings.set_string("style-scheme", k);
+					set_style = true;
+					break;
+				}
+			}
+			if (!set_style)
+				update_style_value(settings, "-light", "-dark");
+		}
+	}
+
+	public static void update_buffer_style(Settings settings, Gtk.SourceBuffer source_buffer)
+	{
+		var scheme = settings.get_string("style-scheme");
+		var manager = Gitg.Utils.get_source_style_manager();
+		var s = manager.get_scheme(scheme);
+
+		if (s != null)
+		{
+			source_buffer.style_scheme = s;
+		}
+	}
 }
 
 }

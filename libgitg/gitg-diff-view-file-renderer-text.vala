@@ -186,6 +186,9 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 	public DiffViewFileRendererText(DiffViewFileInfo info, bool can_select, Style style)
 	{
 		Object(info: info, can_select: can_select, d_style: style);
+		Hdy.StyleManager.get_default ().notify["dark"].connect (() => {
+			Gitg.Utils.update_style_by_theme(d_stylesettings);
+		});
 	}
 
 	construct
@@ -440,16 +443,14 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 			buffer.language = language;
 		}
 
-		var style_scheme_manager = Gtk.SourceStyleSchemeManager.get_default();
+		var style_scheme_manager = Gitg.Utils.get_source_style_manager();
 
 		buffer.highlight_syntax = true;
 
 		d_stylesettings = try_settings(Gitg.Config.APPLICATION_ID + ".preferences.interface");
 		if (d_stylesettings != null)
 		{
-			d_stylesettings.changed["style-scheme"].connect((s, k) => {
-				update_style();
-			});
+			d_stylesettings.changed["style-scheme"].connect(update_style);
 
 			update_style();
 		} else {
@@ -477,16 +478,8 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		return buffer;
 	}
 
-	private void update_style()
-	{
-		var scheme = d_stylesettings.get_string("style-scheme");
-		var manager = Gtk.SourceStyleSchemeManager.get_default();
-		var s = manager.get_scheme(scheme);
-
-		if (s != null)
-		{
-			((Gtk.SourceBuffer) buffer).style_scheme = s;
-		}
+	private void update_style() {
+		Gitg.Utils.update_buffer_style(d_stylesettings, (Gtk.SourceBuffer)buffer);
 	}
 
 	private Settings? try_settings(string schema_id)

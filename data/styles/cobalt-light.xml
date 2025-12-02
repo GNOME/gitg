@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Copyright 2022 Dmitry Nalivin
+
+  GtkSourceView is free software; you can redistribute it and/or
+  modify it under the terms of the GNU Lesser General Public
+  License as published by the Free Software Foundation; either
+  version 2.1 of the License, or (at your option) any later version.
+
+  GtkSourceView is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public License
+  along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<style-scheme id="cobalt-light" _name="Cobalt Light" version="1.0">
+  <author>Dmitry Nalivin</author>
+  <_description>Blue based color scheme</_description>
+
+  <!--
+  <metadata>
+    <property name="variant">light</property>
+    <property name="dark-variant">cobalt</property>
+  </metadata>
+  -->
+
+  <!-- Named Colors -->
+  <color name="blue"                       value="#5094CD"/>
+  <color name="blue_gray"                  value="#647B8F"/>
+  <color name="bright_red"                 value="#E60044"/>
+  <color name="brown"                      value="#8A330E"/>
+  <color name="cyan"                       value="#008A80"/>
+  <color name="dark_red"                   value="#B40000"/>
+  <color name="darker_blue"                value="#20282E"/>
+  <color name="gray"                       value="#445460"/>
+  <color name="green"                      value="#008A04"/>
+  <color name="light_blue"                 value="#E4F4FF"/>
+  <color name="light_blue2"                value="#D0EEFF"/>
+  <color name="light_blue3"                value="#84CFFF"/>
+  <color name="light_orange"               value="#CC6600"/>
+  <color name="orange"                     value="#D64000"/>
+  <color name="sea_green"                  value="#00BF8C"/>
+  <color name="sky_blue"                   value="#0088FF"/>
+  <color name="sky_blue2"                  value="#30A0FF"/>
+  <color name="white"                      value="#FFFFFF"/>
+
+  <!-- Global Styles -->
+  <style name="background-pattern"         background="#DCEEFA"/>
+  <style name="bracket-match"              background="light_blue3"/>
+  <style name="current-line"               background="light_blue2"/>
+  <style name="current-line-number"        background="light_blue2"/>
+  <style name="cursor"                     foreground="darker_blue"/>
+  <style name="draw-spaces"                foreground="blue_gray"/>
+  <style name="line-numbers"               background="light_blue" foreground="blue"/>
+  <style name="right-margin"               background="gray" foreground="gray"/>
+  <style name="search-match"               background="sea_green" foreground="darker_blue"/>
+  <style name="selection"                  background="sky_blue2"/>
+  <style name="text"                       background="light_blue" foreground="darker_blue"/>
+
+  <!-- Defaults -->
+  <style name="def:boolean"                foreground="bright_red"/>
+  <style name="def:builtin"                foreground="orange" bold="true"/>
+  <style name="def:comment"                foreground="sky_blue" italic="true"/>
+  <style name="def:constant"               foreground="brown"/>
+  <style name="def:deletion"               strikethrough="true"/>
+  <style name="def:emphasis"               bold="true"/>
+  <style name="def:error"                  background="dark_red" foreground="white" bold="true"/>
+  <style name="def:floating-point"         foreground="bright_red"/>
+  <style name="def:function"               foreground="gray"/>
+  <style name="def:heading"                foreground="cyan"/>
+  <style name="def:identifier"             foreground="gray"/>
+  <style name="def:inline-code"            foreground="gray"/>
+  <style name="def:insertion"              underline="single"/>
+  <style name="def:keyword"                foreground="orange" bold="true"/>
+  <style name="def:link-destination"       underline="single"/>
+  <style name="def:link-symbol"            foreground="sky_blue" italic="true"/>
+  <style name="def:link-text"              foreground="sky_blue" italic="true"/>
+  <style name="def:list-marker"            foreground="orange"/>
+  <style name="def:net-address"            foreground="cyan" italic="false" underline="single"/>
+  <style name="def:note"                   foreground="light_orange" bold="true"/>
+  <style name="def:number"                 foreground="bright_red"/>
+  <style name="def:preformatted-section"   foreground="gray"/>
+  <style name="def:preprocessor"           foreground="gray"/>
+  <style name="def:shebang"                foreground="sky_blue" italic="true"/>
+  <style name="def:special-char"           foreground="gray"/>
+  <style name="def:special-constant"       foreground="bright_red" bold="true"/>
+  <style name="def:statement"              foreground="orange"/>
+  <style name="def:string"                 foreground="green"/>
+  <style name="def:strong-emphasis"        foreground="orange"/>
+  <style name="def:thematic-break"         foreground="cyan"/>
+  <style name="def:type"                   foreground="cyan"/>
+  <style name="def:warning"                background="bright_red" foreground="white"/>
+
+  <!-- C -->
+  <style name="c:common-defines"           foreground="sky_blue" bold="true"/>
+  <style name="c:preprocessor"             foreground="cyan" bold="true"/>
+
+  <!-- Diff -->
+  <style name="diff:added-line"            foreground="brown"/>
+  <style name="diff:changed-line"          foreground="orange"/>
+  <style name="diff:diff-file"             foreground="sky_blue" bold="true"/>
+  <style name="diff:ignore"                foreground="gray"/>
+  <style name="diff:location"              foreground="sky_blue"/>
+  <style name="diff:removed-line"          foreground="green"/>
+  <style name="diff:special-case"          foreground="bright_red" bold="true"/>
+
+  <!-- Ruby -->
+  <style name="ruby:module-handler"        foreground="cyan"/>
+  <style name="ruby:regex"                 foreground="cyan"/>
+  <style name="ruby:symbol"                foreground="bright_red"/>
+
+  <!-- sh -->
+  <style name="sh:function"                foreground="light_orange"/>
+
+  <!-- XML -->
+  <style name="xml:attribute-name"         foreground="gray"/>
+  <style name="xml:element-name"           foreground="cyan"/>
+  <style name="xml:entity"                 foreground="light_orange"/>
+  <style name="xml:processing-instruction" bold="true"/>
+
+</style-scheme>

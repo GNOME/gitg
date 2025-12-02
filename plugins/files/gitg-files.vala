@@ -46,6 +46,9 @@ namespace GitgFiles
 			d_model = new TreeStore();
 
 			history.selection_changed.connect(on_selection_changed);
+			Hdy.StyleManager.get_default ().notify["dark"].connect (() => {
+				Gitg.Utils.update_style_by_theme(d_stylesettings);
+			});
 		}
 
 		public virtual uint? shortcut
@@ -91,15 +94,7 @@ namespace GitgFiles
 
 		private void update_style()
 		{
-			var scheme = d_stylesettings.get_string("style-scheme");
-			var manager = Gtk.SourceStyleSchemeManager.get_default();
-			var s = manager.get_scheme(scheme);
-
-			if (s != null)
-			{
-				var buf = d_source.get_buffer() as Gtk.SourceBuffer;
-				buf.set_style_scheme(s);
-			}
+			Gitg.Utils.update_buffer_style(d_stylesettings, (Gtk.SourceBuffer)d_source.get_buffer());
 		}
 
 		private Settings? try_settings(string schema_id)
@@ -173,9 +168,7 @@ namespace GitgFiles
 			d_stylesettings = try_settings(Gitg.Config.APPLICATION_ID + ".preferences.interface");
 			if (d_stylesettings != null)
 			{
-				d_stylesettings.changed["style-scheme"].connect((s, k) => {
-					update_style();
-				});
+				d_stylesettings.changed["style-scheme"].connect(update_style);
 
 				update_style();
 			} else {

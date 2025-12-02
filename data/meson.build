@@ -84,3 +84,7 @@ if enable_glade_catalog
     install_dir: join_paths(gitg_datadir, 'glade', 'catalogs'),
   )
 endif
+
+install_subdir('styles',
+    install_dir: gitg_pkgdatadir,
+)

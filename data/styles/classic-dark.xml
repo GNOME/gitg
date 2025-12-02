@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ This file is part of GtkSourceView
+
+ Copyright 2021 Dmitry Nalivin
+
+ GtkSourceView is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ GtkSourceView is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+ You should have received a copy of the GNU Lesser General Public License
+ along with this library; if not, see <http://www.gnu.org/licenses/>.
+
+-->
+<style-scheme id="classic-dark" _name="Classic Dark" version="1.0">
+  <author>Dmitry Nalivin</author>
+  <_description>Classic dark color scheme</_description>
+
+  <!--
+  <metadata>
+    <property name="variant">dark</property>
+    <property name="light-variant">classic</property>
+  </metadata>
+  -->
+
+  <!-- Palette -->
+  <color name="white"       value="#FFFFFF"/>
+  <color name="blue"        value="#80A0FF"/>
+  <color name="magenta"     value="#FF60FF"/>
+  <color name="violet"      value="#B0A0FF"/>
+  <color name="cyan"        value="#40F0FF"/>
+  <color name="gray"        value="#505050"/>
+  <color name="green"       value="#60FF60"/>
+  <color name="red"         value="#FF0000"/>
+  <color name="yellow"      value="#FFFF60"/>
+  <color name="purple"      value="#C060FF"/>
+  <color name="text1"       value="#E0E0E0"/>
+  <color name="text2"       value="#808080"/>
+  <color name="bg1"         value="#101010"/>
+  <color name="bg2"         value="#202020"/>
+
+  <!-- Global Settings -->
+  <style name="text"                        foreground="text1" background="bg1"/>
+  <style name="cursor"                      foreground="text1"/>
+  <style name="line-numbers"                foreground="text2" background="bg1"/>
+  <style name="current-line"                background="bg2"/>
+  <style name="current-line-number"         background="bg2"/>
+  <style name="draw-spaces"                 foreground="text2"/>
+  <style name="background-pattern"          background="#rgba(73,74,71,0.1)"/>
+  <style name="snippet-focus"               background="gray"/>
+
+  <!-- Bracket Matching -->
+  <style name="bracket-match"               foreground="text2" background="gray"/>
+  <style name="bracket-mismatch"            foreground="white" background="red"/>
+
+  <!-- Right Margin -->
+  <style name="right-margin"                foreground="gray" background="gray"/>
+
+  <!-- Search Matching -->
+  <style name="search-match"                foreground="text1" background="#602080"/>
+
+  <!-- Comments -->
+  <style name="def:comment"                 foreground="blue"/>
+  <style name="def:shebang"                 foreground="blue" bold="true"/>
+  <style name="def:doc-comment-element"     italic="true"/>
+
+  <!-- Constants -->
+  <style name="def:constant"                foreground="magenta"/>
+  <style name="def:special-char"            foreground="violet"/>
+
+  <!-- Identifiers -->
+  <style name="def:identifier"              foreground="cyan"/>
+
+  <!-- Statements -->
+  <style name="def:statement"               foreground="yellow" bold="true"/>
+
+  <!-- Types -->
+  <style name="def:type"                    foreground="green" bold="true"/>
+
+  <!-- Markup -->
+  <style name="def:emphasis"                italic="true"/>
+  <style name="def:strong-emphasis"         foreground="yellow" bold="true"/>
+  <style name="def:inline-code"             foreground="cyan"/>
+  <style name="def:insertion"               underline="single"/>
+  <style name="def:deletion"                strikethrough="true"/>
+  <style name="def:link-text"               foreground="blue"/>
+  <style name="def:link-symbol"             foreground="blue" bold="true"/>
+  <style name="def:link-destination"        italic="true" underline="single"/>
+  <style name="def:heading"                 foreground="green" bold="true"/>
+  <style name="def:thematic-break"          foreground="green" bold="true"/>
+  <style name="def:preformatted-section"    foreground="cyan"/>
+  <style name="def:list-marker"             foreground="yellow" bold="true"/>
+
+  <!-- Others -->
+  <style name="def:preprocessor"            foreground="purple"/>
+  <style name="def:error"                   foreground="white" background="red" bold="true"/>
+  <style name="def:warning"                 foreground="bg2" background="yellow"/>
+  <style name="def:note"                    foreground="#000080" background="yellow" bold="true"/>
+  <style name="def:net-address"             italic="true" underline="single"/>
+
+  <!-- Heading styles, uncomment to enable -->
+  <!--
+  <style name="def:heading0"                scale="5.0"/>
+  <style name="def:heading1"                scale="2.5"/>
+  <style name="def:heading2"                scale="2.0"/>
+  <style name="def:heading3"                scale="1.7"/>
+  <style name="def:heading4"                scale="1.5"/>
+  <style name="def:heading5"                scale="1.3"/>
+  <style name="def:heading6"                scale="1.2"/>
+  -->
+
+  <!-- Language specific styles -->
+  <style name="diff:added-line"             foreground="green"/>
+  <style name="diff:removed-line"           foreground="violet"/>
+  <style name="diff:changed-line"           use-style="def:preprocessor"/>
+  <style name="diff:special-case"           use-style="def:constant"/>
+  <style name="diff:location"               use-style="def:statement"/>
+  <style name="diff:diff-file"              use-style="def:type"/>
+
+  <style name="xml:tags"                    foreground="cyan"/>
+  <style name="xml:attribute-name"          foreground="violet"/>
+  <style name="xml:namespace"               foreground="green" bold="true"/>
+
+  <style name="js:built-in-constructor"     use-style="def:identifier"/>
+
+  <style name="json:keyname"                foreground="cyan"/>
+
+  <style name="latex:display-math"          foreground="violet"/>
+  <style name="latex:command"               foreground="green" bold="true"/>
+
+  <style name="sh:variable"                 foreground="violet"/>
+
+  <!-- legacy styles for old lang files -->
+  <style name="Others"                      foreground="green" bold="true"/>
+  <style name="Others 2"                    foreground="cyan"/>
+  <style name="Others 3"                    foreground="violet"/>
+
+</style-scheme>
