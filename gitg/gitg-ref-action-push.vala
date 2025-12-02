@@ -29,11 +29,13 @@ class RefActionPush : CommitActionPush, GitgExt.RefAction
 
 	public RefActionPush(GitgExt.Application        application,
 	                      GitgExt.RefActionInterface action_interface,
-	                      Gitg.Ref                   reference)
+	                      Gitg.Ref                   reference,
+	                      bool                       smart)
 	{
 		Object(application:      application,
 		       action_interface: action_interface,
-		       reference:        reference);
+		       reference:        reference,
+		       smart:            smart);
 	}
 
 	public override string id
@@ -43,7 +45,7 @@ class RefActionPush : CommitActionPush, GitgExt.RefAction
 
 	public override string description
 	{
-		owned get { return _("Push ref to a remote"); }
+		owned get { return _("Push ref to a remote. (hold Shift to enable smart push)"); }
 	}
 
 	public override string get_ref_name()

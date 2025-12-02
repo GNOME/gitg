@@ -28,14 +28,17 @@ class CommitActionPush : GitgExt.UIElement, GitgExt.Action, GitgExt.CommitAction
 	public GitgExt.Application? application { owned get; construct set; }
 	public GitgExt.RefActionInterface action_interface { get; construct set; }
 	public Gitg.Commit commit { get; construct set; }
+	public bool smart { get; construct set; }
 
 	public CommitActionPush(GitgExt.Application        application,
 	                        GitgExt.RefActionInterface action_interface,
-	                        Gitg.Commit                commit)
+	                        Gitg.Commit                commit,
+	                        bool                       smart)
 	{
 		Object(application:      application,
 		       action_interface: action_interface,
-		       commit:           commit);
+		       commit:           commit,
+		       smart:            smart);
 	}
 
 	public virtual string id
@@ -50,7 +53,7 @@ class CommitActionPush : GitgExt.UIElement, GitgExt.Action, GitgExt.CommitAction
 
 	public virtual string description
 	{
-		owned get { return _("Push to remote the selected commit"); }
+		owned get { return _("Push to remote the selected commit. (hold Shift to enable smart push)"); }
 	}
 
 	public virtual string get_ref_name()
@@ -120,7 +123,7 @@ class CommitActionPush : GitgExt.UIElement, GitgExt.Action, GitgExt.CommitAction
 
 	public virtual void activate()
 	{
-		var dlg = new PushDialog((Gtk.Window)application, application.repository, get_ref());
+		var dlg = new PushDialog((Gtk.Window)application, application.repository, get_ref(), smart);
 		dlg.response.connect(on_push_dialog_response);
 
 		dlg.show();
