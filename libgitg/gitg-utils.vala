@@ -75,11 +75,17 @@ public class Utils
 		return path;
 	}
 
+	public static bool gitg_styles_path_added = false;
+
 	public static Gtk.SourceStyleSchemeManager get_source_style_manager()
 	{
 		var style_manager = Gtk.SourceStyleSchemeManager.get_default();
-		style_manager.append_search_path(Path.build_filename (PlatformSupport.get_data_dir(), "styles"));
-		style_manager.force_rescan();
+		if (gitg_styles_path_added)
+		{
+			style_manager.append_search_path(Path.build_filename (PlatformSupport.get_data_dir(), "styles"));
+			style_manager.force_rescan();
+			gitg_styles_path_added = true;
+		}
 		return style_manager;
 	}
 
