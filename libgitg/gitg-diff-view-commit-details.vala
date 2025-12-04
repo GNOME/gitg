@@ -364,11 +364,11 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 			try
 			{
 				var conf = repository.get_config().snapshot();
-				conf.match_foreach(regex_custom_links, (match_info, value) => {
+				conf.match_foreach(regex_custom_links, (match_info, val) => {
 					string group = match_info.fetch(1);
 					debug ("found custom-link group: %s", group);
-					debug (value == null ? "es nulo": "es vacio");
-					string custom_link_regexp = value;
+					debug (val == null ? "is null": "is empty");
+					string custom_link_regexp = val;
 					string replacement_key = "gitg.custom-link.%s.replacement".printf(group);
 					try
 					{
