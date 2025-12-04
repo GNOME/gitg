@@ -977,6 +977,18 @@ namespace GitgHistory
 			sep.show();
 			menu.append(sep);
 
+			var item = build_set_mainline_action(reference);
+			item.show();
+			menu.append(item);
+
+			// To keep actions alive as long as the menu is alive
+			menu.set_data("gitg-ext-actions", actions);
+			return menu;
+		}
+
+
+		public Gtk.MenuItem build_set_mainline_action(Gitg.Ref reference)
+		{
 			var item = new Gtk.CheckMenuItem.with_label(_("Mainline"));
 			int pos = 0;
 
@@ -1016,12 +1028,7 @@ namespace GitgHistory
 				update_walker();
 			});
 
-			item.show();
-			menu.append(item);
-
-			// To keep actions alive as long as the menu is alive
-			menu.set_data("gitg-ext-actions", actions);
-			return menu;
+			return item;
 		}
 
 		private Gtk.Menu? on_refs_list_populate_menu(Gdk.EventButton? event)
