@@ -141,7 +141,7 @@ namespace GitgFiles
 							                   null);
 							tv.get_selection().select_path(path);
 							Gtk.Menu menu = new Gtk.Menu ();
-							Gtk.MenuItem menu_item = new Gtk.MenuItem.with_label ("Open externally");
+							Gtk.MenuItem menu_item = new Gtk.MenuItem.with_label (_("Open externally"));
 							menu_item.activate.connect(()=> {
 								open_file_externally(path, null);
 							});
