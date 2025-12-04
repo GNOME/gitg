@@ -877,6 +877,9 @@ namespace GitgHistory
 			return populate_menu_for_commit(commit);
 		}
 
+		private static Regex regex_custom_actions_reference;
+		private static Regex regex_custom_actions_reference_group;
+
 		private Gtk.Menu? popup_menu_for_ref(Gitg.Ref reference, Gdk.EventButton? event)
 		{
 			var actions = new Gee.LinkedList<GitgExt.RefAction?>();
@@ -977,6 +980,37 @@ namespace GitgHistory
 			sep.show();
 			menu.append(sep);
 
+			if (regex_custom_actions_reference == null)
+				regex_custom_actions_reference = new Regex("gitg\\.actions\\.reference\\.(.+)\\.name", RegexCompileFlags.OPTIMIZE);
+			if (regex_custom_actions_reference_group == null)
+				regex_custom_actions_reference_group = new Regex("gitg\\.actions\\.reference\\.(.+)\\.group", RegexCompileFlags.OPTIMIZE);
+
+			var conf = repository.get_config().snapshot();
+			Gitg.Utils.add_custom_actions(menu, "reference",
+			                              conf, regex_custom_actions_reference,
+			                              regex_custom_actions_reference_group,
+			                              (action_key_prefix, item_groups) => {
+			                                return Gitg.Utils.build_custom_reference_action(conf,
+			                                                                                reference,
+			                                                                                action_key_prefix,
+			                                                                                item_groups,
+			                                                                                (stdout_data, stderr_data) => {
+			                                      var dlg = new Gitg.ResultDialog((Gtk.Window)application, _("Output"));
+			                                      dlg.response.connect((d, resp) => {
+			                                        dlg.destroy();
+			                                      });
+			                                      dlg.append_message(stdout_data);
+			                                      dlg.append_message(stderr_data);
+			                                      return dlg;
+			                                    });
+			});
+
+			if (menu.get_data<int>("items") > 0)
+			{
+				sep = new Gtk.SeparatorMenuItem();
+				sep.show();
+				menu.append(sep);
+			}
 			var item = build_set_mainline_action(reference);
 			item.show();
 			menu.append(item);

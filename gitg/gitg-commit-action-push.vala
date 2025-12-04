@@ -66,12 +66,12 @@ class CommitActionPush : GitgExt.UIElement, GitgExt.Action, GitgExt.CommitAction
 	class PushCallbacks:Ggit.RemoteCallbacks {
 		public GitgExt.Application? application { owned get; construct set; }
 
-		public PushResultDialog push_dlg;
+		public ResultDialog push_dlg;
 
 		public PushCallbacks(GitgExt.Application application)
 		{
 			Object(application: application);
-			push_dlg = new PushResultDialog((Gtk.Window)application);
+			push_dlg = new ResultDialog((Gtk.Window)application, _("Push Output"));
 			push_dlg.response.connect((d, resp) => {
 				push_dlg.destroy();
 			});

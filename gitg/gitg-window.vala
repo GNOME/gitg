@@ -566,6 +566,9 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		}
 	}
 
+	private static Regex regex_custom_actions_global;
+	private static Regex regex_custom_actions_global_group;
+
 	private void repository_changed()
 	{
 		update_title();
@@ -583,7 +586,48 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			d_add_button.hide();
 			d_dash_view.add_repository(d_repository);
 
-			d_gear_menu.menu_model = d_activities_model;
+			var menu = new GLib.Menu();
+			menu.append_section(null, d_activities_model);
+
+			if (regex_custom_actions_global == null)
+				regex_custom_actions_global = new Regex("gitg\\.actions\\.global\\.(.+)\\.name", RegexCompileFlags.OPTIMIZE);
+			if (regex_custom_actions_global_group == null)
+				regex_custom_actions_global_group = new Regex("gitg\\.actions\\.global\\.(.+)\\.group", RegexCompileFlags.OPTIMIZE);
+
+			var conf = d_repository.get_config().snapshot();
+
+			var menu_actions = new Gtk.Menu();
+			Gitg.Utils.add_custom_actions(menu_actions, "global",
+			                              conf, regex_custom_actions_global,
+			                              regex_custom_actions_global_group,
+			                              (action_key_prefix, item_groups) => {
+			                                return Gitg.Utils.build_custom_reference_action(conf,
+			                                                                                null,
+			                                                                                action_key_prefix,
+			                                                                                item_groups,
+			                                                                                (stdout_data, stderr_data) => {
+			                                      var dlg = new Gitg.ResultDialog((Gtk.Window)application, _("Output"));
+			                                      dlg.response.connect((d, resp) => {
+			                                        dlg.destroy();
+			                                      });
+			                                      dlg.append_message(stdout_data);
+			                                      dlg.append_message(stderr_data);
+			                                      return dlg;
+			                                    });
+			});
+			if (menu_actions.get_data<int>("items") > 0) {
+				menu_actions.show_all();
+				var global_actions_item = new MenuItem(("_Global Actions"), "win.global-action");
+				menu.append_item(global_actions_item);
+			}
+			var show_global_actions = new SimpleAction ("global-action", null);
+			show_global_actions.activate.connect ((p) => {
+				menu_actions.show_all ();
+				menu_actions.popup_at_widget ((Gtk.Window)this, Gdk.Gravity.CENTER, Gdk.Gravity.CENTER, null);
+			});
+			add_action (show_global_actions);
+
+			d_gear_menu.menu_model = menu;
 			gear_image.set_from_icon_name ("view-more-symbolic", BUTTON);
 			d_gear_menu.show();
 			d_gear_menu.sensitive = true;

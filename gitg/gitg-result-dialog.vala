@@ -23,8 +23,8 @@ using Gdk;
 namespace Gitg
 {
 
-[GtkTemplate (ui = "/org/gnome/gitg/ui/gitg-push-result-dialog.ui")]
-class PushResultDialog : Dialog
+[GtkTemplate (ui = "/org/gnome/gitg/ui/gitg-result-dialog.ui")]
+class ResultDialog : Dialog
 {
 	// Do this to pull in config.h before glib.h (for gettext...)
 	private const string version = Gitg.Config.VERSION;
@@ -41,7 +41,7 @@ class PushResultDialog : Dialog
 
 	private uint timer_id = 0;
 
-	public PushResultDialog(Gtk.Window? parent)
+	public ResultDialog(Gtk.Window? parent, string title)
 	{
 		Object(use_header_bar : 1);
 
@@ -49,6 +49,7 @@ class PushResultDialog : Dialog
 		{
 			set_transient_for(parent);
 		}
+		set_title(title);
 		d_button_close.get_style_context().add_class(STYLE_CLASS_SUGGESTED_ACTION);
 		url_reg = new Regex ("https?://[^\\s'\"<>]+");
 		tv = d_text_view_message;
