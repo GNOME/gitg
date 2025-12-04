@@ -426,6 +426,7 @@ public class Application : Gtk.Application
 			{"win.open-repository", "<Primary>O"},
 			{"win.close", "<Primary>W"},
 			{"win.preferences", "<Primary>comma"},
+			{"win.global-actions", "<Primary><Shift>A"},
 		};
 
 		var multi_accels = new MultiAccel[] {

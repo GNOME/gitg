@@ -205,6 +205,13 @@
           <object class="GtkShortcutsGroup" id="history-shortcuts-group">
             <property name="visible">false</property>
             <property name="title" translatable="yes" context="shortcut window">History Activity</property>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="visible">true</property>
+                <property name="accelerator">&lt;primary&gt;&lt;shift&gt;A</property>
+                <property name="title" translatable="yes" context="shortcut window">Show global actions contextual menu. (If any defined)</property>
+              </object>
+            </child>
           </object>
         </child>
       </object>

@@ -751,6 +751,9 @@ namespace GitgHistory
 			}
 		}
 
+		private static Regex regex_custom_actions_commits;
+		private static Regex regex_custom_actions_commits_group;
+
 		private Gtk.Menu? populate_menu_for_commit(Gitg.Commit commit)
 		{
 			var af = new ActionInterface(application, d_main.refs_list);
@@ -819,6 +822,37 @@ namespace GitgHistory
 			// To keep actions alive as long as the menu is alive
 			menu.set_data("gitg-ext-actions", actions);
 
+			var conf = d_repository.get_config().snapshot();
+			if (regex_custom_actions_commits == null)
+				regex_custom_actions_commits = new Regex("gitg\\.actions\\.commits\\.(.+)\\.name", RegexCompileFlags.OPTIMIZE);
+			if (regex_custom_actions_commits_group == null)
+				regex_custom_actions_commits_group = new Regex("gitg\\.actions\\.commits\\.(.+)\\.group", RegexCompileFlags.OPTIMIZE);
+
+			Gitg.Utils.add_custom_actions(menu, "commits",
+			                              conf, regex_custom_actions_commits,
+			                              regex_custom_actions_commits_group,
+			                              (action_key_prefix, item_groups) => {
+			                                return Gitg.Utils.build_custom_action(conf,
+			                                                                      action_key_prefix,
+			                                                                      item_groups,
+			                                                                      (vars, stdout_data, stderr_data) => {
+			                                      var dlg = new Gitg.ResultDialog(null,
+			                                                                      vars.get("dialog-title"),
+			                                                                      vars.get("dialog-label"));
+			                                      dlg.response.connect((d, resp) => {
+			                                        dlg.destroy();
+			                                      });
+			                                      dlg.append_message(stdout_data);
+			                                      dlg.append_message(stderr_data);
+			                                      return dlg;
+			                                    },
+			                                    () => {
+			                                      var object_vars = new Gee.HashMap<string,string> ();
+			                                      object_vars.set ("sha", commit.get_id().to_string());
+			                                      return object_vars;
+			                                    }
+			                              );
+			});
 			return menu;
 		}
 
@@ -876,6 +910,9 @@ namespace GitgHistory
 
 			return populate_menu_for_commit(commit);
 		}
+
+		private static Regex regex_custom_actions_reference;
+		private static Regex regex_custom_actions_reference_group;
 
 		private Gtk.Menu? popup_menu_for_ref(Gitg.Ref reference, Gdk.EventButton? event)
 		{
@@ -977,6 +1014,47 @@ namespace GitgHistory
 			sep.show();
 			menu.append(sep);
 
+			if (regex_custom_actions_reference == null)
+				regex_custom_actions_reference = new Regex("gitg\\.actions\\.reference\\.(.+)\\.name", RegexCompileFlags.OPTIMIZE);
+			if (regex_custom_actions_reference_group == null)
+				regex_custom_actions_reference_group = new Regex("gitg\\.actions\\.reference\\.(.+)\\.group", RegexCompileFlags.OPTIMIZE);
+
+			var conf = repository.get_config().snapshot();
+			Gitg.Utils.add_custom_actions(menu, "reference",
+			                              conf, regex_custom_actions_reference,
+			                              regex_custom_actions_reference_group,
+			                              (action_key_prefix, item_groups) => {
+			                                return Gitg.Utils.build_custom_action(conf,
+			                                                                      action_key_prefix,
+			                                                                      item_groups,
+			                                                                      (vars, stdout_data, stderr_data) => {
+			                                      var dlg = new Gitg.ResultDialog(null,
+			                                                                      vars.get("dialog-title"),
+			                                                                      vars.get("dialog-label"));
+			                                      dlg.response.connect((d, resp) => {
+			                                        dlg.destroy();
+			                                      });
+			                                      dlg.append_message(stdout_data);
+			                                      dlg.append_message(stderr_data);
+			                                      return dlg;
+			                                    },
+			                                    () => {
+			                                      var object_vars = new Gee.HashMap<string,string> ();
+			                                      object_vars.set ("name",          reference.parsed_name.name);
+			                                      object_vars.set ("shortname",     reference.parsed_name.shortname);
+			                                      object_vars.set ("remote_name",   reference.parsed_name.remote_name);
+			                                      object_vars.set ("remote_branch", reference.parsed_name.remote_branch);
+			                                      return object_vars;
+			                                    }
+			                              );
+			});
+
+			if (menu.get_data<int>("items") > 0)
+			{
+				sep = new Gtk.SeparatorMenuItem();
+				sep.show();
+				menu.append(sep);
+			}
 			var item = build_set_mainline_action(reference);
 			item.show();
 			menu.append(item);

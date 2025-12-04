@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.12 -->
-  <template class="GitgPushResultDialog" parent="GtkDialog">
+  <template class="GitgResultDialog" parent="GtkDialog">
     <property name="can_focus">False</property>
     <property name="border_width">12</property>
-    <property name="title" translatable="yes">Push results</property>
     <property name="resizable">True</property>
     <property name="modal">True</property>
     <property name="default_width">600</property>
@@ -46,7 +45,7 @@
             <property name="row_spacing">6</property>
             <property name="column_spacing">6</property>
             <child>
-              <object class="GtkLabel" id="label1">
+              <object class="GtkLabel" id="d_label_result">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="halign">end</property>
