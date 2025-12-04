@@ -566,6 +566,9 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		}
 	}
 
+	private static Regex regex_custom_actions_global;
+	private static Regex regex_custom_actions_global_group;
+
 	private void repository_changed()
 	{
 		update_title();
@@ -583,10 +586,42 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			d_add_button.hide();
 			d_dash_view.add_repository(d_repository);
 
-			d_gear_menu.menu_model = d_activities_model;
+			var menu = new GLib.Menu();
+			menu.append_section(null, d_activities_model);
+
+			if (regex_custom_actions_global == null)
+				regex_custom_actions_global = new Regex("gitg\\.actions\\.global\\.(.+)\\.name", RegexCompileFlags.OPTIMIZE);
+			if (regex_custom_actions_global_group == null)
+				regex_custom_actions_global_group = new Regex("gitg\\.actions\\.global\\.(.+)\\.group", RegexCompileFlags.OPTIMIZE);
+
+			var global_actions_item = new MenuItem(("_Global Actions"), "win.global-actions");
+			menu.append_item(global_actions_item);
+
+			var show_global_actions = new SimpleAction ("global-actions", null);
+			Gtk.Menu menu_actions = null;
+			show_global_actions.activate.connect ((p) => {
+				if (menu_actions != null) {
+					menu_actions.show_all ();
+					menu_actions.popup_at_widget ((Gtk.Window)this, Gdk.Gravity.CENTER, Gdk.Gravity.CENTER, null);
+				}
+			});
+			add_action (show_global_actions);
+
+			d_gear_menu.menu_model = menu;
 			gear_image.set_from_icon_name ("view-more-symbolic", BUTTON);
 			d_gear_menu.show();
 			d_gear_menu.sensitive = true;
+			d_gear_menu.button_press_event.connect(() => {
+				menu_actions = load_global_actions();
+				bool has_items = menu_actions.get_data<int>("items") > 0;
+				global_actions_item.set_attribute("visible", "b", has_items);
+				if (has_items)
+					menu_actions.show_all();
+				else
+					menu_actions = null;
+				return false;
+			});
+			menu_actions = load_global_actions();
 		}
 		else
 		{
@@ -616,6 +651,31 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		{
 			on_current_activity_changed();
 		}
+	}
+
+	private Gtk.Menu load_global_actions() {
+		var menu = new Gtk.Menu();
+		var conf = d_repository.get_config().snapshot();
+		Gitg.Utils.add_custom_actions(menu, "global",
+		                              conf, regex_custom_actions_global,
+		                              regex_custom_actions_global_group,
+		                              (action_key_prefix, item_groups) => {
+		                                return Gitg.Utils.build_custom_action(conf,
+		                                                                      action_key_prefix,
+		                                                                      item_groups,
+		                                                                      (vars, stdout_data, stderr_data) => {
+		                                      var dlg = new Gitg.ResultDialog((Gtk.Window)this,
+		                                                                      vars.get("dialog-title"),
+		                                                                      vars.get("dialog-label"));
+		                                      dlg.response.connect((d, resp) => {
+		                                        dlg.destroy();
+		                                      });
+		                                      dlg.append_message(stdout_data);
+		                                      dlg.append_message(stderr_data);
+		                                      return dlg;
+		                                    });
+		});
+		return menu;
 	}
 
 	protected override void realize() {
