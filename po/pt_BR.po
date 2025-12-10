@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2025-11-28 01:49+0000\n"
-"PO-Revision-Date: 2025-11-28 10:21-0300\n"
+"POT-Creation-Date: 2025-12-05 10:49+0000\n"
+"PO-Revision-Date: 2025-12-10 09:38-0300\n"
 "Last-Translator: Juliano de Souza Camargo <julianosc@pm.me>\n"
 "Language-Team: Brazilian Portuguese <https://br.gnome.org/traducao/>\n"
 "Language: pt_BR\n"
@@ -683,7 +683,7 @@ msgstr ""
 #: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
 #: gitg/commit/gitg-commit.vala:1606
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:469
-#: gitg/gitg-window.vala:209 gitg/gitg-window.vala:740
+#: gitg/gitg-window.vala:210 gitg/gitg-window.vala:741
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
 #: gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
@@ -1509,42 +1509,42 @@ msgstr "Remover"
 msgid "Failed to remove remote"
 msgstr "Falha ao remover o remoto"
 
-#: gitg/gitg-window.vala:206
+#: gitg/gitg-window.vala:207
 msgid "Add Repository"
 msgstr "Adicionar repositório"
 
-#: gitg/gitg-window.vala:210
+#: gitg/gitg-window.vala:211
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:34
 #: gitg/resources/ui/gitg-window.ui:64
 msgid "_Add"
 msgstr "_Adicionar"
 
-#: gitg/gitg-window.vala:212
+#: gitg/gitg-window.vala:213
 msgid "_Scan for all git repositories from this directory"
 msgstr "_Varrer em busca de todos os repositórios git a partir deste diretório"
 
-#: gitg/gitg-window.vala:552
+#: gitg/gitg-window.vala:553
 msgid "Projects"
 msgstr "Projetos"
 
-#: gitg/gitg-window.vala:738
+#: gitg/gitg-window.vala:739
 msgid "Open Repository"
 msgstr "Abrir repositório"
 
-#: gitg/gitg-window.vala:741 gitg/resources/ui/gitg-commit-submodule-info.ui:70
+#: gitg/gitg-window.vala:742 gitg/resources/ui/gitg-commit-submodule-info.ui:70
 msgid "_Open"
 msgstr "A_brir"
 
-#: gitg/gitg-window.vala:881
+#: gitg/gitg-window.vala:882
 msgid "Select items"
 msgstr "Selecionar itens"
 
-#: gitg/gitg-window.vala:1099
+#: gitg/gitg-window.vala:1100
 #, c-format
 msgid "“%s” is not a Git repository."
 msgstr "“%s” não é um repositório Git."
 
-#: gitg/gitg-window.vala:1246
+#: gitg/gitg-window.vala:1247
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1552,7 +1552,7 @@ msgstr ""
 "Seu nome de usuário e e-mail não estão configurados ainda. Por favor, vá na "
 "configuração de usuário e forneça seu nome e e-mail."
 
-#: gitg/gitg-window.vala:1250
+#: gitg/gitg-window.vala:1251
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1560,7 +1560,7 @@ msgstr ""
 "Seu nome de usuário não está configurado ainda. Por favor, vá na "
 "configuração de usuário e forneça seu nome."
 
-#: gitg/gitg-window.vala:1254
+#: gitg/gitg-window.vala:1255
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1568,7 +1568,7 @@ msgstr ""
 "Seu e-mail não está configurado ainda. Por favor, vá na configuração de "
 "usuário e forneça seu e-mail."
 
-#: gitg/gitg-window.vala:1257
+#: gitg/gitg-window.vala:1258
 msgid "Missing author details"
 msgstr "Faltando detalhes do autor"
 
@@ -1649,23 +1649,23 @@ msgid "Commit"
 msgstr "Commit"
 
 #. Translators: Unif stands for unified diff format
-#: gitg/preferences/gitg-preferences-interface.vala:141
+#: gitg/preferences/gitg-preferences-interface.vala:143
 #: libgitg/gitg-diff-view-file.vala:160
 msgid "Unif"
 msgstr "Unif"
 
 #. Translators: Split stands for the noun
-#: gitg/preferences/gitg-preferences-interface.vala:142
+#: gitg/preferences/gitg-preferences-interface.vala:144
 #: libgitg/gitg-diff-view-file.vala:165
 msgid "Split"
 msgstr "Dividir"
 
-#: gitg/preferences/gitg-preferences-interface.vala:159
+#: gitg/preferences/gitg-preferences-interface.vala:161
 #, c-format
 msgid "_Use the system fixed width font (%s)"
 msgstr "_Usar a fonte de largura fixa do sistema (%s)"
 
-#: gitg/preferences/gitg-preferences-interface.vala:196
+#: gitg/preferences/gitg-preferences-interface.vala:198
 msgid "Interface"
 msgstr "Interface"
 
@@ -1860,26 +1860,30 @@ msgid "Edit Remote"
 msgstr "Editar remoto"
 
 #: gitg/resources/ui/gitg-menus.ui:7
+msgid "_Open externally"
+msgstr "_Abrir externamente"
+
+#: gitg/resources/ui/gitg-menus.ui:13
 msgid "_Reload"
 msgstr "_Recarregar"
 
-#: gitg/resources/ui/gitg-menus.ui:13 gitg/resources/ui/gitg-menus.ui:49
+#: gitg/resources/ui/gitg-menus.ui:19 gitg/resources/ui/gitg-menus.ui:55
 msgid "_Preferences"
 msgstr "_Preferências"
 
-#: gitg/resources/ui/gitg-menus.ui:19 gitg/resources/ui/gitg-menus.ui:43
+#: gitg/resources/ui/gitg-menus.ui:25 gitg/resources/ui/gitg-menus.ui:49
 msgid "_Author Details"
 msgstr "Detal_hes do autor"
 
-#: gitg/resources/ui/gitg-menus.ui:25 gitg/resources/ui/gitg-menus.ui:55
+#: gitg/resources/ui/gitg-menus.ui:31 gitg/resources/ui/gitg-menus.ui:61
 msgid "_Keyboard Shortcuts"
 msgstr "Atalhos do _teclado"
 
-#: gitg/resources/ui/gitg-menus.ui:29 gitg/resources/ui/gitg-menus.ui:59
+#: gitg/resources/ui/gitg-menus.ui:35 gitg/resources/ui/gitg-menus.ui:65
 msgid "_About gitg"
 msgstr "_Sobre gitg"
 
-#: gitg/resources/ui/gitg-menus.ui:37
+#: gitg/resources/ui/gitg-menus.ui:43
 msgid "_New Window"
 msgstr "_Nova janela"
 
@@ -2511,13 +2515,17 @@ msgstr "Remove o repositório da lista (não exclui o repositório do disco)"
 msgid "Show the changes introduced by the selected commit"
 msgstr "Mostra as alterações apresentadas pelo commit selecionado"
 
-#: plugins/files/gitg-files.vala:68
+#: plugins/files/gitg-files.vala:71
 msgid "Files"
 msgstr "Arquivos"
 
-#: plugins/files/gitg-files.vala:73
+#: plugins/files/gitg-files.vala:76
 msgid "Show the files in the tree of the selected commit"
 msgstr "Mostra os arquivos na árvore do commit selecionado"
+
+#: plugins/files/gitg-files.vala:144
+msgid "Open externally"
+msgstr "Abre externamente"
 
 #, c-format
 #~ msgid "Push to %s"
