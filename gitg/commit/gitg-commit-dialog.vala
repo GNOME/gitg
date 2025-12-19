@@ -1060,6 +1060,15 @@ class Dialog : Gtk.Dialog
 	              Ggit.Diff?      diff)
 	{
 		Object(repository: repository, author: author, diff: diff, use_header_bar: 1);
+		size_allocate.connect((alloc) => {
+			d_commit_settings.set_int("dialog-width", alloc.width - 52);
+			d_commit_settings.set_int ("dialog-height", alloc.height - 100);
+		});
+
+		var width = d_commit_settings.get_int("dialog-width");
+		var height = d_commit_settings.get_int("dialog-height");
+		if (width != 0 && height != 0)
+			set_default_size(width, height);
 	}
 
 	public void show_infobar(string          primary_msg,
