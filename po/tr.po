@@ -12,92 +12,31 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2025-02-12 07:51+0000\n"
-"PO-Revision-Date: 2025-02-18 08:00+0300\n"
-"Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
+"POT-Creation-Date: 2025-11-05 23:19+0000\n"
+"PO-Revision-Date: 2025-11-06 15:17+0300\n"
+"Last-Translator: Sabri Ünal <yakushabb@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.8\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
 msgid "Could not parse XML from stream"
 msgstr "Akıştan XML ayrıştırılamadı"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:5 gitg/gitg.vala:39
-#: gitg/resources/ui/gitg-window.ui:8
-msgid "gitg"
-msgstr "gitg"
-
-#: data/org.gnome.gitg.appdata.xml.in.in:9
-msgid "Graphical user interface for git"
-msgstr "git için grafiksel kullanıcı arayüzü"
-
-#: data/org.gnome.gitg.appdata.xml.in.in:11
-msgid ""
-"Gitg is a graphical user interface for git. It aims at being a small, fast "
-"and convenient tool to visualize the history of git repositories. Besides "
-"visualization, gitg also provides several utilities to manage your "
-"repository and commit your work."
-msgstr ""
-"Gitg, git için grafiksel kullanıcı arayüzüdür; depoların geçmişini "
-"görselleştirmeyi amaçlayan küçük, hızlı ve kullanışlı araçtır. Bunların yanı "
-"sıra deponuzu yönetmeniz ve çalışmanızı işlemeniz için birtakım yardımcı "
-"araçlar sunar."
-
-#: data/org.gnome.gitg.appdata.xml.in.in:17
-msgid "Goals:"
-msgstr "Amaçlar:"
-
-#: data/org.gnome.gitg.appdata.xml.in.in:19
-msgid "Browse local git repositories"
-msgstr "Yerel git depolarına göz at"
-
-#: data/org.gnome.gitg.appdata.xml.in.in:20
-msgid "Clone local and remote git repositories"
-msgstr "Yerel ve uzak git depolarını klonla"
-
-#: data/org.gnome.gitg.appdata.xml.in.in:21
-msgid "Commit files"
-msgstr "Dosyaları işle"
-
-#: data/org.gnome.gitg.appdata.xml.in.in:22
-msgid "Retrieve patch from a commit"
-msgstr "Bir işlemeden yama al"
-
-#: data/org.gnome.gitg.appdata.xml.in.in:32
-msgid "Browse repository history"
-msgstr "Depo geçmişine göz at"
-
-#: data/org.gnome.gitg.appdata.xml.in.in:36
-msgid "Staging area to compose your commit"
-msgstr "İşlemenizi oluşturmak için hazırlama alanı"
-
-#: data/org.gnome.gitg.appdata.xml.in.in:40
-msgid "Commit staged changes"
-msgstr "Hazır değişiklikleri işle"
-
-#: data/org.gnome.gitg.appdata.xml.in.in:44
-msgid "Overview of recently used repositories"
-msgstr "Son kullanılan depolara genel bakış"
-
-#: data/org.gnome.gitg.appdata.xml.in.in:216
-msgid "The Gitg Team"
-msgstr "Gitg Takımı"
-
-#: data/org.gnome.gitg.desktop.in.in:3
+#: data/org.gnome.gitg.desktop.in.in:2
 msgid "Gitg"
 msgstr "Gitg"
 
-#: data/org.gnome.gitg.desktop.in.in:4
+#: data/org.gnome.gitg.desktop.in.in:3
 msgid "Git repository browser"
 msgstr "Git deposu görüntüleyici"
 
-#: data/org.gnome.gitg.desktop.in.in:17
+#: data/org.gnome.gitg.desktop.in.in:16
 msgid "New Window"
 msgstr "Yeni Pencere"
 
@@ -200,11 +139,19 @@ msgstr ""
 "Söz dizimi vurgulamasının renklerini saptamak için GtkSourceView tarafından "
 "kullanıldı"
 
-#: data/org.gnome.gitg.gschema.xml.in:92
+#: data/org.gnome.gitg.gschema.xml.in:90
+msgid "Text Diff Mode"
+msgstr "Metin Fark Kipi"
+
+#: data/org.gnome.gitg.gschema.xml.in:91
+msgid "Text diff mode."
+msgstr "Metin fark kipi."
+
+#: data/org.gnome.gitg.gschema.xml.in:97
 msgid "When to Collapse Inactive Lanes"
 msgstr "Etkin Olmayan Yolların Ne Zaman Daraltılacağı"
 
-#: data/org.gnome.gitg.gschema.xml.in:93
+#: data/org.gnome.gitg.gschema.xml.in:98
 msgid ""
 "Setting that indicates when an inactive lane should be collapsed. Valid "
 "values are 0 — 4, where 0 indicates “early” and 4 indicates “late”."
@@ -212,7 +159,7 @@ msgstr ""
 "Etkin olmayan yolun ne zaman daraltılacağını gösteren ayar. Geçerli değerler "
 "0 — 4 arasındadır; burada 0 “erken” ve 4 “geç” anlamına gelir."
 
-#: data/org.gnome.gitg.gschema.xml.in:100
+#: data/org.gnome.gitg.gschema.xml.in:105
 msgid ""
 "Setting that indicates whether to collapse history lanes which do not show "
 "activity. Enabling this can provide a cleaner history view when there is a "
@@ -225,29 +172,29 @@ msgstr ""
 "daraltılacağını denetlemek için collapse-inactive-lanesʼe (etkin-olmayan-"
 "yolları-daralt) bakınız."
 
-#: data/org.gnome.gitg.gschema.xml.in:109
+#: data/org.gnome.gitg.gschema.xml.in:114
 msgid "Show History in Topological Order"
 msgstr "Geçmişi Topolojik Sırada Göster"
 
-#: data/org.gnome.gitg.gschema.xml.in:110
+#: data/org.gnome.gitg.gschema.xml.in:115
 msgid ""
 "Setting that indicates whether to show the history in topological order."
 msgstr "Geçmişin topolojik sırada gösterilip gösterilmeyeceğini belirten ayar."
 
-#: data/org.gnome.gitg.gschema.xml.in:116
+#: data/org.gnome.gitg.gschema.xml.in:121
 msgid "Show Stashed Changes"
 msgstr "Zulalanmış Değişiklikleri Göster"
 
-#: data/org.gnome.gitg.gschema.xml.in:117
+#: data/org.gnome.gitg.gschema.xml.in:122
 msgid ""
 "Setting that indicates whether to show items for the stash in the history."
 msgstr "Zula ögelerinin geçmişte gösterilip gösterilmeyeceğini belirten ayar."
 
-#: data/org.gnome.gitg.gschema.xml.in:124
+#: data/org.gnome.gitg.gschema.xml.in:129
 msgid "Show Staged Changes"
 msgstr "Hazır Değişiklikleri Göster"
 
-#: data/org.gnome.gitg.gschema.xml.in:125
+#: data/org.gnome.gitg.gschema.xml.in:130
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "staged changes in the history."
@@ -255,11 +202,11 @@ msgstr ""
 "Şu anda hazır değişiklikler için geçmişte bir sanal öge gösterilip "
 "gösterilmeyeceğini belirten ayar."
 
-#: data/org.gnome.gitg.gschema.xml.in:132
+#: data/org.gnome.gitg.gschema.xml.in:137
 msgid "Show Unstaged Changes"
 msgstr "Hazırlık Dışı Değişiklikleri Göster"
 
-#: data/org.gnome.gitg.gschema.xml.in:133
+#: data/org.gnome.gitg.gschema.xml.in:138
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "unstaged changes in the history."
@@ -267,11 +214,11 @@ msgstr ""
 "Şu anda hazırlık dışı değişiklikler için geçmişte bir sanal öge gösterilip "
 "gösterilmeyeceğini belirten ayar."
 
-#: data/org.gnome.gitg.gschema.xml.in:140
+#: data/org.gnome.gitg.gschema.xml.in:145
 msgid "Mainline Head"
 msgstr "Anahat Başlığı"
 
-#: data/org.gnome.gitg.gschema.xml.in:141
+#: data/org.gnome.gitg.gschema.xml.in:146
 msgid ""
 "Setting that indicates whether to always preserve a mainline in the history "
 "for the current HEAD."
@@ -279,29 +226,29 @@ msgstr ""
 "Geçerli HEAD için geçmişte sürekli bir anahat tutulup tutulmayacağını "
 "belirten ayar."
 
-#: data/org.gnome.gitg.gschema.xml.in:148
+#: data/org.gnome.gitg.gschema.xml.in:153
 msgid "Default selection of the history activity"
 msgstr "Geçmiş etkinliğin öntanımlı seçimi"
 
-#: data/org.gnome.gitg.gschema.xml.in:149
+#: data/org.gnome.gitg.gschema.xml.in:154
 msgid ""
 "Setting that determines the default selection on startup of the history "
 "activity."
 msgstr "Geçmiş etkinliğin başlangıçta öntanımlı seçimini belirleyen ayar."
 
-#: data/org.gnome.gitg.gschema.xml.in:155
+#: data/org.gnome.gitg.gschema.xml.in:160
 msgid "Reference Sort Order"
 msgstr "Atıf Sıralama Düzeni"
 
-#: data/org.gnome.gitg.gschema.xml.in:156
+#: data/org.gnome.gitg.gschema.xml.in:161
 msgid "The order by which references in the history sidebar should be sorted."
 msgstr "Geçmiş kenar çubuğundaki atıfların sıralama düzeni."
 
-#: data/org.gnome.gitg.gschema.xml.in:162
+#: data/org.gnome.gitg.gschema.xml.in:167
 msgid "Show Upstream With Branch"
 msgstr "Dalla Birlikte Ana Kaynağı Göster"
 
-#: data/org.gnome.gitg.gschema.xml.in:163
+#: data/org.gnome.gitg.gschema.xml.in:168
 msgid ""
 "Determines whether to also show the upstream (remote) tracking branch when "
 "selecting a local branch in the history view."
@@ -309,31 +256,31 @@ msgstr ""
 "Geçmiş görünümünde yerel dalı seçerken ana kaynaktaki (uzak) takip edilen "
 "dalın da gösterilip gösterilmeyeceğini belirler."
 
-#: data/org.gnome.gitg.gschema.xml.in:170
+#: data/org.gnome.gitg.gschema.xml.in:175
 #: gitg/resources/ui/gitg-preferences-history.ui:151
 msgid "Filter unknown refs"
 msgstr "Bilinmeyen referansları süz"
 
-#: data/org.gnome.gitg.gschema.xml.in:171
+#: data/org.gnome.gitg.gschema.xml.in:176
 msgid "Hide any ref different from refs/heads and refs/remotes."
 msgstr "Refs/heads ve refs/remotes dışındaki tüm referansları gizle."
 
-#: data/org.gnome.gitg.gschema.xml.in:179
+#: data/org.gnome.gitg.gschema.xml.in:184
 msgid "Switch to the new branch on creation"
 msgstr "Oluşturma sırasında yeni dala geç"
 
-#: data/org.gnome.gitg.gschema.xml.in:180
+#: data/org.gnome.gitg.gschema.xml.in:185
 msgid ""
 "Setting that controls whether the newly created branch is checked out "
 "automatically."
 msgstr ""
 "Yeni oluşturulan dalın kendiliğinden teslim alınmasını denetleyen ayar."
 
-#: data/org.gnome.gitg.gschema.xml.in:195
+#: data/org.gnome.gitg.gschema.xml.in:200
 msgid "Show Right Margin in Commit Message View"
 msgstr "İşleme İletisi Görünümünde Sağ Kenar Boşluğunu Göster"
 
-#: data/org.gnome.gitg.gschema.xml.in:196
+#: data/org.gnome.gitg.gschema.xml.in:201
 msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
@@ -342,11 +289,11 @@ msgstr ""
 "kullanılarak belirli bir sütunda işleme iletisinin nerede kesileceği kolayca "
 "görülebilir."
 
-#: data/org.gnome.gitg.gschema.xml.in:204
+#: data/org.gnome.gitg.gschema.xml.in:209
 msgid "Column at Which Right Margin is Shown"
 msgstr "Sağ Kenar Boşluğunun Gösterileceği Sütun"
 
-#: data/org.gnome.gitg.gschema.xml.in:205
+#: data/org.gnome.gitg.gschema.xml.in:210
 msgid ""
 "The column at which the right margin is shown if the show-right-margin "
 "preference is set to TRUE."
@@ -354,11 +301,11 @@ msgstr ""
 "Eğer show-right-margin (sağ-kenar-boşluğunu-göster) tercihi DOĞRU olarak "
 "ayarlanmışsa sağ kenar boşluğunun gösterileceği sütun."
 
-#: data/org.gnome.gitg.gschema.xml.in:212
+#: data/org.gnome.gitg.gschema.xml.in:217
 msgid "Show Subject Margin in Commit Message View"
 msgstr "İşleme İletisi Görünümünde Konu Kenar Boşluğunu Göster"
 
-#: data/org.gnome.gitg.gschema.xml.in:213
+#: data/org.gnome.gitg.gschema.xml.in:218
 msgid ""
 "Highlight the subject text of the commit message when it passes the margin "
 "specified by subject-margin-position."
@@ -366,11 +313,11 @@ msgstr ""
 "İşleme iletisinin konu metni subject-margin-position (konu-kenar-boşluğu-"
 "konumu) tarafından belirlenen sınırı geçtiğinde vurgula."
 
-#: data/org.gnome.gitg.gschema.xml.in:220
+#: data/org.gnome.gitg.gschema.xml.in:225
 msgid "Column at Which Subject Margin is Shown"
 msgstr "Konu Kenar Boşluğunun Gösterileceği Sütun"
 
-#: data/org.gnome.gitg.gschema.xml.in:221
+#: data/org.gnome.gitg.gschema.xml.in:226
 msgid ""
 "The column at which the subject margin is shown if the show-subject-margin "
 "preference is set to TRUE."
@@ -378,11 +325,11 @@ msgstr ""
 "Eğer show-subject-margin (konu-kenar-boşluğunu-göster) tercihi DOĞRU olarak "
 "ayarlanmışsa konu kenar boşluğunun gösterileceği sütun."
 
-#: data/org.gnome.gitg.gschema.xml.in:228
+#: data/org.gnome.gitg.gschema.xml.in:233
 msgid "Enable Spell Checking"
 msgstr "Yazım Denetimini Etkinleştir"
 
-#: data/org.gnome.gitg.gschema.xml.in:229
+#: data/org.gnome.gitg.gschema.xml.in:234
 msgid ""
 "Setting which determines whether or not spell checking is enabled when "
 "writing a commit message."
@@ -390,21 +337,21 @@ msgstr ""
 "Bir işleme iletisi yazıldığında yazım denetiminin etkinleştirilip "
 "etkinleştirilmeyeceğini belirleyen ayar."
 
-#: data/org.gnome.gitg.gschema.xml.in:236
+#: data/org.gnome.gitg.gschema.xml.in:241
 msgid "Spell Checking Language"
 msgstr "Yazım Denetimi Dili"
 
-#: data/org.gnome.gitg.gschema.xml.in:237
+#: data/org.gnome.gitg.gschema.xml.in:242
 msgid ""
 "The language to use when spell checking is enabled for writing a commit "
 "message."
 msgstr "Bir işleme iletisi yazarken yazım denetimi etkinse kullanılacak dil."
 
-#: data/org.gnome.gitg.gschema.xml.in:244
+#: data/org.gnome.gitg.gschema.xml.in:249
 msgid "Maximum number of previous commit messages"
 msgstr "Önceki işleme iletilerinin azamin sayısı"
 
-#: data/org.gnome.gitg.gschema.xml.in:245
+#: data/org.gnome.gitg.gschema.xml.in:250
 msgid ""
 "Maximum number of previous commit messages to store for commit message "
 "history."
@@ -412,11 +359,11 @@ msgstr ""
 "Önceki işleme iletilerinin işleme iletileri geçmişinde depolanacağı azami "
 "sayısı."
 
-#: data/org.gnome.gitg.gschema.xml.in:249
+#: data/org.gnome.gitg.gschema.xml.in:254
 msgid "Maximum number of days to store previous commit messages"
 msgstr "Önceki işleme iletilerinin depolanacağı azami gün sayısı"
 
-#: data/org.gnome.gitg.gschema.xml.in:250
+#: data/org.gnome.gitg.gschema.xml.in:255
 msgid ""
 "Maximum number of days to store previous commit messages for commit message "
 "history."
@@ -424,38 +371,38 @@ msgstr ""
 "Önceki işleme iletilerinin işleme iletileri geçmişinde depolanacağı azami "
 "gün sayısı."
 
-#: data/org.gnome.gitg.gschema.xml.in:254
-#: data/org.gnome.gitg.gschema.xml.in:255
+#: data/org.gnome.gitg.gschema.xml.in:259
+#: data/org.gnome.gitg.gschema.xml.in:260
 msgid "Type of datetime format selected."
 msgstr "Seçilen tarih saat biçiminin türü."
 
-#: data/org.gnome.gitg.gschema.xml.in:261
+#: data/org.gnome.gitg.gschema.xml.in:266
 msgid "Preferred datetime format of the user."
 msgstr "Kullanıcının yeğlediği tarih saat biçimi."
 
-#: data/org.gnome.gitg.gschema.xml.in:262
+#: data/org.gnome.gitg.gschema.xml.in:267
 msgid "The datetime format to be used in commit-diff."
 msgstr "Gönderi farkında (commit-diff) kullanılacak tarih saat biçimi."
 
-#: data/org.gnome.gitg.gschema.xml.in:268
-#: data/org.gnome.gitg.gschema.xml.in:269
+#: data/org.gnome.gitg.gschema.xml.in:273
+#: data/org.gnome.gitg.gschema.xml.in:274
 msgid "Custom datetime format."
 msgstr "Özel tarih saat biçimi."
 
-#: data/org.gnome.gitg.gschema.xml.in:277
+#: data/org.gnome.gitg.gschema.xml.in:282
 msgid "Use patience algorithm to show diffs"
 msgstr "Farkları göstermek için sabır algoritmasını kullan"
 
-#: data/org.gnome.gitg.gschema.xml.in:278
+#: data/org.gnome.gitg.gschema.xml.in:283
 msgid "Setting to use patience algorithm to show diffs of a commit."
 msgstr ""
 "Bir işlemenin farklarını gösterirken sabır algoritmasını kullanmak için ayar."
 
-#: data/org.gnome.gitg.gschema.xml.in:284
+#: data/org.gnome.gitg.gschema.xml.in:289
 msgid "Ignore Whitespace Changes"
 msgstr "Boşluk Değişikliklerini Yok Say"
 
-#: data/org.gnome.gitg.gschema.xml.in:285
+#: data/org.gnome.gitg.gschema.xml.in:290
 msgid ""
 "Setting that indicates whether to ignore whitespace changes when showing the "
 "diff of a commit."
@@ -463,31 +410,31 @@ msgstr ""
 "Bir işlemenin farkını gösterirken boşluk değişikliklerinin yok sayılma "
 "durumunu belirten ayar."
 
-#: data/org.gnome.gitg.gschema.xml.in:292
+#: data/org.gnome.gitg.gschema.xml.in:297
 msgid "Show Changes Inline"
 msgstr "Değişiklikleri Satıriçinde Göster"
 
-#: data/org.gnome.gitg.gschema.xml.in:293
+#: data/org.gnome.gitg.gschema.xml.in:298
 msgid ""
 "Setting that indicates whether changes within lines should be shown inline."
 msgstr ""
 "Satırlardaki değişikliklerin satıriçinde gösterilip gösterilmeyeceğini "
 "belirten ayar."
 
-#: data/org.gnome.gitg.gschema.xml.in:300
+#: data/org.gnome.gitg.gschema.xml.in:305
 msgid "Wrap"
 msgstr "Sar"
 
-#: data/org.gnome.gitg.gschema.xml.in:301
+#: data/org.gnome.gitg.gschema.xml.in:306
 msgid "Wrap lines."
 msgstr "Satırları sar."
 
-#: data/org.gnome.gitg.gschema.xml.in:307
-#: data/org.gnome.gitg.gschema.xml.in:325
+#: data/org.gnome.gitg.gschema.xml.in:312
+#: data/org.gnome.gitg.gschema.xml.in:330
 msgid "Number of Before/After Context Lines"
 msgstr "Önceki/Sonraki Bağlam Satırları Sayısı"
 
-#: data/org.gnome.gitg.gschema.xml.in:308
+#: data/org.gnome.gitg.gschema.xml.in:313
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff of a commit."
@@ -495,13 +442,13 @@ msgstr ""
 "Bir işlemenin farkını gösterirken bağlamda (önce ve sonra) kaç satır "
 "gösterileceğini belirleyen ayar."
 
-#: data/org.gnome.gitg.gschema.xml.in:315
-#: data/org.gnome.gitg.gschema.xml.in:334
+#: data/org.gnome.gitg.gschema.xml.in:320
+#: data/org.gnome.gitg.gschema.xml.in:339
 msgid "Rendered Width of a Tab Character"
 msgstr "Sekme Karakterinin Ekranda Gösterilen Genişliği"
 
-#: data/org.gnome.gitg.gschema.xml.in:316
-#: data/org.gnome.gitg.gschema.xml.in:335
+#: data/org.gnome.gitg.gschema.xml.in:321
+#: data/org.gnome.gitg.gschema.xml.in:340
 msgid ""
 "Setting that determines how much space a tab character should occupy when "
 "showing the diff of a commit."
@@ -509,13 +456,74 @@ msgstr ""
 "Bir işlemenin farkını gösterirken bir sekme karakterinin ne kadar yer "
 "kaplayacağını belirleyen ayar."
 
-#: data/org.gnome.gitg.gschema.xml.in:326
+#: data/org.gnome.gitg.gschema.xml.in:331
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff to be staged/unstaged in the commit area."
 msgstr ""
 "İşleme alanında hazır/hazırlık dışı farkını gösterirken bağlamda (önce ve "
 "sonra) kaç satır gösterileceğini belirleyen ayar."
+
+#: data/org.gnome.gitg.metainfo.xml.in.in:5 gitg/gitg.vala:39
+#: gitg/resources/ui/gitg-window.ui:8
+msgid "gitg"
+msgstr "gitg"
+
+#: data/org.gnome.gitg.metainfo.xml.in.in:9
+msgid "Graphical user interface for git"
+msgstr "git için grafiksel kullanıcı arayüzü"
+
+#: data/org.gnome.gitg.metainfo.xml.in.in:11
+msgid ""
+"Gitg is a graphical user interface for git. It aims at being a small, fast "
+"and convenient tool to visualize the history of git repositories. Besides "
+"visualization, gitg also provides several utilities to manage your "
+"repository and commit your work."
+msgstr ""
+"Gitg, git için grafiksel kullanıcı arayüzüdür; depoların geçmişini "
+"görselleştirmeyi amaçlayan küçük, hızlı ve kullanışlı araçtır. Bunların yanı "
+"sıra deponuzu yönetmeniz ve çalışmanızı işlemeniz için birtakım yardımcı "
+"araçlar sunar."
+
+#: data/org.gnome.gitg.metainfo.xml.in.in:17
+msgid "Goals:"
+msgstr "Amaçlar:"
+
+#: data/org.gnome.gitg.metainfo.xml.in.in:19
+msgid "Browse local git repositories"
+msgstr "Yerel git depolarına göz at"
+
+#: data/org.gnome.gitg.metainfo.xml.in.in:20
+msgid "Clone local and remote git repositories"
+msgstr "Yerel ve uzak git depolarını klonla"
+
+#: data/org.gnome.gitg.metainfo.xml.in.in:21
+msgid "Commit files"
+msgstr "Dosyaları işle"
+
+#: data/org.gnome.gitg.metainfo.xml.in.in:22
+msgid "Retrieve patch from a commit"
+msgstr "Bir işlemeden yama al"
+
+#: data/org.gnome.gitg.metainfo.xml.in.in:32
+msgid "Browse repository history"
+msgstr "Depo geçmişine göz at"
+
+#: data/org.gnome.gitg.metainfo.xml.in.in:36
+msgid "Staging area to compose your commit"
+msgstr "İşlemenizi oluşturmak için hazırlama alanı"
+
+#: data/org.gnome.gitg.metainfo.xml.in.in:40
+msgid "Commit staged changes"
+msgstr "Hazır değişiklikleri işle"
+
+#: data/org.gnome.gitg.metainfo.xml.in.in:44
+msgid "Overview of recently used repositories"
+msgstr "Son kullanılan depolara genel bakış"
+
+#: data/org.gnome.gitg.metainfo.xml.in.in:216
+msgid "The Gitg Team"
+msgstr "Gitg Takımı"
 
 #: gitg/commit/gitg-commit-dialog.vala:567 gitg/commit/gitg-commit.vala:1096
 msgid "There are no changes to be committed"
@@ -890,8 +898,8 @@ msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
 "\n"
-"If you manually compiled libgit2, then please configure libgit2 with -"
-"DTHREADSAFE:BOOL=ON.\n"
+"If you manually compiled libgit2, then please configure libgit2 with "
+"-DTHREADSAFE:BOOL=ON.\n"
 "\n"
 "Otherwise, report a bug in your distributions’ bug reporting system for "
 "providing libgit2 without threading support."
@@ -1055,7 +1063,7 @@ msgstr "Etiket oluşturulamadı"
 msgid "Failed to lookup tag"
 msgstr "Etiket aranamadı"
 
-#: gitg/gitg-create-tag-dialog.vala:96
+#: gitg/gitg-create-tag-dialog.vala:98
 msgid "Provide a message to create an annotated tag"
 msgstr "Not eklenmiş bir etiket oluşturmak için bir ileti sağlayın"
 
@@ -1598,7 +1606,7 @@ msgstr "Geçmiş"
 msgid "Examine the history of the repository"
 msgstr "Deponun geçmişini incele"
 
-#: gitg/history/gitg-history.vala:968
+#: gitg/history/gitg-history.vala:969
 msgid "Mainline"
 msgstr "Anahat"
 
@@ -1607,12 +1615,24 @@ msgctxt "Preferences"
 msgid "Commit"
 msgstr "İşle"
 
+#. Translators: Unif stands for unified diff format
+#: gitg/preferences/gitg-preferences-interface.vala:141
+#: libgitg/gitg-diff-view-file.vala:160
+msgid "Unif"
+msgstr "Birleşik"
+
+#. Translators: Split stands for the noun
 #: gitg/preferences/gitg-preferences-interface.vala:142
+#: libgitg/gitg-diff-view-file.vala:165
+msgid "Split"
+msgstr "Ayrık"
+
+#: gitg/preferences/gitg-preferences-interface.vala:159
 #, c-format
 msgid "_Use the system fixed width font (%s)"
 msgstr "_Sistem eş aralıklı yazı tipini (%s) kullan"
 
-#: gitg/preferences/gitg-preferences-interface.vala:179
+#: gitg/preferences/gitg-preferences-interface.vala:196
 msgid "Interface"
 msgstr "Arayüz"
 
@@ -1983,12 +2003,16 @@ msgstr "Düzenleyici yazı tipi seç"
 msgid "Diff"
 msgstr "Karşılaştır"
 
-#: gitg/resources/ui/gitg-preferences-interface.ui:312
+#: gitg/resources/ui/gitg-preferences-interface.ui:322
+msgid "Text mode:"
+msgstr "Metin kipi:"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:348
 msgid "Enable syntax highlighting of source code in diff views"
 msgstr ""
 "Fark görünümlerinde kaynak kodların söz dizimi vurgulamasını etkinleştir"
 
-#: gitg/resources/ui/gitg-preferences-interface.ui:338
+#: gitg/resources/ui/gitg-preferences-interface.ui:374
 msgid "Syntax highlighting color scheme:"
 msgstr "Söz dizimi vurgulama renk şeması:"
 
@@ -2287,33 +2311,23 @@ msgstr "<small>Yazar</small> %s"
 msgid "<small>Committed by</small> %s"
 msgstr "<small>İşleyen</small> %s"
 
-#. Translators: Unif stands for unified diff format
-#: libgitg/gitg-diff-view-file.vala:160
-msgid "Unif"
-msgstr "Birleşik"
-
-#. Translators: Split stands for the noun
-#: libgitg/gitg-diff-view-file.vala:165
-msgid "Split"
-msgstr "Ayrık"
-
-#: libgitg/gitg-diff-view-file.vala:172
+#: libgitg/gitg-diff-view-file.vala:176
 msgid "Binary"
 msgstr "İkili"
 
-#: libgitg/gitg-diff-view-file.vala:179
+#: libgitg/gitg-diff-view-file.vala:183
 msgid "Image"
 msgstr "Resim"
 
-#: libgitg/gitg-diff-view-file.vala:224
+#: libgitg/gitg-diff-view-file.vala:228
 msgid "_Open file"
 msgstr "Dosyayı _aç"
 
-#: libgitg/gitg-diff-view-file.vala:257
+#: libgitg/gitg-diff-view-file.vala:261
 msgid "Open containing _folder"
 msgstr "_İçeren klasörü aç"
 
-#: libgitg/gitg-diff-view-file.vala:277
+#: libgitg/gitg-diff-view-file.vala:281
 msgid "_Copy file path"
 msgstr "Dosya yolunu _kopyala"
 
