@@ -4,24 +4,24 @@
 #
 # Taner Orak <tnrork@gmail.com>, 2015.
 # Gökhan Gurbetoğlu <ggurbet@gmail.com>, 2014, 2015.
-# Muhammet Kara <muhammetk@gmail.com>, 2014, 2015, 2017.
 # Sabri Ünal <yakushabb@gmail.com>, 2014, 2019, 2020, 2022, 2023, 2025.
 # Emin Tufan Çetin <etcetin@gmail.com>, 2018-2025.
+# Muhammet Kara <muhammetk@gmail.com>, 2014-2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2025-11-05 23:19+0000\n"
-"PO-Revision-Date: 2025-11-06 15:17+0300\n"
-"Last-Translator: Sabri Ünal <yakushabb@gmail.com>\n"
-"Language-Team: Türkçe <gnome-turk@gnome.org>\n"
+"POT-Creation-Date: 2025-12-22 00:43+0000\n"
+"PO-Revision-Date: 2025-12-22 03:57+0300\n"
+"Last-Translator: Muhammet Kara <muhammetk@gmail.com>\n"
+"Language-Team: Turkish <takim@gnome.org.tr>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Gtranslator 49.0\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
@@ -659,7 +659,7 @@ msgstr ""
 #: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
 #: gitg/commit/gitg-commit.vala:1606
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:469
-#: gitg/gitg-window.vala:209 gitg/gitg-window.vala:740
+#: gitg/gitg-window.vala:210 gitg/gitg-window.vala:741
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
 #: gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
@@ -774,7 +774,7 @@ msgstr ""
 #: gitg/gitg-action-support.vala:133
 #: gitg/gitg-commit-action-cherry-pick.vala:163
 #: gitg/gitg-ref-action-delete.vala:94 gitg/gitg-ref-action-merge.vala:194
-#: gitg/gitg-ref-action-push.vala:123 gitg/gitg-remove-remote-action.vala:67
+#: gitg/gitg-remove-remote-action.vala:67
 #: libgitg/gitg-repository-list-box.vala:560
 msgid "Cancel"
 msgstr "İptal"
@@ -825,7 +825,7 @@ msgid "Fetching from %s"
 msgstr "%sʼden getiriliyor"
 
 #. Translators: new refers to a new remote reference having been fetched,
-#: gitg/gitg-add-remote-action.vala:65 gitg/gitg-ref-action-fetch.vala:115
+#: gitg/gitg-add-remote-action.vala:65 gitg/gitg-ref-action-fetch.vala:122
 msgid "new"
 msgstr "yeni"
 
@@ -840,7 +840,7 @@ msgstr "Eklenen uzak getirilemedi"
 
 #. Translators: the first %s is the remote url to fetch from,
 #. * the second is a list of references that got updated.
-#: gitg/gitg-add-remote-action.vala:90 gitg/gitg-ref-action-fetch.vala:149
+#: gitg/gitg-add-remote-action.vala:90 gitg/gitg-ref-action-fetch.vala:159
 #, c-format
 msgid "Fetched from %s: %s"
 msgstr "%sʼden getirildi: %s"
@@ -1242,56 +1242,90 @@ msgid "Delete"
 msgstr "Sil"
 
 #. Translators: %s is the name of the tag
-#: gitg/gitg-ref-action-delete.vala:125
+#: gitg/gitg-ref-action-delete.vala:136
 #, c-format
 msgid "Failed to delete tag %s"
 msgstr "%s etiketi silinemedi"
 
 #. Translators: the first %s is the name of the tag, the second is an error message
-#: gitg/gitg-ref-action-delete.vala:128
+#: gitg/gitg-ref-action-delete.vala:139
 #, c-format
 msgid "The tag %s could not be deleted: %s"
 msgstr "%s etiketi silinemedi: %s"
 
 #. Translators: %s is the name of the branch
-#: gitg/gitg-ref-action-delete.vala:133
+#: gitg/gitg-ref-action-delete.vala:144
 #, c-format
 msgid "Failed to delete branch %s"
 msgstr "%s dalı silinemedi"
 
 #. Translators: the first %s is the name of the branch, the second is an error message
-#: gitg/gitg-ref-action-delete.vala:136
+#: gitg/gitg-ref-action-delete.vala:147
 #, c-format
 msgid "The branch %s could not be deleted: %s"
 msgstr "%s dalı silinemedi: %s"
 
-#: gitg/gitg-ref-action-fetch.vala:83
+#. Translators: %s is the name of the branch
+#: gitg/gitg-ref-action-delete.vala:152
 #, c-format
-msgid "Fetch from %s"
-msgstr "%sʼden getir"
+msgid "Failed to delete remote branch %s"
+msgstr "Uzak dal %s silinemedi"
 
-#: gitg/gitg-ref-action-fetch.vala:94
+#. Translators: the first %s is the name of the branch, the second is an error message
+#: gitg/gitg-ref-action-delete.vala:155
 #, c-format
-msgid "Fetch remote objects from %s"
-msgstr "Uzak nesneleri %sʼden getir"
+msgid "The remote branch %s could not be deleted: %s"
+msgstr "Uzak dal %s silinemedi: %s"
 
-#: gitg/gitg-ref-action-fetch.vala:107
+#: gitg/gitg-ref-action-delete.vala:175
+#, c-format
+msgid "Deleting branch %s from %s"
+msgstr "%s dalı, %s'ten siliniyor"
+
+#: gitg/gitg-ref-action-delete.vala:184
+#, c-format
+msgid "Failed to delete branch %s from %s: %s"
+msgstr "%s dalını %s'ten silme başarısız: %s"
+
+#. Translators: the %s will get replaced with the remote url,
+#: gitg/gitg-ref-action-delete.vala:192
+#, c-format
+msgid "Deleted from %s"
+msgstr "%s'ten silindi"
+
+#: gitg/gitg-ref-action-fetch.vala:87
+msgid " (without tags)"
+msgstr " (etiketsiz)"
+
+#: gitg/gitg-ref-action-fetch.vala:88
+#, c-format
+msgid "Fetch from %s%s"
+msgstr "%s%sʼden getir"
+
+#: gitg/gitg-ref-action-fetch.vala:100
+#, c-format
+msgid "Fetch remote objects from %s (hold Shift to ignore tags)"
+msgstr ""
+"Uzak nesneleri %sʼden getir (etiketleri göz ardı etmek için Shift'e basılı "
+"tutun)"
+
+#: gitg/gitg-ref-action-fetch.vala:114
 #, c-format
 msgid "Fetching from <a href='%s'>%s</a>"
 msgstr "Şuradan getiriliyor: <a href='%s'>%s</a>"
 
 #. Translators: updated refers to a remote reference having been updated,
-#: gitg/gitg-ref-action-fetch.vala:120
+#: gitg/gitg-ref-action-fetch.vala:127
 msgid "updated"
 msgstr "güncellendi"
 
-#: gitg/gitg-ref-action-fetch.vala:130
+#: gitg/gitg-ref-action-fetch.vala:140
 #, c-format
 msgid "Failed to fetch from <a href='%s'>%s</a>: <b>%s</b>"
 msgstr "<a href='%s'>%s</a>ʼden getirilemedi: %s"
 
 #. Translators: the %s will get replaced with the remote url,
-#: gitg/gitg-ref-action-fetch.vala:143
+#: gitg/gitg-ref-action-fetch.vala:153
 #, c-format
 msgid "Fetched from <a href='%s'>%s</a>: <b>everything is up to date</b>"
 msgstr "<a href='%s'>%s</a>ʼden getirildi: her şey güncel"
@@ -1374,45 +1408,9 @@ msgstr "“%s”i “%s” dalına birleştir"
 msgid "Tags"
 msgstr "Etiketler"
 
-#: gitg/gitg-ref-action-push.vala:65
-#, c-format
-msgid "Push to %s"
-msgstr "%sʼe it"
-
-#: gitg/gitg-ref-action-push.vala:76
-#, c-format
-msgid "Push branch to %s"
-msgstr "Dalı %sʼe it"
-
-#: gitg/gitg-ref-action-push.vala:92
-#, c-format
-msgid "Pushing to %s"
-msgstr "%sʼe itiliyor"
-
-#: gitg/gitg-ref-action-push.vala:101
-#, c-format
-msgid "Failed to push to %s: %s"
-msgstr "%sʼe itilemedi: %s"
-
-#. Translators: the %s will get replaced with the remote url,
-#: gitg/gitg-ref-action-push.vala:108
-#, c-format
-msgid "Pushed to %s"
-msgstr "%sʼe itildi"
-
-#: gitg/gitg-ref-action-push.vala:119
-#, c-format
-msgid "Push branch %s"
-msgstr "%s dalını it"
-
-#: gitg/gitg-ref-action-push.vala:120
-#, c-format
-msgid "Are you sure that you want to push the branch %s?"
-msgstr "%s dalını itmek istediğinizden emin misiniz?"
-
-#: gitg/gitg-ref-action-push.vala:124
-msgid "Push"
-msgstr "İt"
+#: gitg/gitg-ref-action-push.vala:46
+msgid "Push ref to a remote"
+msgstr "Uzak depoya ref gönder"
 
 #: gitg/gitg-ref-action-rename.vala:48
 msgid "Rename…"
@@ -1477,42 +1475,42 @@ msgstr "Kaldır"
 msgid "Failed to remove remote"
 msgstr "Uzak kaldırılamadı"
 
-#: gitg/gitg-window.vala:206
+#: gitg/gitg-window.vala:207
 msgid "Add Repository"
 msgstr "Depo Ekle"
 
-#: gitg/gitg-window.vala:210
+#: gitg/gitg-window.vala:211
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:34
 #: gitg/resources/ui/gitg-window.ui:64
 msgid "_Add"
 msgstr "_Ekle"
 
-#: gitg/gitg-window.vala:212
+#: gitg/gitg-window.vala:213
 msgid "_Scan for all git repositories from this directory"
 msgstr "Bu dizindeki tüm git depolarını _tara"
 
-#: gitg/gitg-window.vala:552
+#: gitg/gitg-window.vala:553
 msgid "Projects"
 msgstr "Projeler"
 
-#: gitg/gitg-window.vala:738
+#: gitg/gitg-window.vala:739
 msgid "Open Repository"
 msgstr "Depo Aç"
 
-#: gitg/gitg-window.vala:741 gitg/resources/ui/gitg-commit-submodule-info.ui:70
+#: gitg/gitg-window.vala:742 gitg/resources/ui/gitg-commit-submodule-info.ui:70
 msgid "_Open"
 msgstr "_Aç"
 
-#: gitg/gitg-window.vala:881
+#: gitg/gitg-window.vala:882
 msgid "Select items"
 msgstr "Ögeleri seçin"
 
-#: gitg/gitg-window.vala:1099
+#: gitg/gitg-window.vala:1100
 #, c-format
 msgid "“%s” is not a Git repository."
 msgstr "“%s” bir Git deposu değil."
 
-#: gitg/gitg-window.vala:1246
+#: gitg/gitg-window.vala:1247
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1520,7 +1518,7 @@ msgstr ""
 "Kullanıcı adınız ve e-posta adresiniz henüz yapılandırılmamış. Lütfen "
 "kullanıcı yapılandırmasına giderek adınızı ve e-posta adresinizi girin."
 
-#: gitg/gitg-window.vala:1250
+#: gitg/gitg-window.vala:1251
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1528,7 +1526,7 @@ msgstr ""
 "Kullanıcı adınız henüz yapılandırılmamış. Lütfen kullanıcı yapılandırmasına "
 "giderek adınızı girin."
 
-#: gitg/gitg-window.vala:1254
+#: gitg/gitg-window.vala:1255
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1536,7 +1534,7 @@ msgstr ""
 "E-posta adresiniz henüz yapılandırılmamış. Lütfen kullanıcı yapılandırmasına "
 "giderek e-posta adresinizi girin."
 
-#: gitg/gitg-window.vala:1257
+#: gitg/gitg-window.vala:1258
 msgid "Missing author details"
 msgstr "Yazar ayrıntıları eksik"
 
@@ -1606,7 +1604,7 @@ msgstr "Geçmiş"
 msgid "Examine the history of the repository"
 msgstr "Deponun geçmişini incele"
 
-#: gitg/history/gitg-history.vala:969
+#: gitg/history/gitg-history.vala:980
 msgid "Mainline"
 msgstr "Anahat"
 
@@ -1616,23 +1614,23 @@ msgid "Commit"
 msgstr "İşle"
 
 #. Translators: Unif stands for unified diff format
-#: gitg/preferences/gitg-preferences-interface.vala:141
+#: gitg/preferences/gitg-preferences-interface.vala:143
 #: libgitg/gitg-diff-view-file.vala:160
 msgid "Unif"
 msgstr "Birleşik"
 
 #. Translators: Split stands for the noun
-#: gitg/preferences/gitg-preferences-interface.vala:142
+#: gitg/preferences/gitg-preferences-interface.vala:144
 #: libgitg/gitg-diff-view-file.vala:165
 msgid "Split"
 msgstr "Ayrık"
 
-#: gitg/preferences/gitg-preferences-interface.vala:159
+#: gitg/preferences/gitg-preferences-interface.vala:161
 #, c-format
 msgid "_Use the system fixed width font (%s)"
 msgstr "_Sistem eş aralıklı yazı tipini (%s) kullan"
 
-#: gitg/preferences/gitg-preferences-interface.vala:196
+#: gitg/preferences/gitg-preferences-interface.vala:198
 msgid "Interface"
 msgstr "Arayüz"
 
@@ -1827,26 +1825,30 @@ msgid "Edit Remote"
 msgstr "Uzak Düzenle"
 
 #: gitg/resources/ui/gitg-menus.ui:7
+msgid "_Open externally"
+msgstr "_Dışarıda aç"
+
+#: gitg/resources/ui/gitg-menus.ui:13
 msgid "_Reload"
 msgstr "Yeniden Y_ükle"
 
-#: gitg/resources/ui/gitg-menus.ui:13 gitg/resources/ui/gitg-menus.ui:49
+#: gitg/resources/ui/gitg-menus.ui:19 gitg/resources/ui/gitg-menus.ui:55
 msgid "_Preferences"
 msgstr "_Tercihler"
 
-#: gitg/resources/ui/gitg-menus.ui:19 gitg/resources/ui/gitg-menus.ui:43
+#: gitg/resources/ui/gitg-menus.ui:25 gitg/resources/ui/gitg-menus.ui:49
 msgid "_Author Details"
 msgstr "_Yazar Ayrıntıları"
 
-#: gitg/resources/ui/gitg-menus.ui:25 gitg/resources/ui/gitg-menus.ui:55
+#: gitg/resources/ui/gitg-menus.ui:31 gitg/resources/ui/gitg-menus.ui:61
 msgid "_Keyboard Shortcuts"
 msgstr "_Klavye Kısayolları"
 
-#: gitg/resources/ui/gitg-menus.ui:29 gitg/resources/ui/gitg-menus.ui:59
+#: gitg/resources/ui/gitg-menus.ui:35 gitg/resources/ui/gitg-menus.ui:65
 msgid "_About gitg"
 msgstr "gitg _Hakkında"
 
-#: gitg/resources/ui/gitg-menus.ui:37
+#: gitg/resources/ui/gitg-menus.ui:43
 msgid "_New Window"
 msgstr "Ye_ni Pencere"
 
@@ -2470,13 +2472,48 @@ msgstr "Depoyu listeden kaldır (depoyu diskten silmez)"
 msgid "Show the changes introduced by the selected commit"
 msgstr "Seçili işleme ile ortaya çıkan değişiklikleri göster"
 
-#: plugins/files/gitg-files.vala:68
+#: plugins/files/gitg-files.vala:71
 msgid "Files"
 msgstr "Dosyalar"
 
-#: plugins/files/gitg-files.vala:73
+#: plugins/files/gitg-files.vala:76
 msgid "Show the files in the tree of the selected commit"
 msgstr "Seçili işlemenin ağacındaki dosyaları göster"
+
+#: plugins/files/gitg-files.vala:144
+msgid "Open externally"
+msgstr "Dışarıda aç"
+
+#, c-format
+#~ msgid "Push to %s"
+#~ msgstr "%sʼe it"
+
+#, c-format
+#~ msgid "Push branch to %s"
+#~ msgstr "Dalı %sʼe it"
+
+#, c-format
+#~ msgid "Pushing to %s"
+#~ msgstr "%sʼe itiliyor"
+
+#, c-format
+#~ msgid "Failed to push to %s: %s"
+#~ msgstr "%sʼe itilemedi: %s"
+
+#, c-format
+#~ msgid "Pushed to %s"
+#~ msgstr "%sʼe itildi"
+
+#, c-format
+#~ msgid "Push branch %s"
+#~ msgstr "%s dalını it"
+
+#, c-format
+#~ msgid "Are you sure that you want to push the branch %s?"
+#~ msgstr "%s dalını itmek istediğinizden emin misiniz?"
+
+#~ msgid "Push"
+#~ msgstr "İt"
 
 #~ msgid "@binary@"
 #~ msgstr "@binary@"
@@ -2484,14 +2521,8 @@ msgstr "Seçili işlemenin ağacındaki dosyaları göster"
 #~ msgid "Edits the remote from the remotes list"
 #~ msgstr "Uzağı uzaklar listesinden düzenler"
 
-#~ msgid "Delete branch %s"
-#~ msgstr "%s dalını sil"
-
 #~ msgid "Delete tag %s"
 #~ msgstr "%s etiketini sil"
 
 #~ msgid "Delete remote branch %s"
 #~ msgstr "%s uzak dalını sil"
-
-#~ msgid "Delete remote %s"
-#~ msgstr "%s uzağını sil"
