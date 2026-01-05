@@ -1311,7 +1311,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	{
 		if (d_repository != null)
 		{
-			var uri = d_repository.get_location().get_uri();
+			var uri = d_repository.get_workdir().get_uri();
 			try
 			{
 				GLib.AppInfo.launch_default_for_uri (uri, null);
@@ -1431,3 +1431,4 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 }
 
 // ex:ts=4 noet
+
