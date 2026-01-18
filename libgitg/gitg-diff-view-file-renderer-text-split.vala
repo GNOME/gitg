@@ -28,6 +28,44 @@ class Gitg.DiffViewFileRendererTextSplit : Gtk.Box, DiffSelectable, DiffViewFile
 	private Gitg.DiffViewFileRendererText d_renderer_left;
 	private Gitg.DiffViewFileRendererText d_renderer_right;
 
+	private void setup_hscrollbar_margins(Gtk.ScrolledWindow sw, Gtk.TextView view)
+	{
+		view.realize.connect(() => {
+			Idle.add(() => update_hscrollbar_margin(sw, view));
+		});
+
+		view.style_updated.connect(() => {
+			Idle.add(() => update_hscrollbar_margin(sw, view));
+		});
+
+		view.size_allocate.connect((allocation) => {
+			Idle.add(() => update_hscrollbar_margin(sw, view));
+		});
+	}
+	
+	private bool update_hscrollbar_margin(Gtk.ScrolledWindow sw, Gtk.TextView view)
+	{
+		var hbar = sw.get_hscrollbar();
+		if (hbar == null || !view.get_realized())
+		{
+			return false;
+		}
+
+		var win = view.get_window(Gtk.TextWindowType.LEFT);
+		if (win == null)
+		{
+			return false;
+		}
+
+		int gutter_width = win.get_width();
+		if (gutter_width >= 0)
+		{
+			hbar.margin_start = gutter_width;
+		}
+
+		return false;
+	}
+
 	public DiffViewFileInfo info { get; construct set; }
 
 	public Ggit.DiffDelta? delta
@@ -105,6 +143,9 @@ class Gitg.DiffViewFileRendererTextSplit : Gtk.Box, DiffSelectable, DiffViewFile
 		d_renderer_right = new Gitg.DiffViewFileRendererText(info, handle_selection, DiffViewFileRendererText.Style.NEW);
 		d_scroll_left.add(d_renderer_left);
 		d_scroll_right.add(d_renderer_right);
+
+		setup_hscrollbar_margins(d_scroll_left, d_renderer_left);
+		setup_hscrollbar_margins(d_scroll_right, d_renderer_right);
 	}
 
 	construct
