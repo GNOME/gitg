@@ -10,18 +10,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2025-12-05 08:33+0000\n"
-"PO-Revision-Date: 2025-12-05 11:46+0100\n"
+"POT-Creation-Date: 2026-01-18 20:28+0000\n"
+"PO-Revision-Date: 2026-01-18 23:04+0100\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
-"%100==4 ? 3 : 0);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
+"n%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 3.8\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
@@ -421,10 +421,12 @@ msgstr ""
 "besedila."
 
 #: data/org.gnome.gitg.gschema.xml.in:305
+#: data/org.gnome.gitg.gschema.xml.in:347
 msgid "Wrap"
 msgstr "Prelom"
 
 #: data/org.gnome.gitg.gschema.xml.in:306
+#: data/org.gnome.gitg.gschema.xml.in:348
 msgid "Wrap lines."
 msgstr "Prelomi vrstice"
 
@@ -662,7 +664,7 @@ msgstr "Ali ste prepričani, da želite trajno izbrisati izbrane spremembe?"
 #: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
 #: gitg/commit/gitg-commit.vala:1606
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:469
-#: gitg/gitg-window.vala:210 gitg/gitg-window.vala:741
+#: gitg/gitg-window.vala:210 gitg/gitg-window.vala:801
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
 #: gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
@@ -902,8 +904,8 @@ msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
 "\n"
-"If you manually compiled libgit2, then please configure libgit2 with -"
-"DTHREADSAFE:BOOL=ON.\n"
+"If you manually compiled libgit2, then please configure libgit2 with "
+"-DTHREADSAFE:BOOL=ON.\n"
 "\n"
 "Otherwise, report a bug in your distributions’ bug reporting system for "
 "providing libgit2 without threading support."
@@ -1498,24 +1500,24 @@ msgstr "_Preišči mapo za skladišča git"
 msgid "Projects"
 msgstr "Projekti"
 
-#: gitg/gitg-window.vala:739
+#: gitg/gitg-window.vala:799
 msgid "Open Repository"
 msgstr "Odpri skladišče"
 
-#: gitg/gitg-window.vala:742 gitg/resources/ui/gitg-commit-submodule-info.ui:70
+#: gitg/gitg-window.vala:802 gitg/resources/ui/gitg-commit-submodule-info.ui:70
 msgid "_Open"
 msgstr "_Odpri"
 
-#: gitg/gitg-window.vala:882
+#: gitg/gitg-window.vala:942
 msgid "Select items"
 msgstr "Izbor predmetov"
 
-#: gitg/gitg-window.vala:1100
+#: gitg/gitg-window.vala:1160
 #, c-format
 msgid "“%s” is not a Git repository."
 msgstr "Mesto »%s« ni skladišče Git."
 
-#: gitg/gitg-window.vala:1247
+#: gitg/gitg-window.vala:1307
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1523,14 +1525,14 @@ msgstr ""
 "Uporabniško ime in elektronski naslov še nista nastavljena. Ta in druge "
 "podatke uporabnika je mogoče vpisati med nastavitvami uporabnika."
 
-#: gitg/gitg-window.vala:1251
+#: gitg/gitg-window.vala:1311
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
 msgstr ""
 "Vaše ime še ni nastavljeno. Odprite nastavitve uporabnika in vnesite podatek."
 
-#: gitg/gitg-window.vala:1255
+#: gitg/gitg-window.vala:1315
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1538,7 +1540,7 @@ msgstr ""
 "Vaš elektronski naslov še ni nastavljen. Odprite nastavitve uporabnika in "
 "vnesite podatek."
 
-#: gitg/gitg-window.vala:1258
+#: gitg/gitg-window.vala:1318
 msgid "Missing author details"
 msgstr "Manjkajo podrobnosti avtorja"
 
@@ -1608,7 +1610,7 @@ msgstr "Zgodovina"
 msgid "Examine the history of the repository"
 msgstr "Preglej zgodovino skladišča"
 
-#: gitg/history/gitg-history.vala:980
+#: gitg/history/gitg-history.vala:1070
 msgid "Mainline"
 msgstr "Glavna veja"
 
@@ -1619,13 +1621,13 @@ msgstr "Uveljavi"
 
 #. Translators: Unif stands for unified diff format
 #: gitg/preferences/gitg-preferences-interface.vala:143
-#: libgitg/gitg-diff-view-file.vala:160
+#: libgitg/gitg-diff-view-file.vala:199
 msgid "Unif"
 msgstr "Unif"
 
 #. Translators: Split stands for the noun
 #: gitg/preferences/gitg-preferences-interface.vala:144
-#: libgitg/gitg-diff-view-file.vala:165
+#: libgitg/gitg-diff-view-file.vala:204
 msgid "Split"
 msgstr "Razdeli"
 
@@ -2171,6 +2173,11 @@ msgctxt "shortcut window"
 msgid "History Activity"
 msgstr "Zgodovina dejavnosti"
 
+#: gitg/resources/ui/gitg-shortcuts.ui:212
+msgctxt "shortcut window"
+msgid "Show global actions contextual menu. (If any defined)"
+msgstr "Pokaži kontekstni meni globalnih dejanj (če so opredeljena)."
+
 #: gitg/resources/ui/gitg-tag-show-info-dialog.ui:7
 msgid "Show Tag info"
 msgstr "Pokaži podatke oznake"
@@ -2326,23 +2333,23 @@ msgstr "<small>Avtor:</small> %s"
 msgid "<small>Committed by</small> %s"
 msgstr "<small>Uveljavil uporabnik</small>  %s"
 
-#: libgitg/gitg-diff-view-file.vala:176
+#: libgitg/gitg-diff-view-file.vala:215
 msgid "Binary"
 msgstr "Dvojiško"
 
-#: libgitg/gitg-diff-view-file.vala:183
+#: libgitg/gitg-diff-view-file.vala:222
 msgid "Image"
 msgstr "Slika"
 
-#: libgitg/gitg-diff-view-file.vala:228
+#: libgitg/gitg-diff-view-file.vala:267
 msgid "_Open file"
 msgstr "_Odpri datoteko"
 
-#: libgitg/gitg-diff-view-file.vala:261
+#: libgitg/gitg-diff-view-file.vala:300
 msgid "Open containing _folder"
 msgstr "Odpri _mapo z datoteko"
 
-#: libgitg/gitg-diff-view-file.vala:281
+#: libgitg/gitg-diff-view-file.vala:320
 msgid "_Copy file path"
 msgstr "_Kopiraj pot datoteke"
 
