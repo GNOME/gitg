@@ -1938,6 +1938,11 @@ namespace GitgCommit
 			              "tab-width",
 			              SettingsBindFlags.GET | SettingsBindFlags.SET);
 
+			settings.bind("wrap",
+			              d_main.diff_view,
+			              "wrap-lines",
+			              SettingsBindFlags.GET | SettingsBindFlags.SET);
+
 			settings = new Settings(Gitg.Config.APPLICATION_ID + ".preferences.interface");
 
 			settings.bind("use-gravatar",
