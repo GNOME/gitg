@@ -3,13 +3,13 @@
 # This file is distributed under the same licence as the gitg package.
 # Serhij Dubyk <dubyk@ukr.net>, 2011.
 # Daniel Korostil <ted.korostiled@gmail.com>, 2014.
-# Yuri Chornoivan <yurchor@ukr.net>, 2020, 2021, 2022, 2023, 2024, 2025.
+# Yuri Chornoivan <yurchor@ukr.net>, 2020, 2021, 2022, 2023, 2024, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2025-12-04 23:58+0000\n"
-"PO-Revision-Date: 2025-12-05 10:31+0200\n"
+"POT-Creation-Date: 2026-01-18 20:28+0000\n"
+"PO-Revision-Date: 2026-01-19 09:18+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -445,10 +445,12 @@ msgstr ""
 "Параметр, який визначає, чи буде позначено самі зміни у змінених рядках."
 
 #: data/org.gnome.gitg.gschema.xml.in:305
+#: data/org.gnome.gitg.gschema.xml.in:347
 msgid "Wrap"
 msgstr "Перенесення"
 
 #: data/org.gnome.gitg.gschema.xml.in:306
+#: data/org.gnome.gitg.gschema.xml.in:348
 msgid "Wrap lines."
 msgstr "Перенесення рядків."
 
@@ -701,7 +703,7 @@ msgstr "Ви справді хочете назавжди відкинути в�
 #: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
 #: gitg/commit/gitg-commit.vala:1606
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:469
-#: gitg/gitg-window.vala:210 gitg/gitg-window.vala:741
+#: gitg/gitg-window.vala:210 gitg/gitg-window.vala:801
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
 #: gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
@@ -1618,26 +1620,26 @@ msgid "Projects"
 msgstr "Проєкти"
 
 # Відкрити Git репозиторій
-#: gitg/gitg-window.vala:739
+#: gitg/gitg-window.vala:799
 msgid "Open Repository"
 msgstr "Відкрити сховище"
 
 # Відкрити…
-#: gitg/gitg-window.vala:742 gitg/resources/ui/gitg-commit-submodule-info.ui:70
+#: gitg/gitg-window.vala:802 gitg/resources/ui/gitg-commit-submodule-info.ui:70
 msgid "_Open"
 msgstr "_Відкрити"
 
-#: gitg/gitg-window.vala:882
+#: gitg/gitg-window.vala:942
 msgid "Select items"
 msgstr "Вибрати елементи"
 
 # Не вдалося знайти Git репозиторій
-#: gitg/gitg-window.vala:1100
+#: gitg/gitg-window.vala:1160
 #, c-format
 msgid "“%s” is not a Git repository."
 msgstr "«%s» — не сховище Git."
 
-#: gitg/gitg-window.vala:1247
+#: gitg/gitg-window.vala:1307
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1645,7 +1647,7 @@ msgstr ""
 "Ще не налаштовано користувача та пошту. Перейдіть у користувацькі параметри "
 "і вкажіть їх."
 
-#: gitg/gitg-window.vala:1251
+#: gitg/gitg-window.vala:1311
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1653,7 +1655,7 @@ msgstr ""
 "Ще не налаштовано користувача. Перейдіть у користувацькі параметри і вкажіть "
 "його."
 
-#: gitg/gitg-window.vala:1255
+#: gitg/gitg-window.vala:1315
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1661,7 +1663,7 @@ msgstr ""
 "Ще не налаштовано пошту. Перейдіть у користувацькі параметри і вкажіть її."
 
 # Детальна інформація
-#: gitg/gitg-window.vala:1258
+#: gitg/gitg-window.vala:1318
 msgid "Missing author details"
 msgstr "Немає подробиць щодо автора"
 
@@ -1735,7 +1737,7 @@ msgstr "Журнал"
 msgid "Examine the history of the repository"
 msgstr "Вивчення журналу сховища"
 
-#: gitg/history/gitg-history.vala:980
+#: gitg/history/gitg-history.vala:1070
 msgid "Mainline"
 msgstr "Основа"
 
@@ -1747,13 +1749,13 @@ msgstr "Внесок"
 
 #. Translators: Unif stands for unified diff format
 #: gitg/preferences/gitg-preferences-interface.vala:143
-#: libgitg/gitg-diff-view-file.vala:160
+#: libgitg/gitg-diff-view-file.vala:199
 msgid "Unif"
 msgstr "Уніф"
 
 #. Translators: Split stands for the noun
 #: gitg/preferences/gitg-preferences-interface.vala:144
-#: libgitg/gitg-diff-view-file.vala:165
+#: libgitg/gitg-diff-view-file.vala:204
 msgid "Split"
 msgstr "Розділити"
 
@@ -2360,6 +2362,11 @@ msgctxt "shortcut window"
 msgid "History Activity"
 msgstr "Дії з журналом"
 
+#: gitg/resources/ui/gitg-shortcuts.ui:212
+msgctxt "shortcut window"
+msgid "Show global actions contextual menu. (If any defined)"
+msgstr "Показати контекстне меню загальних дій. (Якщо їх визначено)"
+
 #: gitg/resources/ui/gitg-tag-show-info-dialog.ui:7
 msgid "Show Tag info"
 msgstr "Показати відомості мітки"
@@ -2519,24 +2526,24 @@ msgstr "<small>Авторство</small> %s"
 msgid "<small>Committed by</small> %s"
 msgstr "<small>Внесено</small> %s"
 
-#: libgitg/gitg-diff-view-file.vala:176
+#: libgitg/gitg-diff-view-file.vala:215
 msgid "Binary"
 msgstr "Двійковий"
 
-#: libgitg/gitg-diff-view-file.vala:183
+#: libgitg/gitg-diff-view-file.vala:222
 msgid "Image"
 msgstr "Зображення"
 
 # Відкрити…
-#: libgitg/gitg-diff-view-file.vala:228
+#: libgitg/gitg-diff-view-file.vala:267
 msgid "_Open file"
 msgstr "_Відкрити файл"
 
-#: libgitg/gitg-diff-view-file.vala:261
+#: libgitg/gitg-diff-view-file.vala:300
 msgid "Open containing _folder"
 msgstr "Відкрити _теку із даними"
 
-#: libgitg/gitg-diff-view-file.vala:281
+#: libgitg/gitg-diff-view-file.vala:320
 msgid "_Copy file path"
 msgstr "_Копіювати шлях до файла"
 
@@ -2696,7 +2703,6 @@ msgid "Show the files in the tree of the selected commit"
 msgstr "Показати файли у ієрархії вибраного внеску"
 
 #: plugins/files/gitg-files.vala:144
-#| msgid "_Open externally"
 msgid "Open externally"
 msgstr "Відкрити у сторонній програмі"
 
