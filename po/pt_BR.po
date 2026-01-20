@@ -11,17 +11,17 @@
 # Leônidas Araújo <leorusvellt@hotmail.com>, 2022.
 # Matheus Barbosa <mdpb.matheus@gmail.com>, 2022.
 # Fúlvio Leo <fulviokaldas@outlook.com>, 2024.
-# Rafael Fontenelle <rafaelff@gnome.org>, 2013-2025.
 # Juliano de Souza Camargo <julianosc@pm.me>, 2025.
+# Rafael Fontenelle <rafaelff@gnome.org>, 2013-2026.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2025-12-05 10:49+0000\n"
-"PO-Revision-Date: 2025-12-10 09:38-0300\n"
-"Last-Translator: Juliano de Souza Camargo <julianosc@pm.me>\n"
-"Language-Team: Brazilian Portuguese <https://br.gnome.org/traducao/>\n"
+"POT-Creation-Date: 2026-01-19 23:24+0000\n"
+"PO-Revision-Date: 2026-01-20 15:35-0300\n"
+"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
+"Language-Team: Brazilian Portuguese <https://br.gnome.org/traducao>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -442,10 +442,12 @@ msgstr ""
 "exibidas de forma embutida."
 
 #: data/org.gnome.gitg.gschema.xml.in:305
+#: data/org.gnome.gitg.gschema.xml.in:347
 msgid "Wrap"
 msgstr "Quebrar linha"
 
 #: data/org.gnome.gitg.gschema.xml.in:306
+#: data/org.gnome.gitg.gschema.xml.in:348
 msgid "Wrap lines."
 msgstr "Quebra de linha."
 
@@ -683,7 +685,7 @@ msgstr ""
 #: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
 #: gitg/commit/gitg-commit.vala:1606
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:469
-#: gitg/gitg-window.vala:210 gitg/gitg-window.vala:741
+#: gitg/gitg-window.vala:210 gitg/gitg-window.vala:801
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
 #: gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
@@ -1527,24 +1529,24 @@ msgstr "_Varrer em busca de todos os repositórios git a partir deste diretório
 msgid "Projects"
 msgstr "Projetos"
 
-#: gitg/gitg-window.vala:739
+#: gitg/gitg-window.vala:799
 msgid "Open Repository"
 msgstr "Abrir repositório"
 
-#: gitg/gitg-window.vala:742 gitg/resources/ui/gitg-commit-submodule-info.ui:70
+#: gitg/gitg-window.vala:802 gitg/resources/ui/gitg-commit-submodule-info.ui:70
 msgid "_Open"
 msgstr "A_brir"
 
-#: gitg/gitg-window.vala:882
+#: gitg/gitg-window.vala:942
 msgid "Select items"
 msgstr "Selecionar itens"
 
-#: gitg/gitg-window.vala:1100
+#: gitg/gitg-window.vala:1160
 #, c-format
 msgid "“%s” is not a Git repository."
 msgstr "“%s” não é um repositório Git."
 
-#: gitg/gitg-window.vala:1247
+#: gitg/gitg-window.vala:1307
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1552,7 +1554,7 @@ msgstr ""
 "Seu nome de usuário e e-mail não estão configurados ainda. Por favor, vá na "
 "configuração de usuário e forneça seu nome e e-mail."
 
-#: gitg/gitg-window.vala:1251
+#: gitg/gitg-window.vala:1311
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1560,7 +1562,7 @@ msgstr ""
 "Seu nome de usuário não está configurado ainda. Por favor, vá na "
 "configuração de usuário e forneça seu nome."
 
-#: gitg/gitg-window.vala:1255
+#: gitg/gitg-window.vala:1315
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1568,7 +1570,7 @@ msgstr ""
 "Seu e-mail não está configurado ainda. Por favor, vá na configuração de "
 "usuário e forneça seu e-mail."
 
-#: gitg/gitg-window.vala:1258
+#: gitg/gitg-window.vala:1318
 msgid "Missing author details"
 msgstr "Faltando detalhes do autor"
 
@@ -1639,7 +1641,7 @@ msgstr "Histórico"
 msgid "Examine the history of the repository"
 msgstr "Examinar o histórico do repositório"
 
-#: gitg/history/gitg-history.vala:980
+#: gitg/history/gitg-history.vala:1070
 msgid "Mainline"
 msgstr "Ramo original"
 
@@ -1650,13 +1652,13 @@ msgstr "Commit"
 
 #. Translators: Unif stands for unified diff format
 #: gitg/preferences/gitg-preferences-interface.vala:143
-#: libgitg/gitg-diff-view-file.vala:160
+#: libgitg/gitg-diff-view-file.vala:199
 msgid "Unif"
 msgstr "Unif"
 
 #. Translators: Split stands for the noun
 #: gitg/preferences/gitg-preferences-interface.vala:144
-#: libgitg/gitg-diff-view-file.vala:165
+#: libgitg/gitg-diff-view-file.vala:204
 msgid "Split"
 msgstr "Dividir"
 
@@ -2205,6 +2207,11 @@ msgctxt "shortcut window"
 msgid "History Activity"
 msgstr "Atividade de histórico"
 
+#: gitg/resources/ui/gitg-shortcuts.ui:212
+msgctxt "shortcut window"
+msgid "Show global actions contextual menu. (If any defined)"
+msgstr "Mostra o menu contextual de ações globais. (se estiver definido)"
+
 #: gitg/resources/ui/gitg-tag-show-info-dialog.ui:7
 msgid "Show Tag info"
 msgstr "Mostrar informações da Tag"
@@ -2354,23 +2361,23 @@ msgstr "<small>De autoria de</small> %s"
 msgid "<small>Committed by</small> %s"
 msgstr "<small>Commit feito por</small> %s"
 
-#: libgitg/gitg-diff-view-file.vala:176
+#: libgitg/gitg-diff-view-file.vala:215
 msgid "Binary"
 msgstr "Binário"
 
-#: libgitg/gitg-diff-view-file.vala:183
+#: libgitg/gitg-diff-view-file.vala:222
 msgid "Image"
 msgstr "Imagem"
 
-#: libgitg/gitg-diff-view-file.vala:228
+#: libgitg/gitg-diff-view-file.vala:267
 msgid "_Open file"
 msgstr "_Abrir arquivo"
 
-#: libgitg/gitg-diff-view-file.vala:261
+#: libgitg/gitg-diff-view-file.vala:300
 msgid "Open containing _folder"
 msgstr "Abrir pasta co_ntinente"
 
-#: libgitg/gitg-diff-view-file.vala:281
+#: libgitg/gitg-diff-view-file.vala:320
 msgid "_Copy file path"
 msgstr "_Copiar caminho do arquivo"
 
