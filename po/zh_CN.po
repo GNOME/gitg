@@ -7,14 +7,14 @@
 # Mingcong Bai <jeffbai@aosc.xyz>, 2017.
 # Dingzhong Chen <wsxy162@gmail.com>, 2019.
 # Nanling <neithern@outlook.com>, 2023.
-# lumingzh <lumingzh@qq.com>, 2022-2025.
+# lumingzh <lumingzh@qq.com>, 2022-2026.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2025-12-04 20:49+0000\n"
-"PO-Revision-Date: 2025-12-05 07:56+0800\n"
+"POT-Creation-Date: 2026-01-19 23:24+0000\n"
+"PO-Revision-Date: 2026-01-20 10:29+0800\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -384,10 +384,12 @@ msgid ""
 msgstr "设置行内变更是否在行内显示。"
 
 #: data/org.gnome.gitg.gschema.xml.in:305
+#: data/org.gnome.gitg.gschema.xml.in:347
 msgid "Wrap"
 msgstr "折行"
 
 #: data/org.gnome.gitg.gschema.xml.in:306
+#: data/org.gnome.gitg.gschema.xml.in:348
 msgid "Wrap lines."
 msgstr "自动折行。"
 
@@ -612,7 +614,7 @@ msgstr "确定要永久丢弃选中的变更吗？"
 #: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
 #: gitg/commit/gitg-commit.vala:1606
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:469
-#: gitg/gitg-window.vala:210 gitg/gitg-window.vala:741
+#: gitg/gitg-window.vala:210 gitg/gitg-window.vala:801
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
 #: gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
@@ -1429,42 +1431,42 @@ msgstr "在本目录寻找所有 Git 仓库(_S)"
 msgid "Projects"
 msgstr "工程"
 
-#: gitg/gitg-window.vala:739
+#: gitg/gitg-window.vala:799
 msgid "Open Repository"
 msgstr "打开仓库"
 
-#: gitg/gitg-window.vala:742 gitg/resources/ui/gitg-commit-submodule-info.ui:70
+#: gitg/gitg-window.vala:802 gitg/resources/ui/gitg-commit-submodule-info.ui:70
 msgid "_Open"
 msgstr "打开(_O)"
 
-#: gitg/gitg-window.vala:882
+#: gitg/gitg-window.vala:942
 msgid "Select items"
 msgstr "选择项目"
 
-#: gitg/gitg-window.vala:1100
+#: gitg/gitg-window.vala:1160
 #, c-format
 msgid "“%s” is not a Git repository."
 msgstr "“%s”不是有效的 Git 仓库。"
 
-#: gitg/gitg-window.vala:1247
+#: gitg/gitg-window.vala:1307
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
 msgstr "您的用户名和邮箱尚未配置。请转到用户配置，填写您的姓名和邮箱。"
 
-#: gitg/gitg-window.vala:1251
+#: gitg/gitg-window.vala:1311
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
 msgstr "您的用户名尚未配置。请转到用户配置，填写您的姓名。"
 
-#: gitg/gitg-window.vala:1255
+#: gitg/gitg-window.vala:1315
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
 msgstr "您的邮箱尚未配置。请转到用户配置，填写您的邮箱。"
 
-#: gitg/gitg-window.vala:1258
+#: gitg/gitg-window.vala:1318
 msgid "Missing author details"
 msgstr "作者详情缺失"
 
@@ -1534,7 +1536,7 @@ msgstr "历史"
 msgid "Examine the history of the repository"
 msgstr "查看仓库的历史"
 
-#: gitg/history/gitg-history.vala:980
+#: gitg/history/gitg-history.vala:1070
 msgid "Mainline"
 msgstr "主线"
 
@@ -1545,13 +1547,13 @@ msgstr "提交"
 
 #. Translators: Unif stands for unified diff format
 #: gitg/preferences/gitg-preferences-interface.vala:143
-#: libgitg/gitg-diff-view-file.vala:160
+#: libgitg/gitg-diff-view-file.vala:199
 msgid "Unif"
 msgstr "统一"
 
 #. Translators: Split stands for the noun
 #: gitg/preferences/gitg-preferences-interface.vala:144
-#: libgitg/gitg-diff-view-file.vala:165
+#: libgitg/gitg-diff-view-file.vala:204
 msgid "Split"
 msgstr "拆分"
 
@@ -2092,6 +2094,11 @@ msgctxt "shortcut window"
 msgid "History Activity"
 msgstr "历史活动"
 
+#: gitg/resources/ui/gitg-shortcuts.ui:212
+msgctxt "shortcut window"
+msgid "Show global actions contextual menu. (If any defined)"
+msgstr "显示全局操作上下文菜单。（如果有已定义操作）"
+
 #: gitg/resources/ui/gitg-tag-show-info-dialog.ui:7
 msgid "Show Tag info"
 msgstr "显示标签信息"
@@ -2238,23 +2245,23 @@ msgstr "<small>作者为</small> %s"
 msgid "<small>Committed by</small> %s"
 msgstr "<small>提交者为</small> %s"
 
-#: libgitg/gitg-diff-view-file.vala:176
+#: libgitg/gitg-diff-view-file.vala:215
 msgid "Binary"
 msgstr "二进制文件"
 
-#: libgitg/gitg-diff-view-file.vala:183
+#: libgitg/gitg-diff-view-file.vala:222
 msgid "Image"
 msgstr "图像"
 
-#: libgitg/gitg-diff-view-file.vala:228
+#: libgitg/gitg-diff-view-file.vala:267
 msgid "_Open file"
 msgstr "打开文件(_O)"
 
-#: libgitg/gitg-diff-view-file.vala:261
+#: libgitg/gitg-diff-view-file.vala:300
 msgid "Open containing _folder"
 msgstr "打开所在文件夹(_F)"
 
-#: libgitg/gitg-diff-view-file.vala:281
+#: libgitg/gitg-diff-view-file.vala:320
 msgid "_Copy file path"
 msgstr "复制文件路径(_C)"
 
