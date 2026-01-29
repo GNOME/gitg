@@ -60,13 +60,12 @@ class RefActionMerge : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Obj
 
 	public string display_name
 	{
-		owned get { return _("Merge into %s").printf(reference.parsed_name.shortname); }
+		owned get { return _("Merge into “%s”").printf(reference.parsed_name.shortname); }
 	}
 
 	public string description
 	{
-		// TODO
-		owned get { return _("Merge another branch into branch %s").printf(reference.parsed_name.shortname); }
+		owned get { return _("Merge another branch into branch “%s”").printf(reference.parsed_name.shortname); }
 	}
 
 	public bool available
@@ -139,14 +138,16 @@ class RefActionMerge : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Obj
 
 			if (source.parsed_name.rtype == RefType.REMOTE)
 			{
-				msg = @"Merge remote branch “$theirs_name”";
+				msg = _("Merge remote branch “%s”").printf(theirs_name);
 			}
 			else
 			{
-				msg = @"Merge branch “$theirs_name”";
+				msg = _("Merge branch “%s”").printf(theirs_name);
 			}
 
-			msg += "\n\nConflicts:\n";
+			msg += "\n\n";
+			msg += _("Conflicts:");
+			msg += "\n";
 
 			var entries = index.get_entries();
 			var seen = new Gee.HashSet<string>();

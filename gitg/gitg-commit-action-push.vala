@@ -118,7 +118,7 @@ class CommitActionPush : GitgExt.UIElement, GitgExt.Action, GitgExt.CommitAction
 		var notification = new RemoteNotification(remote);
 		application.notifications.add(notification);
 
-		notification.text = _("Pushing to %s").printf(remote.get_url());
+		notification.text = _("Pushing to “%s”").printf(remote.get_url());
 
 		try
 		{
@@ -127,14 +127,14 @@ class CommitActionPush : GitgExt.UIElement, GitgExt.Action, GitgExt.CommitAction
 		}
 		catch (Error e)
 		{
-			notification.error(_("Failed to push to %s: %s").printf(remote.get_url(), e.message));
+			notification.error(_("Failed to push to “%s”: %s").printf(remote.get_url(), e.message));
 			stderr.printf("Failed to push: %s\n", e.message);
 
 			return false;
 		}
 
 		/* Translators: the %s will get replaced with the remote url, */
-		notification.success(_("Pushed to %s").printf(remote.get_url()));
+		notification.success(_("Pushed to “%s”").printf(remote.get_url()));
 
 		return true;
 	}
