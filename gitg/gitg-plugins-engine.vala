@@ -28,7 +28,7 @@ public class PluginsEngine : Peas.Engine
 	{
 		enable_loader("python");
 
-		var repo = Introspection.Repository.get_default();
+		var repo = Introspection.Repository.dup_default();
 
 		try
 		{

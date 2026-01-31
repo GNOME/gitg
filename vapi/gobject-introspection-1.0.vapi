@@ -1,4 +1,4 @@
-[CCode (cprefix = "GI", lower_case_cprefix = "g_i", cheader_filename = "girepository.h")]
+[CCode (cprefix = "GI", lower_case_cprefix = "gi_", cheader_filename = "girepository/girepository.h")]
 namespace Introspection
 {
 	[CCode (cprefix = "G_IREPOSITORY_ERROR_")]
@@ -16,7 +16,7 @@ namespace Introspection
 
 	[CCode (ref_function = "", unref_function = "")]
 	public class Repository {
-		public static unowned Repository get_default();
+		public static unowned Repository dup_default();
 		public static void prepend_search_path(string directory);
 		public static unowned GLib.SList<string> get_search_path();
 
