@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2026-01-19 23:24+0000\n"
-"PO-Revision-Date: 2026-01-20 10:29+0800\n"
+"POT-Creation-Date: 2026-01-29 17:32+0000\n"
+"PO-Revision-Date: 2026-02-01 09:26+0800\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -42,37 +42,37 @@ msgstr "Git 仓库浏览器"
 msgid "New Window"
 msgstr "新建窗口"
 
-#: data/org.gnome.gitg.gschema.xml.in:28
+#: data/org.gnome.gitg.gschema.xml.in:30
 msgid "Default Clone Directory"
 msgstr "默认克隆的目录"
 
-#: data/org.gnome.gitg.gschema.xml.in:29
+#: data/org.gnome.gitg.gschema.xml.in:31
 msgid ""
 "The default directory in which new repositories should be suggested to be "
 "cloned."
 msgstr "建议克隆新仓库到的默认目录。"
 
-#: data/org.gnome.gitg.gschema.xml.in:38
+#: data/org.gnome.gitg.gschema.xml.in:40
 msgid "Orientation of the main interface (vertical or horizontal)"
 msgstr "主界面方向（横向或纵向）"
 
-#: data/org.gnome.gitg.gschema.xml.in:39
+#: data/org.gnome.gitg.gschema.xml.in:41
 msgid "Setting that sets the orientation of the main interface."
 msgstr "设定主界面方向布局的设置。"
 
-#: data/org.gnome.gitg.gschema.xml.in:45
+#: data/org.gnome.gitg.gschema.xml.in:47
 msgid "Default Activity"
 msgstr "默认活动"
 
-#: data/org.gnome.gitg.gschema.xml.in:46
+#: data/org.gnome.gitg.gschema.xml.in:48
 msgid "The activity which gitg activates by default when first launched."
 msgstr "当第一次运行时 gitg 默认启用的活动。"
 
-#: data/org.gnome.gitg.gschema.xml.in:52
+#: data/org.gnome.gitg.gschema.xml.in:54
 msgid "Use Default Font"
 msgstr "使用默认字体"
 
-#: data/org.gnome.gitg.gschema.xml.in:53
+#: data/org.gnome.gitg.gschema.xml.in:55
 msgid ""
 "Whether to use the system’s default fixed width font for widget's text "
 "instead of a font specific. If this option is turned off, then the font "
@@ -82,183 +82,189 @@ msgstr ""
 "闭，则将使用“编辑器字体”选项中所指定的字体而非系统默认字体。"
 
 #. Translators: This is a GSettings default value. Do NOT change or localize the quotation marks!
-#: data/org.gnome.gitg.gschema.xml.in:57
+#: data/org.gnome.gitg.gschema.xml.in:59
 msgid "'Monospace 12'"
 msgstr "'Monospace 12'"
 
-#: data/org.gnome.gitg.gschema.xml.in:58
+#: data/org.gnome.gitg.gschema.xml.in:60
 msgid "Editor Font"
 msgstr "编辑器字体"
 
-#: data/org.gnome.gitg.gschema.xml.in:59
+#: data/org.gnome.gitg.gschema.xml.in:61
 msgid ""
 "A custom font that will be used for the text widgets. This will only take "
 "effect if the “Use Default Font” option is turned off."
 msgstr ""
 "将用在文本组件中的自定义字体。只有在“使用默认字体”选项被禁用时此项才会生效。"
 
-#: data/org.gnome.gitg.gschema.xml.in:63
+#: data/org.gnome.gitg.gschema.xml.in:65
 msgid "Use Gravatar"
 msgstr "使用 Gravatar"
 
-#: data/org.gnome.gitg.gschema.xml.in:64
+#: data/org.gnome.gitg.gschema.xml.in:66
 msgid "Enable the use of gravatar to display user avatars."
 msgstr "使用 gravatar 显示用户头像。"
 
-#: data/org.gnome.gitg.gschema.xml.in:70
+#: data/org.gnome.gitg.gschema.xml.in:72
 msgid "Enable Monitoring"
 msgstr "启用监视"
 
-#: data/org.gnome.gitg.gschema.xml.in:71
+#: data/org.gnome.gitg.gschema.xml.in:73
 #: gitg/resources/ui/gitg-preferences-interface.ui:188
 msgid "Automatically update when external changes to .git are detected"
 msgstr "当检测到 .git 外部更改时自动更新"
 
-#: data/org.gnome.gitg.gschema.xml.in:77
+#: data/org.gnome.gitg.gschema.xml.in:79
 msgid "Enable Diff Highlighting"
 msgstr "启用差异高亮"
 
-#: data/org.gnome.gitg.gschema.xml.in:78
+#: data/org.gnome.gitg.gschema.xml.in:80
 msgid ""
 "Setting that determines whether to enable syntax highlighting in diff views."
 msgstr "设置是否启用差异视图语法高亮。"
 
-#: data/org.gnome.gitg.gschema.xml.in:85
+#: data/org.gnome.gitg.gschema.xml.in:87
 msgid "Color scheme to use for syntax highlighting"
 msgstr "用于语法高亮的 gtksourceview 配色方案"
 
-#: data/org.gnome.gitg.gschema.xml.in:86
+#: data/org.gnome.gitg.gschema.xml.in:88
 msgid "Used by GtkSourceView to determine colors for syntax highlighting"
 msgstr "由 GtkSourceView 使用来确定语法高亮的颜色"
 
-#: data/org.gnome.gitg.gschema.xml.in:90
+#: data/org.gnome.gitg.gschema.xml.in:92
 msgid "Text Diff Mode"
 msgstr "文本差异模式"
 
-#: data/org.gnome.gitg.gschema.xml.in:91
+#: data/org.gnome.gitg.gschema.xml.in:93
 msgid "Text diff mode."
 msgstr "文本差异模式。"
 
-#: data/org.gnome.gitg.gschema.xml.in:97
+#: data/org.gnome.gitg.gschema.xml.in:99
+msgid ""
+"Setting that indicates whether push dialog is configured figuring out "
+"expected values to push."
+msgstr "设置是否将推送对话框配置为预填要推送的预期值。"
+
+#: data/org.gnome.gitg.gschema.xml.in:108
 msgid "When to Collapse Inactive Lanes"
 msgstr "何时折叠不活动的路线"
 
-#: data/org.gnome.gitg.gschema.xml.in:98
+#: data/org.gnome.gitg.gschema.xml.in:109
 msgid ""
 "Setting that indicates when an inactive lane should be collapsed. Valid "
 "values are 0 — 4, where 0 indicates “early” and 4 indicates “late”."
-msgstr "该设置指示何时折叠不活动的路线。有效值为 0—4，0 表示“早”，4 表示“晚”。"
+msgstr "设置何时折叠不活动的路线。有效值为 0—4，0 表示“早”，4 表示“晚”。"
 
-#: data/org.gnome.gitg.gschema.xml.in:105
+#: data/org.gnome.gitg.gschema.xml.in:116
 msgid ""
 "Setting that indicates whether to collapse history lanes which do not show "
 "activity. Enabling this can provide a cleaner history view when there is a "
 "lot of parallel development. See collapse-inactive-lanes to control when "
 "lanes should be collapsed."
 msgstr ""
-"设置说明是否折叠历史路线，不显示活动。启用它会使历史视图更加简洁，如果有很多"
-"并行开发的话。关于控制何时折叠路线，参阅 collapse-inactive-lanes。"
+"设置是否折叠历史路线，不显示活动。启用它会使历史视图更加简洁，如果有很多并行"
+"开发的话。关于控制何时折叠路线，参阅 collapse-inactive-lanes。"
 
-#: data/org.gnome.gitg.gschema.xml.in:114
+#: data/org.gnome.gitg.gschema.xml.in:125
 msgid "Show History in Topological Order"
 msgstr "以拓扑顺序显示历史"
 
-#: data/org.gnome.gitg.gschema.xml.in:115
+#: data/org.gnome.gitg.gschema.xml.in:126
 msgid ""
 "Setting that indicates whether to show the history in topological order."
-msgstr "指示是否以拓扑顺序显示历史的设置。"
+msgstr "设置是否以拓扑顺序显示历史。"
 
-#: data/org.gnome.gitg.gschema.xml.in:121
+#: data/org.gnome.gitg.gschema.xml.in:132
 msgid "Show Stashed Changes"
 msgstr "显示储藏变更"
 
-#: data/org.gnome.gitg.gschema.xml.in:122
+#: data/org.gnome.gitg.gschema.xml.in:133
 msgid ""
 "Setting that indicates whether to show items for the stash in the history."
-msgstr "指示是否在历史记录中显示进度保存的项目的设置。"
+msgstr "设置是否在历史记录中显示进度保存的项目。"
 
-#: data/org.gnome.gitg.gschema.xml.in:129
+#: data/org.gnome.gitg.gschema.xml.in:140
 msgid "Show Staged Changes"
 msgstr "显示暂存的变更"
 
-#: data/org.gnome.gitg.gschema.xml.in:130
+#: data/org.gnome.gitg.gschema.xml.in:141
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "staged changes in the history."
-msgstr "指示是否在历史中显示对应当前已暂存变更的虚项（virtual item）的设置。"
+msgstr "设置是否在历史中显示对应当前已暂存变更的虚拟项目。"
 
-#: data/org.gnome.gitg.gschema.xml.in:137
+#: data/org.gnome.gitg.gschema.xml.in:148
 msgid "Show Unstaged Changes"
 msgstr "显示未暂存的变更"
 
-#: data/org.gnome.gitg.gschema.xml.in:138
+#: data/org.gnome.gitg.gschema.xml.in:149
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "unstaged changes in the history."
-msgstr "指示是否在历史中显示对应当前撤回的变更的虚项。"
+msgstr "设置是否在历史中显示对应当前未暂存变更的虚拟项目。"
 
-#: data/org.gnome.gitg.gschema.xml.in:145
+#: data/org.gnome.gitg.gschema.xml.in:156
 msgid "Mainline Head"
 msgstr "主线头指针"
 
-#: data/org.gnome.gitg.gschema.xml.in:146
+#: data/org.gnome.gitg.gschema.xml.in:157
 msgid ""
 "Setting that indicates whether to always preserve a mainline in the history "
 "for the current HEAD."
 msgstr "设置是否永远为目前的 HEAD 保留一根历史主线。"
 
-#: data/org.gnome.gitg.gschema.xml.in:153
+#: data/org.gnome.gitg.gschema.xml.in:164
 msgid "Default selection of the history activity"
 msgstr "历史活动的默认选中项"
 
-#: data/org.gnome.gitg.gschema.xml.in:154
+#: data/org.gnome.gitg.gschema.xml.in:165
 msgid ""
 "Setting that determines the default selection on startup of the history "
 "activity."
 msgstr "设置历史活动启动时的默认选中项。"
 
-#: data/org.gnome.gitg.gschema.xml.in:160
+#: data/org.gnome.gitg.gschema.xml.in:171
 msgid "Reference Sort Order"
 msgstr "引用排序依据"
 
-#: data/org.gnome.gitg.gschema.xml.in:161
+#: data/org.gnome.gitg.gschema.xml.in:172
 msgid "The order by which references in the history sidebar should be sorted."
 msgstr "历史侧边栏中引用的排序依据。"
 
-#: data/org.gnome.gitg.gschema.xml.in:167
+#: data/org.gnome.gitg.gschema.xml.in:178
 msgid "Show Upstream With Branch"
 msgstr "在分支中显示上游"
 
-#: data/org.gnome.gitg.gschema.xml.in:168
+#: data/org.gnome.gitg.gschema.xml.in:179
 msgid ""
 "Determines whether to also show the upstream (remote) tracking branch when "
 "selecting a local branch in the history view."
 msgstr "决定是否在历史视图中选中本地分支时同时显示其跟踪的上游（远程）分支。"
 
-#: data/org.gnome.gitg.gschema.xml.in:175
+#: data/org.gnome.gitg.gschema.xml.in:186
 #: gitg/resources/ui/gitg-preferences-history.ui:151
 msgid "Filter unknown refs"
 msgstr "过滤未知引用"
 
-#: data/org.gnome.gitg.gschema.xml.in:176
+#: data/org.gnome.gitg.gschema.xml.in:187
 msgid "Hide any ref different from refs/heads and refs/remotes."
 msgstr "隐藏任何不同于 refs/heads 和 refs/remotes 的引用。"
 
-#: data/org.gnome.gitg.gschema.xml.in:184
+#: data/org.gnome.gitg.gschema.xml.in:195
 msgid "Switch to the new branch on creation"
 msgstr "创建分支时切换至新分支"
 
-#: data/org.gnome.gitg.gschema.xml.in:185
+#: data/org.gnome.gitg.gschema.xml.in:196
 msgid ""
 "Setting that controls whether the newly created branch is checked out "
 "automatically."
 msgstr "控制是否在新分支被创建时自动切换至该分支。"
 
-#: data/org.gnome.gitg.gschema.xml.in:200
+#: data/org.gnome.gitg.gschema.xml.in:211
 msgid "Show Right Margin in Commit Message View"
 msgstr "在提交说明视图中显示右边距"
 
-#: data/org.gnome.gitg.gschema.xml.in:201
+#: data/org.gnome.gitg.gschema.xml.in:212
 msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
@@ -266,21 +272,21 @@ msgstr ""
 "在提交说明视图中显示一个右边距指示器。这可以用来方便地看出在哪一列打断提交信"
 "息。"
 
-#: data/org.gnome.gitg.gschema.xml.in:209
+#: data/org.gnome.gitg.gschema.xml.in:220
 msgid "Column at Which Right Margin is Shown"
 msgstr "显示右边距的列"
 
-#: data/org.gnome.gitg.gschema.xml.in:210
+#: data/org.gnome.gitg.gschema.xml.in:221
 msgid ""
 "The column at which the right margin is shown if the show-right-margin "
 "preference is set to TRUE."
 msgstr "若 show-right-margin 首选项设为 TRUE，显示右边界的列。"
 
-#: data/org.gnome.gitg.gschema.xml.in:217
+#: data/org.gnome.gitg.gschema.xml.in:228
 msgid "Show Subject Margin in Commit Message View"
 msgstr "在提交说明视图中显示主题边距"
 
-#: data/org.gnome.gitg.gschema.xml.in:218
+#: data/org.gnome.gitg.gschema.xml.in:229
 msgid ""
 "Highlight the subject text of the commit message when it passes the margin "
 "specified by subject-margin-position."
@@ -288,135 +294,135 @@ msgstr ""
 "在提交说明的主题文字超出 subject-margin-position 指定的边界时，高亮显示越界部"
 "分。"
 
-#: data/org.gnome.gitg.gschema.xml.in:225
+#: data/org.gnome.gitg.gschema.xml.in:236
 msgid "Column at Which Subject Margin is Shown"
 msgstr "显示主题边界的列"
 
-#: data/org.gnome.gitg.gschema.xml.in:226
+#: data/org.gnome.gitg.gschema.xml.in:237
 msgid ""
 "The column at which the subject margin is shown if the show-subject-margin "
 "preference is set to TRUE."
 msgstr "若 show-subject-margin 首选项设为 TRUE，显示主题边界的列。"
 
-#: data/org.gnome.gitg.gschema.xml.in:233
+#: data/org.gnome.gitg.gschema.xml.in:244
 msgid "Enable Spell Checking"
 msgstr "启用拼写检查"
 
-#: data/org.gnome.gitg.gschema.xml.in:234
+#: data/org.gnome.gitg.gschema.xml.in:245
 msgid ""
 "Setting which determines whether or not spell checking is enabled when "
 "writing a commit message."
 msgstr "设置在写提交说明时是否启用拼写检查。"
 
-#: data/org.gnome.gitg.gschema.xml.in:241
+#: data/org.gnome.gitg.gschema.xml.in:252
 msgid "Spell Checking Language"
 msgstr "拼写检查语言"
 
-#: data/org.gnome.gitg.gschema.xml.in:242
+#: data/org.gnome.gitg.gschema.xml.in:253
 msgid ""
 "The language to use when spell checking is enabled for writing a commit "
 "message."
 msgstr "对写作提交说明启用拼写检查时使用的语言。"
 
-#: data/org.gnome.gitg.gschema.xml.in:249
+#: data/org.gnome.gitg.gschema.xml.in:260
 msgid "Maximum number of previous commit messages"
 msgstr "历史提交信息的最大数量"
 
-#: data/org.gnome.gitg.gschema.xml.in:250
+#: data/org.gnome.gitg.gschema.xml.in:261
 msgid ""
 "Maximum number of previous commit messages to store for commit message "
 "history."
 msgstr "存储提交信息历史条目的最大数量。"
 
-#: data/org.gnome.gitg.gschema.xml.in:254
+#: data/org.gnome.gitg.gschema.xml.in:265
 msgid "Maximum number of days to store previous commit messages"
 msgstr "历史提交信息的最长存储日期"
 
-#: data/org.gnome.gitg.gschema.xml.in:255
+#: data/org.gnome.gitg.gschema.xml.in:266
 msgid ""
 "Maximum number of days to store previous commit messages for commit message "
 "history."
 msgstr "存储最久的提交信息历史条目对应的天数。"
 
-#: data/org.gnome.gitg.gschema.xml.in:259
-#: data/org.gnome.gitg.gschema.xml.in:260
+#: data/org.gnome.gitg.gschema.xml.in:270
+#: data/org.gnome.gitg.gschema.xml.in:271
 msgid "Type of datetime format selected."
 msgstr "选择的日期格式类型。"
 
-#: data/org.gnome.gitg.gschema.xml.in:266
+#: data/org.gnome.gitg.gschema.xml.in:277
 msgid "Preferred datetime format of the user."
 msgstr "用户首选的日期格式。"
 
-#: data/org.gnome.gitg.gschema.xml.in:267
+#: data/org.gnome.gitg.gschema.xml.in:278
 msgid "The datetime format to be used in commit-diff."
 msgstr "提交差异中使用的日期格式。"
 
-#: data/org.gnome.gitg.gschema.xml.in:273
-#: data/org.gnome.gitg.gschema.xml.in:274
+#: data/org.gnome.gitg.gschema.xml.in:284
+#: data/org.gnome.gitg.gschema.xml.in:285
 msgid "Custom datetime format."
 msgstr "自定义日期格式"
 
-#: data/org.gnome.gitg.gschema.xml.in:282
+#: data/org.gnome.gitg.gschema.xml.in:293
 msgid "Use patience algorithm to show diffs"
 msgstr "使用耐心算法来显示差异"
 
-#: data/org.gnome.gitg.gschema.xml.in:283
+#: data/org.gnome.gitg.gschema.xml.in:294
 msgid "Setting to use patience algorithm to show diffs of a commit."
 msgstr "设置使用耐心（patience）算法来显示提交的差异。"
 
-#: data/org.gnome.gitg.gschema.xml.in:289
+#: data/org.gnome.gitg.gschema.xml.in:300
 msgid "Ignore Whitespace Changes"
 msgstr "忽略空白变更"
 
-#: data/org.gnome.gitg.gschema.xml.in:290
+#: data/org.gnome.gitg.gschema.xml.in:301
 msgid ""
 "Setting that indicates whether to ignore whitespace changes when showing the "
 "diff of a commit."
 msgstr "设置显示提交间的不同时是否忽略空白变更。"
 
-#: data/org.gnome.gitg.gschema.xml.in:297
+#: data/org.gnome.gitg.gschema.xml.in:308
 msgid "Show Changes Inline"
 msgstr "行内显示变更"
 
-#: data/org.gnome.gitg.gschema.xml.in:298
+#: data/org.gnome.gitg.gschema.xml.in:309
 msgid ""
 "Setting that indicates whether changes within lines should be shown inline."
 msgstr "设置行内变更是否在行内显示。"
 
-#: data/org.gnome.gitg.gschema.xml.in:305
-#: data/org.gnome.gitg.gschema.xml.in:347
+#: data/org.gnome.gitg.gschema.xml.in:316
+#: data/org.gnome.gitg.gschema.xml.in:358
 msgid "Wrap"
 msgstr "折行"
 
-#: data/org.gnome.gitg.gschema.xml.in:306
-#: data/org.gnome.gitg.gschema.xml.in:348
+#: data/org.gnome.gitg.gschema.xml.in:317
+#: data/org.gnome.gitg.gschema.xml.in:359
 msgid "Wrap lines."
 msgstr "自动折行。"
 
-#: data/org.gnome.gitg.gschema.xml.in:312
-#: data/org.gnome.gitg.gschema.xml.in:330
+#: data/org.gnome.gitg.gschema.xml.in:323
+#: data/org.gnome.gitg.gschema.xml.in:341
 msgid "Number of Before/After Context Lines"
 msgstr "前/后上下文行数"
 
-#: data/org.gnome.gitg.gschema.xml.in:313
+#: data/org.gnome.gitg.gschema.xml.in:324
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff of a commit."
 msgstr "设置显示一个提交的变更时应该显示的上下文行数。"
 
-#: data/org.gnome.gitg.gschema.xml.in:320
-#: data/org.gnome.gitg.gschema.xml.in:339
+#: data/org.gnome.gitg.gschema.xml.in:331
+#: data/org.gnome.gitg.gschema.xml.in:350
 msgid "Rendered Width of a Tab Character"
 msgstr "制表符呈现的宽度"
 
-#: data/org.gnome.gitg.gschema.xml.in:321
-#: data/org.gnome.gitg.gschema.xml.in:340
+#: data/org.gnome.gitg.gschema.xml.in:332
+#: data/org.gnome.gitg.gschema.xml.in:351
 msgid ""
 "Setting that determines how much space a tab character should occupy when "
 "showing the diff of a commit."
 msgstr "设置显示提交的变更时，一个制表符应该占用几个空格。"
 
-#: data/org.gnome.gitg.gschema.xml.in:331
+#: data/org.gnome.gitg.gschema.xml.in:342
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff to be staged/unstaged in the commit area."
@@ -707,7 +713,7 @@ msgstr "编辑文件(_E)"
 #: gitg/gitg-action-support.vala:95
 #, c-format
 msgid "Failed to stash changes: %s"
-msgstr "进度保存变更失败：%s"
+msgstr "储藏变更失败：%s"
 
 #: gitg/gitg-action-support.vala:130
 msgid "Unstaged changes"
@@ -717,11 +723,11 @@ msgstr "未暂存的变更"
 msgid ""
 "You appear to have unstaged changes in your working directory. Would you "
 "like to stash the changes before the checkout?"
-msgstr "你的工作目录中似乎有未暂存的更改。你希望先保存进度再检出吗？"
+msgstr "您的工作目录中似乎有未暂存的更改。您希望先储藏变更再检出吗？"
 
 #: gitg/gitg-action-support.vala:133
 #: gitg/gitg-commit-action-cherry-pick.vala:163
-#: gitg/gitg-ref-action-delete.vala:94 gitg/gitg-ref-action-merge.vala:194
+#: gitg/gitg-ref-action-delete.vala:94 gitg/gitg-ref-action-merge.vala:195
 #: gitg/gitg-remove-remote-action.vala:67
 #: libgitg/gitg-repository-list-box.vala:560
 msgid "Cancel"
@@ -729,7 +735,7 @@ msgstr "取消"
 
 #: gitg/gitg-action-support.vala:134
 msgid "Stash changes"
-msgstr "进度保存变更"
+msgstr "储藏变更"
 
 #: gitg/gitg-action-support.vala:138 gitg/gitg-action-support.vala:165
 msgid "Failed with conflicts"
@@ -934,7 +940,7 @@ msgstr ""
 "冲突吗？"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:164
-#: gitg/gitg-ref-action-checkout.vala:48 gitg/gitg-ref-action-merge.vala:195
+#: gitg/gitg-ref-action-checkout.vala:48 gitg/gitg-ref-action-merge.vala:196
 msgid "Checkout"
 msgstr "检出"
 
@@ -1271,25 +1277,38 @@ msgstr "已从 <a href='%s'>%s</a> 取回：<b>一切都已最新</b>"
 
 #: gitg/gitg-ref-action-merge.vala:63
 #, c-format
-msgid "Merge into %s"
-msgstr "合并进 %s"
+msgid "Merge into “%s”"
+msgstr "合并进“%s”"
 
-#. TODO
-#: gitg/gitg-ref-action-merge.vala:69
+#: gitg/gitg-ref-action-merge.vala:68
 #, c-format
-msgid "Merge another branch into branch %s"
-msgstr "将另一个分支合并进分支 %s"
+msgid "Merge another branch into branch “%s”"
+msgstr "将另一个分支合并进分支“%s”"
 
-#: gitg/gitg-ref-action-merge.vala:106
+#: gitg/gitg-ref-action-merge.vala:105
 #, c-format
 msgid "Failed to merge commits: %s"
 msgstr "合并提交失败: %s"
 
-#: gitg/gitg-ref-action-merge.vala:175 gitg/gitg-ref-action-merge.vala:191
+#: gitg/gitg-ref-action-merge.vala:141
+#, c-format
+msgid "Merge remote branch “%s”"
+msgstr "合并远程分支“%s”"
+
+#: gitg/gitg-ref-action-merge.vala:145
+#, c-format
+msgid "Merge branch “%s”"
+msgstr "合并分支“%s”"
+
+#: gitg/gitg-ref-action-merge.vala:149
+msgid "Conflicts:"
+msgstr "冲突："
+
+#: gitg/gitg-ref-action-merge.vala:176 gitg/gitg-ref-action-merge.vala:192
 msgid "Merge has conflicts"
 msgstr "合并发生冲突"
 
-#: gitg/gitg-ref-action-merge.vala:184
+#: gitg/gitg-ref-action-merge.vala:185
 #, c-format
 msgid ""
 "The merge of “%s” into “%s” has caused conflicts, would you like to checkout "
@@ -1299,7 +1318,7 @@ msgstr ""
 "将“%s”合并进“%s”的操作造成了冲突，你想要检出带有合并的分支“%s”到你的工作目录"
 "以便解决冲突吗？"
 
-#: gitg/gitg-ref-action-merge.vala:188
+#: gitg/gitg-ref-action-merge.vala:189
 #, c-format
 msgid ""
 "The merge of “%s” into “%s” has caused conflicts, would you like to checkout "
@@ -1308,41 +1327,41 @@ msgstr ""
 "将“%s”合并进“%s”的操作造成了冲突，你想要检出合并情况到你的工作目录以便解决冲"
 "突吗？"
 
-#: gitg/gitg-ref-action-merge.vala:199
+#: gitg/gitg-ref-action-merge.vala:200
 msgid "Merge failed with conflicts"
 msgstr "合并因冲突失败"
 
-#: gitg/gitg-ref-action-merge.vala:210
+#: gitg/gitg-ref-action-merge.vala:211
 msgid "Finished merge with conflicts in working directory"
 msgstr "合并结束，工作目录仍有冲突"
 
-#: gitg/gitg-ref-action-merge.vala:222
+#: gitg/gitg-ref-action-merge.vala:223
 #, c-format
 msgid "Merge “%s” into “%s”"
 msgstr "将“%s”合并进“%s”"
 
-#: gitg/gitg-ref-action-merge.vala:231
+#: gitg/gitg-ref-action-merge.vala:232
 #, c-format
 msgid "Failed to lookup our commit: %s"
 msgstr "查找我们的提交失败: %s"
 
-#: gitg/gitg-ref-action-merge.vala:241
+#: gitg/gitg-ref-action-merge.vala:242
 #, c-format
 msgid "Failed to lookup their commit: %s"
 msgstr "查找他们的提交失败: %s"
 
-#: gitg/gitg-ref-action-merge.vala:278
+#: gitg/gitg-ref-action-merge.vala:279
 #, c-format
 msgid "Successfully merged “%s” into “%s”"
 msgstr "将“%s”并入“%s”成功"
 
-#: gitg/gitg-ref-action-merge.vala:320
+#: gitg/gitg-ref-action-merge.vala:321
 #, c-format
 msgid "Merge “%s” into branch “%s”"
 msgstr "将“%s”合并进分支“%s”"
 
-#: gitg/gitg-ref-action-merge.vala:482
-#: gitg/history/gitg-history-refs-list.vala:1252
+#: gitg/gitg-ref-action-merge.vala:483
+#: gitg/history/gitg-history-refs-list.vala:1267
 msgid "Tags"
 msgstr "标签"
 
@@ -1514,31 +1533,35 @@ msgstr "%zu 在后"
 msgid "All commits"
 msgstr "所有提交"
 
-#: gitg/history/gitg-history-refs-list.vala:1250
+#: gitg/history/gitg-history-refs-list.vala:1265
 msgid "Branches"
 msgstr "分支"
 
-#: gitg/history/gitg-history-refs-list.vala:1251
+#: gitg/history/gitg-history-refs-list.vala:1266
 msgid "Remotes"
 msgstr "远程"
 
-#: gitg/history/gitg-history-refs-list.vala:1253
+#: gitg/history/gitg-history-refs-list.vala:1268
 msgid "Stash"
-msgstr "暂存"
+msgstr "储藏"
 
-#: gitg/history/gitg-history.vala:348
+#: gitg/history/gitg-history.vala:349
 #: gitg/preferences/gitg-preferences-history.vala:226
 #: gitg/resources/ui/gitg-preferences-interface.ui:60
 msgid "History"
 msgstr "历史"
 
-#: gitg/history/gitg-history.vala:353
+#: gitg/history/gitg-history.vala:354
 msgid "Examine the history of the repository"
 msgstr "查看仓库的历史"
 
-#: gitg/history/gitg-history.vala:1070
+#: gitg/history/gitg-history.vala:1075
 msgid "Mainline"
 msgstr "主线"
+
+#: gitg/history/gitg-history.vala:1156
+msgid "Main remote"
+msgstr "主要远程仓库"
 
 #: gitg/preferences/gitg-preferences-commit.vala:180
 msgctxt "Preferences"
@@ -2452,10 +2475,6 @@ msgstr "外部打开"
 #, c-format
 #~ msgid "Delete tag %s"
 #~ msgstr "删除标签 %s"
-
-#, c-format
-#~ msgid "Delete remote branch %s"
-#~ msgstr "删除远程分支 %s"
 
 #~ msgid "The GNOME Project"
 #~ msgstr "GNOME 项目"
