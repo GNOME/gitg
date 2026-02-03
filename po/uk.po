@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2026-01-18 20:28+0000\n"
-"PO-Revision-Date: 2026-01-19 09:18+0200\n"
+"POT-Creation-Date: 2026-01-29 17:32+0000\n"
+"PO-Revision-Date: 2026-02-03 14:23+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -37,39 +37,39 @@ msgstr "Оглядач сховища Git"
 msgid "New Window"
 msgstr "Створити вікно"
 
-#: data/org.gnome.gitg.gschema.xml.in:28
+#: data/org.gnome.gitg.gschema.xml.in:30
 msgid "Default Clone Directory"
 msgstr "Типовий каталог для клонування"
 
-#: data/org.gnome.gitg.gschema.xml.in:29
+#: data/org.gnome.gitg.gschema.xml.in:31
 msgid ""
 "The default directory in which new repositories should be suggested to be "
 "cloned."
 msgstr ""
 "Типовий каталог, до якого програма пропонуватиме клонувати нові сховища."
 
-#: data/org.gnome.gitg.gschema.xml.in:38
+#: data/org.gnome.gitg.gschema.xml.in:40
 msgid "Orientation of the main interface (vertical or horizontal)"
 msgstr "Орієнтація головного інтерфейсу (вертикальна або горизонтальна)"
 
 # Параметр, який задає орієнтацію розташування на головному екрані.
-#: data/org.gnome.gitg.gschema.xml.in:39
+#: data/org.gnome.gitg.gschema.xml.in:41
 msgid "Setting that sets the orientation of the main interface."
 msgstr "Параметр, який задає орієнтацію головного інтерфейсу."
 
-#: data/org.gnome.gitg.gschema.xml.in:45
+#: data/org.gnome.gitg.gschema.xml.in:47
 msgid "Default Activity"
 msgstr "Типова діяльність"
 
-#: data/org.gnome.gitg.gschema.xml.in:46
+#: data/org.gnome.gitg.gschema.xml.in:48
 msgid "The activity which gitg activates by default when first launched."
 msgstr "Дія, яку типово виконуватиме gitg після першого запуску."
 
-#: data/org.gnome.gitg.gschema.xml.in:52
+#: data/org.gnome.gitg.gschema.xml.in:54
 msgid "Use Default Font"
 msgstr "Використовувати початковий шрифт"
 
-#: data/org.gnome.gitg.gschema.xml.in:53
+#: data/org.gnome.gitg.gschema.xml.in:55
 msgid ""
 "Whether to use the system’s default fixed width font for widget's text "
 "instead of a font specific. If this option is turned off, then the font "
@@ -80,15 +80,15 @@ msgstr ""
 "визначений у параметрі «Шрифт редактора»."
 
 #. Translators: This is a GSettings default value. Do NOT change or localize the quotation marks!
-#: data/org.gnome.gitg.gschema.xml.in:57
+#: data/org.gnome.gitg.gschema.xml.in:59
 msgid "'Monospace 12'"
 msgstr "'Monospace 12'"
 
-#: data/org.gnome.gitg.gschema.xml.in:58
+#: data/org.gnome.gitg.gschema.xml.in:60
 msgid "Editor Font"
 msgstr "Шрифт редактора"
 
-#: data/org.gnome.gitg.gschema.xml.in:59
+#: data/org.gnome.gitg.gschema.xml.in:61
 msgid ""
 "A custom font that will be used for the text widgets. This will only take "
 "effect if the “Use Default Font” option is turned off."
@@ -96,59 +96,71 @@ msgstr ""
 "Нетиповий шрифт, який буде використано для текстових віджетів. Працюватиме, "
 "лише якщо не позначено пункт «Використовувати типовий шрифт»."
 
-#: data/org.gnome.gitg.gschema.xml.in:63
+#: data/org.gnome.gitg.gschema.xml.in:65
 msgid "Use Gravatar"
 msgstr "Використання Gravatar"
 
-#: data/org.gnome.gitg.gschema.xml.in:64
+#: data/org.gnome.gitg.gschema.xml.in:66
 msgid "Enable the use of gravatar to display user avatars."
 msgstr "Увімкнути використання gravatar для показу аватарів користувачів."
 
-#: data/org.gnome.gitg.gschema.xml.in:70
+#: data/org.gnome.gitg.gschema.xml.in:72
 msgid "Enable Monitoring"
 msgstr "Увімкнути спостереження"
 
-#: data/org.gnome.gitg.gschema.xml.in:71
+#: data/org.gnome.gitg.gschema.xml.in:73
 #: gitg/resources/ui/gitg-preferences-interface.ui:188
 msgid "Automatically update when external changes to .git are detected"
 msgstr "Автоматично оновлювати, якщо виявлено зовнішні зміни до .git"
 
-#: data/org.gnome.gitg.gschema.xml.in:77
+#: data/org.gnome.gitg.gschema.xml.in:79
 msgid "Enable Diff Highlighting"
 msgstr "Увімкнути підсвічування різниці"
 
-#: data/org.gnome.gitg.gschema.xml.in:78
+#: data/org.gnome.gitg.gschema.xml.in:80
 msgid ""
 "Setting that determines whether to enable syntax highlighting in diff views."
 msgstr ""
 "Параметр, який визначає, чи слід вмикати підсвічування синтаксичних "
 "конструкцій на панелях перегляду різниці."
 
-#: data/org.gnome.gitg.gschema.xml.in:85
+#: data/org.gnome.gitg.gschema.xml.in:87
 msgid "Color scheme to use for syntax highlighting"
 msgstr "Схема кольорів для підсвічування синтаксису"
 
-#: data/org.gnome.gitg.gschema.xml.in:86
+#: data/org.gnome.gitg.gschema.xml.in:88
 msgid "Used by GtkSourceView to determine colors for syntax highlighting"
 msgstr ""
 "Використовується GtkSourceView для визначення кольорів для підсвічування "
 "синтаксичних конструкцій"
 
-#: data/org.gnome.gitg.gschema.xml.in:90
+#: data/org.gnome.gitg.gschema.xml.in:92
 msgid "Text Diff Mode"
 msgstr "Режим текстових відмінностей"
 
-#: data/org.gnome.gitg.gschema.xml.in:91
+#: data/org.gnome.gitg.gschema.xml.in:93
 msgid "Text diff mode."
 msgstr "Режим текстових відмінностей."
 
+# Параметр, який вказує, чи потрібно показувати історію у топологічному порядку.
+#: data/org.gnome.gitg.gschema.xml.in:99
+#| msgid ""
+#| "Setting that indicates whether to show a virtual item for the currently "
+#| "staged changes in the history."
+msgid ""
+"Setting that indicates whether push dialog is configured figuring out "
+"expected values to push."
+msgstr ""
+"Параметр, який вказує, чи слід програмі у вікні надсилання намагатися"
+" визначити очікувані параметри внеску."
+
 # Коли Згорнути Неактивні Лейнс
-#: data/org.gnome.gitg.gschema.xml.in:97
+#: data/org.gnome.gitg.gschema.xml.in:108
 msgid "When to Collapse Inactive Lanes"
 msgstr "Коли згортати неактивні смуги"
 
 # Параметр, який вказує, коли неактивні смуги повинні бути згорнуті. Допустимі значення: 0 - 4, де 0 означає &quot;ранні&quot; та 4 вказує на &quot;пізно&quot;.
-#: data/org.gnome.gitg.gschema.xml.in:98
+#: data/org.gnome.gitg.gschema.xml.in:109
 msgid ""
 "Setting that indicates when an inactive lane should be collapsed. Valid "
 "values are 0 — 4, where 0 indicates “early” and 4 indicates “late”."
@@ -156,7 +168,7 @@ msgstr ""
 "Параметр, який вказує, коли неактивні смуги повинні бути згорнуті. Допустимі "
 "значення: 0 - 4, де 0 означає «раніше» та 4 вказує на «пізніше»."
 
-#: data/org.gnome.gitg.gschema.xml.in:105
+#: data/org.gnome.gitg.gschema.xml.in:116
 msgid ""
 "Setting that indicates whether to collapse history lanes which do not show "
 "activity. Enabling this can provide a cleaner history view when there is a "
@@ -169,12 +181,12 @@ msgstr ""
 "ховати, а коли ні."
 
 # Показати історію у топологічному порядку
-#: data/org.gnome.gitg.gschema.xml.in:114
+#: data/org.gnome.gitg.gschema.xml.in:125
 msgid "Show History in Topological Order"
 msgstr "Показувати історію в топологічному порядку"
 
 # Параметр, який вказує, чи потрібно показувати історію у топологічному порядку.
-#: data/org.gnome.gitg.gschema.xml.in:115
+#: data/org.gnome.gitg.gschema.xml.in:126
 msgid ""
 "Setting that indicates whether to show the history in topological order."
 msgstr ""
@@ -182,24 +194,24 @@ msgstr ""
 "порядку."
 
 # Stash зміни
-#: data/org.gnome.gitg.gschema.xml.in:121
+#: data/org.gnome.gitg.gschema.xml.in:132
 msgid "Show Stashed Changes"
 msgstr "Показати накопичені зімни"
 
 # Параметр, який вказує, чи потрібно показувати історію у топологічному порядку.
-#: data/org.gnome.gitg.gschema.xml.in:122
+#: data/org.gnome.gitg.gschema.xml.in:133
 msgid ""
 "Setting that indicates whether to show items for the stash in the history."
 msgstr ""
 "Параметр, який вказує, чи потрібно показувати об'єкти для реєстру в історії."
 
 # Постановка змін
-#: data/org.gnome.gitg.gschema.xml.in:129
+#: data/org.gnome.gitg.gschema.xml.in:140
 msgid "Show Staged Changes"
 msgstr "Показати сформовані зміни"
 
 # Параметр, який вказує, чи потрібно показувати історію у топологічному порядку.
-#: data/org.gnome.gitg.gschema.xml.in:130
+#: data/org.gnome.gitg.gschema.xml.in:141
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "staged changes in the history."
@@ -208,12 +220,12 @@ msgstr ""
 "позначених змін в історії."
 
 # Постановка змін
-#: data/org.gnome.gitg.gschema.xml.in:137
+#: data/org.gnome.gitg.gschema.xml.in:148
 msgid "Show Unstaged Changes"
 msgstr "Показати несформовані зміни"
 
 # Параметр, який вказує, чи потрібно показувати історію у топологічному порядку.
-#: data/org.gnome.gitg.gschema.xml.in:138
+#: data/org.gnome.gitg.gschema.xml.in:149
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "unstaged changes in the history."
@@ -221,12 +233,12 @@ msgstr ""
 "Параметр, який вказує, чи потрібно показувати віртуальні об'єкти для поточно "
 "непозначених змін в історії."
 
-#: data/org.gnome.gitg.gschema.xml.in:145
+#: data/org.gnome.gitg.gschema.xml.in:156
 msgid "Mainline Head"
 msgstr "HEAD основи"
 
 # Параметр, який вказує, чи потрібно показувати історію у топологічному порядку.
-#: data/org.gnome.gitg.gschema.xml.in:146
+#: data/org.gnome.gitg.gschema.xml.in:157
 msgid ""
 "Setting that indicates whether to always preserve a mainline in the history "
 "for the current HEAD."
@@ -234,11 +246,11 @@ msgstr ""
 "Параметр, який визначає, чи слід завжди зберігати основу у журналі для "
 "поточного HEAD."
 
-#: data/org.gnome.gitg.gschema.xml.in:153
+#: data/org.gnome.gitg.gschema.xml.in:164
 msgid "Default selection of the history activity"
 msgstr "Типовий вибір у журналі дій"
 
-#: data/org.gnome.gitg.gschema.xml.in:154
+#: data/org.gnome.gitg.gschema.xml.in:165
 msgid ""
 "Setting that determines the default selection on startup of the history "
 "activity."
@@ -246,19 +258,19 @@ msgstr ""
 "Параметр, який визначає типовий позначений запис після відкриття панелі "
 "журналу."
 
-#: data/org.gnome.gitg.gschema.xml.in:160
+#: data/org.gnome.gitg.gschema.xml.in:171
 msgid "Reference Sort Order"
 msgstr "Порядок сортування посилань"
 
-#: data/org.gnome.gitg.gschema.xml.in:161
+#: data/org.gnome.gitg.gschema.xml.in:172
 msgid "The order by which references in the history sidebar should be sorted."
 msgstr "Порядок, за яким слід сортувати посилання на бічній панелі журналу."
 
-#: data/org.gnome.gitg.gschema.xml.in:167
+#: data/org.gnome.gitg.gschema.xml.in:178
 msgid "Show Upstream With Branch"
 msgstr "Показувати основну гілку із гілкою"
 
-#: data/org.gnome.gitg.gschema.xml.in:168
+#: data/org.gnome.gitg.gschema.xml.in:179
 msgid ""
 "Determines whether to also show the upstream (remote) tracking branch when "
 "selecting a local branch in the history view."
@@ -266,21 +278,21 @@ msgstr ""
 "Визначає, чи слід показувати основну (віддалену) гілку при виборі локальної "
 "гілки на панелі журналу."
 
-#: data/org.gnome.gitg.gschema.xml.in:175
+#: data/org.gnome.gitg.gschema.xml.in:186
 #: gitg/resources/ui/gitg-preferences-history.ui:151
 msgid "Filter unknown refs"
 msgstr "Фільтрувати невідомі посилання"
 
-#: data/org.gnome.gitg.gschema.xml.in:176
+#: data/org.gnome.gitg.gschema.xml.in:187
 msgid "Hide any ref different from refs/heads and refs/remotes."
 msgstr ""
 "Приховати усі посилання, які є відмінними від refs/heads та refs/remotes."
 
-#: data/org.gnome.gitg.gschema.xml.in:184
+#: data/org.gnome.gitg.gschema.xml.in:195
 msgid "Switch to the new branch on creation"
 msgstr "Перемикатися на нову гілку при створенні"
 
-#: data/org.gnome.gitg.gschema.xml.in:185
+#: data/org.gnome.gitg.gschema.xml.in:196
 msgid ""
 "Setting that controls whether the newly created branch is checked out "
 "automatically."
@@ -289,12 +301,12 @@ msgstr ""
 "новостворених гілок."
 
 # Показати правому краю у фіксації повідомлення Переглянути
-#: data/org.gnome.gitg.gschema.xml.in:200
+#: data/org.gnome.gitg.gschema.xml.in:211
 msgid "Show Right Margin in Commit Message View"
 msgstr "Показати праве поле в перегляді повідомлення щодо внесків"
 
 # Показати право показник маржі у фіксації зору. Це може бути використано, щоб легко побачити, де розбити фіксації у певному стовпці.
-#: data/org.gnome.gitg.gschema.xml.in:201
+#: data/org.gnome.gitg.gschema.xml.in:212
 msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
@@ -304,12 +316,12 @@ msgstr ""
 "у повідомленні щодо внесків."
 
 # Колонка на якому правому краю показано
-#: data/org.gnome.gitg.gschema.xml.in:209
+#: data/org.gnome.gitg.gschema.xml.in:220
 msgid "Column at Which Right Margin is Shown"
 msgstr "Позиція у рядку, на якій показується праве поле"
 
 # Стовпця, на якому праве поле з’являється, якщо право-маржа перевагу встановлений у значення TRUE.
-#: data/org.gnome.gitg.gschema.xml.in:210
+#: data/org.gnome.gitg.gschema.xml.in:221
 msgid ""
 "The column at which the right margin is shown if the show-right-margin "
 "preference is set to TRUE."
@@ -318,11 +330,11 @@ msgstr ""
 "margin» вказано як TRUE."
 
 # Показати правому краю у фіксації повідомлення Переглянути
-#: data/org.gnome.gitg.gschema.xml.in:217
+#: data/org.gnome.gitg.gschema.xml.in:228
 msgid "Show Subject Margin in Commit Message View"
 msgstr "Показати поле теми в перегляді повідомлення щодо внесків"
 
-#: data/org.gnome.gitg.gschema.xml.in:218
+#: data/org.gnome.gitg.gschema.xml.in:229
 msgid ""
 "Highlight the subject text of the commit message when it passes the margin "
 "specified by subject-margin-position."
@@ -331,12 +343,12 @@ msgstr ""
 "яке вказано через «subject-margin-position»."
 
 # Колонка на якому правому краю показано
-#: data/org.gnome.gitg.gschema.xml.in:225
+#: data/org.gnome.gitg.gschema.xml.in:236
 msgid "Column at Which Subject Margin is Shown"
 msgstr "Позиція у рядку, на якій показується поле теми"
 
 # Стовпця, на якому праве поле з’являється, якщо право-маржа перевагу встановлений у значення TRUE.
-#: data/org.gnome.gitg.gschema.xml.in:226
+#: data/org.gnome.gitg.gschema.xml.in:237
 msgid ""
 "The column at which the subject margin is shown if the show-subject-margin "
 "preference is set to TRUE."
@@ -344,11 +356,11 @@ msgstr ""
 "Стовпчик рядка, поле теми якого показується, якщо параметр «show-subject-"
 "margin» вказано як TRUE."
 
-#: data/org.gnome.gitg.gschema.xml.in:233
+#: data/org.gnome.gitg.gschema.xml.in:244
 msgid "Enable Spell Checking"
 msgstr "Увімкнути перевіряння орфографії"
 
-#: data/org.gnome.gitg.gschema.xml.in:234
+#: data/org.gnome.gitg.gschema.xml.in:245
 msgid ""
 "Setting which determines whether or not spell checking is enabled when "
 "writing a commit message."
@@ -356,11 +368,11 @@ msgstr ""
 "Параметр, який визначає, чи буде увімкнено перевірку правопису при написанні "
 "повідомлення про внесок."
 
-#: data/org.gnome.gitg.gschema.xml.in:241
+#: data/org.gnome.gitg.gschema.xml.in:252
 msgid "Spell Checking Language"
 msgstr "Мова для перевірки правопису"
 
-#: data/org.gnome.gitg.gschema.xml.in:242
+#: data/org.gnome.gitg.gschema.xml.in:253
 msgid ""
 "The language to use when spell checking is enabled for writing a commit "
 "message."
@@ -368,11 +380,11 @@ msgstr ""
 "Мова, яку слід використовувати, якщо увімкнено перевірку правопису, для "
 "перевірки правопису у повідомлення внеску."
 
-#: data/org.gnome.gitg.gschema.xml.in:249
+#: data/org.gnome.gitg.gschema.xml.in:260
 msgid "Maximum number of previous commit messages"
 msgstr "Максимальна кількість попередніх повідомлень щодо внесків"
 
-#: data/org.gnome.gitg.gschema.xml.in:250
+#: data/org.gnome.gitg.gschema.xml.in:261
 msgid ""
 "Maximum number of previous commit messages to store for commit message "
 "history."
@@ -380,12 +392,12 @@ msgstr ""
 "Максимальна кількість попередніх повідомлень про внесок для зберігання у "
 "журналі повідомлень щодо внесків."
 
-#: data/org.gnome.gitg.gschema.xml.in:254
+#: data/org.gnome.gitg.gschema.xml.in:265
 msgid "Maximum number of days to store previous commit messages"
 msgstr ""
 "Максимальна тривалість зберігання попередніх повідомлень щодо внесків у днях"
 
-#: data/org.gnome.gitg.gschema.xml.in:255
+#: data/org.gnome.gitg.gschema.xml.in:266
 msgid ""
 "Maximum number of days to store previous commit messages for commit message "
 "history."
@@ -393,39 +405,39 @@ msgstr ""
 "Максимальна тривалість зберігання попередніх повідомлень щодо внесків у днях "
 "для журналу повідомлень щодо внесків."
 
-#: data/org.gnome.gitg.gschema.xml.in:259
-#: data/org.gnome.gitg.gschema.xml.in:260
+#: data/org.gnome.gitg.gschema.xml.in:270
+#: data/org.gnome.gitg.gschema.xml.in:271
 msgid "Type of datetime format selected."
 msgstr "Тип вибраного формату дати і часу."
 
-#: data/org.gnome.gitg.gschema.xml.in:266
+#: data/org.gnome.gitg.gschema.xml.in:277
 msgid "Preferred datetime format of the user."
 msgstr "Бажаний для користувача формат запису дати і часу."
 
-#: data/org.gnome.gitg.gschema.xml.in:267
+#: data/org.gnome.gitg.gschema.xml.in:278
 msgid "The datetime format to be used in commit-diff."
 msgstr "Формат запису дати і часу, який буде використано у різниці внесків."
 
-#: data/org.gnome.gitg.gschema.xml.in:273
-#: data/org.gnome.gitg.gschema.xml.in:274
+#: data/org.gnome.gitg.gschema.xml.in:284
+#: data/org.gnome.gitg.gschema.xml.in:285
 msgid "Custom datetime format."
 msgstr "Нетиповий формат запису дати і часу."
 
-#: data/org.gnome.gitg.gschema.xml.in:282
+#: data/org.gnome.gitg.gschema.xml.in:293
 msgid "Use patience algorithm to show diffs"
 msgstr "Використовувати терплячий алгоритм для показу різниць"
 
-#: data/org.gnome.gitg.gschema.xml.in:283
+#: data/org.gnome.gitg.gschema.xml.in:294
 msgid "Setting to use patience algorithm to show diffs of a commit."
 msgstr ""
 "Параметр для використання терплячого алгоритму для показу різниць у внесках."
 
-#: data/org.gnome.gitg.gschema.xml.in:289
+#: data/org.gnome.gitg.gschema.xml.in:300
 msgid "Ignore Whitespace Changes"
 msgstr "Ігнорувати зміни у пробілах"
 
 # Параметр, який вказує, чи потрібно показувати історію у топологічному порядку.
-#: data/org.gnome.gitg.gschema.xml.in:290
+#: data/org.gnome.gitg.gschema.xml.in:301
 msgid ""
 "Setting that indicates whether to ignore whitespace changes when showing the "
 "diff of a commit."
@@ -433,33 +445,33 @@ msgstr ""
 "Параметр, який визначає, чи слід ігнорувати зміни у пробілах при показі "
 "різниці для внеску."
 
-#: data/org.gnome.gitg.gschema.xml.in:297
+#: data/org.gnome.gitg.gschema.xml.in:308
 msgid "Show Changes Inline"
 msgstr "Показувати вбудовані зміни"
 
 # Параметр, який вказує, чи потрібно показувати історію у топологічному порядку.
-#: data/org.gnome.gitg.gschema.xml.in:298
+#: data/org.gnome.gitg.gschema.xml.in:309
 msgid ""
 "Setting that indicates whether changes within lines should be shown inline."
 msgstr ""
 "Параметр, який визначає, чи буде позначено самі зміни у змінених рядках."
 
-#: data/org.gnome.gitg.gschema.xml.in:305
-#: data/org.gnome.gitg.gschema.xml.in:347
+#: data/org.gnome.gitg.gschema.xml.in:316
+#: data/org.gnome.gitg.gschema.xml.in:358
 msgid "Wrap"
 msgstr "Перенесення"
 
-#: data/org.gnome.gitg.gschema.xml.in:306
-#: data/org.gnome.gitg.gschema.xml.in:348
+#: data/org.gnome.gitg.gschema.xml.in:317
+#: data/org.gnome.gitg.gschema.xml.in:359
 msgid "Wrap lines."
 msgstr "Перенесення рядків."
 
-#: data/org.gnome.gitg.gschema.xml.in:312
-#: data/org.gnome.gitg.gschema.xml.in:330
+#: data/org.gnome.gitg.gschema.xml.in:323
+#: data/org.gnome.gitg.gschema.xml.in:341
 msgid "Number of Before/After Context Lines"
 msgstr "Кількість рядків контексту до/після"
 
-#: data/org.gnome.gitg.gschema.xml.in:313
+#: data/org.gnome.gitg.gschema.xml.in:324
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff of a commit."
@@ -467,13 +479,13 @@ msgstr ""
 "Параметр, який визначає скільки рядків контексту (рядків до і після "
 "зміненого рядка) має бути показано у різниці внеску."
 
-#: data/org.gnome.gitg.gschema.xml.in:320
-#: data/org.gnome.gitg.gschema.xml.in:339
+#: data/org.gnome.gitg.gschema.xml.in:331
+#: data/org.gnome.gitg.gschema.xml.in:350
 msgid "Rendered Width of a Tab Character"
 msgstr "Показана ширина символу табуляції"
 
-#: data/org.gnome.gitg.gschema.xml.in:321
-#: data/org.gnome.gitg.gschema.xml.in:340
+#: data/org.gnome.gitg.gschema.xml.in:332
+#: data/org.gnome.gitg.gschema.xml.in:351
 msgid ""
 "Setting that determines how much space a tab character should occupy when "
 "showing the diff of a commit."
@@ -481,7 +493,7 @@ msgstr ""
 "Параметр, який визначає, скількома пробілами буде замінено символ табуляції "
 "при показі різниці внеску."
 
-#: data/org.gnome.gitg.gschema.xml.in:331
+#: data/org.gnome.gitg.gschema.xml.in:342
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff to be staged/unstaged in the commit area."
@@ -836,7 +848,7 @@ msgstr ""
 # Скасувати
 #: gitg/gitg-action-support.vala:133
 #: gitg/gitg-commit-action-cherry-pick.vala:163
-#: gitg/gitg-ref-action-delete.vala:94 gitg/gitg-ref-action-merge.vala:194
+#: gitg/gitg-ref-action-delete.vala:94 gitg/gitg-ref-action-merge.vala:195
 #: gitg/gitg-remove-remote-action.vala:67
 #: libgitg/gitg-repository-list-box.vala:560
 msgid "Cancel"
@@ -1068,7 +1080,7 @@ msgstr ""
 
 # Оформити замовлення філії
 #: gitg/gitg-commit-action-cherry-pick.vala:164
-#: gitg/gitg-ref-action-checkout.vala:48 gitg/gitg-ref-action-merge.vala:195
+#: gitg/gitg-ref-action-checkout.vala:48 gitg/gitg-ref-action-merge.vala:196
 msgid "Checkout"
 msgstr "Отримати"
 
@@ -1444,27 +1456,46 @@ msgstr "Отримано з <a href='%s'>%s</a>: <b>нічого не потре
 
 #: gitg/gitg-ref-action-merge.vala:63
 #, c-format
-msgid "Merge into %s"
-msgstr "Злити до %s"
+#| msgid "Merge into %s"
+msgid "Merge into “%s”"
+msgstr "Злити до «%s»"
 
 # Злиття %s філії<%s>на %s філії<%s>
-#. TODO
-#: gitg/gitg-ref-action-merge.vala:69
+#: gitg/gitg-ref-action-merge.vala:68
 #, c-format
-msgid "Merge another branch into branch %s"
-msgstr "Злити іншу гілку до гілки %s"
+#| msgid "Merge another branch into branch %s"
+msgid "Merge another branch into branch “%s”"
+msgstr "Злити іншу гілку до гілки «%s»"
 
 # Не вдалося створити тег
-#: gitg/gitg-ref-action-merge.vala:106
+#: gitg/gitg-ref-action-merge.vala:105
 #, c-format
 msgid "Failed to merge commits: %s"
 msgstr "Не вдалося злити внески: %s"
 
-#: gitg/gitg-ref-action-merge.vala:175 gitg/gitg-ref-action-merge.vala:191
+# Вилучити віддаленого філії
+#: gitg/gitg-ref-action-merge.vala:141
+#, c-format
+#| msgid "Delete remote branch %s"
+msgid "Merge remote branch “%s”"
+msgstr "Злити віддалену гілку «%s»"
+
+# Злиття %s філії<%s>на %s філії<%s>
+#: gitg/gitg-ref-action-merge.vala:145
+#, c-format
+#| msgid "Merge “%s” into branch “%s”"
+msgid "Merge branch “%s”"
+msgstr "Злити гілку «%s»"
+
+#: gitg/gitg-ref-action-merge.vala:149
+msgid "Conflicts:"
+msgstr "Конфлікти:"
+
+#: gitg/gitg-ref-action-merge.vala:176 gitg/gitg-ref-action-merge.vala:192
 msgid "Merge has conflicts"
 msgstr "Злиття з конфліктами"
 
-#: gitg/gitg-ref-action-merge.vala:184
+#: gitg/gitg-ref-action-merge.vala:185
 #, c-format
 msgid ""
 "The merge of “%s” into “%s” has caused conflicts, would you like to checkout "
@@ -1474,7 +1505,7 @@ msgstr ""
 "Злиття «%s» до «%s» призвело до конфліктів. Хочете синхронізувати гілку «%s» "
 "із злиттям до вашого робочого каталогу для розв'язання конфліктів?"
 
-#: gitg/gitg-ref-action-merge.vala:188
+#: gitg/gitg-ref-action-merge.vala:189
 #, c-format
 msgid ""
 "The merge of “%s” into “%s” has caused conflicts, would you like to checkout "
@@ -1483,44 +1514,44 @@ msgstr ""
 "Злиття «%s» до «%s» призвело до конфліктів. Хочете синхронізувати злиття до "
 "вашого робочого каталогу для розв'язання конфліктів?"
 
-#: gitg/gitg-ref-action-merge.vala:199
+#: gitg/gitg-ref-action-merge.vala:200
 msgid "Merge failed with conflicts"
 msgstr "Не вдалося злити — конфлікти"
 
-#: gitg/gitg-ref-action-merge.vala:210
+#: gitg/gitg-ref-action-merge.vala:211
 msgid "Finished merge with conflicts in working directory"
 msgstr "Злиття завершено із конфліктами у робочому каталозі"
 
-#: gitg/gitg-ref-action-merge.vala:222
+#: gitg/gitg-ref-action-merge.vala:223
 #, c-format
 msgid "Merge “%s” into “%s”"
 msgstr "Злиття «%s» до «%s»"
 
 # Не вдалося створити тег
-#: gitg/gitg-ref-action-merge.vala:231
+#: gitg/gitg-ref-action-merge.vala:232
 #, c-format
 msgid "Failed to lookup our commit: %s"
 msgstr "Не вдалося знайти наш внесок: %s"
 
 # Не вдалося вилучити теги
-#: gitg/gitg-ref-action-merge.vala:241
+#: gitg/gitg-ref-action-merge.vala:242
 #, c-format
 msgid "Failed to lookup their commit: %s"
 msgstr "Не вдалося знайти їхній внесок: %s"
 
-#: gitg/gitg-ref-action-merge.vala:278
+#: gitg/gitg-ref-action-merge.vala:279
 #, c-format
 msgid "Successfully merged “%s” into “%s”"
 msgstr "Успішно злито «%s» до «%s»"
 
 # Злиття %s філії<%s>на %s філії<%s>
-#: gitg/gitg-ref-action-merge.vala:320
+#: gitg/gitg-ref-action-merge.vala:321
 #, c-format
 msgid "Merge “%s” into branch “%s”"
 msgstr "Злити «%s» до гілки «%s»"
 
-#: gitg/gitg-ref-action-merge.vala:482
-#: gitg/history/gitg-history-refs-list.vala:1252
+#: gitg/gitg-ref-action-merge.vala:483
+#: gitg/history/gitg-history-refs-list.vala:1267
 msgid "Tags"
 msgstr "Мітки"
 
@@ -1713,33 +1744,38 @@ msgid "All commits"
 msgstr "Всі внески"
 
 # Відділення:
-#: gitg/history/gitg-history-refs-list.vala:1250
+#: gitg/history/gitg-history-refs-list.vala:1265
 msgid "Branches"
 msgstr "Гілки"
 
 # Дистанційне керування
-#: gitg/history/gitg-history-refs-list.vala:1251
+#: gitg/history/gitg-history-refs-list.vala:1266
 msgid "Remotes"
 msgstr "Віддалені"
 
-#: gitg/history/gitg-history-refs-list.vala:1253
+#: gitg/history/gitg-history-refs-list.vala:1268
 msgid "Stash"
 msgstr "Накопичити"
 
 # Історія
-#: gitg/history/gitg-history.vala:348
+#: gitg/history/gitg-history.vala:349
 #: gitg/preferences/gitg-preferences-history.vala:226
 #: gitg/resources/ui/gitg-preferences-interface.ui:60
 msgid "History"
 msgstr "Журнал"
 
-#: gitg/history/gitg-history.vala:353
+#: gitg/history/gitg-history.vala:354
 msgid "Examine the history of the repository"
 msgstr "Вивчення журналу сховища"
 
-#: gitg/history/gitg-history.vala:1070
+#: gitg/history/gitg-history.vala:1075
 msgid "Mainline"
 msgstr "Основа"
+
+#: gitg/history/gitg-history.vala:1156
+#| msgid "Edit remote…"
+msgid "Main remote"
+msgstr "Основне віддалене сховище"
 
 # Здійснювати
 #: gitg/preferences/gitg-preferences-commit.vala:180
@@ -2752,11 +2788,6 @@ msgstr "Відкрити у сторонній програмі"
 #, c-format
 #~ msgid "Delete tag %s"
 #~ msgstr "Вилучити мітку %s"
-
-# Вилучити віддаленого філії
-#, c-format
-#~ msgid "Delete remote branch %s"
-#~ msgstr "Вилучити віддалену гілку %s"
 
 #~ msgctxt "shortcut window"
 #~ msgid "Open the help"
