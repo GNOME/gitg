@@ -59,7 +59,7 @@ class Dialog : Gtk.Dialog
 	private unowned Gtk.CheckButton d_check_button_sign_off;
 
 	[GtkChild (name = "check_button_sign_commit")]
-	private Gtk.CheckButton d_check_button_sign_commit;
+	private unowned Gtk.CheckButton d_check_button_sign_commit;
 
 	[GtkChild (name = "image_avatar")]
 	private unowned Gtk.Image d_image_avatar;

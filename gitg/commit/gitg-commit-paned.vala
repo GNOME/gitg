@@ -48,10 +48,10 @@ class Paned : Gtk.Paned
 	private unowned Gtk.Button d_button_discard;
 
 	[GtkChild (name = "commit_files_search_bar")]
-	private Gtk.SearchBar d_files_search_bar;
+	private unowned Gtk.SearchBar d_files_search_bar;
 
 	[GtkChild (name = "commit_files_search_entry")]
-	private Gtk.SearchEntry d_files_search_entry;
+	private unowned Gtk.SearchEntry d_files_search_entry;
 
 	public Sidebar sidebar
 	{
