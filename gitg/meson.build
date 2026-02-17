@@ -15,6 +15,7 @@ sources = gitg_sources + files(
   'commit/gitg-commit.vala',
   'history/gitg-history-action-interface.vala',
   'history/gitg-history-command-line.vala',
+  'history/gitg-history-list-dnd.vala',
   'history/gitg-history-paned.vala',
   'history/gitg-history-refs-list.vala',
   'history/gitg-history.vala',
