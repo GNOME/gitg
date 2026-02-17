@@ -28,10 +28,6 @@ class PreferencesDialog : Gtk.Dialog, Gtk.Buildable
 	{
 		// Extract widgets from the builder
 		d_notebook = builder.get_object("notebook_elements") as Gtk.Notebook;
-
-		// Populate tabs from plugins
-		populate();
-
 		base.parser_finished(builder);
 	}
 
@@ -57,14 +53,17 @@ class PreferencesDialog : Gtk.Dialog, Gtk.Buildable
 		d_notebook.child_set_property (page, "tab-expand", true);
 	}
 
-	public void populate()
+	public void populate(Gitg.CommitListView commit_list_view = null)
 	{
 		var engine = PluginsEngine.get_default();
 		var ext = new Peas.ExtensionSet(engine, typeof(GitgExt.Preferences));
 
 		var pages = new HashTable<string, Gtk.Box>(str_hash, str_equal);
 
-		add_page(new PreferencesGeneral(), pages);
+		if (commit_list_view != null)
+		{
+			add_page(new PreferencesGeneral(commit_list_view), pages);
+		}
 		add_page(new PreferencesInterface(), pages);
 		add_page(new PreferencesHistory(), pages);
 		add_page(new PreferencesCommit(), pages);

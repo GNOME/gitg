@@ -261,6 +261,7 @@ public class Application : Gtk.Application
 		if (d_preferences == null)
 		{
 			d_preferences = Builder.load_object<PreferencesDialog>("ui/gitg-preferences.ui", "preferences");
+			d_preferences.populate();
 
 			d_preferences.destroy.connect((w) => {
 				d_preferences = null;

@@ -54,10 +54,49 @@ namespace Gitg
 				case COMMIT:
 					return typeof(Commit);
 				default:
+					return Type.INVALID;
 				break;
 			}
+		}
 
-			return Type.INVALID;
+		public string? name()
+		{
+			switch (this)
+			{
+				case SHA1:
+					return _("SHA1");
+				case SUBJECT:
+					return _("Subject");
+				case MESSAGE:
+					return _("Message");
+				case COMMITTER:
+					return _("Committer");
+				case COMMITTER_NAME:
+					return _("Committer name");
+				case COMMITTER_EMAIL:
+					return _("Committer email");
+				case COMMITTER_DATE:
+					return _("Committer date");
+				case AUTHOR:
+					return _("Author");
+				case AUTHOR_NAME:
+					return _("Author name");
+				case AUTHOR_EMAIL:
+					return _("Author email");
+				case AUTHOR_DATE:
+					return _("Author date");
+				case COMMIT:
+					return _("Commit");
+				default:
+					return null;
+				break;
+			}
+		}
+
+		public string nick () {
+			EnumClass ec = (EnumClass) typeof (CommitModelColumns).class_ref ();
+			unowned EnumValue? ev = ec.get_value (this);
+			return ev.value_nick;
 		}
 	}
 

@@ -66,6 +66,10 @@ namespace GitgHistory
 			get { return _d_panels; }
 		}
 
+		public Gitg.CommitListView commit_list_view {
+			get { return d_main.commit_list_view; }
+		}
+
 		public Activity(GitgExt.Application application)
 		{
 			Object(application: application);
@@ -826,6 +830,16 @@ namespace GitgHistory
 				ac.populate_menu(menu);
 			}
 
+			var sep = new Gtk.SeparatorMenuItem();
+			sep.show();
+			menu.append(sep);
+
+			menu.append (add_visible_columns_action());
+
+			sep = new Gtk.SeparatorMenuItem();
+			sep.show();
+			menu.append(sep);
+
 			// To keep actions alive as long as the menu is alive
 			menu.set_data("gitg-ext-actions", actions);
 
@@ -849,7 +863,51 @@ namespace GitgHistory
 			    return object_vars;
 			  });
 			});
+
 			return menu;
+		}
+
+		private Gtk.MenuItem add_visible_columns_action () {
+			var item = new Gtk.MenuItem.with_label ("Visible Columns");
+
+			item.activate.connect (() => {
+				show_visible_columns_dialog (d_main.commit_list_view);
+			});
+			item.show();
+			return item;
+		}
+
+		private void show_visible_columns_dialog (Gtk.TreeView treeview) {
+			var listbox = Gitg.UiUtils.build_listbox_visible_columns (treeview);
+			var sw = new Gtk.ScrolledWindow (null, null);
+			sw.set_size_request(-1, 350);
+			sw.hexpand = true;
+			sw.set_policy (Gtk.PolicyType.NEVER, Gtk.PolicyType.ALWAYS);
+			listbox.vadjustment = sw.vadjustment;
+			sw.add(listbox);
+
+			var hbox = Gitg.UiUtils.build_switch_show_headers (treeview);
+
+			var dlg = new Gtk.Dialog.with_buttons (
+				"Visible columns", (Gtk.Window) d_main,
+				Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
+				"Close", Gtk.ResponseType.CLOSE,
+				null
+			);
+			dlg.set_default_size (300, 120);
+
+			var content_area = dlg.get_content_area();
+
+			var vbox_listbox = new Gtk.Box(Gtk.Orientation.VERTICAL, 6);
+			vbox_listbox.pack_start(sw, true, true, 0);
+			vbox_listbox.pack_start(hbox, false, false, 0);
+			vbox_listbox.show_all();
+
+			content_area.pack_start (vbox_listbox, true, true, 0);
+
+			dlg.show_all ();
+			dlg.run ();
+			dlg.destroy ();
 		}
 
 		private Gtk.Menu? popup_menu_for_selection(Gdk.EventButton? event)
@@ -1005,6 +1063,12 @@ namespace GitgHistory
 			}
 
 			var sep = new Gtk.SeparatorMenuItem();
+			sep.show();
+			menu.append(sep);
+
+			menu.append (add_visible_columns_action());
+
+			sep = new Gtk.SeparatorMenuItem();
 			sep.show();
 			menu.append(sep);
 

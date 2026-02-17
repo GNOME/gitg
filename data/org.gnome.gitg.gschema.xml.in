@@ -101,6 +101,19 @@
         expected values to push.
       </description>
     </key>
+    <key name="visible-columns" type="as">
+      <default>['subject', 'committer-name', 'committer-date']</default>
+      <summary>visible columns about a commit by default</summary>
+      <description>
+        Default visible columns about commit.
+      </description>
+    </key>
+    <key name="columns-header-visible" type="b">
+      <default>false</default>
+      <description>
+        Show column headers on history view.
+      </description>
+    </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="@APPLICATION_ID@.preferences.history" path="@SCHEMA_PATH@/preferences/history/">
     <key name="collapse-inactive-lanes" type="i">

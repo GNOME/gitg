@@ -55,6 +55,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private Gtk.AccelGroup accel_group;
 	private Gtk.Menu menu_actions;
 	private GLib.MenuItem global_actions_item;
+	private GitgHistory.Activity history_activity;
 
 	// Widgets
 	[GtkChild]
@@ -872,6 +873,9 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		if (d_preferences == null)
 		{
 			d_preferences = Builder.load_object<PreferencesDialog>("ui/gitg-preferences.ui", "preferences");
+			if (history_activity != null) {
+				d_preferences.populate(history_activity.commit_list_view);
+			}
 
 			d_preferences.destroy.connect((w) => {
 				d_preferences = null;
@@ -1043,8 +1047,9 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		// Initialize peas extensions set for activities
 		var engine = PluginsEngine.get_default();
 
+		history_activity = new GitgHistory.Activity(this);
 		var builtins = new GitgExt.Activity[] {
-			new GitgHistory.Activity(this),
+			history_activity,
 			new GitgCommit.Activity(this)
 		};
 

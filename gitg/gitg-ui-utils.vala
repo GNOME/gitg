@@ -17,6 +17,7 @@
  * along with gitg. If not, see <http://www.gnu.org/licenses/>.
  */
 
+
 namespace Gitg
 {
 
@@ -485,8 +486,183 @@ public class UiUtils
 		return result;
 	}
 
+	public delegate void UpdateTreeViewColumnsCallBack(Gtk.TreeView treeview);
+
+	public static void store_visible_columns_on_gsettings(Gtk.TreeView treeview) {
+		string[] visible_columns = {};
+		print("storing columns [");
+		foreach( var col in treeview.get_columns()) {
+			if (!col.visible)
+				continue;
+			var cmc = col.get_data<Gitg.CommitModelColumns>("enum");
+			 print("%s,", cmc.nick());
+			visible_columns += cmc.nick();
+		}
+		print("]\n");
+		var settings = new Settings(Gitg.Config.APPLICATION_ID + ".preferences.general");
+		settings.set_strv ("visible-columns", visible_columns);
+	}
+
+	public static Gtk.TreeView build_treeview_visible_columns(string[] visible_columns,
+	                                                          UpdateTreeViewColumnsCallBack callback) {
+		var treeview = new Gtk.TreeView();
+		EnumClass ec = (EnumClass) typeof (Gitg.CommitModelColumns).class_ref ();
+
+		for (int i = 0; i < visible_columns.length; i++) {
+			unowned EnumValue? ev = ec.get_value_by_nick (visible_columns[i]);
+			if (ev != null) {
+				var cmc = (Gitg.CommitModelColumns)ev.value;
+				var column = new Gtk.TreeViewColumn ();
+				column.set_data<Gitg.CommitModelColumns>("enum", cmc);
+				column.title = cmc.name();
+				column.visible = true;
+				column.notify["visible"].connect (() => {
+					callback (treeview);
+				});
+				treeview.append_column(column);
+			}
+		}
+
+		EnumClass enum_class = (EnumClass) typeof (Gitg.CommitModelColumns).class_ref ();
+		var non_visible_columns =enum_class.n_values - 2 - visible_columns.length;
+		Gitg.CommitModelColumns[] enum_columns = new Gitg.CommitModelColumns[non_visible_columns];
+
+		for (int i = 0; i < enum_class.n_values; i++) {
+			unowned EnumValue enum_value = enum_class.values[i];
+			var cmc = (Gitg.CommitModelColumns)enum_value.value;
+			if (cmc == Gitg.CommitModelColumns.NUM ||
+			    cmc == Gitg.CommitModelColumns.COMMIT ||
+			    enum_value.value_nick in visible_columns) {
+				continue;
+			}
+			var column = new Gtk.TreeViewColumn ();
+			column.set_data<Gitg.CommitModelColumns>("enum", cmc);
+			column.title = cmc.name();
+			column.visible = false;
+			column.notify["visible"].connect (() => {
+				callback (treeview);
+			});
+			treeview.append_column(column);
+		}
+		return treeview;
+	}
+
+	public static DragListBox build_listbox_visible_columns (Gtk.TreeView treeview) {
+		var list_model = new GLib.ListStore(typeof(ListRow));
+		var listbox = new DragListBox(list_model);
+		listbox.set_selection_mode (Gtk.SelectionMode.NONE);
+
+		listbox.row_reorder.connect((from, to) => {
+			sync_listbox_actions(list_model, listbox);
+			var cols = treeview.get_columns();
+			int n = (int)cols.length();
+			if (n == 0)
+				return;
+
+			var col = cols.nth_data(from);
+
+			Gtk.TreeViewColumn[] without = new Gtk.TreeViewColumn[n - 1];
+			int j = 0;
+			for (int i = 0; i < n; i++) {
+				var current_col = cols.nth_data(i);
+				if (current_col == col)
+					continue;
+				if (!current_col.visible)
+					continue;
+				without[j++] = current_col;
+			}
+
+			Gtk.TreeViewColumn? base_col = null;
+			if (to > 0)
+				base_col = without[to - 1];
+
+			treeview.move_column_after(col, base_col);
+		});
+
+		list_model.items_changed.connect((p, r, a) => {
+			sync_listbox_actions(list_model, listbox);
+		});
+
+		sync_listbox_actions(list_model, listbox);
+
+		foreach (var column in treeview.get_columns()) {
+			list_model.append(new ListRow(column.title, column));
+		}
+
+		treeview.columns_changed.connect(() => {
+			var cols = treeview.get_columns();
+
+			for (int i = 0; i < cols.length(); i++) {
+				var title = cols.nth_data(i).title;
+				var children = listbox.get_children();
+				int from = -1;
+				ListBoxRowDnD rowj = null;
+				for (int j = 0; j < children.length(); j++) {
+					rowj = listbox.get_row_at_index(j) as ListBoxRowDnD;
+					var row_title = rowj.title;
+					if (row_title == title) {
+						from = j;
+						break;
+					}
+				}
+				if (from == -1)
+					continue;
+
+				int to = i;
+
+				if (to == from)
+					continue;
+
+				var list_row = (ListRow)list_model.get_item(from);
+				list_model.remove(from);
+				list_model.insert(to, list_row);
+			}
+		});
+
+		return listbox;
+	}
+
+	public static Gtk.Box build_switch_show_headers (Gtk.TreeView treeview) {
+		var settings = new Settings(Gitg.Config.APPLICATION_ID + ".preferences.general");
+		var switch_show_col_headers = new Gtk.Switch();
+		var label = new Gtk.Label("Show column headers");
+		switch_show_col_headers.state_set.connect ((state) => {
+			treeview.headers_visible = switch_show_col_headers.active;
+			settings.set_boolean ("columns-header-visible", treeview.headers_visible);
+			return false;
+		});
+		switch_show_col_headers.active = settings.get_boolean ("columns-header-visible");
+		var box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 5);
+		box.pack_start(switch_show_col_headers, false, false, 0);
+		box.pack_start(label, false, false, 0);
+
+		return box;
+	}
+
+	public static void sync_row_actions(GLib.ListStore list_model, ListBoxRowDnD row, int pos) {
+		bool up = true;
+		bool down = true;
+		int count = (int)list_model.get_n_items();
+
+		if (pos == 0) {
+			up = false;
+		}
+		if (pos == count - 1) {
+			down = false;
+		}
+		row.enable_up(up);
+		row.enable_down(down);
+	}
+
+	public static void sync_listbox_actions(GLib.ListStore list_model, DragListBox listbox) {
+		int pos = 0;
+		var row = listbox.get_row_at_index(pos) as ListBoxRowDnD;
+		while( row != null) {
+			sync_row_actions(list_model, row, pos);
+			row = listbox.get_row_at_index(++pos) as ListBoxRowDnD;
+		}
+	}
 }
 }
 
 // ex:ts=4 noet
-

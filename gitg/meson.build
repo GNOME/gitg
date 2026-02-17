@@ -42,6 +42,7 @@ sources = gitg_sources + files(
   'gitg-dirs.vala',
   'gitg-edit-remote-action.vala',
   'gitg-notifications.vala',
+  'gitg-list-dnd.vala',
   'gitg-plugins-engine.vala',
   'gitg-popup-menu.vala',
   'gitg-push-dialog.vala',
