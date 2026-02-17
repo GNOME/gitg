@@ -826,6 +826,16 @@ namespace GitgHistory
 				ac.populate_menu(menu);
 			}
 
+			var sep = new Gtk.SeparatorMenuItem();
+			sep.show();
+			menu.append(sep);
+
+			menu.append (add_visible_columns_action());
+
+			sep = new Gtk.SeparatorMenuItem();
+			sep.show();
+			menu.append(sep);
+
 			// To keep actions alive as long as the menu is alive
 			menu.set_data("gitg-ext-actions", actions);
 
@@ -860,7 +870,162 @@ namespace GitgHistory
 			                                    }
 			                              );
 			});
+
 			return menu;
+		}
+
+		private Gtk.MenuItem add_visible_columns_action () {
+			var item = new Gtk.MenuItem.with_label ("Visible Columns");
+
+			item.activate.connect (() => {
+				show_visible_columns_dialog ();
+			});
+			item.show();
+			return item;
+		}
+
+		private void show_visible_columns_dialog () {
+			var list_model = new GLib.ListStore(typeof(ListRow));
+			var listbox = new DragListBox(list_model);
+			listbox.set_selection_mode (Gtk.SelectionMode.NONE);
+
+			var treeview =d_main.commit_list_view;
+
+			listbox.row_reorder.connect((from, to) => {
+				sync_listbox_actions(list_model, listbox);
+				var cols = treeview.get_columns();
+				int n = (int)cols.length();
+				if (n == 0)
+					return;
+
+				var col = cols.nth_data(from);
+
+				Gtk.TreeViewColumn[] without = new Gtk.TreeViewColumn[n - 1];
+				int j = 0;
+				for (int i = 0; i < n; i++) {
+					var current_col = cols.nth_data(i);
+					if (current_col == col)
+						continue;
+					if (!current_col.visible)
+						continue;
+					without[j++] = current_col;
+				}
+
+				Gtk.TreeViewColumn? base_col = null;
+				if (to > 0)
+					base_col = without[to - 1];
+
+				treeview.move_column_after(col, base_col);
+			});
+
+			list_model.items_changed.connect((p, r, a) => {
+				sync_listbox_actions(list_model, listbox);
+			});
+
+			sync_listbox_actions(list_model, listbox);
+
+			var sw = new Gtk.ScrolledWindow (null, null);
+			sw.set_size_request(-1, 350);
+			sw.hexpand = true;
+			sw.set_policy (Gtk.PolicyType.NEVER, Gtk.PolicyType.ALWAYS);
+			listbox.vadjustment = sw.vadjustment;
+			sw.add(listbox);
+
+			var vbox_listbox = new Gtk.Box(Gtk.Orientation.VERTICAL, 6);
+			vbox_listbox.pack_start(sw, true, true, 0);
+
+			var switch = new Gtk.Switch();
+			var label = new Gtk.Label("Show columns");
+			switch.active = treeview.get_headers_visible();
+
+			switch.state_set.connect ((state) => {
+				treeview.headers_visible = switch.active;
+				return false;
+			});
+
+			var hbox = new Gtk.HBox(false, 5);
+			hbox.pack_start(switch, false, false, 0);
+			hbox.pack_start(label, false, false, 0);
+			vbox_listbox.pack_start(hbox, false, false, 0);
+			vbox_listbox.show_all();
+
+			treeview.set_reorderable(true);
+
+			var columns = treeview.get_columns();
+
+			foreach (var column in columns) {
+				list_model.append(new ListRow(column.title, column ));
+			}
+
+			treeview.columns_changed.connect(() => {
+				var cols = treeview.get_columns();
+
+				for (int i = 0; i < cols.length(); i++) {
+					var title = cols.nth_data(i).title;
+					var children = listbox.get_children();
+					int from = -1;
+					ListBoxRowDnD rowj = null;
+					for (int j = 0; j < children.length(); j++) {
+						rowj = listbox.get_row_at_index(j) as ListBoxRowDnD;
+						var row_title = rowj.title;
+						if (row_title == title) {
+							from = j;
+							break;
+						}
+					}
+					if (from == -1)
+						continue;
+
+					int to = i;
+
+					if (to == from)
+						continue;
+
+					var list_row = (ListRow)list_model.get_item(from);
+					list_model.remove(from);
+					list_model.insert(to, list_row);
+				}
+			});
+
+			var dlg = new Gtk.Dialog.with_buttons (
+				"Visible columns", (Gtk.Window) d_main,
+				Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
+				"Close", Gtk.ResponseType.CLOSE,
+				null
+			);
+			dlg.set_default_size (300, 120);
+
+			var content_area = dlg.get_content_area();
+			content_area.pack_start (vbox_listbox, true, true, 0);
+
+			dlg.show_all ();
+			dlg.run ();
+			content_area.remove(vbox_listbox);
+			dlg.destroy ();
+		}
+
+		public void sync_row_actions(GLib.ListStore list_model, ListBoxRowDnD row, int pos) {
+			bool up = true;
+			bool down = true;
+			int count = (int)list_model.get_n_items();
+
+			if (pos == 0) {
+				up = false;
+			}
+			if (pos == count - 1) {
+				down = false;
+			}
+			row.enable_up(up);
+			row.enable_down(down);
+		}
+
+		public void sync_listbox_actions(GLib.ListStore list_model, DragListBox listbox) {
+			int pos = 0;
+			var row = listbox.get_row_at_index(pos) as ListBoxRowDnD;
+			while( row != null) {
+				sync_row_actions(list_model, row, pos);
+				row = listbox.get_row_at_index(++pos) as ListBoxRowDnD;
+			}
 		}
 
 		private Gtk.Menu? popup_menu_for_selection(Gdk.EventButton? event)
@@ -1016,6 +1181,12 @@ namespace GitgHistory
 			}
 
 			var sep = new Gtk.SeparatorMenuItem();
+			sep.show();
+			menu.append(sep);
+
+			menu.append (add_visible_columns_action());
+
+			sep = new Gtk.SeparatorMenuItem();
 			sep.show();
 			menu.append(sep);
 
