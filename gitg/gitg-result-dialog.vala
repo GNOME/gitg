@@ -23,6 +23,151 @@ using Gdk;
 namespace Gitg
 {
 
+public class AnsiRenderer {
+	private TextBuffer buf;
+	private HashTable<string, TextTag> tags;
+
+	public AnsiRenderer (TextBuffer buf) {
+		this.buf = buf;
+		tags = new HashTable<string, TextTag> (str_hash, str_equal);
+	}
+
+	private TextTag get_tag (bool bold, bool underline, int fg) {
+		string key = "%d:%d:%d".printf (bold ? 1 : 0, underline ? 1 : 0, fg);
+		TextTag? t = tags.lookup (key);
+		if (t != null)
+			return t;
+
+		t = new TextTag (key);
+		if (bold)
+			t.weight = Pango.Weight.BOLD;
+		if (underline)
+			t.underline = Pango.Underline.SINGLE;
+		if (fg != -1) {
+			switch (fg) {
+				case 30:
+					t.foreground = "black";
+					break;
+				case 31:
+					t.foreground = "red";
+					break;
+				case 32:
+					t.foreground = "green";
+					break;
+				case 33:
+					t.foreground = "yellow";
+					break;
+				case 34:
+					t.foreground = "blue";
+					break;
+				case 35:
+					t.foreground = "magenta";
+					break;
+				case 36:
+					t.foreground = "cyan";
+					break;
+				case 37:
+					t.foreground = "white";
+					break;
+				default:
+					break;
+			}
+			t.foreground_set = true;
+		}
+		buf.get_tag_table().add (t);
+		tags.insert(key, t);
+		return t;
+	}
+
+	public void render_ansi (string s) {
+		buf.set_text ("");
+
+		int len = s.length;
+		int p = 0;
+
+		bool bold = false;
+		bool underline = false;
+		int fg = -1;
+
+		while (p < len) {
+			int escpos = s.index_of ("\u001b", p);
+			if (escpos < 0) {
+				// no more escapes — insert remainder
+				string seg = s.substring (p, len - p);
+				insert_with_tag (seg, bold, underline, fg);
+				break;
+			}
+
+			// insert text before escape
+			if (escpos > p) {
+				string seg = s.substring (p, escpos - p);
+				insert_with_tag (seg, bold, underline, fg);
+			}
+
+			// parse sequence if it's CSI SGR: ESC [ ... m
+			if (escpos + 1 < len && s[escpos + 1] == '[') {
+				int mpos = s.index_of ("m", escpos + 2);
+				if (mpos < 0) {
+					// malformed — treat remaining as plain text
+					string seg = s.substring (escpos, len - escpos);
+					insert_with_tag (seg, bold, underline, fg);
+					break;
+				}
+				string code = s.substring (escpos + 2, mpos - (escpos + 2));
+				if (code.length == 0) code = "0";
+				string[] parts = code.split (";");
+				foreach (var part in parts) {
+					int v = 0;
+					try {
+						v = int.parse (part);
+					} catch (Error e) {
+						v = -1;
+					}
+					if (v == 0) {
+						// reset
+						bold = false; underline = false; fg = -1;
+					} else if (v == 1) {
+						bold = true;
+					} else if (v == 4) {
+						underline = true;
+					} else if (v >= 30 && v <= 37) {
+						fg = v;
+					} else if (v == 39) {
+						fg = -1; // default fg
+					} else if (v == 22) {
+						bold = false;
+					} else if (v == 24) {
+						underline = false;
+					} else {
+						// ignore other codes for brevity
+					}
+				}
+				p = mpos + 1;
+				continue;
+			} else {
+				print("unsupported ");
+				// not a supported escape sequence, insert ESC as literal
+				insert_with_tag ("\u001b", bold, underline, fg);
+				p = escpos + 1;
+			}
+		}
+	}
+
+	private void insert_with_tag (string text, bool bold, bool underline, int fg) {
+		if (text.length == 0)
+			return;
+
+		TextIter start;
+		buf.get_end_iter (out start);
+		if (bold || underline || fg != -1) {
+			TextTag t = get_tag (bold, underline, fg);
+			buf.insert_with_tags(ref start, text, -1, t);
+		} else {
+			buf.insert (ref start, text, -1);
+		}
+	}
+}
+
 [GtkTemplate (ui = "/org/gnome/gitg/ui/gitg-result-dialog.ui")]
 class ResultDialog : Dialog
 {
@@ -43,6 +188,7 @@ class ResultDialog : Dialog
 	private GLib.Regex url_reg;
 
 	private uint timer_id = 0;
+	private AnsiRenderer ansiRenderer;
 
 	public ResultDialog(Gtk.Window? parent, string title, string? label_text = null)
 	{
@@ -58,7 +204,10 @@ class ResultDialog : Dialog
 		d_button_close.get_style_context().add_class(STYLE_CLASS_SUGGESTED_ACTION);
 		url_reg = new Regex ("https?://[^\\s'\"<>]+");
 		tv = d_text_view_message;
+		var font_desc = Pango.FontDescription.from_string ("Monospace 11");
+		tv.override_font (font_desc);
 		buf = tv.get_buffer ();
+		ansiRenderer = new AnsiRenderer(buf);
 		tv.add_events (Gdk.EventMask.BUTTON_PRESS_MASK | Gdk.EventMask.POINTER_MOTION_MASK);
 
 		buf.changed.connect (() => {
@@ -75,6 +224,24 @@ class ResultDialog : Dialog
 
 		tv.motion_notify_event.connect (on_hover_link);
 		tv.button_press_event.connect (on_link_press);
+	}
+
+	public static int byte_to_char_offset (string str, int byte_offset) {
+		if (byte_offset <= 0) return 0;
+		if (byte_offset >= str.length) return str.char_count ();
+
+		// Count characters from start to byte_offset
+		int char_count = 0;
+		int current_byte = 0;
+
+		unichar c;
+		for (int i = 0; str.get_next_char (ref i, out c);) {
+			if (i > byte_offset) break;
+			char_count++;
+			current_byte = i;
+		}
+
+		return char_count;
 	}
 
 	private void highlight_links () {
@@ -101,7 +268,7 @@ class ResultDialog : Dialog
 		buf.get_start_iter (out start);
 		TextIter end;
 		buf.get_end_iter (out end);
-		string text = buf.get_text (start, end, true);
+		string text = buf.get_text (start, end, false);
 
 		MatchInfo? info = null;
 		url_reg.match (text, 0, out info);
@@ -112,8 +279,8 @@ class ResultDialog : Dialog
 			int byte_start, byte_end;
 			info.fetch_pos (0, out byte_start, out byte_end);
 
-			int st_off = byte_start;
-			int en_off = byte_end;
+			int st_off = byte_to_char_offset(text, byte_start);
+			int en_off = byte_to_char_offset(text, byte_end);
 
 			TextIter it_start;
 			buf.get_iter_at_offset (out it_start, st_off);
@@ -215,12 +382,14 @@ class ResultDialog : Dialog
 	public void append_message(string? message)
 	{
 		if (message != null)
-			d_text_view_message.buffer.text += message;
+			//d_text_view_message.buffer.text += message;
+		    ansiRenderer.render_ansi(message);
 	}
 
 	public void clear_messages()
 	{
-		d_text_view_message.buffer.text = "";
+		//d_text_view_message.buffer.text = "";
+		ansiRenderer.render_ansi("");
 	}
 }
 }
