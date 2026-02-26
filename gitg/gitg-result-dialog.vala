@@ -1,7 +1,7 @@
 /*
  * This file is part of gitg
  *
- * Copyright (C) 2025 - Alberto Fanjul
+ * Copyright (C) 2026 - Alberto Fanjul
  *
  * gitg is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,6 +37,9 @@ class ResultDialog : Dialog
 
 	[GtkChild]
 	private unowned Label d_label_result;
+
+	[GtkChild]
+	private unowned Button d_button_copy;
 
 	private TextBuffer buf;
 	private TextView tv;
@@ -75,6 +78,29 @@ class ResultDialog : Dialog
 
 		tv.motion_notify_event.connect (on_hover_link);
 		tv.button_press_event.connect (on_link_press);
+		key_press_event.connect (on_key_press);
+		d_button_copy.clicked.connect (() => {
+			copy_all_text ();
+		});
+	}
+
+	private bool on_key_press (Gdk.EventKey event) {
+		// Check for Ctrl+Shift+C
+		if ((event.state & Gdk.ModifierType.CONTROL_MASK) != 0 &&
+			(event.state & Gdk.ModifierType.SHIFT_MASK) != 0 &&
+			event.keyval == Gdk.Key.c) {
+
+			copy_all_text ();
+			return true;
+		}
+
+		return false;
+	}
+
+	private void copy_all_text () {
+		string text = tv.buffer.text;
+		var clipboard = Gtk.Clipboard.get_default (this.get_display ());
+		clipboard.set_text (text, -1);
 	}
 
 	private void highlight_links () {
