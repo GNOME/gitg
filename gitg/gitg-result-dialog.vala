@@ -38,6 +38,9 @@ class ResultDialog : Dialog
 	[GtkChild]
 	private unowned Label d_label_result;
 
+	[GtkChild]
+	private unowned Button d_button_copy;
+
 	private TextBuffer buf;
 	private TextView tv;
 	private GLib.Regex url_reg;
@@ -75,6 +78,31 @@ class ResultDialog : Dialog
 
 		tv.motion_notify_event.connect (on_hover_link);
 		tv.button_press_event.connect (on_link_press);
+		key_press_event.connect (on_key_press);
+		d_button_copy.clicked.connect (() => {
+			copy_all_text ();
+		});
+	}
+
+	private bool on_key_press (Gdk.EventKey event) {
+		// Check for Ctrl+Shift+C
+		if ((event.state & Gdk.ModifierType.CONTROL_MASK) != 0 &&
+			(event.state & Gdk.ModifierType.SHIFT_MASK) != 0 &&
+			event.keyval == Gdk.Key.c) {
+
+			copy_all_text ();
+			return true;  // Event handled
+		}
+
+		return false;  // Let other handlers process
+	}
+
+	private void copy_all_text () {
+		string text = tv.buffer.text;
+		var clipboard = Gtk.Clipboard.get_default (this.get_display ());
+		clipboard.set_text (text, -1);
+
+		stdout.printf ("Copied all text via shortcut\n");
 	}
 
 	private void highlight_links () {

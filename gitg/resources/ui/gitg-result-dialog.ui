@@ -85,6 +85,26 @@
                 <property name="height">1</property>
               </packing>
             </child>
+            <child>
+              <object class="GtkButton" id="d_button_copy">
+                <property name="visible">True</property>
+                <property name="tooltip_text" translatable="yes">Copy (Ctrl+Shift+C)</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="halign">end</property>
+                <property name="image">copy_image</property>
+                <property name="always-show-image">True</property>
+                <style>
+                  <class name="text-button"/>
+                </style>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">2</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -98,4 +118,9 @@
       <action-widget response="-6">d_button_close</action-widget>
     </action-widgets>
   </template>
+  <object class="GtkImage" id="copy_image">
+    <property name="visible">True</property>
+    <property name="icon-name">edit-copy-symbolic</property>
+    <property name="icon-size">1</property>
+  </object>
 </interface>
