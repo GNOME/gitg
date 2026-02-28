@@ -89,7 +89,7 @@ public class PreferencesInterface : Gtk.Grid, GitgExt.Preferences
 		foreach (var id in style_manager.get_scheme_ids()) {
 			var scheme = style_manager.get_scheme(id);
 			d_syntax_scheme_store.append (out iter);
-			d_syntax_scheme_store.set (iter, 0, scheme.name, 1, scheme.id);
+			d_syntax_scheme_store.set (iter, 0, gettext(scheme.name), 1, scheme.id);
 		}
 
 		d_settings.changed["orientation"].connect(orientation_changed);
