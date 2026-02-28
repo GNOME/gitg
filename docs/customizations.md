@@ -75,6 +75,7 @@ parameters:
 - description: Action description
 - group: Add action under a submenu
 - command: Command to run
+- shortcut: Direct shortcut for action.
 - available: literal true/false or command line evaluating to 1/0. Decides if action is added
 - enabled: literal true/false or command line evaluating to 1/0. Decides if action is enabled
 - show-output: Shows a dialog with command output. Default false
@@ -88,6 +89,7 @@ parameters:
 - input-text: Initial text for input value. Default ""
 - input-placeholder: Placeholder text. Default ""
 - input-force-show-placeholder: Disable focus on input entry to see placeholder.
+- input-history: Enable history on entry dialog. Default false, true store value in default ~/.config/gitg/history/$group.$name, text use it as path
 - question-title: Title for question dialog. Default "Question"
 - question-message: Text for question dialog. Default "Are you sure?"
 - question-yes: Text for question yes response. Default "Yes"
@@ -241,3 +243,19 @@ command = git stash drop
 available = true
 enabled = true
 ```
+
+- Execute any command: Run any command and link to a shortcut
+```
+[gitg.actions.global "Execute Any"]
+name = Execute
+description = Execute any command. Shortcut Ctrl+Shift+E
+command = $input
+available = true
+enabled = true
+shortcut = <Ctrl><Shift>E
+input-title = Command
+input-label = Type any command:
+input-history = true
+show-output = true
+```
+

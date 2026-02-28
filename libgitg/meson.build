@@ -53,6 +53,7 @@ sources = files(
   'gitg-diff-view-lines-renderer.vala',
   'gitg-diff-view-options.vala',
   'gitg-diff-view.vala',
+  'gitg-entry-history.vala',
   'gitg-font-manager.vala',
   'gitg-gpg-utils.vala',
   'gitg-hook.vala',

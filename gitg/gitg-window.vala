@@ -52,6 +52,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private Gtk.ShortcutsWindow d_shortcuts;
 #endif
 
+	private Gtk.AccelGroup accel_group;
+
 	// Widgets
 	[GtkChild]
 	private unowned Gtk.HeaderBar d_header_bar;
@@ -292,7 +294,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	}
 
 	[GtkCallback]
-	public bool on_key_pressed (Gtk.Widget widget, Gdk.EventKey event) {
+	private bool on_key_pressed (Gtk.Widget widget, Gdk.EventKey event) {
 		bool ret = d_search_bar.handle_event(event);
 		if (ret) {
 			d_search_bar.search_mode_enabled = true;
@@ -332,6 +334,9 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 #if GTK_SHORTCUTS_WINDOW
 		add_action_entries(shortcut_window_entries, this);
 #endif
+
+		accel_group = new Gtk.AccelGroup ();
+		add_accel_group (accel_group);
 
 		d_notifications = new Notifications(d_overlay);
 
@@ -417,6 +422,10 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		                          this,
 		                          "enable-monitoring",
 		                          SettingsBindFlags.GET | SettingsBindFlags.SET);
+	}
+
+	public Gtk.AccelGroup get_accel_group() {
+		return accel_group;
 	}
 
 	protected override void style_updated()
@@ -656,24 +665,15 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private Gtk.Menu load_global_actions() {
 		var menu = new Gtk.Menu();
 		var conf = d_repository.get_config().snapshot();
-		Gitg.Utils.add_custom_actions(menu, "global",
-		                              conf, regex_custom_actions_global,
-		                              regex_custom_actions_global_group,
-		                              (action_key_prefix, item_groups) => {
-		                                return Gitg.Utils.build_custom_action(conf,
-		                                                                      action_key_prefix,
-		                                                                      item_groups,
-		                                                                      (vars, stdout_data, stderr_data) => {
-		                                      var dlg = new Gitg.ResultDialog((Gtk.Window)this,
-		                                                                      vars.get("dialog-title"),
-		                                                                      vars.get("dialog-label"));
-		                                      dlg.response.connect((d, resp) => {
-		                                        dlg.destroy();
-		                                      });
-		                                      dlg.append_message(stdout_data);
-		                                      dlg.append_message(stderr_data);
-		                                      return dlg;
-		                                    });
+		Gitg.UiUtils.add_custom_actions(menu, "global",
+		                                conf, regex_custom_actions_global,
+		                                regex_custom_actions_global_group,
+		                                (action_key_prefix, item_groups) => {
+		  return Gitg.UiUtils.build_custom_action(this,
+		                                          conf,
+		                                          action_key_prefix,
+		                                          item_groups
+		  );
 		});
 		return menu;
 	}

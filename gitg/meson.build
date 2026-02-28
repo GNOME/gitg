@@ -68,6 +68,7 @@ sources = gitg_sources + files(
   'gitg-simple-notification.vala',
   'gitg-tag-show-info-dialog.vala',
   'gitg-ui-elements.vala',
+  'gitg-ui-utils.vala',
   'gitg-window.vala',
   'gitg.vala',
 )

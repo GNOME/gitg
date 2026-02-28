@@ -835,30 +835,19 @@ namespace GitgHistory
 			if (regex_custom_actions_commits_group == null)
 				regex_custom_actions_commits_group = new Regex("gitg\\.actions\\.commits\\.(.+)\\.group", RegexCompileFlags.OPTIMIZE);
 
-			Gitg.Utils.add_custom_actions(menu, "commits",
-			                              conf, regex_custom_actions_commits,
-			                              regex_custom_actions_commits_group,
-			                              (action_key_prefix, item_groups) => {
-			                                return Gitg.Utils.build_custom_action(conf,
-			                                                                      action_key_prefix,
-			                                                                      item_groups,
-			                                                                      (vars, stdout_data, stderr_data) => {
-			                                      var dlg = new Gitg.ResultDialog(null,
-			                                                                      vars.get("dialog-title"),
-			                                                                      vars.get("dialog-label"));
-			                                      dlg.response.connect((d, resp) => {
-			                                        dlg.destroy();
-			                                      });
-			                                      dlg.append_message(stdout_data);
-			                                      dlg.append_message(stderr_data);
-			                                      return dlg;
-			                                    },
-			                                    () => {
-			                                      var object_vars = new Gee.HashMap<string,string> ();
-			                                      object_vars.set ("sha", commit.get_id().to_string());
-			                                      return object_vars;
-			                                    }
-			                              );
+			Gitg.UiUtils.add_custom_actions(menu, "commits",
+			                                conf, regex_custom_actions_commits,
+			                                regex_custom_actions_commits_group,
+			                                (action_key_prefix, item_groups) => {
+			  return Gitg.UiUtils.build_custom_action((Gitg.Window)application,
+			                                          conf,
+			                                          action_key_prefix,
+			                                          item_groups,
+			  () => {
+			    var object_vars = new Gee.HashMap<string,string> ();
+			    object_vars.set ("sha", commit.get_id().to_string());
+			    return object_vars;
+			  });
 			});
 			return menu;
 		}
@@ -1025,33 +1014,22 @@ namespace GitgHistory
 				regex_custom_actions_reference_group = new Regex("gitg\\.actions\\.reference\\.(.+)\\.group", RegexCompileFlags.OPTIMIZE);
 
 			var conf = repository.get_config().snapshot();
-			Gitg.Utils.add_custom_actions(menu, "reference",
-			                              conf, regex_custom_actions_reference,
-			                              regex_custom_actions_reference_group,
-			                              (action_key_prefix, item_groups) => {
-			                                return Gitg.Utils.build_custom_action(conf,
-			                                                                      action_key_prefix,
-			                                                                      item_groups,
-			                                                                      (vars, stdout_data, stderr_data) => {
-			                                      var dlg = new Gitg.ResultDialog(null,
-			                                                                      vars.get("dialog-title"),
-			                                                                      vars.get("dialog-label"));
-			                                      dlg.response.connect((d, resp) => {
-			                                        dlg.destroy();
-			                                      });
-			                                      dlg.append_message(stdout_data);
-			                                      dlg.append_message(stderr_data);
-			                                      return dlg;
-			                                    },
-			                                    () => {
-			                                      var object_vars = new Gee.HashMap<string,string> ();
-			                                      object_vars.set ("name",          reference.parsed_name.name);
-			                                      object_vars.set ("shortname",     reference.parsed_name.shortname);
-			                                      object_vars.set ("remote_name",   reference.parsed_name.remote_name);
-			                                      object_vars.set ("remote_branch", reference.parsed_name.remote_branch);
-			                                      return object_vars;
-			                                    }
-			                              );
+			Gitg.UiUtils.add_custom_actions(menu, "reference",
+			                                conf, regex_custom_actions_reference,
+			                                regex_custom_actions_reference_group,
+			                                (action_key_prefix, item_groups) => {
+			  return Gitg.UiUtils.build_custom_action((Gitg.Window)application,
+			                                          conf,
+			                                          action_key_prefix,
+			                                          item_groups,
+			  () => {
+			    var object_vars = new Gee.HashMap<string,string> ();
+			    object_vars.set ("name",          reference.parsed_name.name);
+			    object_vars.set ("shortname",     reference.parsed_name.shortname);
+			    object_vars.set ("remote_name",   reference.parsed_name.remote_name);
+			    object_vars.set ("remote_branch", reference.parsed_name.remote_branch);
+			    return object_vars;
+			  });
 			});
 
 			if (menu.get_data<int>("items") > 0)
