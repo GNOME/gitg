@@ -186,6 +186,9 @@ class ResultDialog : Dialog
 	[GtkChild]
 	private unowned Button d_button_copy;
 
+	[GtkChild]
+	private unowned Switch switch_remove_ansi;
+
 	private TextBuffer buf;
 	private TextView tv;
 	private GLib.Regex url_reg;
@@ -193,9 +196,16 @@ class ResultDialog : Dialog
 	private uint timer_id = 0;
 	private AnsiRenderer ansiRenderer;
 
+	private string original_message;
+	private bool filter_ansi;
+	private static Regex? regex_remove_ansi = null;
+
 	public ResultDialog(Gtk.Window? parent, string title, string? label_text = null)
 	{
 		Object(use_header_bar : 1);
+
+		original_message = "";
+		filter_ansi = false;
 
 		if (parent != null)
 		{
@@ -231,6 +241,10 @@ class ResultDialog : Dialog
 		d_button_copy.clicked.connect (() => {
 			copy_all_text ();
 		});
+		switch_remove_ansi.notify["active"].connect (() => {
+			filter_ansi = switch_remove_ansi.active;
+			render();
+		});
 	}
 
 	private bool on_key_press (Gdk.EventKey event) {
@@ -247,9 +261,13 @@ class ResultDialog : Dialog
 	}
 
 	private void copy_all_text () {
-		string text = tv.buffer.text;
 		var clipboard = Gtk.Clipboard.get_default (this.get_display ());
-		clipboard.set_text (text, -1);
+		string message;
+		if (filter_ansi)
+			message = remove_ansi(original_message);
+		else
+			message = original_message;
+		clipboard.set_text (message, -1);
 	}
 
 	public static int byte_to_char_offset (string str, int byte_offset) {
@@ -407,13 +425,66 @@ class ResultDialog : Dialog
 
 	public void append_message(string? message)
 	{
-		if (message != null)
-		    ansiRenderer.render_ansi(message);
+		if (message != null) {
+			original_message += message;
+			render();
+		}
 	}
 
 	public void clear_messages()
 	{
-		ansiRenderer.render_ansi("");
+		original_message = "";
+		render();
+	}
+
+	public static string remove_ansi (string text) {
+		if (!text.contains ("\x1b")) {
+			return text;
+		}
+
+		if (regex_remove_ansi == null) {
+			try {
+				regex_remove_ansi = new Regex (
+					"\x1b" +						// ESC
+					"(?:" +							// Non-capturing group
+						"\\[[0-9;?]*[a-zA-Z]" +		// CSI sequences
+						"|" +
+						"\\].*?(?:\x07|\x1b\\\\)" +	// OSC sequences
+						"|" +
+						"\\((?:[0-2B])" +			// Character set (
+						"|" +
+						"\\)(?:[0-2B])" +			// Character set )
+						"|" +
+						"[=>]" +					// Keypad modes
+						"|" +
+						"[78DMHEFcZ]" +				// Single char commands
+						"|" +
+						"." +						// Any other char after ESC
+					")"
+				);
+			} catch (RegexError e) {
+				stderr.printf ("Error: %s\n", e.message);
+			}
+		}
+
+		if (regex_remove_ansi == null) {
+			return text;
+		}
+
+		try {
+			return regex_remove_ansi.replace (text, -1, 0, "");
+		} catch (RegexError e) {
+			return text;
+		}
+	}
+	public void render() {
+		string message;
+		if (filter_ansi) {
+			message = remove_ansi(original_message);
+		} else {
+			message = original_message;
+		}
+		ansiRenderer.render_ansi(message);
 	}
 }
 }
