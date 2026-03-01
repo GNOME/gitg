@@ -3,578 +3,2162 @@
 # This file is distributed under the same license as the gitg package.
 # victory  <victory.deb@gmail.com>, 2014.
 # Jiro Matsuzawa <jmatsuzawa@gnome.org>, 2015.
+# Tomo Dote <fu7mu4@gmail.com>, 2020.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg gnome-3-12\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gitg&keywords=I18N+L10N&component=gitg\n"
-"POT-Creation-Date: 2014-09-10 05:40+0000\n"
-"PO-Revision-Date: 2015-03-22 14:35+0900\n"
-"Last-Translator: Jiro Matsuzawa <jmatsuzawa@gnome.org>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
+"POT-Creation-Date: 2020-10-05 21:20+0000\n"
+"PO-Revision-Date: 2020-12-29 11:43+0900\n"
+"Last-Translator: Tomo Dote <fu7mu4@gmail.com>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 2.4.2\n"
 
-#: ../data/gitg.desktop.in.in.h:1 ../gitg/gitg.vala:54
-#: ../gitg/resources/ui/gitg-window.ui.h:1
+#: contrib/xml/xml-reader.c:327
+#, c-format
+msgid "Could not parse XML from stream"
+msgstr "ストリームのXMLをパースできませんでした"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:5 gitg/gitg.vala:39
+#: gitg/resources/ui/gitg-window.ui:8
 msgid "gitg"
 msgstr "gitg"
 
-#: ../data/gitg.desktop.in.in.h:2
+#: data/org.gnome.gitg.appdata.xml.in.in:9
+msgid "Graphical user interface for git"
+msgstr "gitのグラフィカルユーザーインターフェース"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:11
+msgid ""
+"gitg is a graphical user interface for git. It aims at being a small, fast "
+"and convenient tool to visualize the history of git repositories. Besides "
+"visualization, gitg also provides several utilities to manage your "
+"repository and commit your work."
+msgstr ""
+"gitgはGUIのあるgitです。このプロジェクトはgitgが小さくて、早くそしてgitのリポ"
+"ジトリの履歴を可視化する便利なツールになることを目指しています。可視化につい"
+"ていえば、gitgはまたあなたのリポジトリを管理し、あなたの作品をコミットする"
+"ユーティリティをいくつか提供します。"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:17
+msgid "Goals:"
+msgstr "ゴール:"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:19
+msgid "Browse local git repositories"
+msgstr "ローカルのgitリポジトリをブラウズする"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:20
+msgid "Clone local and remote git repositories"
+msgstr "ローカルまたはリモートのgitリポジトリにクローンする"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:21
+msgid "Commit files"
+msgstr "ファイルをコミットする"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:22
+msgid "Retrieve patch from a commit"
+msgstr "コミットからパッチを取得する"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:32
+msgid "Browse repository history"
+msgstr "リポジトリの履歴を閲覧する"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:36
+msgid "Staging area to compose your commit"
+msgstr "あなたのコミットからステージングエリアを構成する"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:40
+msgid "Commit staged changes"
+msgstr "ステージ登録済みの変更をコミットする"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:44
+msgid "Overview of recently used repositories"
+msgstr "最近使用したリポジトリの概要"
+
+#: data/org.gnome.gitg.appdata.xml.in.in:105
+msgid "The GNOME Project"
+msgstr "The GNOME Project"
+
+#: data/org.gnome.gitg.desktop.in.in:3
+msgid "@binary@"
+msgstr "@binary@"
+
+#: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
 msgstr "Git リポジトリブラウザー"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:1
+#: data/org.gnome.gitg.gschema.xml.in:28
+msgid "Default Clone Directory"
+msgstr "デフォルトのクローンディレクトリ"
+
+#: data/org.gnome.gitg.gschema.xml.in:29
+msgid ""
+"The default directory in which new repositories should be suggested to be "
+"cloned."
+msgstr "新しいリポジトリをクローンするときに提案するデフォルトのディレクトリ。"
+
+#: data/org.gnome.gitg.gschema.xml.in:38
 msgid "Orientation of the main interface (vertical or horizontal)"
-msgstr ""
+msgstr "メインインターフェースの方向(垂直または水平)"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:2
+#: data/org.gnome.gitg.gschema.xml.in:39
 msgid "Setting that sets the orientation of the main interface."
-msgstr ""
+msgstr "メインのインターフェースの方向を設定します。"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:3
+#: data/org.gnome.gitg.gschema.xml.in:45
+msgid "Default Activity"
+msgstr "デフォルトアクティビティ"
+
+#: data/org.gnome.gitg.gschema.xml.in:46
+msgid "The activity which gitg activates by default when first launched."
+msgstr "gitgが起動したときに行うデフォルトのアクティビティ。"
+
+#: data/org.gnome.gitg.gschema.xml.in:52
+msgid "Use Default Font"
+msgstr "デフォルトのフォントの使用"
+
+#: data/org.gnome.gitg.gschema.xml.in:53
+msgid ""
+"Whether to use the system’s default fixed width font for widget's text "
+"instead of a font specific. If this option is turned off, then the font "
+"named in the “Editor Font” option will be used instead of the system font."
+msgstr ""
+"特定のフォントの代りに、テキストウィジェットで使用するシステムのデフォルトの"
+"固定幅フォントを使用する。このオプションをオフにした場合、システムフォントの"
+"代りに”エディターフォント”で指定したフォントを使用する。"
+
+#. Translators: This is a GSettings default value. Do NOT change or localize the quotation marks!
+#: data/org.gnome.gitg.gschema.xml.in:57
+msgid "'Monospace 12'"
+msgstr "‘Monospace 12’"
+
+#: data/org.gnome.gitg.gschema.xml.in:58
+msgid "Editor Font"
+msgstr "エディターフォント"
+
+#: data/org.gnome.gitg.gschema.xml.in:59
+msgid ""
+"A custom font that will be used for the text widgets. This will only take "
+"effect if the “Use Default Font” option is turned off."
+msgstr ""
+"テキストウィジェットで使用するカスタムフォント。デフォルトのフォントを使用の"
+"オプションが無効のときにのみ有効です。"
+
+#: data/org.gnome.gitg.gschema.xml.in:63
+msgid "Use Gravatar"
+msgstr "Gravatarの使用"
+
+#: data/org.gnome.gitg.gschema.xml.in:64
+msgid "Enable the use of gravatar to display user avatars."
+msgstr "gravatarを有効にしてユーザーのアバターとして表示します。"
+
+#: data/org.gnome.gitg.gschema.xml.in:70
+msgid "Enable Monitoring"
+msgstr "モニタリングを有効にする"
+
+#: data/org.gnome.gitg.gschema.xml.in:71
+#: gitg/resources/ui/gitg-preferences-interface.ui:188
+msgid "Automatically update when external changes to .git are detected"
+msgstr ".gitへの外部からの変更が検出されたときの自動更新"
+
+#: data/org.gnome.gitg.gschema.xml.in:77
+msgid "Enable Diff Highlighting"
+msgstr "差分ハイライトを有効にする"
+
+#: data/org.gnome.gitg.gschema.xml.in:78
+msgid ""
+"Setting that determines whether to enable syntax highlighting in diff views."
+msgstr "差分画面でのシンタックスハイライトを有効にするかどうかを設定します。"
+
+#: data/org.gnome.gitg.gschema.xml.in:85
+msgid "Color scheme to use for syntax highlighting"
+msgstr "シンタックスハイライトにカラスキームを使用する"
+
+#: data/org.gnome.gitg.gschema.xml.in:86
+msgid "Used by GtkSourceView to determine colors for syntax highlighting"
+msgstr "シンタックスハイライトの色を決定するためにGtkSourceViewを使用"
+
+#: data/org.gnome.gitg.gschema.xml.in:92
 msgid "When to Collapse Inactive Lanes"
-msgstr ""
+msgstr "非アクティブなレーンを隠す条件"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:4
-msgid "Setting that indicates when an inactive lane should be collapsed. Valid values are 0 - 4, where 0 indicates 'early' and 4 indicates 'late'."
+#: data/org.gnome.gitg.gschema.xml.in:93
+msgid ""
+"Setting that indicates when an inactive lane should be collapsed. Valid "
+"values are 0 — 4, where 0 indicates “early” and 4 indicates “late”."
 msgstr ""
+"非アクティブなレーンを隠すときの設定。0~4の値で指定する。0は早い、4は遅いを意"
+"味する。"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:5
-msgid "Setting that indicates whether to collapse history lanes which do not show activity. Enabling this can provide a cleaner history view when there is a lot of parallel development. See collapse-inactive-lanes to control when lanes should be collapsed."
+#: data/org.gnome.gitg.gschema.xml.in:100
+msgid ""
+"Setting that indicates whether to collapse history lanes which do not show "
+"activity. Enabling this can provide a cleaner history view when there is a "
+"lot of parallel development. See collapse-inactive-lanes to control when "
+"lanes should be collapsed."
 msgstr ""
+"アクティビティが表示されていない履歴レーンを隠すかどうかを指定します。並行し"
+"た開発が多い場合、このオプションを有効にすると履歴の表示がすっきりします。"
+"レーンの非表示については collapse-inactive-lanesを参照してください。"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:6
+#: data/org.gnome.gitg.gschema.xml.in:109
 msgid "Show History in Topological Order"
-msgstr ""
+msgstr "トポロジカルの順に履歴を表示"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:7
-msgid "Setting that indicates whether to show the history in topological order."
-msgstr ""
+#: data/org.gnome.gitg.gschema.xml.in:110
+msgid ""
+"Setting that indicates whether to show the history in topological order."
+msgstr "トポロジカルの順に履歴を表示するかどうかを設定します。"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:8
-msgid "Setting that indicates whether to show items for the stash in the history."
-msgstr ""
+#: data/org.gnome.gitg.gschema.xml.in:116
+msgid "Show Stashed Changes"
+msgstr "スタッシュの変更を履歴に表示する"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:9
-msgid "Setting that indicates whether to show a virtual item for the currently staged changes in the history."
-msgstr ""
+#: data/org.gnome.gitg.gschema.xml.in:117
+msgid ""
+"Setting that indicates whether to show items for the stash in the history."
+msgstr "履歴上にスタッシュのアイテムを表示するかどうか。"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:10
-msgid "Setting that indicates whether to show a virtual item for the currently unstaged changes in the history."
-msgstr ""
+#: data/org.gnome.gitg.gschema.xml.in:124
+msgid "Show Staged Changes"
+msgstr "ステージ登録済みの変更を履歴に表示"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:11
+#: data/org.gnome.gitg.gschema.xml.in:125
+msgid ""
+"Setting that indicates whether to show a virtual item for the currently "
+"staged changes in the history."
+msgstr ""
+"履歴上に現在のステージ登録済みの変更を示すバーチャルなアイテムを表示するかど"
+"うか。"
+
+#: data/org.gnome.gitg.gschema.xml.in:132
+msgid "Show Unstaged Changes"
+msgstr "ステージ未登録の変更を履歴に表示"
+
+#: data/org.gnome.gitg.gschema.xml.in:133
+msgid ""
+"Setting that indicates whether to show a virtual item for the currently "
+"unstaged changes in the history."
+msgstr ""
+"履歴にステージに登録されていない現在の変更を示すバーチャルなアイテムを表示す"
+"るかどうか。"
+
+#: data/org.gnome.gitg.gschema.xml.in:140
+msgid "Mainline Head"
+msgstr "メインラインのヘッド"
+
+#: data/org.gnome.gitg.gschema.xml.in:141
+msgid ""
+"Setting that indicates whether to always preserve a mainline in the history "
+"for the current HEAD."
+msgstr "現在のHEADの履歴に常にメインラインを残すかどうか。"
+
+#: data/org.gnome.gitg.gschema.xml.in:148
+msgid "Default selection of the history activity"
+msgstr "履歴アクテイビティのデフォルトの選択"
+
+#: data/org.gnome.gitg.gschema.xml.in:149
+msgid ""
+"Setting that determines the default selection on startup of the history "
+"activity."
+msgstr "起動時の履歴アクテイビティのデフォルトの選択を設定します。"
+
+#: data/org.gnome.gitg.gschema.xml.in:155
+msgid "Reference Sort Order"
+msgstr "参照のソートの順番"
+
+#: data/org.gnome.gitg.gschema.xml.in:156
+msgid "The order by which references in the history sidebar should be sorted."
+msgstr "履歴のサイドバーで参照を並べる順番。"
+
+#: data/org.gnome.gitg.gschema.xml.in:162
+msgid "Show Upstream With Branch"
+msgstr "ブランチありでアップストリームを表示"
+
+#: data/org.gnome.gitg.gschema.xml.in:163
+msgid ""
+"Determines whether to also show the upstream (remote) tracking branch when "
+"selecting a local branch in the history view."
+msgstr ""
+"履歴画面でローカルブランチを選択したときに、アップストリーム(リモート)の追跡"
+"しているブランチも表示するかどうか。"
+
+#: data/org.gnome.gitg.gschema.xml.in:172
+msgid "Switch to the new branch on creation"
+msgstr "ブランチの作成時にその作成したブランチに切り替える"
+
+#: data/org.gnome.gitg.gschema.xml.in:173
+msgid ""
+"Setting that controls whether the newly created branch is checked out "
+"automatically."
+msgstr ""
+"新規に作成したブランチへ自動的にチェックアウトするかどうかを制御します。"
+
+#: data/org.gnome.gitg.gschema.xml.in:188
 msgid "Show Right Margin in Commit Message View"
-msgstr ""
+msgstr "コミットメッセージ画面で右マージンを表示する"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:12
-msgid "Show a right margin indicator in the commit message view. This can be used to easily see where to break the commit message at a particular column."
+#: data/org.gnome.gitg.gschema.xml.in:189
+msgid ""
+"Show a right margin indicator in the commit message view. This can be used "
+"to easily see where to break the commit message at a particular column."
 msgstr ""
+"コミットメッセージ画面で右マージンインディケーターを表示します。特定のカラム"
+"でコミットメッセージが改行している箇所が簡単にわかります。"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:13
+#: data/org.gnome.gitg.gschema.xml.in:197
 msgid "Column at Which Right Margin is Shown"
-msgstr ""
+msgstr "右マージンでカラムを表示"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:14
-msgid "The column at which the right margin is shown if the show-right-margin preference is set to TRUE."
+#: data/org.gnome.gitg.gschema.xml.in:198
+msgid ""
+"The column at which the right margin is shown if the show-right-margin "
+"preference is set to TRUE."
 msgstr ""
+"右マージンの箇所にカラムを表示します。ただし右マージンを表示の設定がTRUEのと"
+"きのみ有効です。"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:15
+#: data/org.gnome.gitg.gschema.xml.in:205
 msgid "Show Subject Margin in Commit Message View"
-msgstr ""
+msgstr "コミットメッセージ画面のサブジェクトマージンの表示"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:16
-msgid "Highlight the subject text of the commit message when it passes the margin specified by subject-margin-position."
+#: data/org.gnome.gitg.gschema.xml.in:206
+msgid ""
+"Highlight the subject text of the commit message when it passes the margin "
+"specified by subject-margin-position."
 msgstr ""
+"subject-margin-positionによって指定されたマージンが渡されたときの、コミット"
+"メッセージのサブジェクト文のハイライト。"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:17
+#: data/org.gnome.gitg.gschema.xml.in:213
 msgid "Column at Which Subject Margin is Shown"
+msgstr "サブジェクトマージンのカラムを表示"
+
+#: data/org.gnome.gitg.gschema.xml.in:214
+msgid ""
+"The column at which the subject margin is shown if the show-subject-margin "
+"preference is set to TRUE."
 msgstr ""
+"show-subject-margin設定項目がTRUEの場合にサブジェクトマージンのカラムを表示。"
 
-#: ../data/org.gnome.gitg.gschema.xml.in.in.h:18
-msgid "The column at which the subject margin is shown if the show-subject-margin preference is set to TRUE."
+#: data/org.gnome.gitg.gschema.xml.in:221
+msgid "Enable Spell Checking"
+msgstr "スペルチェックを有効にする"
+
+#: data/org.gnome.gitg.gschema.xml.in:222
+msgid ""
+"Setting which determines whether or not spell checking is enabled when "
+"writing a commit message."
+msgstr "コミットメッセージの入力時にスペルチェックを有効にするかどうか。"
+
+#: data/org.gnome.gitg.gschema.xml.in:229
+msgid "Spell Checking Language"
+msgstr "スペルチェックの言語"
+
+#: data/org.gnome.gitg.gschema.xml.in:230
+msgid ""
+"The language to use when spell checking is enabled for writing a commit "
+"message."
 msgstr ""
+"コミットメッセージ入力時のスペルチェックを有効にした場合のスペルチェック対象"
+"の言語。"
 
-#: ../gitg/commit/gitg-commit-dialog.vala:283
-#, c-format
-msgid "Cannot set spell checking language: %s"
+#: data/org.gnome.gitg.gschema.xml.in:237
+msgid "Maximum number of previous commit messages"
+msgstr "以前のコミットメッセージの最大数"
+
+#: data/org.gnome.gitg.gschema.xml.in:238
+msgid ""
+"Maximum number of previous commit messages to store for commit message "
+"history."
+msgstr "コミットメッセージの履歴で保存する、以前のコミットメッセージの最大数。"
+
+#: data/org.gnome.gitg.gschema.xml.in:242
+msgid "Maximum number of days to store previous commit messages"
+msgstr "以前のコミットメッセージを保存する最大日数"
+
+#: data/org.gnome.gitg.gschema.xml.in:243
+msgid ""
+"Maximum number of days to store previous commit messages for commit message "
+"history."
 msgstr ""
+"コミットメッセージの履歴のために保存する以前のコミットメッセージの最大日数。"
 
-#: ../gitg/commit/gitg-commit.vala:105
-#: ../gitg/preferences/gitg-preferences-commit.vala:119
-#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:1
-msgid "Commit"
-msgstr "コミット"
+#: data/org.gnome.gitg.gschema.xml.in:249
+msgid "Use patience algorithm to show diffs"
+msgstr "差分の表示に patience アルゴリズムを採用"
 
-#: ../gitg/commit/gitg-commit.vala:145
-msgid "_Stage selection"
-msgstr "選択部分をステージに登録する(_S)"
+#: data/org.gnome.gitg.gschema.xml.in:250
+msgid "Setting to use patience algorithm to show diffs of a commit."
+msgstr "コミットの差分を表示する際に patience アルゴリズムを使用する設定。"
 
-#: ../gitg/commit/gitg-commit.vala:168
-#, c-format
-msgid "Failed to stage the file `%s'"
+#: data/org.gnome.gitg.gschema.xml.in:256
+msgid "Ignore Whitespace Changes"
+msgstr "変更中の空白文字を無視"
+
+#: data/org.gnome.gitg.gschema.xml.in:257
+msgid ""
+"Setting that indicates whether to ignore whitespace changes when showing the "
+"diff of a commit."
 msgstr ""
+"コミットの差分を表示する際に変更に含まれる空白文字を無視するように設定。"
 
-#: ../gitg/commit/gitg-commit.vala:187
-#, c-format
-msgid "Failed to stage the removal of file `%s'"
+#: data/org.gnome.gitg.gschema.xml.in:264
+msgid "Show Changes Inline"
+msgstr "変更をインライン表示"
+
+#: data/org.gnome.gitg.gschema.xml.in:265
+msgid ""
+"Setting that indicates whether changes within lines should be shown inline."
+msgstr "変更をインラインで表示するかどうか。"
+
+#: data/org.gnome.gitg.gschema.xml.in:272
+msgid "Wrap"
+msgstr "折り返し"
+
+#: data/org.gnome.gitg.gschema.xml.in:273
+msgid "Wrap lines."
+msgstr "行を折り返す。"
+
+#: data/org.gnome.gitg.gschema.xml.in:279
+#: data/org.gnome.gitg.gschema.xml.in:297
+msgid "Number of Before/After Context Lines"
+msgstr "コンテキスト行の前後の行数"
+
+#: data/org.gnome.gitg.gschema.xml.in:280
+msgid ""
+"Setting that determines how many lines of context (before and after) should "
+"be shown when showing the diff of a commit."
+msgstr "コミットの差分を表示するときに、変更の前後何行を表示するか決定する。"
+
+#: data/org.gnome.gitg.gschema.xml.in:287
+#: data/org.gnome.gitg.gschema.xml.in:306
+msgid "Rendered Width of a Tab Character"
+msgstr "タブ文字の表示文字幅"
+
+#: data/org.gnome.gitg.gschema.xml.in:288
+#: data/org.gnome.gitg.gschema.xml.in:307
+msgid ""
+"Setting that determines how much space a tab character should occupy when "
+"showing the diff of a commit."
 msgstr ""
+"コミットの差分を表示するときに、タブ文字を何文字の半角空白で表示するかを決定"
+"する。"
 
-#: ../gitg/commit/gitg-commit.vala:229
-msgid "_Unstage selection"
-msgstr "選択部分をステージから外す(_U)"
-
-#: ../gitg/commit/gitg-commit.vala:252
-#, c-format
-msgid "Failed to unstage the removal of file `%s'"
+#: data/org.gnome.gitg.gschema.xml.in:298
+msgid ""
+"Setting that determines how many lines of context (before and after) should "
+"be shown when showing the diff to be staged/unstaged in the commit area."
 msgstr ""
+"コミットの領域のステージング/ステージング解除の差分を表示するときに、変更の前"
+"後何行を表示するかを決定する。"
 
-#: ../gitg/commit/gitg-commit.vala:271
-#, c-format
-msgid "Failed to unstage the file `%s'"
-msgstr "ファイル `%s' のステージ解除に失敗しました"
-
-#: ../gitg/commit/gitg-commit.vala:412
-msgid "Staged"
-msgstr "ステージ登録済み"
-
-#: ../gitg/commit/gitg-commit.vala:419
-msgid "No staged files"
-msgstr "ステージ登録済みファイルなし"
-
-#: ../gitg/commit/gitg-commit.vala:431
-msgid "Unstaged"
-msgstr "ステージ未登録"
-
-#: ../gitg/commit/gitg-commit.vala:435
-msgid "No unstaged files"
-msgstr "ステージ未登録ファイルなし"
-
-#: ../gitg/commit/gitg-commit.vala:447
-msgid "Untracked"
-msgstr "管理対象外"
-
-#: ../gitg/commit/gitg-commit.vala:451
-msgid "No untracked files"
-msgstr "管理対象外ファイルなし"
-
-#: ../gitg/commit/gitg-commit.vala:506
+#: gitg/commit/gitg-commit-dialog.vala:556 gitg/commit/gitg-commit.vala:1091
 msgid "There are no changes to be committed"
 msgstr "コミットする変更はありません"
 
-#: ../gitg/commit/gitg-commit.vala:507
+#: gitg/commit/gitg-commit-dialog.vala:557 gitg/commit/gitg-commit.vala:1092
 msgid "Use amend to change the commit message of the previous commit"
-msgstr ""
+msgstr "直前のコミットのコミットメッサージを変更するためにアメンドを使う"
 
-#: ../gitg/commit/gitg-commit.vala:533
+#: gitg/commit/gitg-commit.vala:113
+msgctxt "Activity"
+msgid "Commit"
+msgstr "コミット"
+
+#: gitg/commit/gitg-commit.vala:118
+msgid "Create new commits and manage the staging area"
+msgstr "新しくコミットを作成してステージング領域をマージする"
+
+#: gitg/commit/gitg-commit.vala:207
+msgid "_Stage selection"
+msgstr "選択部分をステージに登録する(_S)"
+
+#: gitg/commit/gitg-commit.vala:246
+#, c-format
+msgid "Failed to stage the removal of submodule “%s”"
+msgstr "サブモジュール %s の削除に失敗"
+
+#: gitg/commit/gitg-commit.vala:262
+#, c-format
+msgid "Failed to open the repository of submodule “%s” while trying to stage"
+msgstr "ステージング中に、サブモジュールの %s リポジトリを開くのに失敗"
+
+#: gitg/commit/gitg-commit.vala:277
+#, c-format
+msgid ""
+"Failed to lookup the working directory commit of submodule “%s” while trying "
+"to stage"
+msgstr ""
+"ステージング中に、サブモジュールの %s リポジトリのコミットの作業ディレクトリ"
+"を検索するのに失敗"
+
+#: gitg/commit/gitg-commit.vala:290
+#, c-format
+msgid "Failed to stage the submodule “%s”"
+msgstr "サブモジュール %s のステージングに失敗"
+
+#: gitg/commit/gitg-commit.vala:312
+#, c-format
+msgid "Failed to stage the removal of file “%s”"
+msgstr "ファイル %s の削除に失敗"
+
+#: gitg/commit/gitg-commit.vala:326
+#, c-format
+msgid "Failed to stage the file “%s”"
+msgstr "ファイル %s のステージングに失敗"
+
+#: gitg/commit/gitg-commit.vala:598
+msgid "_Unstage selection"
+msgstr "選択部分をステージから外す(_U)"
+
+#: gitg/commit/gitg-commit.vala:664
+#, c-format
+msgid "Failed to unstage the removal of file “%s”"
+msgstr "ファイル %s の削除のステージ解除に失敗しました"
+
+#: gitg/commit/gitg-commit.vala:665
+#, c-format
+msgid "Failed to unstage the file “%s”"
+msgstr "ファイル %s のステージング解除に失敗しました"
+
+#: gitg/commit/gitg-commit.vala:672
+#, c-format
+msgid "Failed to unstage the removal of submodule “%s”"
+msgstr "サブモジュール %s の削除のステージ解除に失敗しました"
+
+#: gitg/commit/gitg-commit.vala:673
+#, c-format
+msgid "Failed to unstage the submodule “%s”"
+msgstr "サブモジュール %s のステージング解除に失敗しました"
+
+#. Populate staged items
+#: gitg/commit/gitg-commit.vala:877
+msgid "Staged"
+msgstr "ステージ登録済み"
+
+#: gitg/commit/gitg-commit.vala:885
+msgid "No staged files"
+msgstr "ステージ登録済みファイルなし"
+
+#. Populate unstaged items
+#: gitg/commit/gitg-commit.vala:908
+msgid "Unstaged"
+msgstr "ステージ未登録"
+
+#: gitg/commit/gitg-commit.vala:916
+msgid "No unstaged files"
+msgstr "ステージ未登録ファイルなし"
+
+#. Populate untracked items
+#: gitg/commit/gitg-commit.vala:939
+msgid "Untracked"
+msgstr "管理対象外"
+
+#: gitg/commit/gitg-commit.vala:943
+msgid "No untracked files"
+msgstr "管理対象外ファイルなし"
+
+#: gitg/commit/gitg-commit.vala:968
+msgid "Submodule"
+msgstr "サブモジュール"
+
+#: gitg/commit/gitg-commit.vala:972
+msgid "No dirty submodules"
+msgstr "ダーティなサブモジュールはありません"
+
+#: gitg/commit/gitg-commit.vala:1121
 msgid "Failed to commit"
-msgstr "コミットに失敗しました。"
+msgstr "コミットに失敗しました"
 
 # Translator's NOTE: !(...stage.pre_commit_hook(author))
-#. TODO: better to show user info dialog directly or something
-#: ../gitg/commit/gitg-commit.vala:549 ../gitg/commit/gitg-commit.vala:782
+#: gitg/commit/gitg-commit.vala:1137
 msgid "Failed to pass pre-commit"
-msgstr "コミット前フックでエラーが発生しました"
+msgstr "プレコミットフックでエラーが発生しました"
 
-#: ../gitg/commit/gitg-commit.vala:770
-msgid "Your user name and email are not configured yet. Please go to the user configuration and provide your name and email."
-msgstr "ユーザー名とメールアドレスが設定されていません。ユーザー設定に移動して名前とメールアドレスを指定してください。"
+#: gitg/commit/gitg-commit.vala:1302 gitg/commit/gitg-commit.vala:1452
+msgid "Discard changes"
+msgstr "変更を破棄"
 
-#: ../gitg/commit/gitg-commit.vala:774
-msgid "Your user name is not configured yet. Please go to the user configuration and provide your name."
-msgstr "ユーザー名が設定されていません。ユーザー設定に移動して名前を指定してください。"
+#: gitg/commit/gitg-commit.vala:1303
+msgid "Are you sure you want to permanently discard the selected changes?"
+msgstr "あなたは本当に選択した変更を永久に破棄しますか?"
 
-#: ../gitg/commit/gitg-commit.vala:778
-msgid "Your email is not configured yet. Please go to the user configuration and provide your email."
-msgstr "メールアドレスが設定されていません。ユーザー設定に移動してメールアドレスを指定してください。"
-
-#: ../gitg/commit/gitg-commit.vala:839
-msgid "Failed to stage selection"
-msgstr ""
-
-#: ../gitg/commit/gitg-commit.vala:843
-msgid "Failed to unstage selection"
-msgstr "選択部分のステージ解除に失敗しました"
-
-#: ../gitg/gitg-application.vala:55
-msgid "Show the application's version"
-msgstr "gitg のバージョンを表示"
-
-#: ../gitg/gitg-application.vala:58
-msgid "Start gitg with a particular activity"
-msgstr ""
-
-#: ../gitg/gitg-application.vala:61
-msgid "Start gitg with the commit activity (shorthand for --activity commit)"
-msgstr ""
-
-#: ../gitg/gitg-application.vala:64
-msgid "Do not try to load a repository from the current working directory"
-msgstr ""
-
-#: ../gitg/gitg-application.vala:88
-msgid "- Git repository viewer"
-msgstr "- Git リポジトリビューワー"
-
-#: ../gitg/gitg-application.vala:206
-msgid "gitg is a Git repository viewer for gtk+/GNOME"
-msgstr "gitg は gtk+/GNOME 用の Git リポジトリビューワーです"
-
-#: ../gitg/gitg-application.vala:215
-msgid "translator-credits"
-msgstr "松澤 二郎 <jmatsuzawa@gnome.org>"
-
-#: ../gitg/gitg-application.vala:218
-msgid "gitg homepage"
-msgstr "gitg ホームページ"
-
-#: ../gitg/gitg-author-details-dialog.vala:67
-msgid "Unable to open the .gitconfig file."
-msgstr ".gitconfig ファイルを開けません。"
-
-#: ../gitg/gitg-author-details-dialog.vala:149
-msgid "Failed to set Git user config."
-msgstr ""
-
-#: ../gitg/gitg-clone-dialog.vala:88
-msgid "The URL introduced is not supported"
-msgstr ""
-
-#: ../gitg/gitg.vala:64
-msgid ""
-"We are terribly sorry, but gitg requires libgit2 (a library on which gitg depends) to be compiled with threading support.\n"
-"\n"
-"If you manually compiled libgit2, then please configure libgit2 with -DTHREADSAFE:BOOL=ON.\n"
-"\n"
-"Otherwise, report a bug in your distributions' bug reporting system for providing libgit2 without threading support."
-msgstr ""
-"誠に申し訳ありませんが gitg では libgit2 (gitg が依存しているライブラリ) がスレッドのサポートを有効にしてコンパイルされている必要があります。\n"
-"\n"
-"libgit2 を手作業によりコンパイルした場合は -DTHREADSAFE:BOOL=ON を指定して libgit2 をコンパイルし直してください。\n"
-"\n"
-"コンパイル済みの libgit2 を取得した場合は、スレッドのサポートを有効にしていない libgit2 を提供していることについて配布元のバグ報告システムにバグ報告してください。"
-
-#: ../gitg/gitg-window.vala:268
-msgid "Projects"
-msgstr "プロジェクト"
-
-#: ../gitg/gitg-window.vala:304
-msgid "Open Repository"
-msgstr "リポジトリを開く"
-
-#: ../gitg/gitg-window.vala:306
-#: ../libgitg/gitg-diff-view-request-patch.vala:109
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:2
-#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:2
+#: gitg/commit/gitg-commit.vala:1312 gitg/commit/gitg-commit.vala:1478
+#: gitg/commit/gitg-commit.vala:1593
+#: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:453
+#: gitg/gitg-window.vala:205 gitg/gitg-window.vala:703
+#: gitg/resources/ui/gitg-author-details-dialog.ui:20
+#: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
+#: gitg/resources/ui/gitg-clone-dialog.ui:18
+#: gitg/resources/ui/gitg-commit-dialog.ui:20
+#: gitg/resources/ui/gitg-create-branch-dialog.ui:18
+#: gitg/resources/ui/gitg-create-tag-dialog.ui:20
+#: gitg/resources/ui/gitg-remote-notification.ui:30
+#: gitg/resources/ui/gitg-simple-notification.ui:61
+#: gitg/resources/ui/gitg-window.ui:154
+#: libgitg/resources/ui/gitg-authentication-dialog.ui:11
 msgid "_Cancel"
 msgstr "キャンセル(_C)"
 
-#: ../gitg/gitg-window.vala:307
-msgid "_Open"
-msgstr "開く(_O)"
+#: gitg/commit/gitg-commit.vala:1313 gitg/commit/gitg-commit.vala:1479
+msgid "Discard"
+msgstr "破棄"
 
-#: ../gitg/gitg-window.vala:544
+#: gitg/commit/gitg-commit.vala:1342
+msgid "Failed to discard selection"
+msgstr "選択部分の破棄に失敗"
+
+#: gitg/commit/gitg-commit.vala:1372
+msgid "Failed to stage selection"
+msgstr "選択部分のステージングに失敗"
+
+#: gitg/commit/gitg-commit.vala:1376
+msgid "Failed to unstage selection"
+msgstr "選択部分のステージ解除に失敗"
+
+#: gitg/commit/gitg-commit.vala:1436
+msgid "Failed to discard changes"
+msgstr "変更の破棄に失敗"
+
+#: gitg/commit/gitg-commit.vala:1457
 #, c-format
-msgid "'%s' is not a Git repository."
-msgstr "'%s' は Git リポジトリではありません。"
+msgid ""
+"Are you sure you want to permanently discard all changes made to the file "
+"“%s”?"
+msgstr "あなたは本当に、ファイル %s 上の全ての変更を永久に破棄しますか?"
 
-#: ../gitg/history/gitg-history-navigation.vala:199
-#: ../gitg/history/gitg-history-navigation.vala:307
-msgid "All commits"
-msgstr "全コミット"
+#: gitg/commit/gitg-commit.vala:1468
+#, c-format
+msgid ""
+"Are you sure you want to permanently discard all changes made to the files "
+"%s and “%s”?"
+msgstr "あなたは本当に、ファイル %s と %s 上の全ての変更を永久に破棄しますか?"
 
-#. Branches
-#: ../gitg/history/gitg-history-navigation.vala:202
-msgid "Branches"
-msgstr "ブランチ"
+#: gitg/commit/gitg-commit.vala:1551
+msgid "Failed to delete files"
+msgstr "ファイル %s の削除に失敗"
 
-#. Remotes
-#: ../gitg/history/gitg-history-navigation.vala:239
-msgid "Remotes"
-msgstr "リモート"
+#: gitg/commit/gitg-commit.vala:1567
+msgid "Delete file"
+msgid_plural "Delete files"
+msgstr[0] "ファイル削除"
 
-#. Tags
-#: ../gitg/history/gitg-history-navigation.vala:265
+#: gitg/commit/gitg-commit.vala:1572
+#, c-format
+msgid "Are you sure you want to permanently delete the file “%s”?"
+msgstr "あなたは本当にファイル %s を永久に削除しますか?"
+
+#: gitg/commit/gitg-commit.vala:1583
+#, c-format
+msgid "Are you sure you want to permanently delete the files %s and “%s”?"
+msgstr "あなたは本当にファイル %s と %s を永久に削除しますか?"
+
+#: gitg/commit/gitg-commit.vala:1629
+msgid "_Stage changes"
+msgstr "変更をステージに登録する(_S)"
+
+#: gitg/commit/gitg-commit.vala:1641
+msgid "_Unstage changes"
+msgstr "変更をステージ解除(_U)"
+
+#: gitg/commit/gitg-commit.vala:1653
+msgid "_Discard changes"
+msgstr "変更を破棄(_D)"
+
+#: gitg/commit/gitg-commit.vala:1665
+msgid "D_elete file"
+msgid_plural "D_elete files"
+msgstr[0] "ファイルを削除(_e)"
+
+#: gitg/commit/gitg-commit.vala:1695
+msgid "_Edit file"
+msgstr "ファイルを編集(_E)"
+
+#: gitg/gitg-action-support.vala:95
+#, c-format
+msgid "Failed to stash changes: %s"
+msgstr "%s の変更のスタッシュに失敗しました"
+
+#: gitg/gitg-action-support.vala:130
+msgid "Unstaged changes"
+msgstr "未ステージングの変更"
+
+#: gitg/gitg-action-support.vala:131
+msgid ""
+"You appear to have unstaged changes in your working directory. Would you "
+"like to stash the changes before the checkout?"
+msgstr ""
+"あなたは作業ディレクトリ上にステージングされていない変更をそのままにしていま"
+"す。チェックアウトの前にこの変更をスタッシュしますか?"
+
+#: gitg/gitg-action-support.vala:133
+#: gitg/gitg-commit-action-cherry-pick.vala:163
+#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-push.vala:138
+#: gitg/gitg-ref-action-merge.vala:194
+msgid "Cancel"
+msgstr "キャンセル"
+
+#: gitg/gitg-action-support.vala:134
+msgid "Stash changes"
+msgstr "変更をスタッシュ"
+
+#: gitg/gitg-action-support.vala:138 gitg/gitg-action-support.vala:165
+msgid "Failed with conflicts"
+msgstr "コンフリクトで失敗"
+
+#: gitg/gitg-action-support.vala:181
+#, c-format
+msgid "Failed to checkout conflicts: %s"
+msgstr "コンフリクトのチェックアウトに失敗 %s"
+
+#: gitg/gitg-action-support.vala:199
+msgid "Failed to obtain author details"
+msgstr "著者の詳細の取得に失敗"
+
+#: gitg/gitg-action-support.vala:223 gitg/gitg-ref-action-checkout.vala:88
+#, c-format
+msgid "Failed to lookup commit: %s"
+msgstr "コミット %s の検索に失敗"
+
+#: gitg/gitg-action-support.vala:255
+#, c-format
+msgid "Failed to create commit: %s"
+msgstr "コミット %s の作成に失敗"
+
+#: gitg/gitg-action-support.vala:277
+#, c-format
+msgid "Failed to checkout index: %s"
+msgstr "インデックス %s のチェックアウトに失敗"
+
+#: gitg/gitg-application.vala:38
+msgid "Show the application’s version"
+msgstr "gitg のバージョンを表示"
+
+#: gitg/gitg-application.vala:40
+msgid "Start gitg with a particular activity"
+msgstr "gitgの起動時に特定のアクティビティを開始"
+
+#: gitg/gitg-application.vala:42
+msgid "Start gitg with the commit activity (shorthand for --activity commit)"
+msgstr "gitgの起動時に特定のアクティビティを開始(—activity コミットの省略)"
+
+#: gitg/gitg-application.vala:44
+msgid "Do not try to load a repository from the current working directory"
+msgstr "現在の作業ディレクトリからリポジトリのロードを試みない"
+
+#: gitg/gitg-application.vala:46
+msgid "Run gitg in standalone mode"
+msgstr "スタンドアロンモードで gitgを実行"
+
+#: gitg/gitg-application.vala:92
+msgid "— Git repository viewer"
+msgstr "— Git リポジトリビューワー"
+
+#: gitg/gitg-application.vala:226
+msgid "gitg is a Git repository viewer for GTK+/GNOME"
+msgstr "gitg は gtk+/GNOME 用の Git リポジトリビューワーです"
+
+#: gitg/gitg-application.vala:235
+msgid "translator-credits"
+msgstr "松澤 二郎 <jmatsuzawa@gnome.org> Tomo Dote <fu7mu4@gmail.com>"
+
+#: gitg/gitg-application.vala:238
+msgid "gitg homepage"
+msgstr "gitg ホームページ"
+
+#: gitg/gitg-application.vala:393
+msgid ""
+"We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
+"depends) to be compiled with threading support.\n"
+"\n"
+"If you manually compiled libgit2, then please configure libgit2 with -"
+"DTHREADSAFE:BOOL=ON.\n"
+"\n"
+"Otherwise, report a bug in your distributions’ bug reporting system for "
+"providing libgit2 without threading support."
+msgstr ""
+"誠に申し訳ありませんが gitg では gitg が依存しているライブラリの libgit2 がス"
+"レッドのサポートを有効にしてコンパイルされている必要があります。\n"
+"\n"
+"libgit2 を手作業によりコンパイルした場合は -DTHREADSAFE:BOOL=ON を指定して "
+"libgit2 をコンパイルし直してください。\n"
+"\n"
+"コンパイル済みの libgit2 を取得した場合は、スレッドのサポートを有効にしていな"
+"い libgit2 を提供していることについて配布元のバグ報告システムにバグ報告してく"
+"ださい。"
+
+#: gitg/gitg-author-details-dialog.vala:79
+#: gitg/gitg-author-details-dialog.vala:99
+#: gitg/resources/ui/gitg-author-details-dialog.ui:9
+msgid "Author Details"
+msgstr "作者詳細"
+
+#: gitg/gitg-author-details-dialog.vala:80
+msgid "Enter default details used for all repositories:"
+msgstr "全リポジトリを対象にデフォルトとして設定する詳細を入力してください:"
+
+#. Translators: %s is the repository name
+#: gitg/gitg-author-details-dialog.vala:102
+#, c-format
+msgid "Override global details for repository “%s”:"
+msgstr "リポジトリ '%s' のグローバルな詳細を上書き:"
+
+#: gitg/gitg-author-details-dialog.vala:214
+msgid "Failed to set Git user config."
+msgstr "Gitのユーザー設定の保存に失敗。"
+
+#: gitg/gitg-clone-dialog.vala:89
+msgid "The URL introduced is not supported"
+msgstr "導入されたURLはサポートできません"
+
+#: gitg/gitg-commit-action-cherry-pick.vala:53
+msgid "Cherry pick onto"
+msgstr "チェリーピック実施"
+
+#: gitg/gitg-commit-action-cherry-pick.vala:58
+msgid "Cherry pick this commit onto a branch"
+msgstr "ブランチ上にこのコミットをチェリーピック"
+
+#: gitg/gitg-commit-action-cherry-pick.vala:117
+#, c-format
+msgid "Failed to lookup the commit for branch %s: %s"
+msgstr "ブランチ %s のコミットの検索に失敗: %s"
+
+# Translator's NOTE: !(...stage.pre_commit_hook(author))
+#: gitg/gitg-commit-action-cherry-pick.vala:132
+#, c-format
+msgid "Failed to cherry-pick the commit: %s"
+msgstr "コミット %s のチェリーピックでエラーが発生しました"
+
+#: gitg/gitg-commit-action-cherry-pick.vala:144
+#: gitg/gitg-commit-action-cherry-pick.vala:160
+msgid "Cherry pick has conflicts"
+msgstr "チェリーピックにはコンフリクトあり"
+
+#: gitg/gitg-commit-action-cherry-pick.vala:153
+#, c-format
+msgid ""
+"The cherry pick of %s onto %s has caused conflicts, would you like to "
+"checkout branch %s with the cherry pick to your working directory to resolve "
+"the conflicts?"
+msgstr ""
+"この %s のチェリーピックを %s ブランチで行うと、コンフリクトが発生します。こ"
+"のコンフリクトを解消するためにあなたの作業ディレクトリにこのブランチ %s チェ"
+"リーピックありでチェックアウトしますか?"
+
+#: gitg/gitg-commit-action-cherry-pick.vala:157
+#, c-format
+msgid ""
+"The cherry-pick of %s onto %s has caused conflicts, would you like to "
+"checkout the cherry pick to your working directory to resolve the conflicts?"
+msgstr ""
+"この %s のチェリーピックを %s で行うと、コンフリクトが発生します。このコンフ"
+"リクトを解消するためにあなたの作業ディレクトリにこのチェリーピックをチェック"
+"アウトしますか?"
+
+#: gitg/gitg-commit-action-cherry-pick.vala:164
+#: gitg/gitg-ref-action-checkout.vala:48 gitg/gitg-ref-action-merge.vala:195
+msgid "Checkout"
+msgstr "チェックアウト"
+
+#: gitg/gitg-commit-action-cherry-pick.vala:168
+msgid "Cherry pick failed with conflicts"
+msgstr "コンフリクトに失敗したチェリーピック"
+
+#: gitg/gitg-commit-action-cherry-pick.vala:179
+msgid "Cherry pick finished with conflicts in working directory"
+msgstr "作業ディレクトリでコンフリクトのあるまま終了したチェリーピック"
+
+#: gitg/gitg-commit-action-cherry-pick.vala:199
+#, c-format
+msgid "Cherry pick %s onto %s"
+msgstr "チェリーピック %s (%s 上)"
+
+#: gitg/gitg-commit-action-cherry-pick.vala:224
+msgid "Successfully cherry picked"
+msgstr "チェリーピックに成功しました"
+
+#: gitg/gitg-commit-action-cherry-pick.vala:261
+#, c-format
+msgid "Cherry pick onto %s"
+msgstr "%s へのチェリーピック"
+
+#: gitg/gitg-commit-action-create-branch.vala:48
+msgid "Create branch"
+msgstr "ブランチ作成"
+
+#: gitg/gitg-commit-action-create-branch.vala:53
+msgid "Create a new branch at the selected commit"
+msgstr "選択したコミットの時点でブランチを作成"
+
+#: gitg/gitg-commit-action-create-branch.vala:75
+#: gitg/gitg-ref-action-checkout.vala:180
+msgid "Failed to create branch"
+msgstr "ブランチの作成に失敗"
+
+#: gitg/gitg-commit-action-create-patch.vala:63
+msgid "Create patch"
+msgstr "パッチの作成"
+
+#: gitg/gitg-commit-action-create-patch.vala:68
+msgid "Create a patch from the selected commit"
+msgstr "選択したコミットからパッチを作成"
+
+#: gitg/gitg-commit-action-create-patch.vala:152
+msgid "Save Patch File"
+msgstr "パッチファイルとして保存"
+
+#: gitg/gitg-commit-action-create-patch.vala:156
+msgid "_Save Patch"
+msgstr "パッチファイルとして保存(_S)"
+
+#: gitg/gitg-commit-action-create-patch.vala:181
+msgid "Failed to create patch"
+msgstr "ブランチの作成に失敗"
+
+#: gitg/gitg-commit-action-create-tag.vala:48
+msgid "Create tag"
+msgstr "タグの作成"
+
+#: gitg/gitg-commit-action-create-tag.vala:53
+msgid "Create a new tag at the selected commit"
+msgstr "選択したコミットで新しいタグを作成"
+
+#: gitg/gitg-commit-action-create-tag.vala:92
+msgid "Failed to create tag"
+msgstr "タグの作成に失敗"
+
+#: gitg/gitg-commit-action-create-tag.vala:109
+msgid "Failed to lookup tag"
+msgstr "タグの検索に失敗"
+
+#: gitg/gitg-create-tag-dialog.vala:96
+msgid "Provide a message to create an annotated tag"
+msgstr "メッセージを入力して注釈つきタグを作成"
+
+#: gitg/gitg-dash-view.vala:87
+msgid "Select and manage projects"
+msgstr "プロジェクトの選択と管理"
+
+#: gitg/gitg-dash-view.vala:174
+msgid "_Remove"
+msgstr "削除する(_R)"
+
+#. Translators: the two %s will be replaced to create a link to perform the scanning action.
+#: gitg/gitg-dash-view.vala:230
+#, c-format
+msgid "We can also %sscan your home directory%s for git repositories."
+msgstr ""
+
+#. Translators: the two %s will be used to create a link to the author dialog.
+#: gitg/gitg-dash-view.vala:233
+#, c-format
+msgid "In the mean time, you may want to %sset up your git profile%s."
+msgstr ""
+
+#: gitg/gitg-dash-view.vala:398
+msgid "Failed to clone repository"
+msgstr "リポジトリのクローンに失敗"
+
+# Translator's NOTE: !(...stage.pre_commit_hook(author))
+#: gitg/gitg-dash-view.vala:429
+msgid "Failed to add repository"
+msgstr "リポジトリの追加に失敗"
+
+#: gitg/gitg-dash-view.vala:445
+msgid "Create new repository"
+msgstr "新しいリポジトリの作成"
+
+#. Translators: %s is a file name
+#: gitg/gitg-dash-view.vala:448
+#, c-format
+msgid ""
+"The location <i>%s</i> does not appear to be a valid git repository. Would "
+"you like to initialize a new git repository at this location?"
+msgstr ""
+"<i>%s</i>の場所には妥当な git リポジトリがありませんでした。この場所を新しい "
+"git リポジトリとして初期化しますか?"
+
+#: gitg/gitg-dash-view.vala:454
+msgid "Create repository"
+msgstr "リポジトリの作成"
+
+# Translator's NOTE: !(...stage.pre_commit_hook(author))
+#: gitg/gitg-dash-view.vala:470
+msgid "Failed to create repository"
+msgstr "リポジトリの作成に失敗"
+
+#: gitg/gitg-dash-view.vala:540
+#, c-format
+msgid "Scanning for repositories in %s"
+msgstr "%s のリポジトリをスキャン"
+
+#: gitg/gitg-ref-action-checkout.vala:53
+msgid "Checkout the selected reference"
+msgstr "選択した参照をチェックアウト"
+
+#: gitg/gitg-ref-action-checkout.vala:72
+#, c-format
+msgid "Checkout %s"
+msgstr "%s をチェックアウト"
+
+#: gitg/gitg-ref-action-checkout.vala:101
+#, c-format
+msgid "Failed to checkout branch: %s"
+msgstr "ブランチのチェックアウトに失敗 %s"
+
+#: gitg/gitg-ref-action-checkout.vala:111
+#, c-format
+msgid "Failed to update HEAD: %s"
+msgstr "HEADの更新に失敗: %s"
+
+#: gitg/gitg-ref-action-checkout.vala:121
+msgid "Successfully checked out branch to working directory"
+msgstr "作業ディレクトリへブランチのチェックアウトに成功"
+
+#: gitg/gitg-ref-action-checkout.vala:195
+#, c-format
+msgid "Failed to set the upstream branch %s for %s"
+msgstr "アップストリームブランチ %s を %s のためにセットするのに失敗"
+
+#: gitg/gitg-ref-action-copy-name.vala:48
+msgid "Copy name"
+msgstr "名前のコピー"
+
+#: gitg/gitg-ref-action-copy-name.vala:53
+msgid "Copy the name of the reference to the clipboard"
+msgstr "参照の名前をクリップボードにコピー"
+
+#: gitg/gitg-ref-action-delete.vala:48 gitg/gitg-ref-action-delete.vala:89
+msgid "Delete"
+msgstr "削除"
+
+#: gitg/gitg-ref-action-delete.vala:53
+msgid "Delete the selected reference"
+msgstr "選択した参照を削除"
+
+#: gitg/gitg-ref-action-delete.vala:73
+#, c-format
+msgid "Delete branch %s"
+msgstr "ブランチ %s を削除"
+
+#: gitg/gitg-ref-action-delete.vala:74
+#, c-format
+msgid "Are you sure that you want to permanently delete the branch %s?"
+msgstr "あなたは本当にブランチ %s を永久に削除しますか?"
+
+#: gitg/gitg-ref-action-delete.vala:78
+#, c-format
+msgid "Delete tag %s"
+msgstr "タグ %s の削除"
+
+#: gitg/gitg-ref-action-delete.vala:79
+#, c-format
+msgid "Are you sure that you want to permanently delete the tag %s?"
+msgstr "あなたは本当にタグ %s を永久に削除しますか?"
+
+#: gitg/gitg-ref-action-delete.vala:83
+#, c-format
+msgid "Delete remote branch %s"
+msgstr "リモートブランチ %s を削除"
+
+#: gitg/gitg-ref-action-delete.vala:84
+#, c-format
+msgid "Are you sure that you want to permanently delete the remote branch %s?"
+msgstr "あなたは本当にリモートブランチ %s を永久に削除しますか?"
+
+#. Translators: %s is the name of the tag
+#: gitg/gitg-ref-action-delete.vala:119
+#, c-format
+msgid "Failed to delete tag %s"
+msgstr "タグ %s の削除に失敗"
+
+#. Translators: the first %s is the name of the tag, the second is an error message
+#: gitg/gitg-ref-action-delete.vala:122
+#, c-format
+msgid "The tag %s could not be deleted: %s"
+msgstr "タグ %s は削除できませんでした: %s"
+
+#. Translators: %s is the name of the branch
+#: gitg/gitg-ref-action-delete.vala:127
+#, c-format
+msgid "Failed to delete branch %s"
+msgstr "ブランチ %s の削除に失敗"
+
+#. Translators: the first %s is the name of the branch, the second is an error message
+#: gitg/gitg-ref-action-delete.vala:130
+#, c-format
+msgid "The branch %s could not be deleted: %s"
+msgstr "ブランチ %s を削除できませんでした: %s"
+
+#: gitg/gitg-ref-action-fetch.vala:74
+#, c-format
+msgid "Fetch from %s"
+msgstr "%s から取得"
+
+#: gitg/gitg-ref-action-fetch.vala:85
+#, c-format
+msgid "Fetch remote objects from %s"
+msgstr "%s からリモートオブジェクトを取得"
+
+#: gitg/gitg-ref-action-fetch.vala:98
+#, c-format
+msgid "Fetching from %s"
+msgstr "%s から取得"
+
+#. Translators: new refers to a new remote reference having been fetched,
+#: gitg/gitg-ref-action-fetch.vala:106
+msgid "new"
+msgstr "新規"
+
+#. Translators: updated refers to a remote reference having been updated,
+#: gitg/gitg-ref-action-fetch.vala:111
+msgid "updated"
+msgstr "更新済"
+
+#: gitg/gitg-ref-action-fetch.vala:121
+#, c-format
+msgid "Failed to fetch from %s: %s"
+msgstr "%s からの取得に失敗: %s"
+
+#. Translators: the %s will get replaced with the remote url,
+#: gitg/gitg-ref-action-fetch.vala:134
+#, c-format
+msgid "Fetched from %s: everything is up to date"
+msgstr "%s からの取得: 全て最新"
+
+#. Translators: the first %s is the remote url to fetch from,
+#. * the second is a list of references that got updated.
+#: gitg/gitg-ref-action-fetch.vala:140
+#, c-format
+msgid "Fetched from %s: %s"
+msgstr "%s からの取得: %s"
+
+#: gitg/gitg-ref-action-push.vala:80
+#, c-format
+msgid "Push to %s"
+msgstr "%s へのプッシュ"
+
+#: gitg/gitg-ref-action-push.vala:91
+#, c-format
+msgid "Push branch to %s"
+msgstr "%s へブランチをプッシュ"
+
+#: gitg/gitg-ref-action-push.vala:107
+#, c-format
+msgid "Pushing to %s"
+msgstr "%s へのプッシュ"
+
+#: gitg/gitg-ref-action-push.vala:116
+#, c-format
+msgid "Failed to push to %s: %s"
+msgstr "%s へのプッシュに失敗: %s"
+
+#. Translators: the %s will get replaced with the remote url,
+#: gitg/gitg-ref-action-push.vala:123
+#, c-format
+msgid "Pushed to %s"
+msgstr "%s へプッシュしました"
+
+#: gitg/gitg-ref-action-push.vala:134
+#, c-format
+msgid "Push branch %s"
+msgstr "ブランチ%s のプッシュ"
+
+#: gitg/gitg-ref-action-push.vala:135
+#, c-format
+msgid "Are you sure that you want to push the branch %s?"
+msgstr "あなたは本当にブランチ %s をプッシュしますか?"
+
+#: gitg/gitg-ref-action-push.vala:139
+msgid "Push"
+msgstr "プッシュ"
+
+#: gitg/gitg-ref-action-merge.vala:63
+#, c-format
+msgid "Merge into %s"
+msgstr "%s へマージ"
+
+#. TODO
+#: gitg/gitg-ref-action-merge.vala:69
+#, c-format
+msgid "Merge another branch into branch %s"
+msgstr "他のブランチをブランチ %s へマージ"
+
+#: gitg/gitg-ref-action-merge.vala:106
+#, c-format
+msgid "Failed to merge commits: %s"
+msgstr "コミットのマージに失敗: %s"
+
+#: gitg/gitg-ref-action-merge.vala:175 gitg/gitg-ref-action-merge.vala:191
+msgid "Merge has conflicts"
+msgstr "マージがコンフリクトした"
+
+#: gitg/gitg-ref-action-merge.vala:184
+#, c-format
+msgid ""
+"The merge of %s into %s has caused conflicts, would you like to checkout "
+"branch %s with the merge to your working directory to resolve the conflicts?"
+msgstr ""
+"%s を %s へマージした結果コンフリクトが発生します。ブランチ %s を作業ディレク"
+"トリにチェックアウトしてコンフリクトを解消しますか?"
+
+#: gitg/gitg-ref-action-merge.vala:188
+#, c-format
+msgid ""
+"The merge of %s into %s has caused conflicts, would you like to checkout the "
+"merge to your working directory to resolve the conflicts?"
+msgstr ""
+"%s を %s へマージした結果コンフリクトが発生します。このマージを作業ディレクト"
+"リにチェックアウトしてコンフリクトを解消しますか?"
+
+#: gitg/gitg-ref-action-merge.vala:199
+msgid "Merge failed with conflicts"
+msgstr "コンフリクトのためマージに失敗"
+
+#: gitg/gitg-ref-action-merge.vala:210
+msgid "Finished merge with conflicts in working directory"
+msgstr "作業ディレクトリにコンフリクトのある状態でマージがかんりょう"
+
+#: gitg/gitg-ref-action-merge.vala:222
+#, c-format
+msgid "Merge %s into %s"
+msgstr "%s を %s にマージ"
+
+#: gitg/gitg-ref-action-merge.vala:231
+#, c-format
+msgid "Failed to lookup our commit: %s"
+msgstr "コミット %s の検索に失敗"
+
+# Translator's NOTE: !(...stage.pre_commit_hook(author))
+#: gitg/gitg-ref-action-merge.vala:241
+#, c-format
+msgid "Failed to lookup their commit: %s"
+msgstr "これらのコミットの検索に失敗 %s"
+
+#: gitg/gitg-ref-action-merge.vala:278
+#, c-format
+msgid "Successfully merged %s into %s"
+msgstr "%s から %s へのマージに成功しました"
+
+#: gitg/gitg-ref-action-merge.vala:320
+#, c-format
+msgid "Merge %s into branch %s"
+msgstr "%s をブランチ %s にマージ"
+
+#: gitg/gitg-ref-action-merge.vala:482
+#: gitg/history/gitg-history-refs-list.vala:1181
 msgid "Tags"
 msgstr "タグ"
 
-#: ../gitg/history/gitg-history.vala:164
-#: ../gitg/preferences/gitg-preferences-history.vala:144
+#: gitg/gitg-ref-action-rename.vala:48
+msgid "Rename"
+msgstr "名前の変更"
+
+#: gitg/gitg-ref-action-rename.vala:53
+msgid "Rename the selected reference"
+msgstr "選択した参照の名前を変更"
+
+#: gitg/gitg-ref-action-rename.vala:100
+#, c-format
+msgid "The specified name “%s” contains invalid characters"
+msgstr "指定した名前 %s には不正な文字が含まれている"
+
+#: gitg/gitg-ref-action-rename.vala:102
+msgid "Invalid name"
+msgstr "不正な名前"
+
+#: gitg/gitg-ref-action-rename.vala:131
+msgid "Failed to rename"
+msgstr "名前の変更に失敗"
+
+#: gitg/gitg-remote-notification.vala:90 gitg/gitg-simple-notification.vala:99
+msgid "Close"
+msgstr "閉じる"
+
+#: gitg/gitg-window.vala:202
+msgid "Add Repository"
+msgstr "リポジトリを追加"
+
+#: gitg/gitg-window.vala:206 gitg/resources/ui/gitg-window.ui:64
+msgid "_Add"
+msgstr "追加(_A)"
+
+#: gitg/gitg-window.vala:208
+msgid "_Scan for all git repositories from this directory"
+msgstr "このディレクトリから全ての git リポジトリをスキャン(_S)"
+
+#: gitg/gitg-window.vala:517
+msgid "Projects"
+msgstr "プロジェクト"
+
+#: gitg/gitg-window.vala:701
+msgid "Open Repository"
+msgstr "リポジトリを開く"
+
+#: gitg/gitg-window.vala:704 gitg/resources/ui/gitg-commit-submodule-info.ui:70
+msgid "_Open"
+msgstr "開く(_O)"
+
+#: gitg/gitg-window.vala:844
+msgid "Select items"
+msgstr "アイテムを選択"
+
+#: gitg/gitg-window.vala:1062
+#, c-format
+msgid "“%s” is not a Git repository."
+msgstr "%s は Git リポジトリではありません。"
+
+#: gitg/gitg-window.vala:1211
+msgid ""
+"Your user name and email are not configured yet. Please go to the user "
+"configuration and provide your name and email."
+msgstr ""
+"ユーザー名とメールアドレスが設定されていません。ユーザー設定に移動して名前と"
+"メールアドレスを指定してください。"
+
+#: gitg/gitg-window.vala:1215
+msgid ""
+"Your user name is not configured yet. Please go to the user configuration "
+"and provide your name."
+msgstr ""
+"ユーザー名が設定されていません。ユーザー設定に移動して名前を指定してくださ"
+"い。"
+
+#: gitg/gitg-window.vala:1219
+msgid ""
+"Your email is not configured yet. Please go to the user configuration and "
+"provide your email."
+msgstr ""
+"メールアドレスが設定されていません。ユーザー設定に移動してメールアドレスを指"
+"定してください。"
+
+#: gitg/gitg-window.vala:1222
+msgid "Missing author details"
+msgstr "作者詳細が不明"
+
+#: gitg/history/gitg-history-command-line.vala:42
+msgid "Select all commits by default in the history activity"
+msgstr "履歴に表示された全てのコミットをデフォルトで選択"
+
+#: gitg/history/gitg-history-command-line.vala:44
+msgid "Select all branches by default in the history activity"
+msgstr "履歴に表示された全てのブランチをデフォルトで選択"
+
+#: gitg/history/gitg-history-command-line.vala:46
+msgid "Select all remotes by default in the history activity"
+msgstr "履歴に表示された全てのリモートをデフォルトで選択"
+
+#: gitg/history/gitg-history-command-line.vala:48
+msgid "Select all tags by default in the history activity"
+msgstr "履歴に表示された全てのタグをデフォルトで選択"
+
+#: gitg/history/gitg-history-command-line.vala:50
+msgid "Select the specified reference by default in the history activity"
+msgstr "履歴に表示された指定の参照をデフォルトで選択"
+
+#: gitg/history/gitg-history-command-line.vala:50
+msgid "REFERENCE"
+msgstr "参照"
+
+#: gitg/history/gitg-history-refs-list.vala:165
+#, c-format
+msgid "%zu ahead, %zu behind"
+msgstr ""
+
+#: gitg/history/gitg-history-refs-list.vala:169
+#, c-format
+msgid "%zu ahead"
+msgstr ""
+
+#: gitg/history/gitg-history-refs-list.vala:173
+#, c-format
+msgid "%zu behind"
+msgstr ""
+
+#: gitg/history/gitg-history-refs-list.vala:207
+#: gitg/resources/ui/gitg-preferences-history.ui:81
+msgid "All commits"
+msgstr "全コミット"
+
+#: gitg/history/gitg-history-refs-list.vala:1179
+msgid "Branches"
+msgstr "ブランチ"
+
+#: gitg/history/gitg-history-refs-list.vala:1180
+msgid "Remotes"
+msgstr "リモート"
+
+#: gitg/history/gitg-history.vala:347
+#: gitg/preferences/gitg-preferences-history.vala:218
+#: gitg/resources/ui/gitg-preferences-interface.ui:60
 msgid "History"
 msgstr "履歴"
 
-#: ../gitg/preferences/gitg-preferences-interface.vala:73
+#: gitg/history/gitg-history.vala:352
+msgid "Examine the history of the repository"
+msgstr "リポジトリの履歴を試験する"
+
+#: gitg/history/gitg-history.vala:942
+msgid "Mainline"
+msgstr "メインライン"
+
+#: gitg/preferences/gitg-preferences-commit.vala:142
+msgctxt "Preferences"
+msgid "Commit"
+msgstr "コミット"
+
+#: gitg/preferences/gitg-preferences-interface.vala:142
+#, c-format
+msgid "_Use the system fixed width font (%s)"
+msgstr "システムの固定幅フォント %s を使用(_U)"
+
+#: gitg/preferences/gitg-preferences-interface.vala:179
 msgid "Interface"
 msgstr "インターフェース"
 
-#: ../libgitg/gitg-date.vala:316
-msgid "Now"
-msgstr "今"
+#: gitg/resources/ui/gitg-author-details-dialog.ui:35
+msgid "_Save"
+msgstr "保存 (_S)"
 
-#: ../libgitg/gitg-date.vala:320
+#: gitg/resources/ui/gitg-author-details-dialog.ui:65
+msgid "Default details used for all repositories"
+msgstr "全リポジトリのデフォルトの詳細"
+
+#: gitg/resources/ui/gitg-author-details-dialog.ui:114
+msgid "E-mail:"
+msgstr "メールアドレス:"
+
+#: gitg/resources/ui/gitg-author-details-dialog.ui:125
+msgid "Name:"
+msgstr "名前:"
+
+#: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:7
+msgid "Checkout Remote Branch"
+msgstr "リモートブランチのチェックアウト"
+
+#: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:34
+msgid "C_heckout"
+msgstr "チェックアウト(_h)"
+
+#: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:69
+msgid "Local branch _name:"
+msgstr "ローカルブランチ名(_n):"
+
+#: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:99
+msgid "_Remote branch:"
+msgstr "リモートブランチ(_R):"
+
+#: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:125
+msgid "_Track remote branch"
+msgstr "リモートブランチの追跡(_T)"
+
+#: gitg/resources/ui/gitg-clone-dialog.ui:7
+msgid "Clone Repository"
+msgstr "リポジトリのクローン"
+
+#: gitg/resources/ui/gitg-clone-dialog.ui:33
+#: gitg/resources/ui/gitg-window.ui:47
+msgid "Cl_one"
+msgstr "複製(_O)"
+
+#: gitg/resources/ui/gitg-clone-dialog.ui:68
+msgid "Remote _URL:"
+msgstr "リモート URL(_U):"
+
+#: gitg/resources/ui/gitg-clone-dialog.ui:99
+msgid "_Local Folder:"
+msgstr "ローカルフォルダー(_L):"
+
+#: gitg/resources/ui/gitg-clone-dialog.ui:116
+msgid "Select location…"
+msgstr "位置の選択"
+
+#: gitg/resources/ui/gitg-clone-dialog.ui:127
+msgid "Bare repository"
+msgstr "ベアリポジトリ"
+
+#: gitg/resources/ui/gitg-commit-dialog.ui:8
+msgctxt "Create Dialog"
+msgid "Commit"
+msgstr "コミット"
+
+#: gitg/resources/ui/gitg-commit-dialog.ui:36
+#: gitg/resources/ui/gitg-commit-paned.ui:86
+msgid "C_ommit"
+msgstr "コミット(_O)"
+
+#: gitg/resources/ui/gitg-commit-dialog.ui:217
+msgid "_Amend previous commit"
+msgstr "前回のコミットを修正(_A)"
+
+#: gitg/resources/ui/gitg-commit-dialog.ui:234
+msgid "Add _signed-off-by signature"
+msgstr "Signed-off-by 署名を追加(_S)"
+
+#: gitg/resources/ui/gitg-commit-paned.ui:76
+msgid "Skip commit _hooks"
+msgstr "コミットフックをスキップ(_h)"
+
+#: gitg/resources/ui/gitg-commit-paned.ui:96
+msgid "S_tage selection"
+msgstr "選択部分をコミット予定に入れる(_T)"
+
+#: gitg/resources/ui/gitg-commit-paned.ui:107
+msgid "D_iscard selection"
+msgstr "選択部分をステージから外す(_i)"
+
+#: gitg/resources/ui/gitg-commit-submodule-diff-view.ui:24
+msgid ""
+"The submodule is in a dirty state and has staged and/or unstaged changes "
+"that are not yet committed as shown below."
+msgstr ""
+
+#: gitg/resources/ui/gitg-commit-submodule-diff-view.ui:50
+msgid "Staged:"
+msgstr "ステージ登録済み:"
+
+#: gitg/resources/ui/gitg-commit-submodule-diff-view.ui:86
+msgid "Unstaged:"
+msgstr "ステージ未登録:"
+
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:25
+#: gitg/resources/ui/gitg-history-paned.ui:94
+msgid "Subject"
+msgstr "件名"
+
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:42
+#: gitg/resources/ui/gitg-history-paned.ui:111
+msgid "Author"
+msgstr "作者"
+
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:58
+#: gitg/resources/ui/gitg-history-paned.ui:127
+msgid "Date"
+msgstr "日付"
+
+#: gitg/resources/ui/gitg-create-branch-dialog.ui:7
+msgid "Create Branch"
+msgstr "ブランチ作成"
+
+#: gitg/resources/ui/gitg-create-branch-dialog.ui:34
+#: gitg/resources/ui/gitg-create-tag-dialog.ui:36
+msgid "C_reate"
+msgstr "作成(_R)"
+
+#: gitg/resources/ui/gitg-create-branch-dialog.ui:69
+msgid "Branch _name:"
+msgstr "ブランチ名(_N):"
+
+#: gitg/resources/ui/gitg-create-branch-dialog.ui:96
+msgid "_Checkout the created branch"
+msgstr "作成したブランチのチェックアウト(_C)"
+
+#: gitg/resources/ui/gitg-create-tag-dialog.ui:7
+msgid "Create Tag"
+msgstr "タグの作成"
+
+#: gitg/resources/ui/gitg-create-tag-dialog.ui:71
+msgid "Tag _name:"
+msgstr "タグ名(_n)"
+
+#: gitg/resources/ui/gitg-dash-view.ui:32
+msgid ""
+"No repositories have been added yet. To get started, you can add an existing "
+"repository or clone a new one."
+msgstr ""
+"リポジトリが追加されていません。開始するには、既存のリポジトリを追加するか、"
+"新しいリポジトリを複製してください。"
+
+#: gitg/resources/ui/gitg-menus.ui:7
+msgid "_Reload"
+msgstr "再読み込み(_R)"
+
+#: gitg/resources/ui/gitg-menus.ui:14 gitg/resources/ui/gitg-menus.ui:48
+msgid "_Preferences"
+msgstr "設定(_P)"
+
+#: gitg/resources/ui/gitg-menus.ui:21 gitg/resources/ui/gitg-menus.ui:42
+msgid "_Author Details"
+msgstr "作者詳細(_A)"
+
+#: gitg/resources/ui/gitg-menus.ui:27 gitg/resources/ui/gitg-menus.ui:55
+msgid "_Keyboard Shortcuts"
+msgstr "キーボードショートカット(_K)"
+
+#: gitg/resources/ui/gitg-menus.ui:36
+msgid "_New Window"
+msgstr "新しいウィンドウ(_N)"
+
+#: gitg/resources/ui/gitg-menus.ui:60
+msgid "_About"
+msgstr "このアプリケーションについて(_A)"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:58
+msgid "Show markup"
+msgstr "マークアップを表示する"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:85
+msgid "Display _subject margin at column:"
+msgstr "サブジェクトのマージンカラムの表示(_S):"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:140
+msgid "Display right _margin at column:"
+msgstr "右マージンカラムの表示(_M):"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:196
+msgid "Maximum number of messages:"
+msgstr "メッセージの最大数"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:220
+msgid "Maximum number of messages to keep for commit message history"
+msgstr "コミットメッセージの履歴で保存するメッセージの最大数"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:232
+msgid "Maximum number of days:"
+msgstr "最大日数:"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:257
+msgid "Maximum number of days to keep for commit message history"
+msgstr "コミットメッセージ履歴に保存する最大日数"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:284
+msgid "Language:"
+msgstr "言語:"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:310
+msgid "Enable spell checking"
+msgstr "スペルチェックを有効にする"
+
+#: gitg/resources/ui/gitg-preferences-commit.ui:341
+msgid "Commit Message"
+msgstr "コミットメッセージ"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:31
+msgid "Default selection"
+msgstr "デフォルト選択"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:50
+msgid "Current branch"
+msgstr "現在のブランチ"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:65
+msgid "All branches"
+msgstr "全ブランチ"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:106
+msgid "References"
+msgstr "リファレンス"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:119
+msgid "Sort references in the sidebar by latest activity"
+msgstr "最近の活動でサイドバーに参照を並び換える"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:135
+msgid "Show upstream (remote) branch when selecting a local branch"
+msgstr "ローカルブランチの選択時にアップストリーム(リモート)ブランチを表示する"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:154
+msgid "Commits"
+msgstr "コミット"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:174
+msgid "Collapse inactive lanes"
+msgstr "アクティブでないレーンを省略"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:215
+msgid "Early"
+msgstr "初期"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:227
+msgid "Late"
+msgstr "後期"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:242
+msgid "Show history in topological order"
+msgstr "トポロジカルの順に履歴を表示"
+
+#: gitg/resources/ui/gitg-preferences-history.ui:257
+msgid "Preserve mainline for currently checked out branch"
+msgstr "現在のチェックアウトしたブランチをメインラインに保存"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:24
+msgid "Startup"
+msgstr "スタートアップ"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:47
+msgid "Start with activity:"
+msgstr "スタート時のアクティビティ"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:61
+msgid "Commit"
+msgstr "コミット"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:80
+msgid "Layout"
+msgstr "レイアウト"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:100
+msgid "Use horizontal layout"
+msgstr "水平レイアウトを使用する"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:124
+msgid "Avatars"
+msgstr "アバター"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:144
+msgid "Use gravatar service to provide user avatars"
+msgstr "gravatar サービスを使ってユーザーにアバターを提供する"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:168
+msgid "Monitoring"
+msgstr "モニタリング"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:212
+msgid "Font"
+msgstr "フォント"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:253
+msgid "Editor _font: "
+msgstr "エディタフォント(_F):"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:270
+msgid "Pick the editor font"
+msgstr "エディタフォントの選択"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:292
+#: plugins/diff/gitg-diff.vala:120
+msgid "Diff"
+msgstr "差分"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:312
+msgid "Enable syntax highlighting of source code in diff views"
+msgstr "差分画面でのシンタックスハイライトを有効にする"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:338
+msgid "Syntax highlighting color scheme:"
+msgstr "シンタックスハイライトのカラースキーム:"
+
+#: gitg/resources/ui/gitg-preferences.ui:11
+msgid "Preferences"
+msgstr "設定"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:14
+msgctxt "shortcut window"
+msgid "Windows"
+msgstr "ウィンドウ"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:19
+msgctxt "shortcut window"
+msgid "Open shortcut window"
+msgstr "ショートカットウィンドウを開く"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:26
+msgctxt "shortcut window"
+msgid "Open a new window"
+msgstr "新しいウィンドウを開く"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:33
+msgctxt "shortcut window"
+msgid "Open the window menu"
+msgstr "ウィンドウメニューを開く"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:40
+msgctxt "shortcut window"
+msgid "Open a repository"
+msgstr "リポジトリを開く"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:47
+msgctxt "shortcut window"
+msgid "Open the help"
+msgstr "ヘルプを開く"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:54
+msgctxt "shortcut window"
+msgid "Open preferences"
+msgstr "設定を開く"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:61
+msgctxt "shortcut window"
+msgid "Find"
+msgstr "検索"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:68
+msgctxt "shortcut window"
+msgid "Close the active window"
+msgstr "アクティブウィンドウを閉じる"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:75
+msgctxt "shortcut window"
+msgid "Quit the application"
+msgstr "gitg を終了"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:82
+msgctxt "shortcut window"
+msgid "Change to Dash"
+msgstr "Dashへ"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:89
+msgctxt "shortcut window"
+msgid "Change to History View"
+msgstr "履歴画面へ"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:96
+msgctxt "shortcut window"
+msgid "Change to Commit View"
+msgstr "コミット画面へ"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:103
+msgctxt "shortcut window"
+msgid "Change to activity"
+msgstr "活動へ"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:111
+msgctxt "shortcut window"
+msgid "Commit Activity"
+msgstr "活動をコミット"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:116
+msgctxt "shortcut window"
+msgid "Select/Unselect"
+msgstr "選択/選択解除"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:123
+msgctxt "shortcut window"
+msgid "Open commit dialog"
+msgstr "コミットダイアログを開く"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:130
+msgctxt "shortcut window"
+msgid "Stage selection"
+msgstr "選択部分をステージに登録する"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:137
+msgctxt "shortcut window"
+msgid "Unstage selection"
+msgstr "選択部分をステージから外す"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:144
+msgctxt "shortcut window"
+msgid "Discard selection"
+msgstr "選択部分を破棄"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:151
+msgctxt "shortcut window"
+msgid "Edit selection"
+msgstr "選択部分を編集"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:159
+msgctxt "shortcut window"
+msgid "Commit Dialog"
+msgstr "コミットダイアログ"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:164
+msgctxt "shortcut window"
+msgid "Commit"
+msgstr "コミット"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:171
+msgctxt "shortcut window"
+msgid "Cancel Commit"
+msgstr "コミットのキャンセル"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:178
+msgctxt "shortcut window"
+msgid "Previous commit message"
+msgstr "前のコミットメッセージ"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:185
+msgctxt "shortcut window"
+msgid "Next commit message"
+msgstr "次のコミットメッセージ"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:193
+msgctxt "shortcut window"
+msgid "History Activity"
+msgstr "履歴"
+
+#: gitg/resources/ui/gitg-window.ui:24
+msgid "Show the list of recently used repositories"
+msgstr "最近使用したリポジトリのリストを表示"
+
+#: gitg/resources/ui/gitg-window.ui:48
+msgid "Clone repository"
+msgstr "リポジトリのクローン"
+
+#: gitg/resources/ui/gitg-window.ui:65
+msgid "Add repository"
+msgstr "リポジトリを追加"
+
+#: gitg/resources/ui/gitg-window.ui:89
+msgid "Find a word or phrase"
+msgstr "単語またはフレーズの検索"
+
+#: gitg/resources/ui/gitg-window.ui:134
+msgid "General settings and options"
+msgstr "一般設定とオプション"
+
+#: gitg/resources/ui/gitg-window.ui:229
+msgid "_Close"
+msgstr "閉じる(_C)"
+
+#. Translators: %s will be replaced with a URL indicating the resource
+#. for which the authentication is required.
+#: libgitg/gitg-authentication-dialog.vala:69
+#, c-format
+msgid "Password required for %s"
+msgstr "%s に必要なパスワード"
+
+#: libgitg/gitg-date.vala:346
+msgid "Now"
+msgstr "現在"
+
+#: libgitg/gitg-date.vala:350
 #, c-format
 msgid "A minute ago"
 msgid_plural "%d minutes ago"
 msgstr[0] "%d 分前"
 
-#: ../libgitg/gitg-date.vala:325
+#: libgitg/gitg-date.vala:355
 msgid "Half an hour ago"
 msgstr "30 分前"
 
-#: ../libgitg/gitg-date.vala:330
+#: libgitg/gitg-date.vala:360
 #, c-format
 msgid "An hour ago"
 msgid_plural "%d hours ago"
 msgstr[0] "%d 時間前"
 
-#: ../libgitg/gitg-date.vala:335
+#: libgitg/gitg-date.vala:365
 #, c-format
 msgid "A day ago"
 msgid_plural "%d days ago"
 msgstr[0] "%d 日前"
 
-#: ../libgitg/gitg-diff-view-request-patch.vala:107
-msgid "Save Patch File"
-msgstr "パッチファイルとして保存"
+#. Translators: this is a strftime type date format which is
+#. used when the date is in the current year and uses a 24 hour
+#. clock.
+#: libgitg/gitg-date.vala:374
+msgid "%b %e, %H∶%M"
+msgstr "%b %e, %H∶%M"
 
-#: ../libgitg/gitg-diff-view-request-patch.vala:111
-msgid "_Save"
-msgstr "保存 (_S)"
+#. Translators: this is a strftime type date format which is
+#. used when the date is in the current year and uses a 12 hour
+#. clock.
+#: libgitg/gitg-date.vala:381
+msgid "%b %e, %I∶%M %p"
+msgstr "%b %e, %I∶%M %p"
 
-# Translator's NOTE: 差分表示関連なので右クリか何かで
-# Translator's NOTE: 当該パッチブロックを操作するめにうでも出してくるものと想定
-#: ../libgitg/gitg-diff-view.vala:126
-msgid "stage"
+#. Translators: this is a strftime type date format which is
+#. used when the date is not in the current year and uses a 24
+#. hour clock.
+#: libgitg/gitg-date.vala:391
+msgid "%b %e %Y, %H∶%M"
+msgstr "%b %e %Y, %H∶%M"
+
+#. Translators: this is a strftime type date format which is
+#. used when the date is not in the current year and uses a 12
+#. hour clock.
+#: libgitg/gitg-date.vala:398
+msgid "%b %e %Y, %I∶%M %p"
+msgstr "%b %e %Y, %I∶%M %p"
+
+#. Translators: this label is displayed below the image diff, %s
+#. is substituted with the size of the image
+#: libgitg/gitg-diff-image-side-by-side.vala:39
+#, c-format
+msgid "before (%s)"
+msgstr "前(%s)"
+
+#. Translators: this label is displayed below the image diff, %s
+#. is substituted with the size of the image
+#: libgitg/gitg-diff-image-side-by-side.vala:45
+#, c-format
+msgid "removed (%s)"
+msgstr "削除(%s)"
+
+#. Translators: this label is displayed below the image diff, %s
+#. is substituted with the size of the image
+#: libgitg/gitg-diff-image-side-by-side.vala:65
+#, c-format
+msgid "after (%s)"
+msgstr "後(%s)"
+
+#. Translators: this label is displayed below the image diff, %s
+#. is substituted with the size of the image
+#: libgitg/gitg-diff-image-side-by-side.vala:71
+#, c-format
+msgid "added (%s)"
+msgstr "追加(%s)"
+
+#: libgitg/gitg-diff-view-commit-details.vala:143
+msgid "Collapse all"
+msgstr "アクティブでないレーンを省略"
+
+#: libgitg/gitg-diff-view-commit-details.vala:147
+#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:211
+msgid "Expand all"
+msgstr "全てのレーンを表示"
+
+#: libgitg/gitg-diff-view-commit-details.vala:202
+#, c-format
+msgid "Committed by %s"
+msgstr "%s によるコミット"
+
+#: libgitg/gitg-diff-view-file.vala:177
+msgid "_Open file"
+msgstr "フィアルを開く(_O)"
+
+#: libgitg/gitg-diff-view-file.vala:209
+msgid "Open containing _folder"
+msgstr "含むフォルダを開く(_F)"
+
+#: libgitg/gitg-diff-view-file.vala:229
+msgid "_Copy file path"
+msgstr "ファイルパスをコピー(_C)"
+
+#. Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
+#: libgitg/gitg-repository-list-box.vala:153
+#, c-format
+msgid "at %s"
 msgstr ""
 
-# Translator's NOTE: 差分表示関連なので右クリか何かで
-# Translator's NOTE: 当該パッチブロックを操作するめにうでも出してくるものと想定
-#: ../libgitg/gitg-diff-view.vala:127
-msgid "unstage"
+#. Translators: this is used to construct: "<branch-name> at <directory>"
+#: libgitg/gitg-repository-list-box.vala:162
+#, c-format
+msgid "%s at %s"
 msgstr ""
 
-#: ../libgitg/gitg-diff-view.vala:128
-msgid "Loading diff…"
-msgstr "差分読み込み中…"
+#: libgitg/gitg-repository-list-box.vala:545
+msgid "Cloning…"
+msgstr "複製…"
 
-#: ../libgitg/gitg-stage.vala:335
+#: libgitg/gitg-stage.vala:337
 #, c-format
 msgid "Could not read commit message after running commit-msg hook: %s"
-msgstr ""
+msgstr "commit-msg フックの動作後にコミットメッセージが読めない: %s"
 
-#: ../plugins/diff/gitg-diff.vala:62
-msgid "Diff"
+#: libgitg/resources/ui/gitg-authentication-dialog.ui:18
+msgid "_Authenticate"
+msgstr "認証(_A)"
+
+#: libgitg/resources/ui/gitg-authentication-dialog.ui:76
+msgid ""
+"The previous attempt to authenticate has failed, please provide your user "
+"name and password and try again."
+msgstr ""
+"前回の認証は失敗しました。ユーザー名とパスワードを再度入力してください。"
+
+#: libgitg/resources/ui/gitg-authentication-dialog.ui:95
+msgid "_Username:"
+msgstr "ユーザー名(_U):"
+
+#: libgitg/resources/ui/gitg-authentication-dialog.ui:109
+msgid "_Password:"
+msgstr "パスワード(_P):"
+
+#: libgitg/resources/ui/gitg-authentication-dialog.ui:154
+msgid "Forget password _immediately"
+msgstr "ただちに記録しているパスワード情報を破棄する(_I)"
+
+#: libgitg/resources/ui/gitg-authentication-dialog.ui:171
+msgid "Remember password until you _logout"
+msgstr "ログアウトまでパスワードを記憶(_L)"
+
+#: libgitg/resources/ui/gitg-authentication-dialog.ui:189
+msgid "Remember _forever"
+msgstr "パスワードを永久に記憶(_F)"
+
+#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:151
+msgid "Parents"
+msgstr "親"
+
+#: libgitg/resources/ui/gitg-diff-view-file-renderer-binary.ui:10
+msgid "Unable to display changes for binary file"
+msgstr "バイナリファイルの差分は表示できません"
+
+#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:35
+msgid "Side by side"
+msgstr "サイドバイサイド"
+
+#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:62
+msgid "Slider"
+msgstr "スライダ"
+
+#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:89
+msgid "Overlay"
+msgstr "オーバーレイ"
+
+#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:107
+msgid "Difference"
 msgstr "差分"
 
-#: ../plugins/files/gitg-files.vala:63
+#: libgitg/resources/ui/gitg-diff-view-options-spacing.ui:20
+msgid "Tab width:"
+msgstr "タブ文字幅:"
+
+#: libgitg/resources/ui/gitg-diff-view-options-spacing.ui:44
+msgid "Wrap lines:"
+msgstr "行の折り返し:"
+
+#: libgitg/resources/ui/gitg-diff-view-options-spacing.ui:67
+msgid "Ignore whitespace:"
+msgstr "空白文字の無視:"
+
+#: libgitg/resources/ui/gitg-diff-view-options.ui:31
+msgid "Context:"
+msgstr "コンテキスト:"
+
+#: libgitg/resources/ui/gitg-diff-view-options.ui:63
+msgid "Spacing"
+msgstr "行間"
+
+#: libgitg/resources/ui/gitg-repository-list-box-row.ui:37
+msgid ""
+"Remove the repository from the list (does not delete the repository from "
+"disk)"
+msgstr "リストからリポジトリを削除(ディスクからは削除しない)"
+
+#: plugins/diff/gitg-diff.vala:125
+msgid "Show the changes introduced by the selected commit"
+msgstr "選択したコミットで導入された変更を表示"
+
+#: plugins/files/gitg-files.vala:68
 msgid "Files"
 msgstr "ファイル"
 
-#. ex: ts=4 noet
-#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:1
-msgid "Author Details"
-msgstr "作者詳細"
+#: plugins/files/gitg-files.vala:73
+msgid "Show the files in the tree of the selected commit"
+msgstr "選択したコミットのツリーのファイルを表示"
 
-#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:3
-#, no-c-format
-msgid "Note: The Git config file '%s' does not exist."
-msgstr "注意: Git 設定ファイル '%s' が存在しません。"
+#~ msgid "Unable to open the .gitconfig file."
+#~ msgstr ".gitconfig ファイルを開けません。"
 
-#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:4
-msgid "Enter details to set as default for all repositories:"
-msgstr "全リポジトリを対象にデフォルトとして設定する詳細を入力してください:"
+#~ msgid "Loading diff…"
+#~ msgstr "差分読み込み中…"
 
-#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:6
-#, no-c-format
-msgid "Enter details for repository '%s':"
-msgstr "リポジトリ '%s' の詳細を入力してください:"
+#~ msgid "Note: The Git config file '%s' does not exist."
+#~ msgstr "注意: Git 設定ファイル '%s' が存在しません。"
 
-#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:7
-msgid "E-mail: "
-msgstr "メールアドレス: "
+#~ msgid "Save"
+#~ msgstr "保存"
 
-#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:8
-msgid "Name: "
-msgstr "名前: "
+#~ msgid "_Help"
+#~ msgstr "ヘルプ(_H)"
 
-#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:9
-msgid "Cancel"
-msgstr "キャンセル"
+#~ msgid "_Quit"
+#~ msgstr "終了(_Q)"
 
-#: ../gitg/resources/ui/gitg-author-details-dialog.ui.h:10
-msgid "Save"
-msgstr "保存"
+#~ msgid "_Open Repository…"
+#~ msgstr "リポジトリを開く(_O)…"
 
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:1
-msgid "Clone Repository"
-msgstr "リポジトリの複製"
-
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:3
-msgid "Cl_one"
-msgstr "複製(_O)"
-
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:4
-msgid "Remote _URL:"
-msgstr "リモート URL(_U):"
-
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:5
-msgid "_Local Folder:"
-msgstr "ローカルフォルダー(_L):"
-
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:6
-msgid "Select location…"
-msgstr ""
-
-#: ../gitg/resources/ui/gitg-clone-dialog.ui.h:7
-msgid "Bare repository"
-msgstr ""
-
-#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:3
-#: ../gitg/resources/ui/gitg-commit-paned.ui.h:2
-msgid "C_ommit"
-msgstr "コミット(_O)"
-
-#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:4
-msgid "Add _signed-off-by signature"
-msgstr "signed-off-by 署名を追加(_S)"
-
-#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:5
-msgid "_Amend previous commit"
-msgstr "前回のコミットを修正(_A)"
-
-#: ../gitg/resources/ui/gitg-commit-dialog.ui.h:6
-#: ../gitg/resources/ui/gitg-window.ui.h:2
-msgid "Close"
-msgstr "閉じる"
-
-#: ../gitg/resources/ui/gitg-commit-paned.ui.h:1
-msgid "Skip commit _hooks"
-msgstr ""
-
-#: ../gitg/resources/ui/gitg-commit-paned.ui.h:3
-msgid "S_tage selection"
-msgstr "選択部分をコミット予定に入れる(_T)"
-
-#: ../gitg/resources/ui/gitg-history-paned.ui.h:1
-msgid "Subject"
-msgstr "件名"
-
-#: ../gitg/resources/ui/gitg-history-paned.ui.h:2
-msgid "Author"
-msgstr "作者"
-
-#: ../gitg/resources/ui/gitg-history-paned.ui.h:3
-msgid "Date"
-msgstr ""
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:1
-msgid "_New Window"
-msgstr "新しいウィンドウ(_N)"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:2
-msgid "_Preferences"
-msgstr "設定(_P)"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:3
-msgid "_Help"
-msgstr "ヘルプ(_H)"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:4
-msgid "_About"
-msgstr "このアプリケーションについて(_A)"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:5
-msgid "_Quit"
-msgstr "終了(_Q)"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:6
-msgid "_Open Repository…"
-msgstr "リポジトリを開く(_O)…"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:7
-msgid "_Clone Repository…"
-msgstr "リポジトリを複製する(_C)…"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:8
-msgid "_Author Details"
-msgstr "作者詳細(_A)"
-
-#: ../gitg/resources/ui/gitg-menus.ui.h:9
-msgid "_Reload"
-msgstr "再読み込み(_R)"
-
-#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:1
-msgid "Show markup"
-msgstr "マークアップを表示する"
-
-#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:2
-msgid "Display _subject margin at column:"
-msgstr ""
-
-#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:3
-msgid "Display right _margin at column:"
-msgstr ""
-
-#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:4
-msgid "Enable spell checking"
-msgstr "スペルチェックを有効にする"
-
-#: ../gitg/resources/ui/gitg-preferences-commit.ui.h:5
-msgid "Commit Message"
-msgstr "コミットメッセージ"
-
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:1
-msgid "Commits"
-msgstr "コミット"
-
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:2
-msgid "Collapse inactive lanes"
-msgstr "アクティブでないレーンを省略"
-
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:3
-msgid "Show stash in history"
-msgstr ""
-
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:4
-msgid "Show staged changes in history"
-msgstr "ステージ登録済みの変更を履歴に表示する"
-
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:5
-msgid "Show unstaged changes in history"
-msgstr "ステージ未登録の変更を履歴に表示する"
-
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:6
-msgid "Show history in topological order"
-msgstr ""
-
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:7
-msgid "Early"
-msgstr ""
-
-#: ../gitg/resources/ui/gitg-preferences-history.ui.h:8
-msgid "Late"
-msgstr ""
-
-#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:1
-msgid "Layout"
-msgstr "レイアウト"
-
-#: ../gitg/resources/ui/gitg-preferences-interface.ui.h:2
-msgid "Use horizontal layout"
-msgstr "水平レイアウトを使用する"
-
-#: ../gitg/resources/ui/gitg-preferences.ui.h:1
-msgid "Preferences"
-msgstr "設定"
-
-#: ../libgitg/resources/gitg-repository-list-box-row.ui.h:1
-msgid "Remove the repository from the list (does not delete the repository from disk)"
-msgstr ""
-
-#: ../plugins/files/resources/view-files.ui.h:1
-msgid "column"
-msgstr ""
+#~ msgid "_Clone Repository…"
+#~ msgstr "リポジトリを複製する(_C)…"
