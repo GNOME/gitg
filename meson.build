@@ -122,15 +122,15 @@ common_ldflags = cc.get_supported_link_arguments('-Wl,--version-script,@0@'.form
 
 glib_req_version = '>= 2.68'
 
-hdy_dep = dependency('libhandy-1', version: '>= 1.5.0')
+hdy_dep = dependency('libadwaita-1')
 gee_dep = dependency('gee-0.8')
 gio_dep = dependency('gio-2.0', version: glib_req_version)
 glib_dep = dependency('glib-2.0', version: glib_req_version)
 gobject_introspection_dep = dependency('gobject-introspection-1.0', version: '>= 0.10.1')
 gsettings_desktop_schemas_dep = dependency('gsettings-desktop-schemas')
-gtk_dep = dependency('gtk+-3.0', version: '>= 3.20.0')
-gspell_dep = dependency('gspell-1', version: '>= 1.8.1')
-gtksourceview_dep = dependency('gtksourceview-4', version: '>= 4.0.3')
+gtk_dep = dependency('gtk4')
+gspell_dep = dependency('libspelling-1')
+gtksourceview_dep = dependency('gtksourceview-5')
 libgit2_glib_dep = dependency('libgit2-glib-1.0', version: ['>= 1.2.0'])
 libpeas_dep = dependency('libpeas-1.0')
 libsecret_dep = dependency('libsecret-1')
@@ -163,15 +163,16 @@ gtk_shortcuts_window = gtk_dep.version().version_compare('>= 3.19')
 
 m_dep = cc.find_library('m', required: false)
 
-gdk_dep = dependency('gdk-3.0')
-gdk_targets = gdk_dep.get_pkgconfig_variable('targets')
+gdk_targets = gtk_dep.get_variable(pkgconfig: 'targets', default_value: '')
 
-if gdk_targets.contains('quartz')
+if gdk_targets.contains('macos')
   platform_name = 'osx'
 elif gdk_targets.contains('x11')
   platform_name = 'unix'
 elif gdk_targets.contains('win32')
   platform_name = 'win32'
+elif gdk_backends.contains('wayland')
+  platform_name = 'unix'
 else
   error('Unknown Gdk targets: ' + gdk_targets)
 endif
