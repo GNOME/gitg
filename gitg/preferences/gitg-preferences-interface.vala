@@ -81,7 +81,7 @@ public class PreferencesInterface : Gtk.Grid, GitgExt.Preferences
 			}
 		});
 
-		var style_manager = Gtk.SourceStyleSchemeManager.get_default();
+		var style_manager = GtkSource.StyleSchemeManager.get_default();
 		style_manager.append_search_path(Path.build_filename (Dirs.data_dir, "styles"));
 		style_manager.force_rescan();
 		Gtk.TreeIter iter;

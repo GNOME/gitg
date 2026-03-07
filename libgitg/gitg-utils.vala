@@ -77,9 +77,9 @@ public class Utils
 
 	public static bool gitg_styles_path_added = false;
 
-	public static Gtk.SourceStyleSchemeManager get_source_style_manager()
+	public static GtkSource.StyleSchemeManager get_source_style_manager()
 	{
-		var style_manager = Gtk.SourceStyleSchemeManager.get_default();
+		var style_manager = GtkSource.StyleSchemeManager.get_default();
 		if (gitg_styles_path_added)
 		{
 			style_manager.append_search_path(Path.build_filename (PlatformSupport.get_data_dir(), "styles"));
@@ -147,7 +147,7 @@ public class Utils
 		}
 	}
 
-	public static void update_buffer_style(Settings settings, Gtk.SourceBuffer source_buffer)
+	public static void update_buffer_style(Settings settings, GtkSource.Buffer source_buffer)
 	{
 		var scheme = settings.get_string("style-scheme");
 		var manager = Gitg.Utils.get_source_style_manager();

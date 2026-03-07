@@ -29,7 +29,7 @@ namespace GitgFiles
 
 		private TreeStore d_model;
 		private Gtk.Paned d_paned;
-		private Gtk.SourceView d_source;
+		private GtkSource.View d_source;
 		private Settings? d_stylesettings;
 
 		private Gtk.ScrolledWindow d_scrolled_files;
@@ -94,7 +94,7 @@ namespace GitgFiles
 
 		private void update_style()
 		{
-			Gitg.Utils.update_buffer_style(d_stylesettings, (Gtk.SourceBuffer)d_source.get_buffer());
+			Gitg.Utils.update_buffer_style(d_stylesettings, (GtkSource.Buffer)d_source.get_buffer());
 		}
 
 		private Settings? try_settings(string schema_id)
@@ -154,7 +154,7 @@ namespace GitgFiles
 					return false;
 			});
 			d_scrolled_files = ret["scrolled_window_files"] as Gtk.ScrolledWindow;
-			d_source = ret["source_view_file"] as Gtk.SourceView;
+			d_source = ret["source_view_file"] as GtkSource.View;
 			d_paned = ret["paned_files"] as Gtk.Paned;
 			d_scrolled = ret["scrolled_window_file"] as Gtk.ScrolledWindow;
 
@@ -172,8 +172,8 @@ namespace GitgFiles
 
 				update_style();
 			} else {
-				var buf = d_source.get_buffer() as Gtk.SourceBuffer;
-				var style_scheme_manager = Gtk.SourceStyleSchemeManager.get_default();
+				var buf = d_source.get_buffer() as GtkSource.Buffer;
+				var style_scheme_manager = GtkSource.StyleSchemeManager.get_default();
 				buf.style_scheme = style_scheme_manager.get_scheme("classic");
 			}
 
@@ -217,7 +217,7 @@ namespace GitgFiles
 			Gtk.TreeModel mod;
 			Gtk.TreeIter iter;
 
-			var buf = d_source.get_buffer() as Gtk.SourceBuffer;
+			var buf = d_source.get_buffer() as GtkSource.Buffer;
 			buf.set_text("");
 
 			if (!selection.get_selected(out mod, out iter) || d_model.get_isdir(iter))
@@ -264,7 +264,7 @@ namespace GitgFiles
 			}
 			else if (ContentType.is_a(ct, "text/plain"))
 			{
-				var manager = Gtk.SourceLanguageManager.get_default();
+				var manager = GtkSource.LanguageManager.get_default();
 
 				buf.set_text((string)content);
 				buf.language = manager.guess_language(fname, ct);

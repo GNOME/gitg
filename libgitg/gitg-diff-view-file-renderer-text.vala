@@ -18,7 +18,7 @@
  */
 
 [GtkTemplate (ui = "/org/gnome/gitg/ui/gitg-diff-view-file-renderer-text.ui")]
-class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFileRenderer, DiffViewFileRendererTextable
+class Gitg.DiffViewFileRendererText : GtkSource.View, DiffSelectable, DiffViewFileRenderer, DiffViewFileRendererTextable
 {
 	private enum RegionType
 	{
@@ -57,8 +57,8 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 	private bool d_highlight;
 
 	private Cancellable? d_higlight_cancellable;
-	private Gtk.SourceBuffer? d_old_highlight_buffer;
-	private Gtk.SourceBuffer? d_new_highlight_buffer;
+	private GtkSource.Buffer? d_old_highlight_buffer;
+	private GtkSource.Buffer? d_new_highlight_buffer;
 	private bool d_old_highlight_ready;
 	private bool d_new_highlight_ready;
 
@@ -346,7 +346,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 
 	private async void init_highlighting_buffer_new(Cancellable cancellable)
 	{
-		Gtk.SourceBuffer? buffer;
+		GtkSource.Buffer? buffer;
 
 		var file = delta.get_new_file();
 
@@ -376,7 +376,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		}
 	}
 
-	private async Gtk.SourceBuffer? init_highlighting_buffer(Ggit.DiffFile file, bool from_workdir, Cancellable cancellable)
+	private async GtkSource.Buffer? init_highlighting_buffer(Ggit.DiffFile file, bool from_workdir, Cancellable cancellable)
 	{
 		var id = file.get_oid();
 		var location = get_file_location(file);
@@ -431,12 +431,12 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		return yield init_highlighting_buffer_from_stream(file, location, stream, content_type, cancellable);
 	}
 
-	private async Gtk.SourceBuffer? init_highlighting_buffer_from_stream(Ggit.DiffFile file, File location, InputStream stream, string content_type, Cancellable cancellable)
+	private async GtkSource.Buffer? init_highlighting_buffer_from_stream(Ggit.DiffFile file, File location, InputStream stream, string content_type, Cancellable cancellable)
 	{
-		var manager = Gtk.SourceLanguageManager.get_default();
+		var manager = GtkSource.LanguageManager.get_default();
 		var language = manager.guess_language(location != null ? location.get_basename() : null, content_type);
 
-		var buffer = new Gtk.SourceBuffer(this.buffer.tag_table);
+		var buffer = new GtkSource.Buffer(this.buffer.tag_table);
 
 		if (language != null)
 		{
@@ -457,10 +457,10 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 			buffer.style_scheme = style_scheme_manager.get_scheme("classic");
 		}
 
-		var sfile = new Gtk.SourceFile();
+		var sfile = new GtkSource.File();
 		sfile.location = location;
 
-		var loader = new Gtk.SourceFileLoader.from_stream(buffer, sfile, stream);
+		var loader = new GtkSource.FileLoader.from_stream(buffer, sfile, stream);
 
 		try
 		{
@@ -479,7 +479,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 	}
 
 	private void update_style() {
-		Gitg.Utils.update_buffer_style(d_stylesettings, (Gtk.SourceBuffer)buffer);
+		Gitg.Utils.update_buffer_style(d_stylesettings, (GtkSource.Buffer)buffer);
 	}
 
 	private Settings? try_settings(string schema_id)
@@ -499,14 +499,14 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		return null;
 	}
 
-	private void strip_carriage_returns(Gtk.SourceBuffer buffer)
+	private void strip_carriage_returns(GtkSource.Buffer buffer)
 	{
-		var search_settings = new Gtk.SourceSearchSettings();
+		var search_settings = new GtkSource.SearchSettings();
 
 		search_settings.regex_enabled = true;
 		search_settings.search_text = "\\r";
 
-		var search_context = new Gtk.SourceSearchContext(buffer, search_settings);
+		var search_context = new GtkSource.SearchContext(buffer, search_settings);
 
 		try
 		{
@@ -533,7 +533,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		// apply the tags that are applied to the highlighted source buffers.
 		foreach (var region in d_regions)
 		{
-			Gtk.SourceBuffer? source;
+			GtkSource.Buffer? source;
 
 			if (region.type == RegionType.REMOVED)
 			{
@@ -642,9 +642,9 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 
 	private void update_theme()
 	{
-		var header_attributes = new Gtk.SourceMarkAttributes();
-		var added_attributes = new Gtk.SourceMarkAttributes();
-		var removed_attributes = new Gtk.SourceMarkAttributes();
+		var header_attributes = new GtkSource.MarkAttributes();
+		var added_attributes = new GtkSource.MarkAttributes();
+		var removed_attributes = new GtkSource.MarkAttributes();
 
 		var dark = new Theme().is_theme_dark();
 
@@ -676,7 +676,7 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 
 	public void add_hunk(Ggit.DiffHunk hunk, Gee.ArrayList<Ggit.DiffLine> lines)
 	{
-		var buffer = this.buffer as Gtk.SourceBuffer;
+		var buffer = this.buffer as GtkSource.Buffer;
 
 		/* Diff hunk */
 		var h = hunk.get_header();

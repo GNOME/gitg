@@ -17,7 +17,7 @@
  * along with gitg. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class Gitg.DiffViewLinesRenderer : Gtk.SourceGutterRendererText
+class Gitg.DiffViewLinesRenderer : GtkSource.GutterRendererText
 {
 	public enum Style
 	{
@@ -92,7 +92,7 @@ class Gitg.DiffViewLinesRenderer : Gtk.SourceGutterRendererText
 		get { return get_view().buffer; }
 	}
 
-	protected override void query_data(Gtk.TextIter start, Gtk.TextIter end, Gtk.SourceGutterRendererState state)
+	protected override void query_data(Gtk.TextIter start, Gtk.TextIter end, GtkSource.GutterRendererState state)
 	{
 		var line = start.get_line();
 		bool is_hunk = false;
@@ -196,7 +196,7 @@ class Gitg.DiffViewLinesRenderer : Gtk.SourceGutterRendererText
 		d_num_digits_fill = string.nfill(num_digits, ' ');
 	}
 
-	private Line_Style get_origin(int buffer_line, Gtk.SourceBuffer buffer)
+	private Line_Style get_origin(int buffer_line, GtkSource.Buffer buffer)
 	{
 		var origin = Line_Style.CONTEXT;
 
@@ -222,7 +222,7 @@ class Gitg.DiffViewLinesRenderer : Gtk.SourceGutterRendererText
 		return origin;
 	}
 
-	private string[] precalculate_line_strings(Ggit.DiffHunk hunk, Gtk.SourceBuffer buffer, int buffer_line_start)
+	private string[] precalculate_line_strings(Ggit.DiffHunk hunk, GtkSource.Buffer buffer, int buffer_line_start)
 	{
 		var oldn = hunk.get_old_start();
 		var newn = hunk.get_new_start();
@@ -284,7 +284,7 @@ class Gitg.DiffViewLinesRenderer : Gtk.SourceGutterRendererText
 
 		return line_infos;
 	}
-	public void add_hunk(int buffer_line_start, int buffer_line_end, Ggit.DiffHunk hunk, Gtk.SourceBuffer buffer)
+	public void add_hunk(int buffer_line_start, int buffer_line_end, Ggit.DiffHunk hunk, GtkSource.Buffer buffer)
 	{
 		HunkInfo info = HunkInfo();
 

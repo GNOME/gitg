@@ -47,7 +47,7 @@ class Dialog : Gtk.Dialog
 	private const string CONFIG_HOOKS_PATH = "core.hooksPath";
 
 	[GtkChild (name = "source_view_message")]
-	private unowned Gtk.SourceView d_source_view_message;
+	private unowned GtkSource.View d_source_view_message;
 
 	[GtkChild (name = "ok-button")]
 	private unowned Gtk.Button d_button_ok;
@@ -134,7 +134,7 @@ class Dialog : Gtk.Dialog
 		default = 3;
 	}
 
-	public Gtk.SourceView source_view_message
+	public GtkSource.View source_view_message
 	{
 		get { return d_source_view_message; }
 	}
