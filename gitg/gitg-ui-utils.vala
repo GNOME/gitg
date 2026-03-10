@@ -51,7 +51,7 @@ public class UiUtils
 		{
 			var item_groups = new Gee.HashMap<string, Gtk.MenuItem> ();
 			config.match_foreach(regex_custom_actions_group, (match_info, val) => {
-				if (!item_groups.contains(val)) {
+				if (!item_groups.has_key(val)) {
 					var item_group = new Gtk.MenuItem.with_label(val);
 					item_groups.set(val, item_group);
 				}
