@@ -81,11 +81,15 @@ namespace Gitg
 			if (child != null && child.get_visible())
 			{
 				Gtk.Allocation child_allocation = {};
-				int border_width = (int)get_border_width();
-				child_allocation.x = border_width;
-				child_allocation.y = border_width;
-				child_allocation.width = allocation.width - 2 * border_width;
-				child_allocation.height = allocation.height - 2 * border_width;
+				int left = get_margin_start();
+				int right = get_margin_end();
+				int top = get_margin_top();
+				int bottom = get_margin_bottom();
+
+				child_allocation.x = left;
+				child_allocation.y = top;
+				child_allocation.width = allocation.width - left - right;
+				child_allocation.height = allocation.height - top - bottom;
 
 				child.size_allocate(child_allocation);
 			}
