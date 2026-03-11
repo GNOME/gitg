@@ -707,7 +707,7 @@ class Dialog : Gtk.Dialog
 
 			var ds = new Gitg.DiffStat();
 
-			ds.get_style_context().add_class("no-frame");
+			ds.add_css_class("no-frame");
 
 			ds.added = (uint)add;
 			ds.removed = (uint)remove;

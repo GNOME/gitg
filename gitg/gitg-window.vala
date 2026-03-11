@@ -326,7 +326,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		else
 		{
 			d_header_bar.show_close_button = true;
-			d_header_bar.get_style_context().add_class("titlebar");
+			d_header_bar.add_css_class("titlebar");
 		}
 
 		add_action_entries(win_entries, this);
@@ -1066,7 +1066,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		resize(width, height);
 		if(Gitg.Config.PROFILE == "development")
 		{
-			this.get_style_context().add_class("devel");
+			this.add_css_class("devel");
 		}
 
 		return true;
@@ -1237,11 +1237,11 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 				if (query.default_is_destructive)
 				{
-					button.get_style_context().add_class(Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+					button.add_css_class(Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
 				}
 				else
 				{
-					button.get_style_context().add_class(Gtk.STYLE_CLASS_SUGGESTED_ACTION);
+					button.add_css_class(Gtk.STYLE_CLASS_SUGGESTED_ACTION);
 				}
 			}
 		}

@@ -181,7 +181,7 @@ class CommitActionPush : GitgExt.UIElement, GitgExt.Action, GitgExt.CommitAction
 			alert_dialog.add_button(_("Push force"), Gtk.ResponseType.OK);
 
 			var push_force_button = alert_dialog.get_widget_for_response(Gtk.ResponseType.OK);
-			push_force_button.get_style_context().add_class(Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+			push_force_button.add_css_class(Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
 
 			alert_dialog.response.connect ((r) => {
 				if (r == Gtk.ResponseType.OK)

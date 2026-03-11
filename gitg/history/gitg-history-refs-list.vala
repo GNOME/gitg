@@ -320,7 +320,7 @@ private class RefRow : RefTyped, Gtk.ListBoxRow
 
 		d_editing_entry = new Gtk.Entry();
 		d_editing_entry.set_width_chars(1);
-		d_editing_entry.get_style_context().add_class("ref_editing_entry");
+		d_editing_entry.add_css_class("ref_editing_entry");
 		d_editing_entry.show();
 
 		d_editing_entry.set_text(label_text());

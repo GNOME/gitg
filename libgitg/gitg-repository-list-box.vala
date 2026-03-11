@@ -215,7 +215,7 @@ namespace Gitg
 							{
 								var frame = new Gtk.Frame(null);
 								frame.shadow_type = Gtk.ShadowType.NONE;
-								frame.get_style_context().add_class("language-frame");
+								frame.add_css_class("language-frame");
 								frame.show();
 
 								var label = new Gtk.Label(lang);
@@ -562,7 +562,7 @@ namespace Gitg
 			alert_dialog.add_button(_("Delete permanently"), DeleteSources.DELETE);
 
 			var delete_button = alert_dialog.get_widget_for_response(DeleteSources.DELETE);
-			delete_button.get_style_context().add_class(Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+			delete_button.add_css_class(Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
 
 			alert_dialog.response.connect ((id) => {
 				handle_delete_source_response(id, workdir, uri, row);

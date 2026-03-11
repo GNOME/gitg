@@ -34,7 +34,7 @@ public class Notifications : Object, GitgExt.Notifications
 		d_handles = new Gee.HashMap<GitgExt.Notification, ulong>();
 
 		d_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 3);
-		d_box.get_style_context().add_class("notifications");
+		d_box.add_css_class("notifications");
 		d_box.show();
 
 		d_box.valign = Gtk.Align.END;

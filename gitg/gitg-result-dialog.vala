@@ -214,7 +214,7 @@ class ResultDialog : Dialog
 		set_title(title);
 		if (label_text != null)
 			d_label_result.set_text(label_text);
-		d_button_close.get_style_context().add_class(STYLE_CLASS_SUGGESTED_ACTION);
+		d_button_close.add_css_class(STYLE_CLASS_SUGGESTED_ACTION);
 		url_reg = new Regex ("https?://[^\\s'\"<>]+");
 		tv = d_text_view_message;
 		var font_desc = Pango.FontDescription.from_string ("Monospace 11");
