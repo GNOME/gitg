@@ -432,9 +432,6 @@ public class RefHeader : RefTyped, Gtk.ListBoxRow
 	[GtkChild( name = "op_icon" )]
 	private unowned Gtk.Image d_op_icon;
 
-	[GtkChild( name = "event_box_op_icon" )]
-	private unowned Gtk.EventBox d_event_box_op_icon;
-
 	public Gitg.RemoteState remote_state
 	{
 		set
@@ -551,10 +548,13 @@ public class RefHeader : RefTyped, Gtk.ListBoxRow
 
 	public void set_op_icon_action(GitgExt.Action action)
 	{
-	    d_event_box_op_icon.button_press_event.connect(() => {
-				action.activate();
-				return true;
+		var gesture = new Gtk.GestureClick();
+		gesture.set_button(0);
+		gesture.pressed.connect((_, _, _) => {
+			action.activate();
+			gesture.set_state(Gtk.EventSequenceState.CLAIMED);
 		});
+		d_op_icon.add_controller(gesture);
 	}
 }
 
