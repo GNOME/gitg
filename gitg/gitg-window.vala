@@ -603,7 +603,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			if (regex_custom_actions_global_group == null)
 				regex_custom_actions_global_group = new Regex("gitg\\.actions\\.global\\.(.+)\\.group", RegexCompileFlags.OPTIMIZE);
 
-			var global_actions_item = new MenuItem(("_Global Actions"), "win.global-actions");
+			var global_actions_item = new MenuItem(_("_Global Actions"), "win.global-actions");
 			menu.append_item(global_actions_item);
 
 			var show_global_actions = new SimpleAction ("global-actions", null);
