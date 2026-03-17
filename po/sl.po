@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2026-01-29 17:32+0000\n"
-"PO-Revision-Date: 2026-01-29 21:16+0100\n"
+"POT-Creation-Date: 2026-03-17 10:13+0000\n"
+"PO-Revision-Date: 2026-03-17 12:09+0100\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -534,6 +534,46 @@ msgstr "Pregled nedavno uporabljenih skladišč"
 msgid "The Gitg Team"
 msgstr "Ekipa gitg"
 
+#. (itstool) path: Adwaita-dark.xml/style-scheme@_name
+#: Adwaita-dark.xml:20
+msgid "Adwaita Dark"
+msgstr "Adwaita - temna"
+
+#. (itstool) path: style-scheme/_description
+#: Adwaita-dark.xml:22 Adwaita.xml:22
+msgid "An style scheme for Adwaita"
+msgstr "Slogovna shema za Adwaito"
+
+#. (itstool) path: Adwaita.xml/style-scheme@_name
+#: Adwaita.xml:20
+msgid "Adwaita"
+msgstr "Adwaita"
+
+#. (itstool) path: classic-dark.xml/style-scheme@_name
+#: classic-dark.xml:22
+msgid "Classic Dark"
+msgstr "Klasična temna"
+
+#. (itstool) path: style-scheme/_description
+#: classic-dark.xml:24
+msgid "Classic dark color scheme"
+msgstr "Klasična temna barvna shema"
+
+#. (itstool) path: cobalt-light.xml/style-scheme@_name
+#: cobalt-light.xml:20
+msgid "Cobalt Light"
+msgstr "Kobaltna svetla"
+
+#. (itstool) path: style-scheme/_description
+#: cobalt-light.xml:22
+msgid "Blue based color scheme"
+msgstr "Običajna modra barvna shema"
+
+#. (itstool) path: style-scheme/_description
+#: kate-dark.xml:24
+msgid "Dark color scheme used in the Kate text editor"
+msgstr "Temna barvna shema, uporabljena v urejevalniku besedil Kate"
+
 #: gitg/commit/gitg-commit-dialog.vala:567 gitg/commit/gitg-commit.vala:1096
 msgid "There are no changes to be committed"
 msgstr "Ni sprememb za uveljavitev"
@@ -672,7 +712,7 @@ msgstr "Ali ste prepričani, da želite trajno izbrisati izbrane spremembe?"
 #: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
 #: gitg/commit/gitg-commit.vala:1606
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:469
-#: gitg/gitg-window.vala:210 gitg/gitg-window.vala:801
+#: gitg/gitg-window.vala:212 gitg/gitg-window.vala:801
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
 #: gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
@@ -681,7 +721,9 @@ msgstr "Ali ste prepričani, da želite trajno izbrisati izbrane spremembe?"
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:20
 #: gitg/resources/ui/gitg-edit-remote-dialog.ui:18
+#: gitg/resources/ui/gitg-push-dialog.ui:18
 #: gitg/resources/ui/gitg-remote-notification.ui:30
+#: gitg/resources/ui/gitg-set-upstream-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-simple-notification.ui:61
 #: gitg/resources/ui/gitg-window.ui:154
 #: libgitg/resources/ui/gitg-authentication-dialog.ui:11
@@ -1503,23 +1545,28 @@ msgstr "Odstrani"
 msgid "Failed to remove remote"
 msgstr "Odstranjevanje oddaljenega skladišča je spodletelo"
 
-#: gitg/gitg-window.vala:207
+#: gitg/gitg-window.vala:209
 msgid "Add Repository"
 msgstr "Dodaj skladišče"
 
-#: gitg/gitg-window.vala:211
+#: gitg/gitg-window.vala:213
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:34
 #: gitg/resources/ui/gitg-window.ui:64
 msgid "_Add"
 msgstr "_Dodaj"
 
-#: gitg/gitg-window.vala:213
+#: gitg/gitg-window.vala:215
 msgid "_Scan for all git repositories from this directory"
 msgstr "_Preišči mapo za skladišča git"
 
-#: gitg/gitg-window.vala:553
+#: gitg/gitg-window.vala:562
 msgid "Projects"
 msgstr "Projekti"
+
+#: gitg/gitg-window.vala:606
+#, fuzzy
+msgid "_Global Actions"
+msgstr "_Globalna dejanja"
 
 #: gitg/gitg-window.vala:799
 msgid "Open Repository"
@@ -1631,11 +1678,11 @@ msgstr "Zgodovina"
 msgid "Examine the history of the repository"
 msgstr "Preglej zgodovino skladišča"
 
-#: gitg/history/gitg-history.vala:1075
+#: gitg/history/gitg-history.vala:1053
 msgid "Mainline"
 msgstr "Glavna veja"
 
-#: gitg/history/gitg-history.vala:1156
+#: gitg/history/gitg-history.vala:1134
 msgid "Main remote"
 msgstr "Uredi oddaljeno mesto"
 
@@ -1706,10 +1753,12 @@ msgid "C_heckout"
 msgstr "_Prevzemi"
 
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:69
+#: gitg/resources/ui/gitg-set-upstream-branch-dialog.ui:69
 msgid "Local branch _name:"
 msgstr "_Krajevno ime veje:"
 
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:99
+#: gitg/resources/ui/gitg-set-upstream-branch-dialog.ui:100
 msgid "_Remote branch:"
 msgstr "_Oddaljena veja:"
 
@@ -1940,6 +1989,15 @@ msgid "Check in vala documentation for datetime to write your own format."
 msgstr ""
 "Preverite dokumentacijo vala za datum in čas, da zapišete svojo obliko."
 
+#: gitg/resources/ui/gitg-preferences-general.ui:24
+msgid "Push"
+msgstr "Potisni"
+
+#: gitg/resources/ui/gitg-preferences-general.ui:44
+#, fuzzy
+msgid "Smart Push. Figure out parameters for push action"
+msgstr "Pametni potisk. Najde parametre za dejanje potiskanja"
+
 #: gitg/resources/ui/gitg-preferences-history.ui:31
 msgid "Default selection"
 msgstr "Privzet izbor"
@@ -1997,6 +2055,7 @@ msgid "Start with activity:"
 msgstr "Začni novo dejavnost:"
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:61
+#: gitg/resources/ui/gitg-push-dialog.ui:141
 msgid "Commit"
 msgstr "Uveljavi"
 
@@ -2052,6 +2111,147 @@ msgstr "Barvna shema poudarjanja skladnje:"
 #: gitg/resources/ui/gitg-preferences.ui:11
 msgid "Preferences"
 msgstr "Možnosti"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:7
+#, fuzzy
+msgid "Push Reference"
+msgstr "Potisni sklic"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:34
+msgid "_Push"
+msgstr "_Potisni"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:69
+#, fuzzy
+msgid "_Local ref:"
+msgstr "_Krajevni ref:"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:72
+#, fuzzy
+msgid "Local reference to push from"
+msgstr "Krajevni sklic, od katerega potisniti"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:106
+#: gitg/resources/ui/gitg-push-dialog.ui:236
+msgid "Branch"
+msgstr "Veja"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:114
+#, fuzzy
+msgid "Reference to push from is a branch"
+msgstr "Sklic, s katerega potiska, je veja"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:123
+#: gitg/resources/ui/gitg-push-dialog.ui:253
+#, fuzzy
+msgid "Tag"
+msgstr "Oznaka/Značka"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:132
+#, fuzzy
+msgid "Reference to push from is a tag"
+msgstr "Sklic, s katerega potiska, je značka"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:150
+#, fuzzy
+#| msgid "Retrieve patch from a commit"
+msgid "Reference to push from is a commit"
+msgstr "Pridobi popravek iz izbrane uveljavitve"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:170
+msgid "Re_mote:"
+msgstr "_Oddaljeni:"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:187
+#, fuzzy
+msgid "Remote to push to"
+msgstr "Oddaljeni, na katerega potisniti"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:201
+msgid "Rem_ote ref:"
+msgstr "Ref _oddaljenega:"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:244
+msgid "Push to a remote branch"
+msgstr "Potisni v oddaljeno vejo"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:262
+#, fuzzy
+msgid "Push to a remote tag"
+msgstr "Potisni v oddaljeno značko"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:271
+msgid "Custom"
+msgstr "Po meri"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:280
+msgid "Push to a custom remote ref"
+msgstr "Potisni v oddaljeni ref po meri"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:297
+msgid "_Smart"
+msgstr "Pa_metno"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:305
+#, fuzzy
+msgid "Fill form based on config"
+msgstr "Izpolni obrazec glede na prilagoditev"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:314
+#, fuzzy
+msgid "_Set Upstream"
+msgstr "_Nastavi upstream"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:322
+#, fuzzy
+msgid "Mark remote as upstream for branch"
+msgstr "Označi oddaljenega kot upstream za vejo"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:331
+msgid "_Force"
+msgstr "_Vsili"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:338
+#, fuzzy
+msgid "Override remote ref if already exists"
+msgstr "Preglasi sklic oddaljenega, če že obstaja"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:347
+msgid "_Restart"
+msgstr "_Ponovno zaženi"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:353
+#, fuzzy
+msgid "Restart default remote reference to push to"
+msgstr "Ponovno zaženi oddaljeni sklic, kamor želite potisniti"
+
+#: gitg/resources/ui/gitg-result-dialog.ui:19
+#: gitg/resources/ui/gitg-tag-show-info-dialog.ui:20
+#: gitg/resources/ui/gitg-window.ui:230
+msgid "_Close"
+msgstr "_Zapri"
+
+#: gitg/resources/ui/gitg-result-dialog.ui:52
+msgid "Result:"
+msgstr "Rezultat:"
+
+#: gitg/resources/ui/gitg-result-dialog.ui:99
+msgid "Remove ansi:"
+msgstr "Odstrani ansi:"
+
+#: gitg/resources/ui/gitg-result-dialog.ui:117
+msgid "Copy (Ctrl+Shift+C)"
+msgstr "Kopiraj (krmilka+dvigalka+C)"
+
+#: gitg/resources/ui/gitg-set-upstream-branch-dialog.ui:7
+#, fuzzy
+msgid "Set Upstream Branch"
+msgstr "Nastavi upstream vejo"
+
+#: gitg/resources/ui/gitg-set-upstream-branch-dialog.ui:34
+#, fuzzy
+msgid "Set U_pstream"
+msgstr "Nastavi _upstream"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:14
 msgctxt "shortcut window"
@@ -2206,11 +2406,6 @@ msgstr "Pokaži kontekstni meni globalnih dejanj (če so opredeljena)."
 #: gitg/resources/ui/gitg-tag-show-info-dialog.ui:7
 msgid "Show Tag info"
 msgstr "Pokaži podatke oznake"
-
-#: gitg/resources/ui/gitg-tag-show-info-dialog.ui:20
-#: gitg/resources/ui/gitg-window.ui:230
-msgid "_Close"
-msgstr "_Zapri"
 
 #: gitg/resources/ui/gitg-window.ui:24
 msgid "Show the list of recently used repositories"
