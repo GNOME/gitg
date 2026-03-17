@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
 "POT-Creation-Date: 2026-03-17 10:13+0000\n"
-"PO-Revision-Date: 2026-03-17 12:09+0100\n"
+"PO-Revision-Date: 2026-03-17 12:41+0100\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -249,15 +249,15 @@ msgstr "Način razvrščanja sklicev v bočnem oknu zgodovine."
 
 #: data/org.gnome.gitg.gschema.xml.in:178
 msgid "Show Upstream With Branch"
-msgstr "Pokaži izvorni projekt s krajevno vejo"
+msgstr "Pokaži izvorni projekt z vejo"
 
 #: data/org.gnome.gitg.gschema.xml.in:179
 msgid ""
 "Determines whether to also show the upstream (remote) tracking branch when "
 "selecting a local branch in the history view."
 msgstr ""
-"Določa ali naj bo pokažana tudi veja izvornega projekta (oddaljen strežnik) "
-"ob izbiri krajevne veje v pogledu zgodovine."
+"Določa, ali naj bo prikazana tudi veja izvornega projekta (oddaljen "
+"strežnik) ob izbiri krajevne veje v pogledu zgodovine."
 
 #: data/org.gnome.gitg.gschema.xml.in:186
 #: gitg/resources/ui/gitg-preferences-history.ui:151
@@ -1564,7 +1564,6 @@ msgid "Projects"
 msgstr "Projekti"
 
 #: gitg/gitg-window.vala:606
-#, fuzzy
 msgid "_Global Actions"
 msgstr "_Globalna dejanja"
 
@@ -1994,9 +1993,8 @@ msgid "Push"
 msgstr "Potisni"
 
 #: gitg/resources/ui/gitg-preferences-general.ui:44
-#, fuzzy
 msgid "Smart Push. Figure out parameters for push action"
-msgstr "Pametni potisk. Najde parametre za dejanje potiskanja"
+msgstr "Pametni potisk. Najde parametre za dejanje potiska"
 
 #: gitg/resources/ui/gitg-preferences-history.ui:31
 msgid "Default selection"
@@ -2113,7 +2111,6 @@ msgid "Preferences"
 msgstr "Možnosti"
 
 #: gitg/resources/ui/gitg-push-dialog.ui:7
-#, fuzzy
 msgid "Push Reference"
 msgstr "Potisni sklic"
 
@@ -2122,14 +2119,12 @@ msgid "_Push"
 msgstr "_Potisni"
 
 #: gitg/resources/ui/gitg-push-dialog.ui:69
-#, fuzzy
 msgid "_Local ref:"
-msgstr "_Krajevni ref:"
+msgstr "_Krajevni sklic:"
 
 #: gitg/resources/ui/gitg-push-dialog.ui:72
-#, fuzzy
 msgid "Local reference to push from"
-msgstr "Krajevni sklic, od katerega potisniti"
+msgstr "Krajevni sklic, s katerega želite potisniti"
 
 #: gitg/resources/ui/gitg-push-dialog.ui:106
 #: gitg/resources/ui/gitg-push-dialog.ui:236
@@ -2137,35 +2132,29 @@ msgid "Branch"
 msgstr "Veja"
 
 #: gitg/resources/ui/gitg-push-dialog.ui:114
-#, fuzzy
 msgid "Reference to push from is a branch"
-msgstr "Sklic, s katerega potiska, je veja"
+msgstr "Sklic, s katerega želite potisniti, je veja"
 
 #: gitg/resources/ui/gitg-push-dialog.ui:123
 #: gitg/resources/ui/gitg-push-dialog.ui:253
-#, fuzzy
 msgid "Tag"
-msgstr "Oznaka/Značka"
+msgstr "Oznaka"
 
 #: gitg/resources/ui/gitg-push-dialog.ui:132
-#, fuzzy
 msgid "Reference to push from is a tag"
-msgstr "Sklic, s katerega potiska, je značka"
+msgstr "Sklic, s katerega želite potisniti, je oznaka"
 
 #: gitg/resources/ui/gitg-push-dialog.ui:150
-#, fuzzy
-#| msgid "Retrieve patch from a commit"
 msgid "Reference to push from is a commit"
-msgstr "Pridobi popravek iz izbrane uveljavitve"
+msgstr "Sklic, s katerega želite potisniti, je uveljavitev"
 
 #: gitg/resources/ui/gitg-push-dialog.ui:170
 msgid "Re_mote:"
 msgstr "_Oddaljeni:"
 
 #: gitg/resources/ui/gitg-push-dialog.ui:187
-#, fuzzy
 msgid "Remote to push to"
-msgstr "Oddaljeni, na katerega potisniti"
+msgstr "Oddaljeni, na katerega želite potisniti"
 
 #: gitg/resources/ui/gitg-push-dialog.ui:201
 msgid "Rem_ote ref:"
@@ -2176,9 +2165,8 @@ msgid "Push to a remote branch"
 msgstr "Potisni v oddaljeno vejo"
 
 #: gitg/resources/ui/gitg-push-dialog.ui:262
-#, fuzzy
 msgid "Push to a remote tag"
-msgstr "Potisni v oddaljeno značko"
+msgstr "Potisni v oddaljeno oznako"
 
 #: gitg/resources/ui/gitg-push-dialog.ui:271
 msgid "Custom"
@@ -2193,7 +2181,6 @@ msgid "_Smart"
 msgstr "Pa_metno"
 
 #: gitg/resources/ui/gitg-push-dialog.ui:305
-#, fuzzy
 msgid "Fill form based on config"
 msgstr "Izpolni obrazec glede na prilagoditev"
 
@@ -2212,7 +2199,6 @@ msgid "_Force"
 msgstr "_Vsili"
 
 #: gitg/resources/ui/gitg-push-dialog.ui:338
-#, fuzzy
 msgid "Override remote ref if already exists"
 msgstr "Preglasi sklic oddaljenega, če že obstaja"
 
@@ -2221,7 +2207,6 @@ msgid "_Restart"
 msgstr "_Ponovno zaženi"
 
 #: gitg/resources/ui/gitg-push-dialog.ui:353
-#, fuzzy
 msgid "Restart default remote reference to push to"
 msgstr "Ponovno zaženi oddaljeni sklic, kamor želite potisniti"
 
