@@ -178,6 +178,13 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 
 			notify_property("expanded");
 		});
+
+		var gesture = new Gtk.GestureClick();
+    		gesture.pressed.connect((_, _, _) => {
+        		d_expander_files.expanded = !d_expander_files.expanded;
+        		gesture.set_state(Gtk.EventSequenceState.CLAIMED);
+    		});
+    		d_label_expand_collapse_files.add_controller(gesture);
 	}
 
 	protected override void dispose()
@@ -460,18 +467,6 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 			d_image_avatar.icon_name = "avatar-default-symbolic";
 			d_image_avatar.add_css_class("dim-label");
 		}
-	}
-
-	[GtkCallback]
-	private bool button_press_on_event_box_expand_collapse(Gdk.EventButton event)
-	{
-		if (event.button == Gdk.BUTTON_PRIMARY)
-		{
-			d_expander_files.expanded = !d_expander_files.expanded;
-			return true;
-		}
-
-		return false;
 	}
 }
 

@@ -206,21 +206,14 @@
           </object>
         </child>
         <child>
-          <object class="GtkEventBox" id="event_box_expand_collapse_files">
+          <object class="GtkLabel" id="label_expand_collapse_files">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <signal name="button-press-event" handler="button_press_on_event_box_expand_collapse" />
-            <child>
-              <object class="GtkLabel" id="label_expand_collapse_files">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Expand all</property>
-                <property name="valign">baseline</property>
-                <style>
-                  <class name="dim-label"/>
-                </style>
-              </object>
-            </child>
+            <property name="label" translatable="yes">Expand all</property>
+            <property name="valign">baseline</property>
+            <style>
+              <class name="dim-label"/>
+            </style>
           </object>
         </child>
         <child>
