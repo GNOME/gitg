@@ -171,7 +171,7 @@ elif gdk_targets.contains('x11')
   platform_name = 'unix'
 elif gdk_targets.contains('win32')
   platform_name = 'win32'
-elif gdk_backends.contains('wayland')
+elif gdk_targets.contains('wayland')
   platform_name = 'unix'
 else
   error('Unknown Gdk targets: ' + gdk_targets)
