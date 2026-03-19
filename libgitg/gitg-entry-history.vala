@@ -51,7 +51,9 @@ public class EntryHistory : Gtk.Entry {
         setup_completion ();
 
         activate.connect (on_activate);
-        key_press_event.connect (on_key_press);
+        var key_controller = new Gtk.EventControllerKey ();
+        key_controller.key_pressed.connect (on_key_press);
+        add_controller (key_controller);
     }
 
     private void setup_completion () {
@@ -154,20 +156,20 @@ public class EntryHistory : Gtk.Entry {
         activated_with_text (text);
     }
 
-    private bool on_key_press (Gdk.EventKey event) {
-        if (event.keyval == Gdk.Key.Up) {
+    private bool on_key_press (uint keyval, uint keycode, Gdk.ModifierType state) {
+        if (keyval == Gdk.Key.Up) {
             navigate_history_up ();
             return true;
         }
 
-        if (event.keyval == Gdk.Key.Down) {
+        if (keyval == Gdk.Key.Down) {
             navigate_history_down ();
             return true;
         }
 
-        if (event.keyval != Gdk.Key.Up &&
-            event.keyval != Gdk.Key.Down &&
-            event.keyval != Gdk.Key.Return) {
+        if (keyval != Gdk.Key.Up &&
+            keyval != Gdk.Key.Down &&
+            keyval != Gdk.Key.Return) {
             history_position = -1;
         }
 
