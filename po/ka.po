@@ -5,18 +5,18 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2026-01-29 17:32+0000\n"
-"PO-Revision-Date: 2026-01-31 06:48+0100\n"
+"POT-Creation-Date: 2026-03-18 07:03+0000\n"
+"PO-Revision-Date: 2026-03-19 09:31+0100\n"
 "Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
-"Language-Team: \n"
+"Language-Team: Georgian <(nothing)>\n"
 "Language: ka\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Poedit 3.9\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
@@ -469,6 +469,46 @@ msgstr ""
 msgid "The Gitg Team"
 msgstr ""
 
+#. (itstool) path: Adwaita-dark.xml/style-scheme@_name
+#: Adwaita-dark.xml:20
+msgid "Adwaita Dark"
+msgstr "Adwaita Dark"
+
+#. (itstool) path: style-scheme/_description
+#: Adwaita-dark.xml:22 Adwaita.xml:22
+msgid "An style scheme for Adwaita"
+msgstr "Adwaita-ს სტილის სქემა"
+
+#. (itstool) path: Adwaita.xml/style-scheme@_name
+#: Adwaita.xml:20
+msgid "Adwaita"
+msgstr "Adwaita"
+
+#. (itstool) path: classic-dark.xml/style-scheme@_name
+#: classic-dark.xml:22
+msgid "Classic Dark"
+msgstr "კლასტიკური მუქი"
+
+#. (itstool) path: style-scheme/_description
+#: classic-dark.xml:24
+msgid "Classic dark color scheme"
+msgstr "კლასიკური მუქი ფერის სქემა"
+
+#. (itstool) path: cobalt-light.xml/style-scheme@_name
+#: cobalt-light.xml:20
+msgid "Cobalt Light"
+msgstr "ღია კობალტი"
+
+#. (itstool) path: style-scheme/_description
+#: cobalt-light.xml:22
+msgid "Blue based color scheme"
+msgstr "ლურჯზე დაფუძნებული ფერის სქემა"
+
+#. (itstool) path: style-scheme/_description
+#: kate-dark.xml:24
+msgid "Dark color scheme used in the Kate text editor"
+msgstr "რედაქტორში \"Kate\" გამოყენებული მუქი ფერის სქემა"
+
 #: gitg/commit/gitg-commit-dialog.vala:567 gitg/commit/gitg-commit.vala:1096
 msgid "There are no changes to be committed"
 msgstr ""
@@ -600,7 +640,7 @@ msgstr ""
 #: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
 #: gitg/commit/gitg-commit.vala:1606
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:469
-#: gitg/gitg-window.vala:210 gitg/gitg-window.vala:801
+#: gitg/gitg-window.vala:212 gitg/gitg-window.vala:801
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
 #: gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
@@ -609,7 +649,9 @@ msgstr ""
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:20
 #: gitg/resources/ui/gitg-edit-remote-dialog.ui:18
+#: gitg/resources/ui/gitg-push-dialog.ui:18
 #: gitg/resources/ui/gitg-remote-notification.ui:30
+#: gitg/resources/ui/gitg-set-upstream-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-simple-notification.ui:61
 #: gitg/resources/ui/gitg-window.ui:154
 #: libgitg/resources/ui/gitg-authentication-dialog.ui:11
@@ -1368,7 +1410,7 @@ msgstr "დახურვა"
 
 #: gitg/gitg-remove-remote-action.vala:50
 msgid "Remove remote"
-msgstr ""
+msgstr "დაშორებულის წაშლა"
 
 #: gitg/gitg-remove-remote-action.vala:55
 msgid "Removes remote from the remotes list"
@@ -1391,23 +1433,27 @@ msgstr "წაშლა"
 msgid "Failed to remove remote"
 msgstr ""
 
-#: gitg/gitg-window.vala:207
+#: gitg/gitg-window.vala:209
 msgid "Add Repository"
 msgstr "რეპოზიტორიის დამატება"
 
-#: gitg/gitg-window.vala:211
+#: gitg/gitg-window.vala:213
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:34
 #: gitg/resources/ui/gitg-window.ui:64
 msgid "_Add"
 msgstr "_დამატება"
 
-#: gitg/gitg-window.vala:213
+#: gitg/gitg-window.vala:215
 msgid "_Scan for all git repositories from this directory"
 msgstr ""
 
-#: gitg/gitg-window.vala:553
+#: gitg/gitg-window.vala:562
 msgid "Projects"
 msgstr "პროექტები"
+
+#: gitg/gitg-window.vala:606
+msgid "_Global Actions"
+msgstr ""
 
 #: gitg/gitg-window.vala:799
 msgid "Open Repository"
@@ -1514,11 +1560,11 @@ msgstr "ისტორია"
 msgid "Examine the history of the repository"
 msgstr ""
 
-#: gitg/history/gitg-history.vala:1075
+#: gitg/history/gitg-history.vala:1053
 msgid "Mainline"
 msgstr ""
 
-#: gitg/history/gitg-history.vala:1156
+#: gitg/history/gitg-history.vala:1134
 msgid "Main remote"
 msgstr "მთავარი დაშორებული"
 
@@ -1589,10 +1635,12 @@ msgid "C_heckout"
 msgstr ""
 
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:69
+#: gitg/resources/ui/gitg-set-upstream-branch-dialog.ui:69
 msgid "Local branch _name:"
 msgstr ""
 
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:99
+#: gitg/resources/ui/gitg-set-upstream-branch-dialog.ui:100
 msgid "_Remote branch:"
 msgstr ""
 
@@ -1818,6 +1866,14 @@ msgstr "ხელით:"
 msgid "Check in vala documentation for datetime to write your own format."
 msgstr ""
 
+#: gitg/resources/ui/gitg-preferences-general.ui:24
+msgid "Push"
+msgstr "გადაცემა"
+
+#: gitg/resources/ui/gitg-preferences-general.ui:44
+msgid "Smart Push. Figure out parameters for push action"
+msgstr ""
+
 #: gitg/resources/ui/gitg-preferences-history.ui:31
 msgid "Default selection"
 msgstr "ნაგულისხმევი არჩევანი"
@@ -1875,6 +1931,7 @@ msgid "Start with activity:"
 msgstr ""
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:61
+#: gitg/resources/ui/gitg-push-dialog.ui:141
 msgid "Commit"
 msgstr "კომიტი"
 
@@ -1930,6 +1987,130 @@ msgstr ""
 #: gitg/resources/ui/gitg-preferences.ui:11
 msgid "Preferences"
 msgstr "პარამეტრები"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:7
+msgid "Push Reference"
+msgstr "მიმართვის გადაცემა"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:34
+msgid "_Push"
+msgstr "_გადაცემა"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:69
+msgid "_Local ref:"
+msgstr "_ლოკალური მიმართ:"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:72
+msgid "Local reference to push from"
+msgstr ""
+
+#: gitg/resources/ui/gitg-push-dialog.ui:106
+#: gitg/resources/ui/gitg-push-dialog.ui:236
+msgid "Branch"
+msgstr "ბრენჩი"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:114
+msgid "Reference to push from is a branch"
+msgstr ""
+
+#: gitg/resources/ui/gitg-push-dialog.ui:123
+#: gitg/resources/ui/gitg-push-dialog.ui:253
+msgid "Tag"
+msgstr "ჭდე"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:132
+msgid "Reference to push from is a tag"
+msgstr ""
+
+#: gitg/resources/ui/gitg-push-dialog.ui:150
+msgid "Reference to push from is a commit"
+msgstr "გადაცემაზე მიმართვა კომიტიდანაა"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:170
+msgid "Re_mote:"
+msgstr "_დაშორებულები:"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:187
+msgid "Remote to push to"
+msgstr ""
+
+#: gitg/resources/ui/gitg-push-dialog.ui:201
+msgid "Rem_ote ref:"
+msgstr ""
+
+#: gitg/resources/ui/gitg-push-dialog.ui:244
+msgid "Push to a remote branch"
+msgstr "გადაცემა დაშორებულ ბრენჩზე"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:262
+msgid "Push to a remote tag"
+msgstr "გადაცემა დაშორებულ ჭდეზე"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:271
+msgid "Custom"
+msgstr "ხელით"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:280
+msgid "Push to a custom remote ref"
+msgstr "გადაცემა მორგებულ დაშორებულ მიმართვაზე"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:297
+msgid "_Smart"
+msgstr ""
+
+#: gitg/resources/ui/gitg-push-dialog.ui:305
+msgid "Fill form based on config"
+msgstr ""
+
+#: gitg/resources/ui/gitg-push-dialog.ui:314
+msgid "_Set Upstream"
+msgstr ""
+
+#: gitg/resources/ui/gitg-push-dialog.ui:322
+msgid "Mark remote as upstream for branch"
+msgstr ""
+
+#: gitg/resources/ui/gitg-push-dialog.ui:331
+msgid "_Force"
+msgstr ""
+
+#: gitg/resources/ui/gitg-push-dialog.ui:338
+msgid "Override remote ref if already exists"
+msgstr ""
+
+#: gitg/resources/ui/gitg-push-dialog.ui:347
+msgid "_Restart"
+msgstr "გადატვი_რთვა"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:353
+msgid "Restart default remote reference to push to"
+msgstr ""
+
+#: gitg/resources/ui/gitg-result-dialog.ui:19
+#: gitg/resources/ui/gitg-tag-show-info-dialog.ui:20
+#: gitg/resources/ui/gitg-window.ui:230
+msgid "_Close"
+msgstr "დახურვა"
+
+#: gitg/resources/ui/gitg-result-dialog.ui:52
+msgid "Result:"
+msgstr "შედეგი:"
+
+#: gitg/resources/ui/gitg-result-dialog.ui:99
+msgid "Remove ansi:"
+msgstr "ansi-ის წაშლა:"
+
+#: gitg/resources/ui/gitg-result-dialog.ui:117
+msgid "Copy (Ctrl+Shift+C)"
+msgstr ""
+
+#: gitg/resources/ui/gitg-set-upstream-branch-dialog.ui:7
+msgid "Set Upstream Branch"
+msgstr "აღმავლის ბრენჩის დაყენება"
+
+#: gitg/resources/ui/gitg-set-upstream-branch-dialog.ui:34
+msgid "Set U_pstream"
+msgstr ""
 
 #: gitg/resources/ui/gitg-shortcuts.ui:14
 msgctxt "shortcut window"
@@ -2084,11 +2265,6 @@ msgstr ""
 #: gitg/resources/ui/gitg-tag-show-info-dialog.ui:7
 msgid "Show Tag info"
 msgstr ""
-
-#: gitg/resources/ui/gitg-tag-show-info-dialog.ui:20
-#: gitg/resources/ui/gitg-window.ui:230
-msgid "_Close"
-msgstr "დახურვა"
 
 #: gitg/resources/ui/gitg-window.ui:24
 msgid "Show the list of recently used repositories"
@@ -2399,9 +2575,6 @@ msgstr "გარეთ გახსნა"
 
 #~ msgid "@binary@"
 #~ msgstr "@binary@"
-
-#~ msgid "Push"
-#~ msgstr "გადაცემა"
 
 #~ msgid "The GNOME Project"
 #~ msgstr "პროექტი \"GNOME\""
