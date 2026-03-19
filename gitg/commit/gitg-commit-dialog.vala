@@ -753,25 +753,25 @@ class Dialog : Gtk.Dialog
 		d_scrolled_window_stats.set_min_content_height(allocation.y + allocation.height);
 	}
 
-	private bool on_commit_message_key_press_event(Gtk.Widget widget, Gdk.EventKey event)
+	private bool on_commit_message_key_press_event(uint keyval, uint keycode, Gdk.ModifierType state)
 	{
 		var mmask = Gtk.accelerator_get_default_mod_mask();
 
-		if ((mmask & event.state) == Gdk.ModifierType.CONTROL_MASK)
+		if ((mmask & state) == Gdk.ModifierType.CONTROL_MASK)
 		{
-			if ((event.keyval == Gdk.Key.Return || event.keyval == Gdk.Key.KP_Enter))
+			if ((keyval == Gdk.Key.Return || keyval == Gdk.Key.KP_Enter))
 			{
 				d_button_ok.activate();
 				return true;
 			}
 		}
-		else if ((mmask & event.state) == Gdk.ModifierType.MOD1_MASK)
+		else if ((mmask & state) == Gdk.ModifierType.MOD1_MASK)
 		{
-			if (event.keyval == Gdk.Key.Page_Up)
+			if (keyval == Gdk.Key.Page_Up)
 			{
 				on_prev_commit_message_button_clicked ();
 			}
-			else if (event.keyval == Gdk.Key.Page_Down)
+			else if (keyval == Gdk.Key.Page_Down)
 			{
 				on_next_commit_message_button_clicked ();
 			}
@@ -782,7 +782,9 @@ class Dialog : Gtk.Dialog
 
 	private void init_message_area()
 	{
-		d_source_view_message.key_press_event.connect(on_commit_message_key_press_event);
+		var key_controller = new Gtk.EventControllerKey ();
+		key_controller.key_pressed.connect (on_commit_message_key_press_event);
+		d_source_view_message.add_controller (key_controller);
 
 		var b = d_source_view_message.buffer;
 
