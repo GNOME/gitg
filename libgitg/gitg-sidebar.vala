@@ -278,6 +278,11 @@ public class Sidebar : Gtk.TreeView
 		sel.set_select_function(select_function);
 
 		sel.changed.connect(selection_changed);
+
+		var key_controller = new Gtk.EventControllerKey();
+		key_controller.key_pressed.connect(on_key_press);
+		add_controller(key_controller);
+
 	}
 
 	protected virtual bool select_function(Gtk.TreeSelection sel,
@@ -421,14 +426,14 @@ public class Sidebar : Gtk.TreeView
 		}
 	}
 
-	protected override bool key_press_event(Gdk.EventKey event)
+	private bool on_key_press(uint keyval, uint keycode, Gdk.ModifierType state)
 	{
-		if ((event.state & Gtk.accelerator_get_default_mod_mask()) != 0)
+		if ((state & Gtk.accelerator_get_default_mod_mask()) != 0)
 		{
-			return base.key_press_event(event);
+			return false;
 		}
 
-		switch (event.keyval) {
+		switch (keyval) {
 			case Gdk.Key.Return:
 			case Gdk.Key.ISO_Enter:
 			case Gdk.Key.KP_Enter:
@@ -460,7 +465,7 @@ public class Sidebar : Gtk.TreeView
 				return true;
 		}
 
-		return base.key_press_event(event);
+		return false;
 	}
 
 	public new SidebarStore model
@@ -515,3 +520,4 @@ public class Sidebar : Gtk.TreeView
 }
 
 // ex: ts=4 noet
+
