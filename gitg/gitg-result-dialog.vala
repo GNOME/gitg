@@ -372,15 +372,11 @@ class ResultDialog : Dialog
 			}
 		}
 
-		var gdk_window = tv.get_window (TextWindowType.TEXT);
-		if (gdk_window != null) {
 			if (over_link) {
-				var cursor = new Gdk.Cursor (Gdk.CursorType.HAND2);
-				gdk_window.set_cursor (cursor);
+				tv.set_cursor_from_name ("pointer");
 			} else {
-				gdk_window.set_cursor (null);
+				tv.set_cursor (null);
 			}
-		}
 
 		return false;
 	}
