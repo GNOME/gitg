@@ -237,7 +237,9 @@ class ResultDialog : Dialog
 
 		tv.motion_notify_event.connect (on_hover_link);
 		tv.button_press_event.connect (on_link_press);
-		key_press_event.connect (on_key_press);
+		var key_controller = new Gtk.EventControllerKey ();
+		key_controller.key_pressed.connect (on_key_press);
+		add_controller (key_controller);
 		d_button_copy.clicked.connect (() => {
 			copy_all_text ();
 		});
@@ -247,11 +249,11 @@ class ResultDialog : Dialog
 		});
 	}
 
-	private bool on_key_press (Gdk.EventKey event) {
+	private bool on_key_press (uint keyval, uint keycode, Gdk.ModifierType state) {
 		// Check for Ctrl+Shift+C
-		if ((event.state & Gdk.ModifierType.CONTROL_MASK) != 0 &&
-			(event.state & Gdk.ModifierType.SHIFT_MASK) != 0 &&
-			event.keyval == Gdk.Key.c) {
+		if ((state & Gdk.ModifierType.CONTROL_MASK) != 0 &&
+			(state & Gdk.ModifierType.SHIFT_MASK) != 0 &&
+			keyval == Gdk.Key.c) {
 
 			copy_all_text ();
 			return true;
