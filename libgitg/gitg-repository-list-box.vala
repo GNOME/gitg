@@ -99,6 +99,13 @@ namespace Gitg
 				                                    "selected",
 				                                    BindingFlags.BIDIRECTIONAL |
 				                                    BindingFlags.SYNC_CREATE);
+
+				var gesture = new Gtk.GestureClick();
+				gesture.set_button(Gdk.BUTTON_SECONDARY);
+				gesture.pressed.connect((_, _, _) => {
+					secondary_clicked();
+				});
+				add_controller(gesture);
 			}
 
 			public Repository? repository
@@ -271,12 +278,6 @@ namespace Gitg
 				Object(repository: repository, dirname: dirname);
 			}
 
-			protected override bool button_press_event(Gdk.EventButton event)
-			{
-				if (event.button == Gdk.BUTTON_SECONDARY) secondary_clicked ();
-
-				return base.button_press_event (event);
-			}
 		}
 
 		public SelectionMode mode { get; set; }
