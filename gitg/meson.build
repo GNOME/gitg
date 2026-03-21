@@ -161,7 +161,7 @@ executable(
   dependencies: deps,
   c_args: cflags,
   vala_args: vala_flags,
-  gui_app: true,
+  win_subsystem: 'windows',
   install: true,
   install_rpath: gitg_libdir,
 )

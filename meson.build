@@ -3,7 +3,7 @@ project(
   version: '45.alpha',
   license: 'GPL2+',
   default_options: 'buildtype=debugoptimized',
-  meson_version: '>= 0.50.0',
+  meson_version: '>= 0.56.0',
 )
 application_id = 'org.gnome.gitg'
 gitg_name = meson.project_name()
@@ -164,7 +164,7 @@ gtk_shortcuts_window = gtk_dep.version().version_compare('>= 3.19')
 m_dep = cc.find_library('m', required: false)
 
 gdk_dep = dependency('gdk-3.0')
-gdk_targets = gdk_dep.get_pkgconfig_variable('targets')
+gdk_targets = gdk_dep.get_variable(pkgconfig: 'targets')
 
 if gdk_targets.contains('quartz')
   platform_name = 'osx'
