@@ -473,16 +473,16 @@ public class RefHeader : RefTyped, Gtk.ListBoxRow
 
 		bind_property("expanded", d_expander, "expanded", BindingFlags.BIDIRECTIONAL | BindingFlags.SYNC_CREATE);
 
-		d_expander.button_press_event.connect(on_expander_pressed);
+		var gesture = new Gtk.GestureClick();
+		gesture.set_button(0);
+		gesture.pressed.connect((_, _, _) => {
+			d_expander.expanded = !d_expander.expanded;
+			gesture.set_state(Gtk.EventSequenceState.CLAIMED);
+		});
+		d_expander.add_controller(gesture);
 
 		d_name = name;
 		d_rtype = rtype;
-	}
-
-	private bool on_expander_pressed(Gdk.EventButton event)
-	{
-		d_expander.expanded = !d_expander.expanded;
-		return true;
 	}
 
 	public RefHeader.remote(string name, Gitg.Remote? remote)
