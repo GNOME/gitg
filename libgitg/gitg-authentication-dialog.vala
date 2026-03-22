@@ -43,13 +43,13 @@ public class AuthenticationDialog : Gtk.Dialog
 	private unowned Gtk.Entry d_entry_password;
 
 	[GtkChild ( name = "radio_button_forget" )]
-	private unowned Gtk.RadioButton d_radio_button_forget;
+	private unowned Gtk.CheckButton d_radio_button_forget;
 
 	[GtkChild ( name = "radio_button_session" )]
-	private unowned Gtk.RadioButton d_radio_button_session;
+	private unowned Gtk.CheckButton d_radio_button_session;
 
 	[GtkChild ( name = "radio_button_forever" )]
-	private unowned Gtk.RadioButton d_radio_button_forever;
+	private unowned Gtk.CheckButton d_radio_button_forever;
 
 	private static AuthenticationLifeTime s_last_lifetime;
 

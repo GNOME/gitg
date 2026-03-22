@@ -1,211 +1,157 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.18.3 -->
 <interface>
-  <requires lib="gtk+" version="3.12"/>
+  <requires lib="gtk" version="4.0"/>
   <template class="GitgAuthenticationDialog" parent="GtkDialog">
-    <property name="can_focus">False</property>
-    <property name="type_hint">dialog</property>
     <child type="action">
       <object class="GtkButton" id="button_cancel">
-        <property name="visible">True</property>
-        <property name="label" translatable="yes">_Cancel</property>
-        <property name="use_underline">True</property>
+        <property name="label" translatable="1">_Cancel</property>
+        <property name="use_underline">1</property>
       </object>
     </child>
     <child type="action">
       <object class="GtkButton" id="button_ok">
-        <property name="visible">True</property>
-        <property name="label" translatable="yes">_Authenticate</property>
-        <property name="use_underline">True</property>
-        <property name="can_default">True</property>
-        <property name="receives_default">True</property>
+        <property name="label" translatable="1">_Authenticate</property>
+        <property name="use_underline">1</property>
+        <property name="receives_default">1</property>
       </object>
     </child>
-    <child internal-child="vbox">
-      <object class="GtkBox" id="dialog-vbox1">
-        <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
-        <property name="spacing">2</property>
+    <child>
+      <object class="GtkGrid" id="grid1">
+        <property name="margin-start">12</property>
+        <property name="margin-end">12</property>
+        <property name="margin_top">12</property>
+        <property name="margin_bottom">12</property>
+        <property name="hexpand">1</property>
+        <property name="vexpand">1</property>
+        <property name="row_spacing">6</property>
+        <property name="column_spacing">6</property>
         <child>
-          <object class="GtkGrid" id="grid1">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="margin_left">12</property>
-            <property name="margin_right">12</property>
+          <object class="GtkImage" id="image1">
+            <property name="valign">start</property>
+            <property name="icon_name">dialog-password-symbolic</property>
+            <property name="icon_size">large</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">0</property>
+              <property name="row-span">5</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label_title">
+            <property name="halign">start</property>
+            <attributes>
+              <attribute name="weight" value="bold"></attribute>
+            </attributes>
+            <layout>
+              <property name="column">1</property>
+              <property name="row">0</property>
+              <property name="column-span">2</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label_failed">
+            <property name="visible">0</property>
+            <property name="wrap">1</property>
+            <property name="label" translatable="1">The previous attempt to authenticate has failed, please provide your user name and password and try again.</property>
             <property name="margin_top">12</property>
             <property name="margin_bottom">12</property>
-            <property name="hexpand">True</property>
-            <property name="vexpand">True</property>
-            <property name="row_spacing">6</property>
-            <property name="column_spacing">6</property>
+            <property name="max_width_chars">0</property>
+            <attributes>
+              <attribute name="style" value="italic"></attribute>
+            </attributes>
+            <layout>
+              <property name="column">1</property>
+              <property name="row">1</property>
+              <property name="column-span">2</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label_username">
+            <property name="halign">end</property>
+            <property name="label" translatable="1">_Username:</property>
+            <property name="use_underline">1</property>
+            <property name="mnemonic_widget">entry_username</property>
+            <layout>
+              <property name="column">1</property>
+              <property name="row">2</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label_password">
+            <property name="halign">end</property>
+            <property name="label" translatable="1">_Password:</property>
+            <property name="use_underline">1</property>
+            <property name="mnemonic_widget">entry_password</property>
+            <layout>
+              <property name="column">1</property>
+              <property name="row">3</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkEntry" id="entry_username">
+            <property name="focusable">1</property>
+            <property name="hexpand">1</property>
+            <property name="input_purpose">name</property>
+            <property name="activates_default">1</property>
+            <layout>
+              <property name="column">2</property>
+              <property name="row">2</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkEntry" id="entry_password">
+            <property name="focusable">1</property>
+            <property name="hexpand">1</property>
+            <property name="visibility">0</property>
+            <property name="invisible_char">●</property>
+            <property name="input_purpose">password</property>
+            <property name="activates_default">1</property>
+            <layout>
+              <property name="column">2</property>
+              <property name="row">3</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkBox" id="box1">
+            <property name="margin_top">12</property>
+            <property name="orientation">vertical</property>
+            <layout>
+              <property name="column">1</property>
+              <property name="row">4</property>
+              <property name="column-span">2</property>
+            </layout>
             <child>
-              <object class="GtkImage" id="image1">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="valign">start</property>
-                <property name="icon_name">gtk-dialog-authentication</property>
-                <property name="icon_size">6</property>
+              <object class="GtkCheckButton" id="radio_button_forget">
+                <property name="label" translatable="1">Forget password _immediately</property>
+                <property name="focusable">1</property>
+                <property name="use_underline">1</property>
+                <property name="group">radio_button_session</property>
               </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">0</property>
-                <property name="height">5</property>
-              </packing>
             </child>
             <child>
-              <object class="GtkLabel" id="label_title">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="halign">start</property>
-                <attributes>
-                  <attribute name="weight" value="bold"/>
-                </attributes>
+              <object class="GtkCheckButton" id="radio_button_session">
+                <property name="label" translatable="1">Remember password until you _logout</property>
+                <property name="focusable">1</property>
+                <property name="use_underline">1</property>
+                <property name="active">1</property>
               </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">0</property>
-                <property name="width">2</property>
-              </packing>
             </child>
             <child>
-              <object class="GtkLabel" id="label_failed">
-                <property name="visible">False</property>
-                <property name="can_focus">False</property>
-                <property name="halign">fill</property>
-                <property name="wrap">True</property>
-                <property name="label" translatable="yes">The previous attempt to authenticate has failed, please provide your user name and password and try again.</property>
-                <property name="margin_top">12</property>
-                <property name="margin_bottom">12</property>
-                <property name="max_width_chars">0</property>
-                <attributes>
-                  <attribute name="style" value="italic"/>
-                </attributes>
+              <object class="GtkCheckButton" id="radio_button_forever">
+                <property name="label" translatable="1">Remember _forever</property>
+                <property name="focusable">1</property>
+                <property name="use_underline">1</property>
+                <property name="group">radio_button_session</property>
               </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">1</property>
-                <property name="width">2</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="label_username">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="halign">end</property>
-                <property name="label" translatable="yes">_Username:</property>
-                <property name="use_underline">True</property>
-                <property name="mnemonic_widget">entry_username</property>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">2</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="label_password">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="halign">end</property>
-                <property name="label" translatable="yes">_Password:</property>
-                <property name="use_underline">True</property>
-                <property name="mnemonic_widget">entry_password</property>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">3</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkEntry" id="entry_username">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="hexpand">True</property>
-                <property name="input_purpose">name</property>
-                <property name="activates_default">True</property>
-              </object>
-              <packing>
-                <property name="left_attach">2</property>
-                <property name="top_attach">2</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkEntry" id="entry_password">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="hexpand">True</property>
-                <property name="visibility">False</property>
-                <property name="invisible_char">●</property>
-                <property name="input_purpose">password</property>
-                <property name="activates_default">True</property>
-              </object>
-              <packing>
-                <property name="left_attach">2</property>
-                <property name="top_attach">3</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkBox" id="box1">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="margin_top">12</property>
-                <property name="orientation">vertical</property>
-                <child>
-                  <object class="GtkRadioButton" id="radio_button_forget">
-                    <property name="label" translatable="yes">Forget password _immediately</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="use_underline">True</property>
-                    <property name="xalign">0</property>
-                    <property name="draw_indicator">True</property>
-                    <property name="group">radio_button_session</property>
-                  </object>
-                  <packing>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkRadioButton" id="radio_button_session">
-                    <property name="label" translatable="yes">Remember password until you _logout</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="use_underline">True</property>
-                    <property name="xalign">0</property>
-                    <property name="active">True</property>
-                    <property name="draw_indicator">True</property>
-
-                  </object>
-                  <packing>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkRadioButton" id="radio_button_forever">
-                    <property name="label" translatable="yes">Remember _forever</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="use_underline">True</property>
-                    <property name="xalign">0</property>
-                    <property name="draw_indicator">True</property>
-                    <property name="group">radio_button_session</property>
-                  </object>
-                  <packing>
-                    <property name="position">2</property>
-                  </packing>
-                </child>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">4</property>
-                <property name="width">2</property>
-              </packing>
             </child>
           </object>
-          <packing>
-            <property name="position">1</property>
-          </packing>
         </child>
       </object>
     </child>
