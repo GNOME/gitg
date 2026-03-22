@@ -3,7 +3,6 @@
 <interface>
   <requires lib="gtk+" version="3.12"/>
   <template class="GitgPreferencesGeneral" parent="GtkGrid">
-    <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="hexpand">True</property>
     <property name="vexpand">True</property>
@@ -15,13 +14,11 @@
     <property name="column_spacing">18</property>
     <child>
       <object class="GtkGrid" id="grid2">
-        <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="hexpand">True</property>
         <property name="row_spacing">6</property>
         <child>
           <object class="GtkLabel" id="label1">
-            <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Push</property>
@@ -37,7 +34,6 @@
         </child>
         <child>
           <object class="GtkGrid" id="grid4">
-            <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="margin_start">12</property>
             <property name="hexpand">True</property>
@@ -46,7 +42,6 @@
               <object class="GtkCheckButton" id="smart_push">
                 <property name="label" translatable="yes">Smart Push. Figure out parameters for push action</property>
                 <property name="use_action_appearance">False</property>
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="halign">start</property>
