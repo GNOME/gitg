@@ -124,7 +124,6 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 	private Mode d_mode;
 
-	[Signal(action = true)]
 	public virtual signal bool change_to_activity(int i)
 	{
 		if (d_selectable_mode == GitgExt.SelectionMode.SELECTION)
@@ -399,24 +398,28 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			d_infobar.hide();
 		});
 
-		unowned Gtk.BindingSet bset = Gtk.BindingSet.by_class(get_class());
+		var shortcut_controller = new ShortcutController();
 
 		for (int i = 0; i < 10; i++)
 		{
-			Gtk.BindingEntry.add_signal(bset,
-			                            (Gdk.Key.@0 + i),
-			                            Gdk.ModifierType.MOD1_MASK,
-			                            "change-to-activity",
-			                            1,
-			                            typeof(int),
-			                            i);
+			int captured_i = i;
+			shortcut_controller.add_shortcut(
+				new Gtk.Shortcut(
+					new Gtk.KeyvalTrigger(Gdk.Key.@0 + i, Gdk.ModifierType.ALT_MASK),
+					new Gtk.CallbackAction((_, _) => {
+						return this.change_to_activity(captured_i);
+					})
+				)
+			);
 		}
 
-		Gtk.BindingEntry.add_signal(bset,
-		                            Gdk.Key.Escape,
-		                            0,
-		                            "cancel",
-		                            0);
+		shortcut_controller.add_shortcut(
+			new Gtk.Shortcut(
+				new Gtk.KeyvalTrigger(Gdk.Key.Escape, 0),
+				new Gtk.SignalAction("cancel")
+			)
+		);
+		add_controller(shortcut_controller);
 
 		d_interface_settings.bind("enable-monitoring",
 		                          this,
