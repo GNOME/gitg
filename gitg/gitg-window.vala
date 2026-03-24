@@ -53,6 +53,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 #endif
 
 	private Gtk.AccelGroup accel_group;
+	private Gtk.Menu menu_actions;
+	private GLib.MenuItem global_actions_item;
 
 	// Widgets
 	[GtkChild]
@@ -603,11 +605,12 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			if (regex_custom_actions_global_group == null)
 				regex_custom_actions_global_group = new Regex("gitg\\.actions\\.global\\.(.+)\\.group", RegexCompileFlags.OPTIMIZE);
 
-			var global_actions_item = new MenuItem(_("_Global Actions"), "win.global-actions");
+			global_actions_item = new MenuItem(_("_Global Actions"), "win.global-actions");
 			menu.append_item(global_actions_item);
 
 			var show_global_actions = new SimpleAction ("global-actions", null);
-			Gtk.Menu menu_actions = null;
+			global_actions_item.set_attribute("visible", "b", false);
+			menu_actions = null;
 			show_global_actions.activate.connect ((p) => {
 				if (menu_actions != null) {
 					menu_actions.show_all ();
@@ -621,16 +624,10 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			d_gear_menu.show();
 			d_gear_menu.sensitive = true;
 			d_gear_menu.button_press_event.connect(() => {
-				menu_actions = load_global_actions();
-				bool has_items = menu_actions.get_data<int>("items") > 0;
-				global_actions_item.set_attribute("visible", "b", has_items);
-				if (has_items)
-					menu_actions.show_all();
-				else
-					menu_actions = null;
+				setup_global_actions_menu();
 				return false;
 			});
-			menu_actions = load_global_actions();
+			setup_global_actions_menu();
 		}
 		else
 		{
@@ -662,7 +659,21 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		}
 	}
 
-	private Gtk.Menu load_global_actions() {
+	private void setup_global_actions_menu() {
+		menu_actions = load_global_actions();
+		if (menu_actions != null) {
+			bool has_items = menu_actions.get_data<int>("items") > 0;
+			global_actions_item.set_attribute("visible", "b", has_items);
+			if (has_items)
+				menu_actions.show_all();
+			else
+				menu_actions = null;
+		}
+	}
+
+	private Gtk.Menu? load_global_actions() {
+		if (d_repository == null)
+			return null;
 		var menu = new Gtk.Menu();
 		var conf = d_repository.get_config().snapshot();
 		Gitg.UiUtils.add_custom_actions(menu, "global",
