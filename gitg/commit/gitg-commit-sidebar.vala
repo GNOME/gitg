@@ -79,31 +79,37 @@ class Sidebar : Gitg.Sidebar
 
 	construct
 	{
-		unowned Gtk.BindingSet binding_set = Gtk.BindingSet.by_class(get_class());
+		var shortcut_controller = new ShortcutController();
 
-		Gtk.BindingEntry.add_signal(binding_set,
-		                            Gdk.Key.s,
-		                            Gdk.ModifierType.CONTROL_MASK,
-		                            "stage-selection",
-		                            0);
+		shortcut_controller.add_shortcut(
+			new Gtk.Shortcut(
+				new Gtk.KeyvalTrigger(Gdk.Key.s, Gdk.ModifierType.CONTROL_MASK),
+				new Gtk.SignalAction("stage-selection")
+			)
+		);
 
-		Gtk.BindingEntry.add_signal(binding_set,
-		                            Gdk.Key.u,
-		                            Gdk.ModifierType.CONTROL_MASK,
-		                            "unstage-selection",
-		                            0);
+		shortcut_controller.add_shortcut(
+			new Gtk.Shortcut(
+				new Gtk.KeyvalTrigger(Gdk.Key.u, Gdk.ModifierType.CONTROL_MASK),
+				new Gtk.SignalAction("unstage-selection")
+			)
+		);
 
-		Gtk.BindingEntry.add_signal(binding_set,
-		                            Gdk.Key.d,
-		                            Gdk.ModifierType.CONTROL_MASK,
-		                            "discard-selection",
-		                            0);
+		shortcut_controller.add_shortcut(
+			new Gtk.Shortcut(
+				new Gtk.KeyvalTrigger(Gdk.Key.d, Gdk.ModifierType.CONTROL_MASK),
+				new Gtk.SignalAction("discard-selection")
+			)
+		);
 
-		Gtk.BindingEntry.add_signal(binding_set,
-		                            Gdk.Key.e,
-		                            Gdk.ModifierType.CONTROL_MASK,
-		                            "edit-selection",
-		                            0);
+		shortcut_controller.add_shortcut(
+			new Gtk.Shortcut(
+				new Gtk.KeyvalTrigger(Gdk.Key.e, Gdk.ModifierType.CONTROL_MASK),
+				new Gtk.SignalAction("edit-selection")
+			)
+		);
+
+		add_controller(shortcut_controller);
 
 		var sel = get_selection();
 		sel.mode = Gtk.SelectionMode.MULTIPLE;
