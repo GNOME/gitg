@@ -1332,25 +1332,23 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		{
 			d_busy = value;
 
-			Gdk.Window win;
+			Gtk.Widget target;
 
 			if (d_dialog != null)
 			{
-				win = d_dialog.get_window();
+				target = d_dialog;
 			}
 			else
 			{
-				win = get_window();
+				target = this;
 			}
-
 			if (d_busy)
 			{
-				win.set_cursor(new Gdk.Cursor.for_display(get_display(),
-				                                          Gdk.CursorType.WATCH));
+				target.set_cursor_from_name("wait");
 			}
 			else
 			{
-				win.set_cursor(null);
+				target.set_cursor(null);
 			}
 		}
 	}

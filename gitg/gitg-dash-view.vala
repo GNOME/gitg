@@ -588,7 +588,7 @@ class DashView : Gtk.Grid, GitgExt.UIElement, GitgExt.Activity, GitgExt.Selectab
 		});
 
 		dlg.show();
-		dlg.get_window().set_cursor(new Gdk.Cursor.for_display(get_display(), Gdk.CursorType.WATCH));
+		dlg.set_cursor_from_name("wait");
 	}
 
 	public void add_repository_from_location(File location, bool scan_all)
