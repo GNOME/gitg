@@ -333,8 +333,13 @@ private class RefRow : RefTyped, Gtk.ListBoxRow
 		d_editing_entry.grab_focus();
 		d_editing_entry.select_region(0, -1);
 
-		d_editing_entry.focus_out_event.connect(on_editing_focus_out);
-		d_editing_entry.key_press_event.connect(on_editing_key_press);
+		var focus_controller = new Gtk.EventControllerFocus();
+		focus_controller.leave.connect(on_editing_focus_out);
+		d_editing_entry.add_controller(focus_controller);
+
+		var key_controller = new Gtk.EventControllerKey();
+		key_controller.key_pressed.connect(on_editing_key_press);
+		d_editing_entry.add_controller(key_controller);
 	}
 
 	public override void dispose()
@@ -355,9 +360,6 @@ private class RefRow : RefTyped, Gtk.ListBoxRow
 			return;
 		}
 
-		d_editing_entry.focus_out_event.disconnect(on_editing_focus_out);
-		d_editing_entry.key_press_event.disconnect(on_editing_key_press);
-
 		d_idle_finish = Idle.add(() => {
 			d_idle_finish = 0;
 
@@ -374,21 +376,20 @@ private class RefRow : RefTyped, Gtk.ListBoxRow
 		});
 	}
 
-	private bool on_editing_focus_out(Gtk.Widget widget, Gdk.EventFocus event)
+	private void on_editing_focus_out()
 	{
 		finish_editing(true);
-		return false;
 	}
 
-	private bool on_editing_key_press(Gtk.Widget widget, Gdk.EventKey event)
+	private bool on_editing_key_press(uint keyval, uint keycode, Gdk.ModifierType state)
 	{
-		if (event.keyval == Gdk.Key.Escape)
+		if (keyval == Gdk.Key.Escape)
 		{
 			finish_editing(true);
 			return true;
 		}
-		else if (event.keyval == Gdk.Key.KP_Enter ||
-		         event.keyval == Gdk.Key.Return)
+		else if (keyval == Gdk.Key.KP_Enter ||
+		         keyval == Gdk.Key.Return)
 		{
 			finish_editing(false);
 			return true;
