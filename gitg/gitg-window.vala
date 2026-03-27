@@ -623,7 +623,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			gear_image.set_from_icon_name ("view-more-symbolic", BUTTON);
 			d_gear_menu.show();
 			d_gear_menu.sensitive = true;
-			d_gear_menu.button_press_event.connect(() => {
+			var click_gesture = new Gtk.GestureClick();
+			click_gesture.pressed.connect((n_press, x, y) => {
 				menu_actions = load_global_actions();
 				bool has_items = menu_actions.get_data<int>("items") > 0;
 				global_actions_item.set_attribute("visible", "b", has_items);
@@ -631,8 +632,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 					menu_actions.show_all();
 				else
 					menu_actions = null;
-				return false;
 			});
+			d_gear_menu.add_controller(click_gesture);
 			menu_actions = load_global_actions();
 		}
 		else
