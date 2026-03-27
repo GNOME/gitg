@@ -283,6 +283,18 @@ public class Sidebar : Gtk.TreeView
 		key_controller.key_pressed.connect(on_key_press);
 		add_controller(key_controller);
 
+		var click_gesture = new Gtk.GestureClick();
+		click_gesture.set_button(0);
+		click_gesture.pressed.connect((n_press, x, y) => {
+			var ev = click_gesture.get_current_event();
+			if (ev != null && ev.triggers_context_menu())
+			{
+				if (do_populate_popup((Gdk.EventButton?)ev)) {
+					click_gesture.set_state(Gtk.EventSequenceState.CLAIMED);
+				}
+			}
+		});
+		add_controller(click_gesture);
 	}
 
 	protected virtual bool select_function(Gtk.TreeSelection sel,
@@ -492,24 +504,7 @@ public class Sidebar : Gtk.TreeView
 		return true;
 	}
 
-	protected override bool button_press_event(Gdk.EventButton event)
-	{
-		Gdk.Event *ev = (Gdk.Event *)event;
 
-		if (ev->triggers_context_menu())
-		{
-			if (get_selection().count_selected_rows() <= 1)
-			{
-				base.button_press_event(event);
-			}
-
-			return do_populate_popup(event);
-		}
-		else
-		{
-			return base.button_press_event(event);
-		}
-	}
 
 	protected override bool popup_menu()
 	{

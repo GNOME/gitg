@@ -26,10 +26,14 @@ class PopupMenu : Object
 	public signal Gdk.Rectangle? request_menu_position();
 
 	private Gtk.Widget? d_widget;
+	private Gtk.GestureClick d_click_gesture;
 
 	public PopupMenu(Gtk.Widget widget)
 	{
-		widget.button_press_event.connect(on_button_press_event);
+		d_click_gesture = new Gtk.GestureClick();
+		d_click_gesture.set_button(0);
+		d_click_gesture.pressed.connect(on_button_pressed);
+		widget.add_controller(d_click_gesture);
 		widget.popup_menu.connect(on_popup_menu);
 
 		d_widget = widget;
@@ -39,7 +43,7 @@ class PopupMenu : Object
 	{
 		if (d_widget != null)
 		{
-			d_widget.button_press_event.disconnect(on_button_press_event);
+			d_widget.remove_controller(d_click_gesture);
 			d_widget.popup_menu.disconnect(on_popup_menu);
 
 			d_widget = null;
@@ -85,16 +89,17 @@ class PopupMenu : Object
 		return popup_menu(widget, null);
 	}
 
-	private bool on_button_press_event(Gtk.Widget widget, Gdk.EventButton event)
+	private void on_button_pressed(int n_press, double x, double y)
 	{
-		Gdk.Event *ev = (Gdk.Event *)(event);
+		var event = d_click_gesture.get_current_event();
 
-		if (!ev->triggers_context_menu())
+		if (event == null || !event.triggers_context_menu())
 		{
-			return false;
+			return;
 		}
 
-		return popup_menu(widget, event);
+		d_click_gesture.set_state(Gtk.EventSequenceState.CLAIMED);
+		popup_menu(d_widget, (Gdk.EventButton)event);
 	}
 }
 

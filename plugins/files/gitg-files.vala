@@ -128,31 +128,33 @@ namespace GitgFiles
 
 			tv.get_selection().changed.connect(selection_changed);
 			tv.row_activated.connect(open_file_externally);
-			tv.button_press_event.connect ((event) => {
-					Gdk.Event *ev = (Gdk.Event *)(event);
-					if (ev->triggers_context_menu()) {
-							Gtk.TreePath path;
+			var click_gesture = new Gtk.GestureClick();
+			click_gesture.set_button(0);
+			click_gesture.pressed.connect((n_press, x, y) => {
+				var event = click_gesture.get_current_event();
+				if (event != null && event.triggers_context_menu()) {
+					click_gesture.set_state(Gtk.EventSequenceState.CLAIMED);
+					Gtk.TreePath path;
 
-							tv.get_path_at_pos((int)event.x,
-							                   (int)event.y,
-							                   out path,
-							                   null,
-							                   null,
-							                   null);
-							tv.get_selection().select_path(path);
-							Gtk.Menu menu = new Gtk.Menu ();
-							Gtk.MenuItem menu_item = new Gtk.MenuItem.with_label (_("Open externally"));
-							menu_item.activate.connect(()=> {
-								open_file_externally(path, null);
-							});
-							menu.attach_to_widget (tv, null);
-							menu.add (menu_item);
-							menu.show_all ();
-							menu.popup_at_pointer (event);
-							return true;
-					}
-					return false;
+					tv.get_path_at_pos((int)x,
+					                   (int)y,
+					                   out path,
+					                   null,
+					                   null,
+					                   null);
+					tv.get_selection().select_path(path);
+					Gtk.Menu menu = new Gtk.Menu ();
+					Gtk.MenuItem menu_item = new Gtk.MenuItem.with_label (_("Open externally"));
+					menu_item.activate.connect(()=> {
+						open_file_externally(path, null);
+					});
+					menu.attach_to_widget (tv, null);
+					menu.add (menu_item);
+					menu.show_all ();
+					menu.popup_at_pointer (event);
+				}
 			});
+			tv.add_controller(click_gesture);
 			d_scrolled_files = ret["scrolled_window_files"] as Gtk.ScrolledWindow;
 			d_source = ret["source_view_file"] as GtkSource.View;
 			d_paned = ret["paned_files"] as Gtk.Paned;
