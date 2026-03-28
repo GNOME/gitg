@@ -29,8 +29,8 @@ public class Gitg.DiffView : Gtk.Grid
 	[GtkChild( name = "grid_files" )]
 	private unowned Gtk.Grid d_grid_files;
 
-	[GtkChild( name = "event_box" )]
-	private unowned Gtk.EventBox d_event_box;
+	[GtkChild( name = "overlay" )]
+	private unowned Gtk.Overlay d_overlay;
 
 	[GtkChild( name = "revealer_options" )]
 	private unowned Gtk.Revealer d_revealer_options;
@@ -213,14 +213,20 @@ public class Gitg.DiffView : Gtk.Grid
 		bind_property("use-gravatar", d_commit_details, "use-gravatar", BindingFlags.SYNC_CREATE);
 		d_text_view_message.event_after.connect (on_event_after);
 		d_text_view_message.key_press_event.connect (on_key_press);
-		d_text_view_message.motion_notify_event.connect (on_motion_notify_event);
 		d_text_view_message.has_tooltip = true;
 		d_text_view_message.query_tooltip.connect (on_query_tooltip_event);
 		d_text_view_message.style_updated.connect (load_colors_from_theme);
+		var motion = new Gtk.EventControllerMotion();
+		motion.motion.connect(on_motion_notify_event);
+		d_text_view_message.add_controller(motion);
 
 		load_colors_from_theme(d_text_view_message);
 
-		d_event_box.motion_notify_event.connect(motion_notify_event_on_event_box);
+		var overlay_motion = new Gtk.EventControllerMotion();
+		overlay_motion.motion.connect((x, y) => update_hide_show_options(x, y));
+		overlay_motion.enter.connect((x, y) => update_hide_show_options(x, y));
+		overlay_motion.leave.connect(() => update_hide_show_options(0, 0, false));
+		d_overlay.add_controller(overlay_motion);
 		d_diff_view_options.view = this;
 	}
 
@@ -455,18 +461,16 @@ public class Gitg.DiffView : Gtk.Grid
 		}
 	}
 
-	private bool on_motion_notify_event (Gtk.Widget widget, Gdk.EventMotion evt)
+	private void on_motion_notify_event (double ex, double ey)
 	{
 		int x, y;
 
-		Gtk.TextView textview = ((Gtk.TextView)widget);
-
-		textview.window_to_buffer_coords (Gtk.TextWindowType.WIDGET,(int)evt.x, (int)evt.y, out x, out y);
+		d_text_view_message.window_to_buffer_coords (Gtk.TextWindowType.WIDGET,(int)ex, (int)ey, out x, out y);
 
 		Gtk.TextIter iter;
 		bool hovering = false;
 
-		if (textview.get_iter_at_location (out iter, x, y))
+		if (d_text_view_message.get_iter_at_location (out iter, x, y))
 		{
 			var tags = iter.get_tags ();
 			foreach (Gtk.TextTag tag in tags)
@@ -508,7 +512,6 @@ public class Gitg.DiffView : Gtk.Grid
 			}
 		}
 
-		return true;
 	}
 
 	private void restore_tag_color_link (Gtk.TextTag tag)
@@ -1065,27 +1068,14 @@ public class Gitg.DiffView : Gtk.Grid
 		}
 	}
 
-	private void update_hide_show_options(Gdk.Window window, int ex, int ey)
+	private void update_hide_show_options(double x, double y, bool inside = true)
 	{
-		void *data;
-		window.get_user_data(out data);
-
-		var w = data as Gtk.Widget;
-
-		if (w == null)
-		{
-			return;
-		}
-
-		int x, y;
-		w.translate_coordinates(d_event_box, ex, ey, out x, out y);
-
 		Gtk.Allocation alloc, revealer_alloc;
 
-		d_event_box.get_allocation(out alloc);
+		d_overlay.get_allocation(out alloc);
 		d_revealer_options.get_allocation(out revealer_alloc);
 
-		if (!d_revealer_options.reveal_child && y >= alloc.height - 18 && x >= alloc.width - 150 && d_reveal_options_timeout == 0)
+		if (!d_revealer_options.reveal_child && inside && y >= alloc.height - 18 && x >= alloc.width - 150 && d_reveal_options_timeout == 0)
 		{
 			if (d_unreveal_options_timeout != 0)
 			{
@@ -1101,9 +1091,9 @@ public class Gitg.DiffView : Gtk.Grid
 		}
 		else if (d_revealer_options.reveal_child)
 		{
-			var above = (y <= alloc.height - 6 - revealer_alloc.height);
+			var should_hide = !inside || (y <= alloc.height - 6 - revealer_alloc.height);
 
-			if (above && d_unreveal_options_timeout == 0)
+			if (should_hide && d_unreveal_options_timeout == 0)
 			{
 				if (d_reveal_options_timeout != 0)
 				{
@@ -1117,33 +1107,12 @@ public class Gitg.DiffView : Gtk.Grid
 					return false;
 				});
 			}
-			else if (!above && d_unreveal_options_timeout != 0)
+			else if (!should_hide && d_unreveal_options_timeout != 0)
 			{
 				Source.remove(d_unreveal_options_timeout);
 				d_unreveal_options_timeout = 0;
 			}
 		}
-	}
-
-	[GtkCallback]
-	private bool leave_notify_event_on_event_box(Gtk.Widget widget, Gdk.EventCrossing event)
-	{
-		update_hide_show_options(event.window, (int)event.x, (int)event.y);
-		return false;
-	}
-
-	[GtkCallback]
-	private bool enter_notify_event_on_event_box(Gtk.Widget widget, Gdk.EventCrossing event)
-	{
-		update_hide_show_options(event.window, (int)event.x, (int)event.y);
-		return false;
-	}
-
-	[GtkCallback]
-	private bool motion_notify_event_on_event_box(Gtk.Widget widget, Gdk.EventMotion event)
-	{
-		update_hide_show_options(event.window, (int)event.x, (int)event.y);
-		return false;
 	}
 }
 
