@@ -109,39 +109,17 @@
             ]
         },
         {
-            "name": "gspell",
-            "config-opts": [
-                "--disable-gtk-doc",
-                "--disable-static",
-                "--disable-gtk-doc-html"
-            ],
-            "cleanup": [
-                "/bin",
-                "/include",
-                "/lib/pkgconfig",
-                "*.la",
-                "/share"
-            ],
-            "sources": [
-                {
-                    "type": "archive",
-                    "url": "https://download.gnome.org/sources/gspell/1.12/gspell-1.12.2.tar.xz",
-                    "sha256": "b4e993bd827e4ceb6a770b1b5e8950fce3be9c8b2b0cbeb22fdf992808dd2139",
-                    "x-checker-data": {
-                        "type": "gnome",
-                        "name": "gspell"
-                    }
-                }
-            ]
-        },
-        {
-            "name": "gtksourceview",
+            "name": "libspelling",
             "buildsystem": "meson",
+            "config-opts": [
+                "-Dvapi=true",
+                "-Ddocs=false"
+            ],
             "sources": [
                 {
                     "type": "git",
-                    "url": "https://gitlab.gnome.org/GNOME/gtksourceview.git",
-                    "branch": "gtksourceview-4-8"
+                    "url": "https://gitlab.gnome.org/GNOME/libspelling.git",
+                    "branch": "main"
                 }
             ]
         },
@@ -169,13 +147,14 @@
             "builddir": true,
             "config-opts": [
                 "--buildtype=debugoptimized",
-                "-Ddeprecations=true",
+                "-Ddeprecations=false",
                 "-Dprofile=development"
             ],
             "sources": [
                 {
                     "type": "git",
-                    "url": "https://gitlab.gnome.org/GNOME/gitg.git"
+                    "url": "https://gitlab.gnome.org/GNOME/gitg.git",
+                    "branch": "gtk4"
                 }
             ]
         }
