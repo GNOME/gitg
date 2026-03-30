@@ -1,60 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.18.1 -->
 <interface>
-  <requires lib="gtk+" version="3.12"/>
-  <template class="GitgDiffViewOptions" parent="GtkToolbar">
+  <requires lib="gtk" version="4.0"/>
+  <template class="GitgDiffViewOptions" parent="GtkBox">
+    <property name="orientation">horizontal</property>
+    <property name="spacing">6</property>
+    <style>
+      <class name="toolbar"/>
+    </style>
     <child>
-      <object class="GtkSeparatorToolItem" id="separator_tool_item1">
-        <property name="draw">False</property>
+      <object class="GtkBox" id="separator_tool_item1">
+        <property name="hexpand">True</property>
       </object>
-      <packing>
-        <property name="expand">True</property>
-      </packing>
     </child>
     <child>
-      <object class="GtkToolItem" id="tool_item_context">
+      <object class="GtkGrid" id="grid_context">
+        <property name="column-spacing">6</property>
+        <property name="valign">center</property>
         <child>
-          <object class="GtkGrid" id="grid_context">
-            <property name="column_spacing">6</property>
-            <child>
-              <object class="GtkLabel" id="label_context">
-                <property name="label" translatable="yes">Context:</property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkSpinButton" id="spin_button_context">
-                <property name="can_focus">True</property>
-                <property name="adjustment">adjustment_context</property>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">0</property>
-              </packing>
-            </child>
+          <object class="GtkLabel" id="label_context">
+            <property name="label" translatable="yes">Context:</property>
           </object>
+          <layout>
+            <property name="column">0</property>
+            <property name="row">0</property>
+          </layout>
+        </child>
+        <child>
+          <object class="GtkSpinButton" id="spin_button_context">
+            <property name="can-focus">True</property>
+            <property name="adjustment">adjustment_context</property>
+          </object>
+          <layout>
+            <property name="column">1</property>
+            <property name="row">0</property>
+          </layout>
         </child>
       </object>
     </child>
     <child>
-      <object class="GtkSeparatorToolItem" id="separator_tool_item2">
+      <object class="GtkSeparator" id="separator_tool_item2">
+        <property name="orientation">vertical</property>
+        <property name="valign">stretch</property>
       </object>
     </child>
     <child>
-      <object class="GtkToolButton" id="tool_button_spacing">
+      <object class="GtkMenuButton" id="tool_button_spacing">
+        <property name="can-focus">False</property>
+        <property name="use-underline">True</property>
         <property name="label" translatable="yes">Spacing</property>
-        <property name="use_underline">True</property>
-        <signal name="clicked" handler="clicked_on_tool_button_spacing"/>
       </object>
     </child>
   </template>
   <object class="GtkAdjustment" id="adjustment_context">
     <property name="upper">12</property>
     <property name="value">3</property>
-    <property name="step_increment">1</property>
-    <property name="page_increment">3</property>
+    <property name="step-increment">1</property>
+    <property name="page-increment">3</property>
   </object>
 </interface>

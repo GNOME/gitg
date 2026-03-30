@@ -18,13 +18,13 @@
  */
 
 [GtkTemplate ( ui = "/org/gnome/gitg/ui/gitg-diff-view-options.ui" )]
-public class Gitg.DiffViewOptions : Gtk.Toolbar
+public class Gitg.DiffViewOptions : Gtk.Box
 {
 	[GtkChild (name = "adjustment_context")]
 	private unowned Gtk.Adjustment d_adjustment_context;
 
 	[GtkChild (name = "tool_button_spacing")]
-	private unowned Gtk.ToolButton d_tool_button_spacing;
+	private unowned Gtk.MenuButton d_tool_button_spacing;
 
 	public int context_lines { get; set; }
 
@@ -62,7 +62,6 @@ public class Gitg.DiffViewOptions : Gtk.Toolbar
 		d_bindings = new Gee.LinkedList<Binding>();
 
 		d_popover_spacing = new DiffViewOptionsSpacing();
-		d_popover_spacing.relative_to = d_tool_button_spacing;
 	}
 
 	public override void dispose()
@@ -98,7 +97,7 @@ public class Gitg.DiffViewOptions : Gtk.Toolbar
 			                     "ignore-whitespace",
 			                     BindingFlags.BIDIRECTIONAL | BindingFlags.SYNC_CREATE)
 		);
-		
+
 		d_bindings.add(
 			d_view.bind_property("wrap-lines",
 		    	                 d_popover_spacing,
@@ -133,6 +132,10 @@ public class Gitg.DiffViewOptions : Gtk.Toolbar
 
 	protected override void constructed()
 	{
+		base.constructed();
+
+		d_tool_button_spacing.popover = d_popover_spacing;
+
 		bind_property("context-lines",
 		              d_adjustment_context,
 		              "value",
@@ -140,12 +143,6 @@ public class Gitg.DiffViewOptions : Gtk.Toolbar
 		              BindingFlags.SYNC_CREATE,
 		              Transforms.int_to_double,
 		              Transforms.double_to_int);
-	}
-
-	[GtkCallback]
-	private void clicked_on_tool_button_spacing(Gtk.Widget widget)
-	{
-		d_popover_spacing.show();
 	}
 }
 
@@ -172,6 +169,8 @@ private class Gitg.DiffViewOptionsSpacing : Gtk.Popover
 
 	protected override void constructed()
 	{
+		base.constructed();
+
 		bind_property("ignore-whitespace",
 		              d_switch_ignore_whitespace,
 		              "active",
