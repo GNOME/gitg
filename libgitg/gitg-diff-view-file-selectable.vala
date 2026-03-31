@@ -69,11 +69,27 @@ class Gitg.DiffViewFileSelectable : Object
 
 	construct
 	{
-		source_view.button_press_event.connect(button_press_event_on_view);
-		source_view.motion_notify_event.connect(motion_notify_event_on_view);
-		source_view.leave_notify_event.connect(leave_notify_event_on_view);
-		source_view.enter_notify_event.connect(enter_notify_event_on_view);
-		source_view.button_release_event.connect(button_release_event_on_view);
+		var click_gesture = new Gtk.GestureClick();
+		click_gesture.set_button(Gdk.BUTTON_PRIMARY);
+		click_gesture.pressed.connect((n_press, x, y) => {
+			button_press_event_on_view(x, y, click_gesture.get_current_event_state());
+		});
+		click_gesture.released.connect((_, _, _) => {
+			button_release_event_on_view();
+		});
+		source_view.add_controller(click_gesture);
+
+		var motion_controller = new Gtk.EventControllerMotion();
+		motion_controller.motion.connect((x, y) => {
+			update_selection_event(x, y);
+		});
+		motion_controller.enter.connect((x, y) => {
+			update_selection_event(x, y);
+		});
+		motion_controller.leave.connect(() => {
+			update_cursor(cursor_ptr);
+		});
+		source_view.add_controller(motion_controller);
 
 		source_view.realize.connect(() => {
 			update_cursor(cursor_ptr);
@@ -189,35 +205,12 @@ class Gitg.DiffViewFileSelectable : Object
 		return buffer.get_source_marks_at_iter(start, "header") != null;
 	}
 
-	private bool get_iter_from_pointer_position(out Gtk.TextIter iter)
-	{
-		var win = source_view.get_window(Gtk.TextWindowType.TEXT);
 
-		int x, y, width, height;
-
-		// To silence unassigned iter warning
-		var dummy_iter = Gtk.TextIter();
-		iter = dummy_iter;
-
-		width = win.get_width();
-		height = win.get_height();
-
-		var pointer = Gdk.Display.get_default().get_default_seat().get_pointer();
-		win.get_device_position(pointer, out x, out y, null);
-
-		if (x < 0 || y < 0 || x > width || y > height)
-		{
-			return false;
-		}
-
-		return get_iter_from_event_position(out iter, x, y);
-	}
-
-	private bool get_iter_from_event_position(out Gtk.TextIter iter, int x, int y)
+	private bool get_iter_from_event_position(out Gtk.TextIter iter, double x, double y)
 	{
 		int win_x, win_y;
 
-		source_view.window_to_buffer_coords(Gtk.TextWindowType.TEXT, x, y, out win_x, out win_y);
+		source_view.window_to_buffer_coords(Gtk.TextWindowType.TEXT, (int)x, (int)y, out win_x, out win_y);
 		source_view.get_line_at_y(out iter, win_y, null);
 
 		return true;
@@ -359,32 +352,28 @@ class Gitg.DiffViewFileSelectable : Object
 		update_selection_range(iter, end, select);
 	}
 
-	private bool button_press_event_on_view(Gdk.EventButton event)
+	private void button_press_event_on_view(double x, double y, Gdk.ModifierType state)
 	{
-		if (event.button != 1)
-		{
-			return false;
-		}
 
 		Gtk.TextIter iter;
 
-		if (!get_iter_from_pointer_position(out iter))
+		if (!get_iter_from_event_position(out iter, x, y))
 		{
-			return false;
+			return;
 		}
 
 		var buffer = source_view.buffer;
 
-		if ((event.state & Gdk.ModifierType.SHIFT_MASK) != 0)
+		if ((state & Gdk.ModifierType.SHIFT_MASK) != 0)
 		{
 			update_selection(iter);
-			return true;
+			return;
 		}
 
 		if (get_line_is_hunk(iter))
 		{
 			update_selection_hunk(iter, !hunk_is_all_selected(iter));
-			return true;
+			return;
 		}
 
 		d_is_rubber_band = true;
@@ -406,8 +395,6 @@ class Gitg.DiffViewFileSelectable : Object
 		buffer.move_mark(d_end_selection_mark, iter);
 
 		update_selection(iter);
-
-		return true;
 	}
 
 	private void update_selection(Gtk.TextIter cursor)
@@ -436,13 +423,13 @@ class Gitg.DiffViewFileSelectable : Object
 		buffer.move_mark(d_end_selection_mark, cursor);
 	}
 
-	private bool update_selection_event(Gdk.ModifierType state, int x, int y)
+	private void update_selection_event(double x, double y)
 	{
 		Gtk.TextIter iter;
 
 		if (!get_iter_from_event_position(out iter, x, y))
 		{
-			return false;
+			return;
 		}
 
 		if (d_is_rubber_band || (get_line_is_diff(iter) || get_line_is_hunk(iter)))
@@ -456,26 +443,10 @@ class Gitg.DiffViewFileSelectable : Object
 
 		if (!d_is_rubber_band)
 		{
-			return false;
+			return;
 		}
 
 		update_selection(iter);
-		return true;
-	}
-
-	private bool motion_notify_event_on_view(Gdk.EventMotion event)
-	{
-		return update_selection_event(event.state, (int)event.x, (int)event.y);
-	}
-
-	private bool leave_notify_event_on_view(Gdk.EventCrossing event)
-	{
-		return update_selection_event(event.state, (int)event.x, (int)event.y);
-	}
-
-	private bool enter_notify_event_on_view(Gdk.EventCrossing event)
-	{
-		return update_selection_event(event.state, (int)event.x, (int)event.y);
 	}
 
 	private void update_has_selection()
@@ -502,18 +473,11 @@ class Gitg.DiffViewFileSelectable : Object
 		}
 	}
 
-	private bool button_release_event_on_view(Gdk.EventButton event)
+	private void button_release_event_on_view()
 	{
 		d_is_rubber_band = false;
 
-		if (event.button != 1)
-		{
-			return false;
-		}
-
 		update_has_selection();
-
-		return true;
 	}
 }
 
