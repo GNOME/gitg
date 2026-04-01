@@ -328,7 +328,8 @@ private class RefRow : RefTyped, Gtk.ListBoxRow
 		d_edit_done_callback = (owned)done;
 
 		d_label.hide();
-		d_box.pack_start(d_editing_entry);
+		d_editing_entry.set_hexpand(true);
+		d_box.append(d_editing_entry);
 
 		d_editing_entry.grab_focus();
 		d_editing_entry.select_region(0, -1);

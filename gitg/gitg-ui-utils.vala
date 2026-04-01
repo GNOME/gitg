@@ -433,11 +433,12 @@ public class UiUtils
 		box.set_margin_bottom (12);
 		box.set_margin_start (12);
 		box.set_margin_end (12);
-		content.pack_start (box, true, true, 0);
+		box.set_vexpand (true);
+		content.append (box);
 
 		var lbl = new Gtk.Label (label_text);
 		lbl.set_halign (Gtk.Align.START);
-		box.pack_start (lbl, false, false, 0);
+		box.append (lbl);
 
 		Gtk.Entry entry;
 		if (history_path != null) {
@@ -453,7 +454,7 @@ public class UiUtils
 		if (initial_text != null)
 			entry.set_text (initial_text);
 		entry.set_activates_default (true);
-		box.pack_start (entry, false, false, 0);
+		box.append (entry);
 
 		var ok_button = dialog.get_widget_for_response (Gtk.ResponseType.OK) as Gtk.Button;
 		if (ok_button != null) {
