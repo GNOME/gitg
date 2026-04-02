@@ -221,7 +221,6 @@ namespace Gitg
 							foreach (var lang in doap.get_languages())
 							{
 								var frame = new Gtk.Frame(null);
-								frame.shadow_type = Gtk.ShadowType.NONE;
 								frame.add_css_class("language-frame");
 								frame.show();
 
