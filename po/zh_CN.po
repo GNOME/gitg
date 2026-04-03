@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2026-01-29 17:32+0000\n"
-"PO-Revision-Date: 2026-02-01 09:26+0800\n"
+"POT-Creation-Date: 2026-03-24 16:35+0000\n"
+"PO-Revision-Date: 2026-04-03 09:48+0800\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Gtranslator 49.0\n"
+"X-Generator: Gtranslator 50.0\n"
 "X-DamnedLies-Scope: partial\n"
 
 #: contrib/xml/xml-reader.c:327
@@ -620,7 +620,7 @@ msgstr "确定要永久丢弃选中的变更吗？"
 #: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
 #: gitg/commit/gitg-commit.vala:1606
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:469
-#: gitg/gitg-window.vala:210 gitg/gitg-window.vala:801
+#: gitg/gitg-window.vala:214 gitg/gitg-window.vala:812
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
 #: gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
@@ -629,7 +629,9 @@ msgstr "确定要永久丢弃选中的变更吗？"
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:20
 #: gitg/resources/ui/gitg-edit-remote-dialog.ui:18
+#: gitg/resources/ui/gitg-push-dialog.ui:18
 #: gitg/resources/ui/gitg-remote-notification.ui:30
+#: gitg/resources/ui/gitg-set-upstream-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-simple-notification.ui:61
 #: gitg/resources/ui/gitg-window.ui:154
 #: libgitg/resources/ui/gitg-authentication-dialog.ui:11
@@ -1432,60 +1434,64 @@ msgstr "移除"
 msgid "Failed to remove remote"
 msgstr "移除远程仓库失败"
 
-#: gitg/gitg-window.vala:207
+#: gitg/gitg-window.vala:211
 msgid "Add Repository"
 msgstr "添加仓库"
 
-#: gitg/gitg-window.vala:211
+#: gitg/gitg-window.vala:215
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:34
 #: gitg/resources/ui/gitg-window.ui:64
 msgid "_Add"
 msgstr "添加(_A)"
 
-#: gitg/gitg-window.vala:213
+#: gitg/gitg-window.vala:217
 msgid "_Scan for all git repositories from this directory"
 msgstr "在本目录寻找所有 Git 仓库(_S)"
 
-#: gitg/gitg-window.vala:553
+#: gitg/gitg-window.vala:564
 msgid "Projects"
 msgstr "工程"
 
-#: gitg/gitg-window.vala:799
+#: gitg/gitg-window.vala:608
+msgid "_Global Actions"
+msgstr "全局动作(_G)"
+
+#: gitg/gitg-window.vala:810
 msgid "Open Repository"
 msgstr "打开仓库"
 
-#: gitg/gitg-window.vala:802 gitg/resources/ui/gitg-commit-submodule-info.ui:70
+#: gitg/gitg-window.vala:813 gitg/resources/ui/gitg-commit-submodule-info.ui:70
 msgid "_Open"
 msgstr "打开(_O)"
 
-#: gitg/gitg-window.vala:942
+#: gitg/gitg-window.vala:953
 msgid "Select items"
 msgstr "选择项目"
 
-#: gitg/gitg-window.vala:1160
+#: gitg/gitg-window.vala:1171
 #, c-format
 msgid "“%s” is not a Git repository."
 msgstr "“%s”不是有效的 Git 仓库。"
 
-#: gitg/gitg-window.vala:1307
+#: gitg/gitg-window.vala:1318
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
 msgstr "您的用户名和邮箱尚未配置。请转到用户配置，填写您的姓名和邮箱。"
 
-#: gitg/gitg-window.vala:1311
+#: gitg/gitg-window.vala:1322
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
 msgstr "您的用户名尚未配置。请转到用户配置，填写您的姓名。"
 
-#: gitg/gitg-window.vala:1315
+#: gitg/gitg-window.vala:1326
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
 msgstr "您的邮箱尚未配置。请转到用户配置，填写您的邮箱。"
 
-#: gitg/gitg-window.vala:1318
+#: gitg/gitg-window.vala:1329
 msgid "Missing author details"
 msgstr "作者详情缺失"
 
@@ -1555,11 +1561,11 @@ msgstr "历史"
 msgid "Examine the history of the repository"
 msgstr "查看仓库的历史"
 
-#: gitg/history/gitg-history.vala:1075
+#: gitg/history/gitg-history.vala:1053
 msgid "Mainline"
 msgstr "主线"
 
-#: gitg/history/gitg-history.vala:1156
+#: gitg/history/gitg-history.vala:1134
 msgid "Main remote"
 msgstr "主要远程仓库"
 
@@ -1630,10 +1636,12 @@ msgid "C_heckout"
 msgstr "检查(_H)"
 
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:69
+#: gitg/resources/ui/gitg-set-upstream-branch-dialog.ui:69
 msgid "Local branch _name:"
 msgstr "本地分支名称(_N)："
 
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:99
+#: gitg/resources/ui/gitg-set-upstream-branch-dialog.ui:100
 msgid "_Remote branch:"
 msgstr "远程分支(_R)："
 
@@ -1859,6 +1867,14 @@ msgstr "自定义："
 msgid "Check in vala documentation for datetime to write your own format."
 msgstr "在 Vala 文档中查看日期格式以编写您自己的格式。"
 
+#: gitg/resources/ui/gitg-preferences-general.ui:24
+msgid "Push"
+msgstr "推送"
+
+#: gitg/resources/ui/gitg-preferences-general.ui:44
+msgid "Smart Push. Figure out parameters for push action"
+msgstr "智能推送。确定用于推送动作的参数"
+
 #: gitg/resources/ui/gitg-preferences-history.ui:31
 msgid "Default selection"
 msgstr "默认选中项"
@@ -1916,6 +1932,7 @@ msgid "Start with activity:"
 msgstr "以特定活动启动："
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:61
+#: gitg/resources/ui/gitg-push-dialog.ui:141
 msgid "Commit"
 msgstr "提交"
 
@@ -1971,6 +1988,130 @@ msgstr "语法高亮配色方案："
 #: gitg/resources/ui/gitg-preferences.ui:11
 msgid "Preferences"
 msgstr "首选项"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:7
+msgid "Push Reference"
+msgstr "推送引用"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:34
+msgid "_Push"
+msgstr "推送(_P)"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:69
+msgid "_Local ref:"
+msgstr "本地引用(_L)："
+
+#: gitg/resources/ui/gitg-push-dialog.ui:72
+msgid "Local reference to push from"
+msgstr "要推送的本地引用"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:106
+#: gitg/resources/ui/gitg-push-dialog.ui:236
+msgid "Branch"
+msgstr "分支"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:114
+msgid "Reference to push from is a branch"
+msgstr "要推送的引用是一个分支"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:123
+#: gitg/resources/ui/gitg-push-dialog.ui:253
+msgid "Tag"
+msgstr "标签"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:132
+msgid "Reference to push from is a tag"
+msgstr "要推送的引用是一个标签"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:150
+msgid "Reference to push from is a commit"
+msgstr "要推送的引用是一项提交"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:170
+msgid "Re_mote:"
+msgstr "远程(_M)："
+
+#: gitg/resources/ui/gitg-push-dialog.ui:187
+msgid "Remote to push to"
+msgstr "推送至的远程目标"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:201
+msgid "Rem_ote ref:"
+msgstr "远程引用(_O)："
+
+#: gitg/resources/ui/gitg-push-dialog.ui:244
+msgid "Push to a remote branch"
+msgstr "推送至远程分支"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:262
+msgid "Push to a remote tag"
+msgstr "推送至远程标签"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:271
+msgid "Custom"
+msgstr "自定义"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:280
+msgid "Push to a custom remote ref"
+msgstr "推送至自定义远程引用"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:297
+msgid "_Smart"
+msgstr "智能(_S)"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:305
+msgid "Fill form based on config"
+msgstr "基于配置填充表单"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:314
+msgid "_Set Upstream"
+msgstr "设定上游(_S)"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:322
+msgid "Mark remote as upstream for branch"
+msgstr "将远程目标标记为用于分支的上游"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:331
+msgid "_Force"
+msgstr "强制(_F)"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:338
+msgid "Override remote ref if already exists"
+msgstr "如果已经存在则覆盖远程引用"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:347
+msgid "_Restart"
+msgstr "重启(_R)"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:353
+msgid "Restart default remote reference to push to"
+msgstr "重启要推送至的默认远程引用"
+
+#: gitg/resources/ui/gitg-result-dialog.ui:19
+#: gitg/resources/ui/gitg-tag-show-info-dialog.ui:20
+#: gitg/resources/ui/gitg-window.ui:230
+msgid "_Close"
+msgstr "关闭(_C)"
+
+#: gitg/resources/ui/gitg-result-dialog.ui:52
+msgid "Result:"
+msgstr "结果："
+
+#: gitg/resources/ui/gitg-result-dialog.ui:99
+msgid "Remove ansi:"
+msgstr "移除 ansi："
+
+#: gitg/resources/ui/gitg-result-dialog.ui:117
+msgid "Copy (Ctrl+Shift+C)"
+msgstr "复制（Ctrl+Shift+C）"
+
+#: gitg/resources/ui/gitg-set-upstream-branch-dialog.ui:7
+msgid "Set Upstream Branch"
+msgstr "设定上游分支"
+
+#: gitg/resources/ui/gitg-set-upstream-branch-dialog.ui:34
+msgid "Set U_pstream"
+msgstr "设定上游(_P)"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:14
 msgctxt "shortcut window"
@@ -2125,11 +2266,6 @@ msgstr "显示全局操作上下文菜单。（如果有已定义操作）"
 #: gitg/resources/ui/gitg-tag-show-info-dialog.ui:7
 msgid "Show Tag info"
 msgstr "显示标签信息"
-
-#: gitg/resources/ui/gitg-tag-show-info-dialog.ui:20
-#: gitg/resources/ui/gitg-window.ui:230
-msgid "_Close"
-msgstr "关闭(_C)"
 
 #: gitg/resources/ui/gitg-window.ui:24
 msgid "Show the list of recently used repositories"
@@ -2462,9 +2598,6 @@ msgstr "外部打开"
 #, c-format
 #~ msgid "Are you sure that you want to push the branch %s?"
 #~ msgstr "您确定要推送分支 %s 吗？"
-
-#~ msgid "Push"
-#~ msgstr "推送"
 
 #~ msgid "@binary@"
 #~ msgstr "@binary@"
