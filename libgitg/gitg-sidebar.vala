@@ -212,7 +212,7 @@ public class Sidebar : Gtk.TreeView
 
 	public signal void deselected();
 
-	public signal void populate_popup(Gtk.Menu menu);
+	public signal void populate_popup(GLib.Menu menu, GLib.SimpleActionGroup actions);
 
 	construct
 	{
@@ -287,9 +287,26 @@ public class Sidebar : Gtk.TreeView
 		click_gesture.set_button(0);
 		click_gesture.pressed.connect((n_press, x, y) => {
 			var ev = click_gesture.get_current_event();
-			if (ev != null && ev.triggers_context_menu())
+
+			if(ev == null) {
+				return;
+			}
+
+			if (ev.triggers_context_menu())
 			{
-				if (do_populate_popup((Gdk.EventButton?)ev)) {
+				if (get_selection().count_selected_rows() <= 1)
+				{
+					Gtk.TreePath? path;
+					get_path_at_pos((int)x, (int)y, out path, null, null, null);
+
+					if (path != null)
+					{
+						get_selection().select_path(path);
+					}
+				}
+
+				if(do_populate_popup(x, y))
+				{
 					click_gesture.set_state(Gtk.EventSequenceState.CLAIMED);
 				}
 			}
@@ -486,29 +503,39 @@ public class Sidebar : Gtk.TreeView
 		set { base.set_model(value); }
 	}
 
-	private bool do_populate_popup(Gdk.EventButton? event)
+	private bool do_populate_popup(double x = -1, double y = -1)
 	{
-		Gtk.Menu menu = new Gtk.Menu();
+		var menu = new GLib.Menu();
+		var actions = new GLib.SimpleActionGroup();
 
-		populate_popup(menu);
+		populate_popup(menu, actions);
 
-		if (menu.get_children() == null)
+		if (menu.get_n_items() == 0)
 		{
 			return false;
 		}
 
-		menu.show_all();
-		menu.attach_to_widget(this, null);
+		var popover = new Gtk.PopoverMenu.from_model(menu);
+		popover.set_parent(this);
+		popover.insert_action_group("popup", actions);
+		if (x >= 0 && y >= 0)
+		{
+			var rect = Gdk.Rectangle();
+			rect.x = (int)x;
+			rect.y = (int)y;
+			rect.width = 1;
+			rect.height = 1;
+			popover.set_pointing_to(rect);
+		}
 
-		menu.popup_at_pointer(event);
+		popover.closed.connect(popover.unparent);
+		popover.popup();
 		return true;
 	}
 
-
-
 	protected override bool popup_menu()
 	{
-		return do_populate_popup(null);
+		return do_populate_popup();
 	}
 }
 

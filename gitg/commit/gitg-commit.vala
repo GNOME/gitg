@@ -1622,7 +1622,7 @@ namespace GitgCommit
 			application.user_query(q);
 		}
 
-		private void do_populate_menu(Gtk.Menu menu)
+		private void do_populate_menu(GLib.Menu menu, GLib.SimpleActionGroup actions)
 		{
 			var items = d_main.sidebar.get_selected_items<Gitg.SidebarItem>();
 
@@ -1639,10 +1639,11 @@ namespace GitgCommit
 			if (type == Sidebar.Item.Type.UNSTAGED ||
 			    type == Sidebar.Item.Type.UNTRACKED)
 			{
-				var stage = new Gtk.MenuItem.with_mnemonic(_("_Stage changes"));
-				stage.sensitive = hasitems;
+				var stage = new GLib.SimpleAction("stage", null);
+				stage.set_enabled(hasitems);
+				actions.add_action(stage);
 
-				menu.append(stage);
+				menu.append(_("_Stage changes"), "popup.stage");
 
 				stage.activate.connect(() => {
 					on_unstaged_activated(sitems);
@@ -1651,22 +1652,24 @@ namespace GitgCommit
 
 			if (type == Sidebar.Item.Type.STAGED)
 			{
-				var stage = new Gtk.MenuItem.with_mnemonic(_("_Unstage changes"));
-				stage.sensitive = hasitems;
+				var unstage = new GLib.SimpleAction("unstage", null);
+				unstage.set_enabled(hasitems);
+				actions.add_action(unstage);
 
-				menu.append(stage);
+				menu.append(_("_Unstage changes"), "popup.unstage");
 
-				stage.activate.connect(() => {
+				unstage.activate.connect(() => {
 					on_staged_activated(sitems);
 				});
 			}
 
 			if (type == Sidebar.Item.Type.UNSTAGED)
 			{
-				var discard = new Gtk.MenuItem.with_mnemonic(_("_Discard changes"));
-				discard.sensitive = hasitems;
+				var discard = new GLib.SimpleAction("discard", null);
+				discard.set_enabled(hasitems);
+				actions.add_action(discard);
 
-				menu.append(discard);
+				menu.append(_("_Discard changes"), "popup.discard");
 
 				discard.activate.connect(() => {
 					on_discard_menu_activated(sitems);
@@ -1675,10 +1678,12 @@ namespace GitgCommit
 
 			if (type == Sidebar.Item.Type.UNTRACKED)
 			{
-				var del = new Gtk.MenuItem.with_mnemonic(dngettext(null, "D_elete file", "D_elete files", sitems.length));
-				del.sensitive = hasitems;
+				var del_text = dngettext(null, "D_elete file", "D_elete files", sitems.length);
+				var del = new GLib.SimpleAction("delete", null);
+				del.set_enabled(hasitems);
+				actions.add_action(del);
 
-				menu.append(del);
+				menu.append(del_text, "popup.delete");
 
 				del.activate.connect(() => {
 					on_delete_menu_activated(sitems);
@@ -1705,8 +1710,10 @@ namespace GitgCommit
 
 			if (canedit)
 			{
-				var edit = new Gtk.MenuItem.with_mnemonic(_("_Edit file"));
-				menu.append(edit);
+				var edit = new GLib.SimpleAction("edit", null);
+				actions.add_action(edit);
+
+				menu.append(_("_Edit file"), "popup.edit");
 
 				edit.activate.connect(() => {
 					do_edit_items(sitems);
