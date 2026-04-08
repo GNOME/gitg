@@ -263,13 +263,13 @@ class ResultDialog : Dialog
 	}
 
 	private void copy_all_text () {
-		var clipboard = Gtk.Clipboard.get_default (this.get_display ());
+		var clipboard = this.get_clipboard();
 		string message;
 		if (filter_ansi)
 			message = remove_ansi(original_message);
 		else
 			message = original_message;
-		clipboard.set_text (message, -1);
+		clipboard.set_text (message);
 	}
 
 	public static int byte_to_char_offset (string str, int byte_offset) {

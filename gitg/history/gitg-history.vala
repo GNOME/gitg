@@ -602,10 +602,10 @@ namespace GitgHistory
 				selection_changed();
 
 				// Set primary selection to sha1 of first selected commit
-				var clip = ((Gtk.Widget)application).get_clipboard(Gdk.SELECTION_PRIMARY);
+				var clip = ((Gtk.Widget)application).get_primary_clipboard();
 
 				foreach_selected((commit) => {
-					clip.set_text(commit.get_id().to_string(), -1);
+					clip.set_text(commit.get_id().to_string());
 					return false;
 				});
 			});

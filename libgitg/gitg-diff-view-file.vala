@@ -321,8 +321,8 @@ class Gitg.DiffViewFile : Gtk.Grid
 		copy_file_path.show();
 
 		copy_file_path.activate.connect(() => {
-			var clip = d_expander.get_clipboard(Gdk.SELECTION_CLIPBOARD);
-			clip.set_text(location.get_path(), -1);
+			var clip = d_expander.get_clipboard();
+			clip.set_text(location.get_path());
 		});
 
 		menu.add(copy_file_path);

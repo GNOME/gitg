@@ -60,11 +60,11 @@ class RefActionCopyName : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, 
 
   public void activate()
   {
-    var clip = ((Gtk.Widget)application).get_clipboard(Gdk.SELECTION_CLIPBOARD);
-    clip.set_text(reference.parsed_name.shortname, -1);
+    var clip = ((Gtk.Widget)application).get_clipboard();
+    clip.set_text(reference.parsed_name.shortname);
 
-    clip = ((Gtk.Widget)application).get_clipboard(Gdk.SELECTION_PRIMARY);
-    clip.set_text(reference.parsed_name.shortname, -1);
+    clip = ((Gtk.Widget)application).get_primary_clipboard();
+    clip.set_text(reference.parsed_name.shortname);
   }
 }
 
