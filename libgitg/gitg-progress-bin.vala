@@ -19,7 +19,7 @@
 
 namespace Gitg
 {
-	public class ProgressBin : Gtk.Bin
+	public class ProgressBin : Adw.Bin
 	{
 		private double d_fraction;
 
@@ -33,84 +33,28 @@ namespace Gitg
 			}
 		}
 
-		construct
+		static construct
 		{
-			set_has_window(true);
-			set_redraw_on_allocate(false);
+			set_css_name("progress-bin");
 		}
 
-		public override void realize()
+		public override void snapshot(Gtk.Snapshot snapshot)
 		{
-			set_realized(true);
+			var w = get_width();
+			var h = get_height();
 
-			Gtk.Allocation allocation;
-			get_allocation(out allocation);
-
-			Gdk.WindowAttr attributes = {};
-			attributes.x = allocation.x;
-			attributes.y = allocation.y;
-			attributes.width = allocation.width;
-			attributes.height = allocation.height;
-			attributes.window_type = Gdk.WindowType.CHILD;
-			attributes.wclass = Gdk.WindowWindowClass.INPUT_OUTPUT;
-			attributes.event_mask = get_events() |
-			                        Gdk.EventMask.EXPOSURE_MASK |
-			                        Gdk.EventMask.BUTTON_PRESS_MASK |
-			                        Gdk.EventMask.BUTTON_RELEASE_MASK;
-
-			var attributes_mask = Gdk.WindowAttributesType.X | Gdk.WindowAttributesType.Y;
-			var window = new Gdk.Window(get_parent_window(),
-			                            attributes, attributes_mask);
-
-
-			set_window(window);
-			window.set_user_data(this);
-		}
-
-		public override void size_allocate(Gtk.Allocation allocation)
-		{
-			set_allocation(allocation);
-
-			var window = get_window();
-			if (window != null)
-			{
-				window.move_resize(allocation.x, allocation.y, allocation.width, allocation.height);
-			}
-
-			var child = get_child();
-			if (child != null && child.get_visible())
-			{
-				Gtk.Allocation child_allocation = {};
-				int left = get_margin_start();
-				int right = get_margin_end();
-				int top = get_margin_top();
-				int bottom = get_margin_bottom();
-
-				child_allocation.x = left;
-				child_allocation.y = top;
-				child_allocation.width = allocation.width - left - right;
-				child_allocation.height = allocation.height - top - bottom;
-
-				child.size_allocate(child_allocation);
-			}
-		}
-
-		public override bool draw(Cairo.Context cr)
-		{
-			Gtk.Allocation allocation;
-			get_allocation(out allocation);
 
 			var context = get_style_context();
-			context.render_background(cr, 0, 0, allocation.width, allocation.height);
+			snapshot.render_background(context, 0, 0, w, h);
 
 			context.save();
 			context.add_class("progress-bin");
 
-			context.render_background(cr, 0, 0, allocation.width * d_fraction, allocation.height);
+			snapshot.render_background(context, 0, 0, w * d_fraction, h);
 			context.restore();
+			
+			base.snapshot(snapshot);
 
-			base.draw(cr);
-			return true;
 		}
 	}
 }
