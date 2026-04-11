@@ -143,15 +143,26 @@ namespace GitgFiles
 					                   null,
 					                   null);
 					tv.get_selection().select_path(path);
-					Gtk.Menu menu = new Gtk.Menu ();
-					Gtk.MenuItem menu_item = new Gtk.MenuItem.with_label (_("Open externally"));
-					menu_item.activate.connect(()=> {
+
+					var menu = new GLib.Menu();
+					var actions = new GLib.SimpleActionGroup();
+					var open = new GLib.SimpleAction("open-externally", null);
+					open.activate.connect(() => {
 						open_file_externally(path, null);
 					});
-					menu.attach_to_widget (tv, null);
-					menu.add (menu_item);
-					menu.show_all ();
-					menu.popup_at_pointer (event);
+					actions.add_action(open);
+					menu.append(_("Open externally"), "popup.open-externally");
+
+					var popover = new Gtk.PopoverMenu.from_model(menu);
+					popover.set_parent(tv);
+					popover.insert_action_group("popup", actions);
+					var rect = Gdk.Rectangle() {
+						x = (int)x,
+						y = (int)y
+					};
+					popover.set_pointing_to(rect);
+					popover.closed.connect(popover.unparent);
+					popover.popup();
 				}
 			});
 			tv.add_controller(click_gesture);

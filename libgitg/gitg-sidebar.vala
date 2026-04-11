@@ -520,11 +520,10 @@ public class Sidebar : Gtk.TreeView
 		popover.insert_action_group("popup", actions);
 		if (x >= 0 && y >= 0)
 		{
-			var rect = Gdk.Rectangle();
-			rect.x = (int)x;
-			rect.y = (int)y;
-			rect.width = 1;
-			rect.height = 1;
+			var rect = Gdk.Rectangle() {
+				x = (int)x,
+				y = (int)y
+			};
 			popover.set_pointing_to(rect);
 		}
 
