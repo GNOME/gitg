@@ -22,29 +22,25 @@ namespace GitgExt
 
 public interface Action : UIElement
 {
-	public virtual void populate_menu(Gtk.Menu menu)
+	public virtual void populate_menu(GLib.Menu menu, GLib.SimpleActionGroup actions)
 	{
 		if (!available)
 		{
 			return;
 		}
 
-		var item = new Gtk.MenuItem.with_label(display_name);
-		item.tooltip_text = description;
+		var action = new GLib.SimpleAction("activate", null);
 
 		if (enabled)
 		{
-			item.activate.connect(() => {
+			action.activate.connect(() => {
 				activate();
 			});
 		}
-		else
-		{
-			item.sensitive = false;
-		}
+		action.set_enabled(enabled);
 
-		item.show();
-		menu.append(item);
+		actions.add_action(action);
+		menu.append(display_name, "popup.activate");
 	}
 
 	public virtual async bool fetch(){

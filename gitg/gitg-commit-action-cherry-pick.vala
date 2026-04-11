@@ -232,7 +232,7 @@ class CommitActionCherryPick : GitgExt.UIElement, GitgExt.Action, GitgExt.Commit
 		});
 	}
 
-	public void populate_menu(Gtk.Menu menu)
+	public void populate_menu(GLib.Menu menu, GLib.SimpleActionGroup actions)
 	{
 		if (!available)
 		{
@@ -246,30 +246,23 @@ class CommitActionCherryPick : GitgExt.UIElement, GitgExt.Action, GitgExt.Commit
 			return;
 		}
 
-		var item = new Gtk.MenuItem.with_label(display_name);
-		item.tooltip_text = description;
-		item.show();
+		var submenu = new GLib.Menu();
 
-		var submenu = new Gtk.Menu();
-		submenu.show();
-
-		foreach (var dest in d_destinations)
+		for (var i = 0; i < d_destinations.length; i++)
 		{
+			var dest = d_destinations[i];
 			var name = dest.parsed_name.shortname;
-			var subitem = new Gtk.MenuItem.with_label(name);
+			var action = new GLib.SimpleAction("cherry_pick_%d".printf(i), null);
 
-			subitem.tooltip_text = _("Cherry pick onto “%s”").printf(name);
-			subitem.show();
-
-			subitem.activate.connect(() => {
+			action.activate.connect(() => {
 				activate_destination(dest);
 			});
 
-			submenu.append(subitem);
+			actions.add_action(action);
+			submenu.append(name, "popup.cherry_pick_%d".printf(i));
 		}
 
-		item.submenu = submenu;
-		menu.append(item);
+		menu.append_submenu(display_name, submenu);
 	}
 
 	public void activate()
