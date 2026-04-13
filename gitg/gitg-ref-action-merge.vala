@@ -304,27 +304,17 @@ class RefActionMerge : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Obj
 		return null;
 	}
 
-	private void add_merge_source(Gtk.Menu submenu, Gitg.Ref? source)
+	private void add_merge_source(GLib.Menu submenu, Gitg.Ref? source, GLib.SimpleActionGroup actions)
 	{
-		if (source == null)
-		{
-			var sep = new Gtk.SeparatorMenuItem();
-			sep.show();
-			submenu.append(sep);
-			return;
-		}
-
 		var name = source.parsed_name.shortname;
-		var item = new Gtk.MenuItem.with_label(name);
+		var action = new GLib.SimpleAction("merge_%s".printf(name), null);
 
-		item.show();
-		item.tooltip_text = _("Merge “%s” into branch “%s”").printf(name, reference.parsed_name.shortname);
-
-		item.activate.connect(() => {
+		action.activate.connect(() => {
 			activate_source(source);
 		});
+		actions.add_action(action);
 
-		submenu.append(item);
+		submenu.append(name, "popup.merge_%s".printf(name));
 	}
 
 	private void ensure_sources()
@@ -412,98 +402,71 @@ class RefActionMerge : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Obj
 		}
 	}
 
-	public void populate_menu(Gtk.Menu menu)
+	public void populate_menu(GLib.Menu menu, GLib.SimpleActionGroup actions)
 	{
 		if (!available)
 		{
 			return;
 		}
 
-		var item = new Gtk.MenuItem.with_label(display_name);
-		item.tooltip_text = description;
-
-		if (enabled)
+		if(!enabled)
 		{
-			var submenu = new Gtk.Menu();
-			submenu.show();
-
-			if (d_upstream != null)
-			{
-				add_merge_source(submenu, d_upstream);
-			}
-
-			if (d_local_sources.length != 0)
-			{
-				if (d_upstream != null)
-				{
-					// Add a separator
-					add_merge_source(submenu, null);
-				}
-
-				foreach (var source in d_local_sources)
-				{
-					add_merge_source(submenu, source);
-				}
-			}
-
-			if (d_remote_sources.length != 0)
-			{
-				if (d_local_sources.length != 0 || d_upstream != null)
-				{
-					// Add a separator
-					add_merge_source(submenu, null);
-				}
-
-				foreach (var remote in d_remote_sources)
-				{
-					var subitem = new Gtk.MenuItem.with_label(remote.name);
-					subitem.show();
-
-					var subsubmenu = new Gtk.Menu();
-					subsubmenu.show();
-
-					foreach (var source in remote.sources)
-					{
-						add_merge_source(subsubmenu, source);
-					}
-
-					subitem.submenu = subsubmenu;
-					submenu.append(subitem);
-				}
-			}
-
-			if (d_tag_sources.length != 0)
-			{
-				if (d_remote_sources.length != 0 || d_local_sources.length != 0 || d_upstream != null)
-				{
-					// Add a separator
-					add_merge_source(submenu, null);
-				}
-
-				var subitem = new Gtk.MenuItem.with_label(_("Tags"));
-				subitem.show();
-
-				var subsubmenu = new Gtk.Menu();
-				subsubmenu.show();
-
-				foreach (var source in d_tag_sources)
-				{
-					add_merge_source(subsubmenu, source);
-				}
-
-				subitem.submenu = subsubmenu;
-				submenu.append(subitem);
-			}
-
-			item.submenu = submenu;
-		}
-		else
-		{
-			item.sensitive = false;
+			return;
 		}
 
-		item.show();
-		menu.append(item);
+
+		var submenu = new GLib.Menu();
+
+		if (d_upstream != null)
+		{
+			var upstream_section = new GLib.Menu();
+			add_merge_source(upstream_section, d_upstream, actions);
+			submenu.append_section(null, upstream_section);
+		}
+
+		if (d_local_sources.length != 0)
+		{
+			var source_section = new GLib.Menu();
+			foreach (var source in d_local_sources)
+			{
+				add_merge_source(source_section, source, actions);
+			}
+			submenu.append_section(null, source_section);
+		}
+
+		if (d_remote_sources.length != 0)
+		{
+			var remote_section = new GLib.Menu();
+			foreach (var remote in d_remote_sources)
+			{
+				var subsubmenu = new GLib.Menu();
+
+				foreach (var source in remote.sources)
+				{
+					add_merge_source(subsubmenu, source, actions);
+				}
+
+				remote_section.append_submenu(remote.name, subsubmenu);
+			}
+			submenu.append_section(null, remote_section);
+		}
+
+		if (d_tag_sources.length != 0)
+		{
+			var tag_section = new GLib.Menu();
+
+			var subsubmenu = new GLib.Menu();
+
+			foreach (var source in d_tag_sources)
+			{
+				add_merge_source(subsubmenu, source, actions);
+			}
+
+			tag_section.append_submenu(_("Tags"), subsubmenu);
+			submenu.append_section(null, tag_section);
+		}
+
+		menu.append_submenu(display_name, submenu);
 	}
 }
 
