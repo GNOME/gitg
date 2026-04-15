@@ -459,10 +459,16 @@ public class Sidebar : Gtk.TreeView
 	{
 		if ((state & Gtk.accelerator_get_default_mod_mask()) != 0)
 		{
+			if (keyval == Gdk.Key.F10 && (state & Gdk.ModifierType.SHIFT_MASK) != 0)
+			{
+				return do_populate_popup();
+			}
 			return false;
 		}
 
 		switch (keyval) {
+			case Gdk.Key.Menu:
+				return do_populate_popup();
 			case Gdk.Key.Return:
 			case Gdk.Key.ISO_Enter:
 			case Gdk.Key.KP_Enter:
@@ -531,14 +537,8 @@ public class Sidebar : Gtk.TreeView
 		popover.popup();
 		return true;
 	}
-
-	protected override bool popup_menu()
-	{
-		return do_populate_popup();
-	}
 }
 
 }
 
 // ex: ts=4 noet
-
