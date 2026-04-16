@@ -251,21 +251,42 @@ class Gitg.DiffViewFile : Gtk.Grid
 		var repository = info.repository;
 		if (repository != null && !repository.is_bare)
 		{
-			d_expander.popup_menu.connect(expander_popup_menu);
-			d_expander.button_press_event.connect(expander_button_press_event);
+			var gesture = new Gtk.GestureClick();
+			gesture.set_button(0);
+			gesture.pressed.connect((npress, x, y) => {
+				var event = gesture.get_current_event();
+				if (event.triggers_context_menu())
+				{
+					show_popup(x, y);
+					gesture.set_state(Gtk.EventSequenceState.CLAIMED);
+				}
+			});
+
+			var key_controller = new Gtk.EventControllerKey();
+			key_controller.key_pressed.connect((keyval, keycode, state) => {
+				if (keyval == Gdk.Key.Menu ||
+					(keyval == Gdk.Key.F10 && (state & Gdk.ModifierType.SHIFT_MASK) != 0))
+				{
+					show_popup(0, 0);
+					return true;
+				}
+				return false;
+			});
+			d_expander.add_controller(gesture);
+			d_expander.add_controller(key_controller);
 		}
 	}
 
-	private void show_popup(Gdk.EventButton? event)
+	private void show_popup(double x, double y)
 	{
-		var menu = new Gtk.Menu();
+		var menu = new GLib.Menu();
 
 		var delta  = info.delta;
 		var oldpath = delta.get_old_file().get_path();
 		var newpath = delta.get_new_file().get_path();
 
-		var open_file = new Gtk.MenuItem.with_mnemonic(_("_Open file"));
-		open_file.show();
+		var action_group = new GLib.SimpleActionGroup();
+		var open_file_action = new GLib.SimpleAction("open-file", null);
 
 		File? location = null;
 
@@ -284,7 +305,7 @@ class Gitg.DiffViewFile : Gtk.Grid
 			return;
 		}
 
-		open_file.activate.connect(() => {
+		open_file_action.activate.connect(() => {
 			try
 			{
 				Gtk.show_uri_on_window((Gtk.Window)d_expander.get_toplevel(), location.get_uri(), Gdk.CURRENT_TIME);
@@ -294,13 +315,11 @@ class Gitg.DiffViewFile : Gtk.Grid
 				stderr.printf(@"Failed to open file: $(e.message)\n");
 			}
 		});
+		action_group.add_action(open_file_action);
 
-		menu.add(open_file);
+		var open_folder_action = new GLib.SimpleAction("open-folder", null);
 
-		var open_folder = new Gtk.MenuItem.with_mnemonic(_("Open containing _folder"));
-		open_folder.show();
-
-		open_folder.activate.connect(() => {
+		open_folder_action.activate.connect(() => {
 			try
 			{
 				Gtk.show_uri_on_window((Gtk.Window)d_expander.get_toplevel(), location.get_parent().get_uri(), Gdk.CURRENT_TIME);
@@ -311,41 +330,34 @@ class Gitg.DiffViewFile : Gtk.Grid
 			}
 		});
 
-		menu.add(open_folder);
+		action_group.add_action(open_folder_action);
 
-		var separator = new Gtk.SeparatorMenuItem();
-		separator.show();
-		menu.add(separator);
+		menu.append(_("_Open file"), "popup.open-file");
+		menu.append(_("Open containing _folder"), "popup.open-folder");
 
-		var copy_file_path = new Gtk.MenuItem.with_mnemonic(_("_Copy file path"));
-		copy_file_path.show();
-
-		copy_file_path.activate.connect(() => {
+		var copy_path_action = new GLib.SimpleAction("copy-path", null);
+		copy_path_action.activate.connect(() => {
 			var clip = d_expander.get_clipboard();
 			clip.set_text(location.get_path());
 		});
 
-		menu.add(copy_file_path);
+		action_group.add_action(copy_path_action);
+		var copy_section = new GLib.Menu();
+		copy_section.append(_("_Copy file path"), "popup.copy-path");
+		menu.append_section(null, copy_section);
 
-		menu.attach_to_widget(d_expander, null);
-		menu.popup_at_pointer(event);
-	}
+		var popover = new Gtk.PopoverMenu.from_model(menu);
+		popover.set_parent(d_expander);
+		popover.insert_action_group("popup", action_group);
 
-	private bool expander_button_press_event(Gtk.Widget widget, Gdk.EventButton? event)
-	{
-		if (event.triggers_context_menu())
-		{
-			show_popup(event);
-			return true;
-		}
+		var rect = Gdk.Rectangle() {
+			x = (int)x,
+			y = (int)y
+		};
+		popover.set_pointing_to(rect);
 
-		return false;
-	}
-
-	private bool expander_popup_menu(Gtk.Widget widget)
-	{
-		show_popup(null);
-		return true;
+		popover.closed.connect(popover.unparent);
+		popover.popup();
 	}
 
 	public void add_hunk(Ggit.DiffHunk hunk, Gee.ArrayList<Ggit.DiffLine> lines)
