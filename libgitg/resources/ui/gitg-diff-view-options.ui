@@ -3,12 +3,8 @@
 <interface>
   <requires lib="gtk+" version="3.12"/>
   <template class="GitgDiffViewOptions" parent="GtkToolbar">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
     <child>
       <object class="GtkSeparatorToolItem" id="separator_tool_item1">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
         <property name="draw">False</property>
       </object>
       <packing>
@@ -17,17 +13,11 @@
     </child>
     <child>
       <object class="GtkToolItem" id="tool_item_context">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
         <child>
           <object class="GtkGrid" id="grid_context">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="column_spacing">6</property>
             <child>
               <object class="GtkLabel" id="label_context">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="label" translatable="yes">Context:</property>
               </object>
               <packing>
@@ -37,7 +27,6 @@
             </child>
             <child>
               <object class="GtkSpinButton" id="spin_button_context">
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="adjustment">adjustment_context</property>
               </object>
@@ -52,14 +41,10 @@
     </child>
     <child>
       <object class="GtkSeparatorToolItem" id="separator_tool_item2">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
       </object>
     </child>
     <child>
       <object class="GtkToolButton" id="tool_button_spacing">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
         <property name="label" translatable="yes">Spacing</property>
         <property name="use_underline">True</property>
         <signal name="clicked" handler="clicked_on_tool_button_spacing"/>

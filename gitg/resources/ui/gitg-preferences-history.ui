@@ -10,8 +10,6 @@
     <property name="page_size">1</property>
   </object>
   <template class="GitgPreferencesHistory" parent="GtkGrid">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
     <property name="hexpand">True</property>
     <property name="vexpand">True</property>
     <property name="margin-top">12</property>
@@ -22,14 +20,10 @@
     <property name="column_spacing">18</property>
     <child>
       <object class="GtkGrid" id="grid2">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
         <property name="hexpand">True</property>
         <property name="row_spacing">6</property>
         <child>
           <object class="GtkLabel" id="label2">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Default selection</property>
             <attributes>
@@ -43,15 +37,12 @@
         </child>
         <child>
           <object class="GtkGrid" id="grid1">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="margin_start">12</property>
             <property name="hexpand">True</property>
             <property name="vexpand">True</property>
             <child>
               <object class="GtkRadioButton" id="select_current_branch">
                 <property name="label" translatable="yes">Current branch</property>
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="halign">start</property>
@@ -66,7 +57,6 @@
             <child>
               <object class="GtkRadioButton" id="select_all_branches">
                 <property name="label" translatable="yes">All branches</property>
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="halign">start</property>
@@ -82,7 +72,6 @@
             <child>
               <object class="GtkRadioButton" id="select_all_commits">
                 <property name="label" translatable="yes">All commits</property>
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="halign">start</property>
@@ -103,8 +92,6 @@
         </child>
         <child>
           <object class="GtkLabel" id="label3">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">References</property>
             <property name="margin_top">12</property>
@@ -121,7 +108,6 @@
           <object class="GtkCheckButton" id="sort_references_by_activity">
             <property name="label" translatable="yes">Sort references in the sidebar by latest activity</property>
             <property name="use_action_appearance">False</property>
-            <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
             <property name="halign">start</property>
@@ -137,7 +123,6 @@
           <object class="GtkCheckButton" id="show_upstream_with_branch">
             <property name="label" translatable="yes">Show upstream (remote) branch when selecting a local branch</property>
             <property name="use_action_appearance">False</property>
-            <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
             <property name="halign">start</property>
@@ -153,7 +138,6 @@
           <object class="GtkCheckButton" id="filter_unknown_refs">
             <property name="label" translatable="yes">Filter unknown refs</property>
             <property name="use_action_appearance">False</property>
-            <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
             <property name="halign">start</property>
@@ -167,8 +151,6 @@
         </child>
         <child>
           <object class="GtkLabel" id="label1">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Commits</property>
             <property name="margin_top">12</property>
@@ -183,8 +165,6 @@
         </child>
         <child>
           <object class="GtkGrid" id="grid4">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="margin_start">12</property>
             <property name="hexpand">True</property>
             <property name="vexpand">True</property>
@@ -192,7 +172,6 @@
               <object class="GtkCheckButton" id="collapse_inactive_lanes_enabled">
                 <property name="label" translatable="yes">Collapse inactive lanes</property>
                 <property name="use_action_appearance">False</property>
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="halign">start</property>
@@ -205,15 +184,12 @@
             </child>
             <child>
               <object class="GtkGrid" id="grid5">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="margin_start">12</property>
                 <property name="margin_top">6</property>
                 <property name="margin_bottom">12</property>
                 <property name="hexpand">True</property>
                 <child>
                   <object class="GtkScale" id="collapse_inactive_lanes">
-                    <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="hexpand">True</property>
                     <property name="adjustment">adjustment_collapse</property>
@@ -228,8 +204,6 @@
                 </child>
                 <child>
                   <object class="GtkLabel" id="label4">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
                     <property name="halign">start</property>
                     <property name="label" translatable="yes">Early</property>
                   </object>
@@ -240,8 +214,6 @@
                 </child>
                 <child>
                   <object class="GtkLabel" id="label5">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
                     <property name="halign">end</property>
                     <property name="label" translatable="yes">Late</property>
                   </object>
@@ -260,7 +232,6 @@
               <object class="GtkCheckButton" id="topological_order">
                 <property name="label" translatable="yes">Show history in topological order</property>
                 <property name="use_action_appearance">False</property>
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="halign">start</property>
@@ -275,7 +246,6 @@
               <object class="GtkCheckButton" id="mainline_head">
                 <property name="label" translatable="yes">Preserve mainline for currently checked out branch</property>
                 <property name="use_action_appearance">False</property>
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="halign">start</property>

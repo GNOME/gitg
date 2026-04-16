@@ -10,13 +10,10 @@
         <property name="valign">center</property>
         <property name="halign">center</property>
         <property name="hexpand">True</property>
-        <property name="can_focus">False</property>
         <child>
           <object class="GtkImage" id="gitg_icon">
-            <property name="visible">True</property>
             <property name="icon_name">org.gnome.gitg-symbolic</property>
             <property name="pixel_size">64</property>
-            <property name="can_focus">False</property>
           </object>
           <packing>
             <property name="left_attach">0</property>
@@ -27,8 +24,6 @@
         </child>
         <child>
           <object class="GtkLabel" id="label_introduction">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="label" translatable="yes">No repositories have been added yet. To get started, you can add an existing repository or clone a new one.</property>
             <property name="halign">start</property>
             <property name="valign">start</property>
@@ -47,8 +42,6 @@
         </child>
         <child>
           <object class="GtkLabel" id="label_scan">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="label"></property>
             <property name="use_markup">True</property>
             <property name="halign">start</property>
@@ -69,8 +62,6 @@
         </child>
         <child>
           <object class="GtkLabel" id="label_profile">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="halign">start</property>
             <property name="valign">start</property>
             <property name="hexpand">False</property>
@@ -111,7 +102,6 @@
             <property name="width-request">550</property>
             <child>
               <object class="GitgRepositoryListBox" id="repository_list_box">
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <style>
                   <class name="view"/>

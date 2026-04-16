@@ -3,11 +3,9 @@
   <!-- interface-requires gtk+ 3.3 -->
   <!-- interface-requires gitg 0.0 -->
   <template class="GitgSimpleNotification" parent="GtkGrid">
-    <property name="visible">True</property>
     <property name="hexpand">True</property>
     <child>
       <object class="GtkGrid" id="padded">
-        <property name="visible">True</property>
         <property name="hexpand">True</property>
         <property name="column_spacing">12</property>
         <property name="margin-top">12</property>
@@ -16,7 +14,6 @@
         <property name="margin-end">12</property>
         <child>
           <object class="GtkSpinner" id="spinner">
-            <property name="visible">True</property>
             <property name="valign">baseline</property>
           </object>
           <packing>
@@ -35,7 +32,6 @@
         </child>
         <child>
           <object class="GtkLabel" id="label_title">
-            <property name="visible">True</property>
             <property name="hexpand">False</property>
             <property name="halign">start</property>
             <property name="xalign">0</property>
@@ -49,7 +45,6 @@
         </child>
         <child>
           <object class="GtkLabel" id="label_message">
-            <property name="visible">True</property>
             <property name="hexpand">True</property>
             <property name="halign">start</property>
             <property name="xalign">0</property>
@@ -60,12 +55,10 @@
         </child>
         <child>
           <object class="GtkButton" id="button_cancel">
-            <property name="visible">True</property>
             <property name="label" translatable="yes">_Cancel</property>
             <property name="use_underline">True</property>
             <property name="halign">end</property>
             <property name="valign">baseline</property>
-
             <signal name="clicked" handler="on_button_cancel_clicked"/>
           </object>
           <packing>

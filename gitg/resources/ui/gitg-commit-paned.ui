@@ -3,7 +3,6 @@
   <!-- interface-requires gtk+ 3.3 -->
   <!-- interface-requires gitg 3.0 -->
   <template class="GitgCommitPaned" parent="GtkPaned">
-    <property name="visible">True</property>
     <property name="hexpand">True</property>
     <property name="vexpand">True</property>
     <property name="can_focus">True</property>
@@ -14,13 +13,11 @@
     </style>
     <child>
       <object class="GtkBox">
-        <property name="visible">True</property>
         <property name="hexpand">True</property>
         <property name="vexpand">True</property>
         <property name="orientation">vertical</property>
         <child>
           <object class="GtkSearchBar" id="commit_files_search_bar">
-            <property name="visible">True</property>
             <property name="hexpand">True</property>
             <property name="can_focus">True</property>
             <property name="show-close-button">False</property>
@@ -28,7 +25,6 @@
             <child>
               <object class="GtkSearchEntry" id="commit_files_search_entry">
                 <property name="hexpand">True</property>
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="placeholder_text" translatable="yes">Filter Files</property>
               </object>
@@ -37,7 +33,6 @@
         </child>
         <child>
           <object class="GtkScrolledWindow" id="scrolled_window_files">
-            <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="hexpand">True</property>
             <property name="vexpand">True</property>
@@ -48,7 +43,6 @@
             </style>
             <child>
               <object class="GitgCommitSidebar" id="tree_view_files">
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="headers_visible">False</property>
                 <property name="name">tree_view_files</property>
@@ -60,13 +54,11 @@
     </child>
     <child>
       <object class="GtkBox" id="box_sidebar">
-        <property name="visible">True</property>
         <property name="hexpand">True</property>
         <property name="vexpand">True</property>
         <property name="orientation">vertical</property>
         <child>
           <object class="GitgDiffView" id="diff_view">
-            <property name="visible">True</property>
             <property name="hexpand">True</property>
             <property name="vexpand">True</property>
             <property name="can_focus">True</property>
@@ -76,13 +68,11 @@
         <child>
           <object class="GitgCommitSubmoduleHistoryView" id="submodule_history_view">
             <property name="visible">False</property>
-            <property name="can_focus">False</property>
           </object>
         </child>
         <child>
           <object class="GitgCommitSubmoduleDiffView" id="submodule_diff_view">
             <property name="visible">False</property>
-            <property name="can_focus">False</property>
             <property name="margin_start">12</property>
             <property name="margin_end">12</property>
             <property name="margin_top">12</property>
@@ -91,10 +81,8 @@
         </child>
         <child>
           <object class="GtkActionBar" id="box_commit">
-            <property name="visible">True</property>
             <child>
               <object class="GtkCheckButton" id="check_button_skip_hooks">
-                <property name="visible">True</property>
                 <property name="halign">start</property>
                 <property name="hexpand">True</property>
                 <property name="use_underline">True</property>
@@ -106,7 +94,6 @@
             </child>
             <child>
               <object class="GtkButton" id="button_commit">
-                <property name="visible">True</property>
                 <property name="use_underline">True</property>
                 <property name="label" translatable="yes">C_ommit</property>
               </object>
@@ -116,7 +103,6 @@
             </child>
             <child>
               <object class="GtkButton" id="button_stage">
-                <property name="visible">True</property>
                 <property name="use_underline">True</property>
                 <property name="label" translatable="yes">S_tage selection</property>
                 <property name="sensitive">False</property>
@@ -127,7 +113,6 @@
             </child>
             <child>
               <object class="GtkButton" id="button_discard">
-                <property name="visible">True</property>
                 <property name="use_underline">True</property>
                 <property name="label" translatable="yes">D_iscard selection</property>
                 <property name="sensitive">False</property>
@@ -145,5 +130,4 @@
     </child>
   </template>
 </interface>
-
 <!-- ex:set ts=2 et: -->

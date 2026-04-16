@@ -4,7 +4,6 @@
   <!-- interface-requires gitg 0.0 -->
   <!-- interface-requires gd 1.0 -->
   <template class="GitgWindow" parent="GtkApplicationWindow">
-    <property name="can_focus">False</property>
     <property name="title" translatable="yes">gitg</property>
     <property name="default_width">1366</property>
     <property name="default_height">960</property>
@@ -12,15 +11,12 @@
     <signal name="key-press-event" after="yes" handler="on_key_pressed"/>
     <child type="titlebar">
       <object class="GtkHeaderBar" id="d_header_bar">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
         <property name="vexpand">False</property>
         <property name="show_close_button">False</property>
         <child>
           <object class="GtkButton" id="d_dash_button">
             <property name="visible">False</property>
             <property name="valign">center</property>
-            <property name="can_focus">False</property>
             <property name="tooltip-text" translatable="yes">Show the list of recently used repositories</property>
             <signal name="clicked" handler="dash_button_clicked" swapped="no"/>
             <style>
@@ -28,7 +24,6 @@
             </style>
             <child>
               <object class="GtkImage" id="dash_image">
-                <property name="visible">True</property>
                 <property name="icon_name">go-previous-symbolic</property>
                 <property name="icon_size">1</property>
               </object>
@@ -42,7 +37,6 @@
           <object class="GtkButton" id="d_clone_button">
             <property name="visible">False</property>
             <property name="valign">center</property>
-            <property name="can_focus">False</property>
             <property name="use_underline">True</property>
             <property name="label" translatable="yes">Cl_one</property>
             <property name="tooltip-text" translatable="yes">Clone repository</property>
@@ -59,7 +53,6 @@
           <object class="GtkButton" id="d_add_button">
             <property name="visible">False</property>
             <property name="valign">center</property>
-            <property name="can_focus">False</property>
             <property name="use_underline">True</property>
             <property name="label" translatable="yes">_Add</property>
             <property name="tooltip-text" translatable="yes">Add repository</property>
@@ -82,9 +75,7 @@
         </child>
         <child>
           <object class="GtkToggleButton" id="d_search_button">
-            <property name="visible">True</property>
             <property name="valign">center</property>
-            <property name="can_focus">False</property>
             <property name="action_name">win.search</property>
             <property name="tooltip-text" translatable="yes">Find a word or phrase</property>
             <signal name="toggled" handler="search_button_toggled" swapped="no"/>
@@ -93,7 +84,6 @@
             </style>
             <child>
               <object class="GtkImage" id="search_image">
-                <property name="visible">True</property>
                 <property name="icon_size">1</property>
                 <property name="icon_name">edit-find-symbolic</property>
               </object>
@@ -105,16 +95,13 @@
         </child>
         <child>
           <object class="GtkToggleButton" id="d_select_button">
-            <property name="visible">True</property>
             <property name="valign">center</property>
-            <property name="can_focus">False</property>
             <property name="action_name">win.select</property>
             <style>
               <class name="image-button"/>
             </style>
             <child>
               <object class="GtkImage" id="select_image">
-                <property name="visible">True</property>
                 <property name="icon_size">1</property>
                 <property name="icon_name">object-select-symbolic</property>
               </object>
@@ -126,9 +113,7 @@
         </child>
         <child>
           <object class="GtkMenuButton" id="d_gear_menu">
-            <property name="visible">True</property>
             <property name="valign">center</property>
-            <property name="can_focus">False</property>
             <property name="use_popover">True</property>
             <property name="action_name">win.gear-menu</property>
             <property name="tooltip-text" translatable="yes">General settings and options</property>
@@ -137,7 +122,6 @@
             </style>
             <child>
               <object class="GtkImage" id="gear_image">
-                <property name="visible">True</property>
                 <property name="icon_size">1</property>
                 <property name="icon_name">open-menu-symbolic</property>
               </object>
@@ -150,7 +134,6 @@
         <child>
           <object class="GtkButton" id="d_select_cancel_button">
             <property name="visible">False</property>
-            <property name="can_focus">False</property>
             <property name="label" translatable="yes">_Cancel</property>
             <property name="use_underline">True</property>
             <signal name="clicked" handler="on_select_cancel_button_clicked"/>
@@ -163,27 +146,18 @@
     </child>
     <child>
       <object class="GtkGrid" id="d_grid_top">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
         <child>
           <object class="GtkOverlay" id="d_overlay">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <child>
               <object class="GtkGrid" id="d_grid_main">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <child>
                   <object class="GtkBox" id="d_infobar_placeholder">
-                    <property name="visible">True</property>
                     <property name="orientation">horizontal</property>
                     <child>
                       <object class="GtkInfoBar" id="d_infobar">
                         <property name="visible">False</property>
                         <child internal-child="content_area">
                           <object class="GtkBox" id="infobar_content_area">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
                             <property name="margin-top">8</property>
                             <property name="margin-bottom">8</property>
                             <property name="margin-start">8</property>
@@ -192,7 +166,6 @@
                             <property name="spacing">16</property>
                             <child>
                               <object class="GtkLabel" id="d_infobar_primary_label">
-                                <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="selectable">True</property>
                                 <property name="use-markup">True</property>
@@ -204,7 +177,6 @@
                             </child>
                             <child>
                               <object class="GtkLabel" id="d_infobar_secondary_label">
-                                <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="selectable">True</property>
                                 <property name="use-markup">True</property>
@@ -216,8 +188,6 @@
                             </child>
                             <child internal-child="action_area">
                               <object class="GtkBox" id="infobar_action_area">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
                                 <property name="margin-top">5</property>
                                 <property name="margin-bottom">5</property>
                                 <property name="margin-start">5</property>
@@ -226,7 +196,6 @@
                                 <property name="spacing">6</property>
                                 <child>
                                   <object class="GtkButton" id="d_infobar_close_button">
-                                    <property name="visible">True</property>
                                     <property name="use_underline">True</property>
                                     <property name="label" translatable="yes">_Close</property>
                                   </object>
@@ -244,19 +213,15 @@
                 </child>
                 <child>
                   <object class="GtkSearchBar" id="d_search_bar">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
                     <property name="show-close-button">False</property>
                     <child>
                       <object class="GtkBox" id="d_search_box">
-                        <property name="visible">True</property>
                         <property name="orientation">horizontal</property>
                         <style>
                           <class name="linked"/>
                         </style>
                         <child>
                           <object class="GtkSearchEntry" id="d_search_entry">
-                            <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="width-request">500</property>
                             <signal name="changed" handler="search_entry_changed" swapped="no"/>
@@ -265,13 +230,9 @@
                         <child>
                           <object class="GtkButton" id="d_search_up_button">
                             <property name="tooltip-text" translatable="yes">Previous result</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
                             <signal name="clicked" handler="search_up_clicked" swapped="no"/>
                             <child>
                               <object class="GtkImage" id="up_image">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
                                 <property name="icon_size">1</property>
                                 <property name="icon_name">go-up-symbolic</property>
                               </object>
@@ -281,13 +242,9 @@
                         <child>
                           <object class="GtkButton" id="d_search_down_button">
                             <property name="tooltip-text" translatable="yes">Next result</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
                             <signal name="clicked" handler="search_down_clicked" swapped="no"/>
                             <child>
                               <object class="GtkImage" id="down_image">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
                                 <property name="icon_size">1</property>
                                 <property name="icon_name">go-down-symbolic</property>
                               </object>
@@ -306,20 +263,15 @@
                 </child>
                 <child>
                   <object class="GtkStack" id="d_main_stack">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
                     <property name="hexpand">True</property>
                     <property name="vexpand">True</property>
                     <child>
                       <object class="GitgDashView" id="d_dash_view">
-                        <property name="visible">True</property>
                         <property name="can_focus">True</property>
                       </object>
                     </child>
                     <child>
                       <object class="GtkStack" id="d_stack_activities">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
                       </object>
                     </child>
                   </object>

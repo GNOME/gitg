@@ -2,7 +2,6 @@
 <interface>
   <!-- interface-requires gtk+ 3.12 -->
   <template class="GitgResultDialog" parent="GtkDialog">
-    <property name="can_focus">False</property>
     <property name="margin-top">12</property>
     <property name="margin-bottom">12</property>
     <property name="margin-start">12</property>
@@ -14,13 +13,10 @@
     <property name="type_hint">dialog</property>
     <child internal-child="headerbar">
       <object class="GtkHeaderBar" id="dialog-header_bar">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
         <property name="show_close_button">False</property>
         <child>
           <object class="GtkButton" id="d_button_close">
             <property name="label" translatable="yes">_Close</property>
-            <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="use_underline">True</property>
             <property name="valign">center</property>
@@ -37,20 +33,15 @@
     </child>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox1">
-        <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child>
           <object class="GtkGrid" id="grid1">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="hexpand">True</property>
             <property name="row_spacing">6</property>
             <property name="column_spacing">6</property>
             <child>
               <object class="GtkLabel" id="d_label_result">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="halign">end</property>
                 <property name="label" translatable="yes">Result:</property>
                 <property name="use_underline">True</property>
@@ -65,14 +56,12 @@
             </child>
             <child>
               <object class="GtkScrolledWindow" id="scrolled_window_message">
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="shadow_type">in</property>
                 <property name="vexpand">True</property>
                 <property name="hexpand">True</property>
                 <child>
                   <object class="GtkTextView" id="d_text_view_message">
-                    <property name="visible">True</property>
                     <property name="editable">False</property>
                     <property name="can_focus">True</property>
                     <property name="left_margin">2</property>
@@ -90,13 +79,10 @@
             </child>
             <child>
               <object class="GtkBox">
-                <property name="visible">True</property>
                 <property name="spacing">6</property>
                 <property name="halign">end</property>
                   <child>
                     <object class="GtkLabel" id="label_remove_ansi">
-                      <property name="visible">True</property>
-                      <property name="can_focus">False</property>
                       <property name="valign">center</property>
                       <property name="halign">end</property>
                       <property name="label" translatable="yes">Remove ansi:</property>
@@ -107,7 +93,6 @@
                   </child>
                   <child>
                     <object class="GtkSwitch" id="switch_remove_ansi">
-                      <property name="visible">True</property>
                       <property name="can_focus">True</property>
                       <property name="halign">end</property>
                       <property name="valign">center</property>
@@ -116,9 +101,7 @@
                   </child>
                   <child>
                     <object class="GtkButton" id="d_button_copy">
-                      <property name="visible">True</property>
                       <property name="tooltip_text" translatable="yes">Copy (Ctrl+Shift+C)</property>
-                      <property name="visible">True</property>
                       <property name="can_focus">True</property>
                       <property name="halign">end</property>
                       <property name="image">copy_image</property>
@@ -147,7 +130,6 @@
     </action-widgets>
   </template>
   <object class="GtkImage" id="copy_image">
-    <property name="visible">True</property>
     <property name="icon-name">edit-copy-symbolic</property>
     <property name="icon-size">1</property>
   </object>

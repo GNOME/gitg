@@ -2,7 +2,6 @@
 <interface>
   <!-- interface-requires gtk+ 3.12 -->
   <template class="GitgTagShowInfoDialog" parent="GtkDialog">
-    <property name="can_focus">False</property>
     <property name="margin-top">12</property>
     <property name="margin-bottom">12</property>
     <property name="margin-start">12</property>
@@ -15,13 +14,10 @@
     <property name="type_hint">dialog</property>
     <child internal-child="headerbar">
       <object class="GtkHeaderBar" id="dialog-header_bar">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
         <property name="show_close_button">False</property>
         <child>
           <object class="GtkButton" id="button_close">
             <property name="label" translatable="yes">_Close</property>
-            <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
             <property name="use_underline">True</property>
@@ -38,20 +34,15 @@
     </child>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox1">
-        <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child>
           <object class="GtkGrid" id="grid1">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="hexpand">True</property>
             <property name="row_spacing">6</property>
             <property name="column_spacing">6</property>
             <child>
               <object class="GtkLabel" id="label1">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="halign">end</property>
                 <property name="label" translatable="yes">Tag _name:</property>
                 <property name="use_underline">True</property>
@@ -66,7 +57,6 @@
             </child>
             <child>
               <object class="GtkLabel" id="d_name">
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="hexpand">True</property>
                 <property name="halign">start</property>
@@ -81,14 +71,12 @@
             </child>
             <child>
               <object class="GtkScrolledWindow" id="scrolled_window_message">
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="shadow_type">in</property>
                 <property name="vexpand">True</property>
                 <property name="hexpand">True</property>
                 <child>
                   <object class="GtkLabel" id="d_message">
-                    <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="hexpand">True</property>
                     <property name="vexpand">True</property>

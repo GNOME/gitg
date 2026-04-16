@@ -3,8 +3,6 @@
 <interface>
   <requires lib="gtk+" version="3.12"/>
   <template class="GitgPreferencesInterface" parent="GtkGrid">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
     <property name="hexpand">True</property>
     <property name="vexpand">True</property>
     <property name="margin-top">12</property>
@@ -15,14 +13,10 @@
     <property name="column_spacing">18</property>
     <child>
       <object class="GtkGrid" id="grid1">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
         <property name="hexpand">True</property>
         <property name="row_spacing">6</property>
         <child>
           <object class="GtkLabel" id="label1">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Startup</property>
             <attributes>
@@ -36,16 +30,12 @@
         </child>
         <child>
           <object class="GtkGrid" id="grid2">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="margin_start">12</property>
             <property name="hexpand">True</property>
             <property name="row_spacing">6</property>
             <property name="column_spacing">6</property>
             <child>
               <object class="GtkLabel" id="label4">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="halign">start</property>
                 <property name="label" translatable="yes">Start with activity:</property>
               </object>
@@ -56,7 +46,6 @@
             </child>
             <child>
               <object class="GtkComboBoxText" id="default_activity">
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="halign">start</property>
                 <items>
@@ -77,8 +66,6 @@
         </child>
         <child>
           <object class="GtkLabel" id="label2">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Layout</property>
             <property name="margin_top">12</property>
@@ -93,8 +80,6 @@
         </child>
         <child>
           <object class="GtkGrid" id="grid3">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="margin_start">12</property>
             <property name="hexpand">True</property>
             <property name="row_spacing">6</property>
@@ -102,7 +87,6 @@
               <object class="GtkCheckButton" id="horizontal_layout_enabled">
                 <property name="label" translatable="yes">Use horizontal layout</property>
                 <property name="use_action_appearance">False</property>
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="halign">start</property>
@@ -121,8 +105,6 @@
         </child>
         <child>
           <object class="GtkLabel" id="label3">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Avatars</property>
             <property name="margin_top">12</property>
@@ -137,8 +119,6 @@
         </child>
         <child>
           <object class="GtkGrid" id="grid4">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="margin_start">12</property>
             <property name="hexpand">True</property>
             <property name="row_spacing">6</property>
@@ -146,7 +126,6 @@
               <object class="GtkCheckButton" id="gravatar_enabled">
                 <property name="label" translatable="yes">Use gravatar service to provide user avatars</property>
                 <property name="use_action_appearance">False</property>
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="halign">start</property>
@@ -165,8 +144,6 @@
         </child>
         <child>
           <object class="GtkLabel" id="label5">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Monitoring</property>
             <property name="margin_top">12</property>
@@ -181,8 +158,6 @@
         </child>
         <child>
           <object class="GtkGrid" id="grid5">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="margin_start">12</property>
             <property name="hexpand">True</property>
             <property name="row_spacing">6</property>
@@ -190,7 +165,6 @@
               <object class="GtkCheckButton" id="monitoring_enabled">
                 <property name="label" translatable="yes">Automatically update when external changes to .git are detected</property>
                 <property name="use_action_appearance">False</property>
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="halign">start</property>
@@ -209,8 +183,6 @@
         </child>
         <child>
           <object class="GtkLabel">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Font</property>
             <property name="margin_top">12</property>
@@ -226,7 +198,6 @@
         <child>
           <object class="GtkCheckButton" id="default_font_checkbutton">
             <property name="label">_Use the system fixed width font (%s)</property>
-            <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
             <property name="use_underline">True</property>
@@ -242,16 +213,12 @@
         </child>
         <child>
           <object class="GtkGrid" id="font_button_grid">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="margin_start">12</property>
             <property name="hexpand">True</property>
             <property name="row_spacing">6</property>
             <property name="column_spacing">6</property>
             <child>
               <object class="GtkLabel">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="halign">start</property>
                 <property name="label" translatable="yes">Editor _font: </property>
                 <property name="use_underline">True</property>
@@ -265,7 +232,6 @@
             </child>
             <child>
               <object class="GtkFontButton" id="font_button">
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="halign">start</property>
@@ -289,8 +255,6 @@
         </child>
         <child>
           <object class="GtkLabel" id="label6">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Diff</property>
             <property name="margin_top">12</property>
@@ -305,14 +269,11 @@
         </child>
         <child>
           <object class="GtkGrid" id="grid6">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="margin_start">12</property>
             <property name="hexpand">True</property>
             <property name="row_spacing">6</property>
             <child>
               <object class="GtkGrid">
-                <property name="visible">True</property>
                 <property name="hexpand">True</property>
                 <property name="column_spacing">6</property>
                 <property name="row_spacing">6</property>
@@ -320,7 +281,6 @@
                 <property name="margin_start">12</property>
                 <child>
                   <object class="GtkLabel">
-                    <property name="visible">True</property>
                     <property name="halign">start</property>
                     <property name="label" translatable="yes">Text mode:</property>
                   </object>
@@ -331,7 +291,6 @@
                 </child>
                 <child>
                   <object class="GtkComboBoxText" id="text_diff_mode">
-                    <property name="visible">True</property>
                     <property name="halign">start</property>
                     <property name="active">True</property>
                   </object>
@@ -350,7 +309,6 @@
               <object class="GtkCheckButton" id="diff_highlighting_enabled">
                 <property name="label" translatable="yes">Enable syntax highlighting of source code in diff views</property>
                 <property name="use_action_appearance">False</property>
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="halign">start</property>
@@ -363,16 +321,12 @@
             </child>
             <child>
               <object class="GtkGrid" id="grid7">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="margin_start">12</property>
                 <property name="hexpand">True</property>
                 <property name="row_spacing">6</property>
                 <property name="column_spacing">6</property>
                 <child>
                   <object class="GtkLabel" id="label7">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
                     <property name="halign">start</property>
                     <property name="label" translatable="yes">Syntax highlighting color scheme:</property>
                   </object>
@@ -383,7 +337,6 @@
                 </child>
                 <child>
                   <object class="GtkComboBoxText" id="default_style_scheme">
-                    <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="model">syntax_scheme_store</property>
                     <property name="halign">start</property>

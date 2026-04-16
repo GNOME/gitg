@@ -5,11 +5,8 @@
     <property name="can_focus">True</property>
     <child>
       <object class="GitgProgressBin" id="d_progress_bin">
-        <property name="visible">True</property>
         <child>
           <object class="GtkGrid" id="grid">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="has_focus">False</property>
             <property name="is_focus">False</property>
             <property name="margin_start">12</property>
@@ -21,15 +18,12 @@
             <property name="hexpand">True</property>
             <child>
               <object class="GtkRevealer" id="d_remove_revealer">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="has_focus">True</property>
                 <property name="vexpand">False</property>
                 <property name="valign">center</property>
                 <property name="transition_type">slide-left</property>
                 <child>
                   <object class="GtkCheckButton" id="d_remove_check_button">
-                    <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="has_focus">False</property>
                     <property name="vexpand">False</property>
@@ -47,8 +41,6 @@
             </child>
             <child>
               <object class="GtkLabel" id="d_repository_label">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="has_focus">False</property>
                 <property name="is_focus">False</property>
                 <property name="halign">start</property>
@@ -70,8 +62,6 @@
             </child>
             <child>
               <object class="GtkLabel" id="d_description_label">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="has_focus">False</property>
                 <property name="is_focus">False</property>
                 <property name="halign">start</property>
@@ -88,8 +78,6 @@
             </child>
             <child>
               <object class="GtkLabel" id="d_branch_label">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="has_focus">False</property>
                 <property name="is_focus">False</property>
                 <property name="halign">start</property>
@@ -113,8 +101,6 @@
             <child>
               <object class="GtkBox" id="d_languages_box">
                 <property name="orientation">horizontal</property>
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="has_focus">False</property>
                 <property name="is_focus">False</property>
                 <property name="halign">start</property>
@@ -130,7 +116,6 @@
             </child>
             <child>
               <object class="GtkSpinner" id="d_spinner">
-                <property name="can_focus">False</property>
                 <property name="has_focus">False</property>
                 <property name="is_focus">False</property>
               </object>

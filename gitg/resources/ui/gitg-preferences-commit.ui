@@ -28,8 +28,6 @@
     <property name="page_increment">10</property>
   </object>
   <template class="GitgPreferencesCommit" parent="GtkGrid">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
     <property name="has_focus">False</property>
     <property name="is_focus">False</property>
     <property name="hexpand">True</property>
@@ -42,16 +40,12 @@
     <property name="column_spacing">18</property>
     <child>
       <object class="GtkGrid" id="grid">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
         <property name="has_focus">False</property>
         <property name="is_focus">False</property>
         <property name="hexpand">True</property>
         <property name="row_spacing">6</property>
         <child>
           <object class="GtkGrid" id="grid1">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="has_focus">False</property>
             <property name="is_focus">False</property>
             <property name="row_spacing">6</property>
@@ -59,7 +53,6 @@
             <child>
               <object class="GtkCheckButton" id="check_button_show_markup">
                 <property name="label" translatable="yes">Show markup</property>
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="has_focus">False</property>
                 <property name="is_focus">False</property>
@@ -76,8 +69,6 @@
             </child>
             <child>
               <object class="GtkGrid" id="grid_show_markup">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="has_focus">False</property>
                 <property name="is_focus">False</property>
                 <property name="row_spacing">6</property>
@@ -87,7 +78,6 @@
                   <object class="GtkCheckButton" id="check_button_show_subject_margin">
                     <property name="label" translatable="yes">Display _subject margin at column:</property>
                     <property name="use_action_appearance">False</property>
-                    <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="has_focus">False</property>
                     <property name="is_focus">False</property>
@@ -106,13 +96,10 @@
                 </child>
                 <child>
                   <object class="GtkGrid" id="spin_button_subject_margin_grid">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
                     <property name="has_focus">False</property>
                     <property name="is_focus">False</property>
                     <child>
                       <object class="GtkSpinButton" id="spin_button_subject_margin">
-                        <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="has_focus">False</property>
                         <property name="is_focus">False</property>
@@ -142,7 +129,6 @@
                   <object class="GtkCheckButton" id="check_button_show_right_margin">
                     <property name="label" translatable="yes">Display right _margin at column:</property>
                     <property name="use_action_appearance">False</property>
-                    <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="has_focus">False</property>
                     <property name="is_focus">False</property>
@@ -161,13 +147,10 @@
                 </child>
                 <child>
                   <object class="GtkGrid" id="spin_button_right_margin_grid">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
                     <property name="has_focus">False</property>
                     <property name="is_focus">False</property>
                     <child>
                       <object class="GtkSpinButton" id="spin_button_right_margin">
-                        <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="has_focus">False</property>
                         <property name="is_focus">False</property>
@@ -193,13 +176,10 @@
                     <property name="height">1</property>
                   </packing>
                 </child>
-
                 <child>
                   <object class="GtkLabel">
                     <property name="label" translatable="yes">Maximum number of messages:</property>
-                    <property name="visible">True</property>
                     <property name="halign">start</property>
-                    <property name="can_focus">False</property>
                   </object>
                   <packing>
                     <property name="left_attach">0</property>
@@ -210,7 +190,6 @@
                 </child>
                 <child>
                   <object class="GtkSpinButton" id="spin_button_max_num_commit_messages">
-                    <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="has_focus">False</property>
                     <property name="is_focus">False</property>
@@ -229,14 +208,10 @@
                     <property name="height">1</property>
                   </packing>
                 </child>
-
                 <child>
                   <object class="GtkLabel">
                     <property name="label" translatable="yes">Maximum number of days:</property>
-                    <property name="visible">True</property>
                     <property name="halign">start</property>
-                    <property name="can_focus">False</property>
-
                   </object>
                   <packing>
                     <property name="left_attach">0</property>
@@ -247,7 +222,6 @@
                 </child>
                 <child>
                   <object class="GtkSpinButton" id="spin_button_max_num_days_commit_messages">
-                    <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="has_focus">False</property>
                     <property name="is_focus">False</property>
@@ -276,14 +250,10 @@
             </child>
             <child>
               <object class="GtkGrid" id="grid8">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="column_spacing">12</property>
                 <property name="margin_start">0</property>
                 <child>
                   <object class="GtkLabel" id="label7">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
                     <property name="label" translatable="yes">Language:</property>
                   </object>
                   <packing>
@@ -293,7 +263,6 @@
                 </child>
                 <child>
                   <object class="GspellLanguageChooserButton" id="spell_language_button">
-                    <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                   </object>
@@ -311,7 +280,6 @@
             <child>
               <object class="GtkCheckButton" id="enable_spell_checking">
                 <property name="label" translatable="yes">Enable spell checking</property>
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="has_focus">False</property>
                 <property name="is_focus">False</property>
@@ -336,8 +304,6 @@
         </child>
         <child>
           <object class="GtkLabel" id="label1">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="has_focus">False</property>
             <property name="is_focus">False</property>
             <property name="halign">start</property>
@@ -363,14 +329,10 @@
     </child>
     <child>
       <object class="GtkGrid" id="grid_datetime">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
         <property name="hexpand">True</property>
         <property name="row_spacing">6</property>
         <child>
           <object class="GtkLabel" id="datetime_preference_top_label">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="halign">start</property>
             <property name="label" translatable="yes">Datetime format</property>
             <attributes>
@@ -384,12 +346,8 @@
         </child>
         <child>
           <object class="GtkGrid" id="grid_prefered_datetime_default">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <child>
               <object class="GtkComboBoxText" id="combobox_predefined_datetime">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="active">0</property>
                 <property name="active_id">0</property>
                 <items>
@@ -411,7 +369,6 @@
             <child>
               <object class="GtkRadioButton" id="radiobutton_predefined_datetime">
                 <property name="label" translatable="yes">Predefined:</property>
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="active">True</property>
@@ -431,12 +388,9 @@
         </child>
         <child>
           <object class="GtkGrid">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <child>
               <object class="GtkRadioButton" id="radiobutton_custom_datetime">
                 <property name="label" translatable="yes">Custom:</property>
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="draw_indicator">True</property>
@@ -449,7 +403,6 @@
             </child>
             <child>
               <object class="GtkEntry" id="custom_datetime">
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="secondary_icon_stock">gtk-help</property>
                 <property name="secondary_icon_sensitive">False</property>

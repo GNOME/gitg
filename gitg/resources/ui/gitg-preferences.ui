@@ -2,7 +2,6 @@
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
   <object class="GitgPreferencesDialog" id="preferences">
-    <property name="can_focus">False</property>
     <property name="margin-top">5</property>
     <property name="margin-bottom">5</property>
     <property name="margin-start">5</property>
@@ -17,7 +16,6 @@
     <property name="title" translatable="yes">Preferences</property>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox1">
-        <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
         <property name="margin-top">0</property>
         <property name="margin-bottom">0</property>
@@ -25,7 +23,6 @@
         <property name="margin-end">0</property>
         <child>
           <object class="GtkNotebook" id="notebook_elements">
-            <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="hexpand">True</property>
             <property name="vexpand">True</property>

@@ -3,14 +3,10 @@
 <interface>
   <requires lib="gtk+" version="3.12"/>
   <template class="GitgDiffViewCommitDetails" parent="GtkGrid">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
     <property name="orientation">vertical</property>
     <property name="row_spacing">12</property>
     <child>
       <object class="GtkGrid" id="grid_inner">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
         <property name="margin_top">12</property>
         <property name="margin_start">12</property>
         <property name="margin_end">12</property>
@@ -18,8 +14,6 @@
         <property name="column_spacing">12</property>
         <child>
           <object class="GtkImage" id="image_avatar">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="halign">center</property>
             <property name="valign">center</property>
             <property name="pixel_size">50</property>
@@ -32,14 +26,11 @@
         </child>
         <child>
           <object class="GtkGrid" id="grid_author_committer">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="hexpand">True</property>
             <property name="row_spacing">3</property>
             <property name="column_spacing">12</property>
             <child>
               <object class="GtkLabel" id="label_author">
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="halign">start</property>
                 <property name="valign">start</property>
@@ -56,7 +47,6 @@
             </child>
             <child>
               <object class="GtkLabel" id="label_author_date">
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="halign">start</property>
                 <property name="valign">end</property>
@@ -77,7 +67,6 @@
             </child>
             <child>
               <object class="GtkLabel" id="label_committer">
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="halign">start</property>
                 <property name="valign">start</property>
@@ -98,7 +87,6 @@
             </child>
             <child>
               <object class="GtkLabel" id="label_committer_date">
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="halign">start</property>
                 <property name="valign">end</property>
@@ -125,7 +113,6 @@
         </child>
         <child>
           <object class="GtkLabel" id="label_subject">
-            <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="halign">start</property>
             <property name="valign">start</property>
@@ -145,14 +132,11 @@
         </child>
         <child>
           <object class="GtkGrid" id="grid_parents_container">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="margin_top">12</property>
             <property name="row_spacing">6</property>
             <property name="column_spacing">6</property>
             <child>
               <object class="GtkLabel" id="label_parents">
-                <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="label" translatable="yes">Parents</property>
                 <property name="xalign">0</property>
@@ -167,8 +151,6 @@
             </child>
             <child>
               <object class="GtkGrid" id="grid_parents">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="margin_start">12</property>
                 <property name="hexpand">True</property>
                 <property name="orientation">vertical</property>
@@ -189,15 +171,12 @@
     </child>
     <child>
       <object class="GtkGrid" id="grid_bottom">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
         <property name="orientation">horizontal</property>
         <property name="margin_start">3</property>
         <property name="margin_end">12</property>
         <property name="margin_bottom">6</property>
         <child>
           <object class="GtkExpander" id="expander_files">
-            <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="valign">baseline</property>
             <style>
@@ -207,8 +186,6 @@
         </child>
         <child>
           <object class="GtkLabel" id="label_expand_collapse_files">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="label" translatable="yes">Expand all</property>
             <property name="valign">baseline</property>
             <style>
@@ -218,7 +195,6 @@
         </child>
         <child>
           <object class="GtkLabel" id="label_sha1">
-            <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="halign">end</property>
             <property name="valign">baseline</property>

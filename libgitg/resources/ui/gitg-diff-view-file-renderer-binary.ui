@@ -3,10 +3,8 @@
 <interface>
   <requires lib="gtk+" version="3.16"/>
   <template class="GitgDiffViewFileRendererBinary" parent="GtkGrid">
-    <property name="visible">True</property>
     <child>
       <object class="GtkLabel">
-        <property name="visible">True</property>
         <property name="label" translatable="yes">Unable to display changes for binary file</property>
         <property name="margin-top">3</property>
         <property name="margin-start">12</property>

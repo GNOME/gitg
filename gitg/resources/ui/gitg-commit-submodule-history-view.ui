@@ -7,14 +7,12 @@
     <property name="position">300</property>
     <child>
       <object class="GtkScrolledWindow" id="scrolled_window_commit_list">
-        <property name="visible">True</property>
         <property name="hexpand">True</property>
         <property name="vexpand">True</property>
         <property name="can_focus">True</property>
         <property name="shadow-type">none</property>
         <child>
           <object class="GitgCommitListView" id="commit_list_view">
-            <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="has_focus">True</property>
             <property name="fixed-height-mode">True</property>
@@ -107,7 +105,6 @@
     </child>
     <child>
       <object class="GitgDiffView" id="diff_view">
-        <property name="visible">True</property>
         <property name="can_focus">True</property>
       </object>
     </child>
