@@ -211,11 +211,18 @@ public class Gitg.DiffView : Gtk.Grid
 		d_parent_commit_notify = d_commit_details.notify["parent-commit"].connect(parent_commit_changed);
 
 		bind_property("use-gravatar", d_commit_details, "use-gravatar", BindingFlags.SYNC_CREATE);
-		d_text_view_message.event_after.connect (on_event_after);
-		d_text_view_message.key_press_event.connect (on_key_press);
+
+		var gesture = new Gtk.GestureClick();
+		gesture.set_button(Gdk.BUTTON_PRIMARY);
+		gesture.released.connect(on_gesture_released);
+		d_text_view_message.add_controller(gesture);
+
+		var key_controller = new Gtk.EventControllerKey();
+		key_controller.key_pressed.connect(on_key_press);
+		d_text_view_message.add_controller(key_controller);
+
 		d_text_view_message.has_tooltip = true;
 		d_text_view_message.query_tooltip.connect (on_query_tooltip_event);
-		d_text_view_message.style_updated.connect (load_colors_from_theme);
 		var motion = new Gtk.EventControllerMotion();
 		motion.motion.connect(on_motion_notify_event);
 		d_text_view_message.add_controller(motion);
@@ -375,16 +382,15 @@ public class Gitg.DiffView : Gtk.Grid
 		});
 	}
 
-	private bool on_key_press (Gtk.Widget widget, Gdk.EventKey evt)
+	private bool on_key_press (uint keyval, uint keycode, Gdk.ModifierType state)
 	{
-		if (evt.keyval == Gdk.Key.Return || evt.keyval == Gdk.Key.KP_Enter)
+		if (keyval == Gdk.Key.Return || keyval == Gdk.Key.KP_Enter)
 		{
 
 			Gtk.TextIter iter;
-			Gtk.TextView textview = (Gtk.TextView) widget;
-			textview.buffer.get_iter_at_mark(out iter, textview.buffer.get_insert());
+			d_text_view_message.buffer.get_iter_at_mark(out iter, d_text_view_message.buffer.get_insert());
 
-			follow_if_link (widget, iter);
+			follow_if_link (d_text_view_message, iter);
 		}
 		return false;
 	}
@@ -410,41 +416,13 @@ public class Gitg.DiffView : Gtk.Grid
 
 	}
 
-	private void on_event_after (Gtk.Widget widget, Gdk.Event evt)
+	private void on_gesture_released (int n_press, double ex, double ey)
 	{
-
 		Gtk.TextIter start, end, iter;
 		Gtk.TextBuffer buffer;
-		double ex, ey;
 		int x, y;
 
-		if (evt.type == Gdk.EventType.BUTTON_RELEASE)
-		{
-			Gdk.EventButton event;
-
-			event = (Gdk.EventButton)evt;
-			if (event.button != Gdk.BUTTON_PRIMARY)
-			return;
-
-			ex = event.x;
-			ey = event.y;
-		}
-		else if (evt.type == Gdk.EventType.TOUCH_END)
-		{
-			Gdk.EventTouch event;
-
-			event = (Gdk.EventTouch)evt;
-
-			ex = event.x;
-			ey = event.y;
-		}
-		else
-		{
-			return;
-		}
-
-		Gtk.TextView textview = (Gtk.TextView)widget;
-		buffer = textview.buffer;
+		buffer = d_text_view_message.buffer;
 
 		/* we shouldn't follow a link if the user has selected something */
 		buffer.get_selection_bounds (out start, out end);
@@ -453,11 +431,11 @@ public class Gitg.DiffView : Gtk.Grid
 			return;
 		}
 
-		textview.window_to_buffer_coords (Gtk.TextWindowType.WIDGET,(int)ex, (int)ey, out x, out y);
+		d_text_view_message.window_to_buffer_coords (Gtk.TextWindowType.WIDGET,(int)ex, (int)ey, out x, out y);
 
-		if (textview.get_iter_at_location (out iter, x, y))
+		if (d_text_view_message.get_iter_at_location (out iter, x, y))
 		{
-			follow_if_link (textview, iter);
+			follow_if_link (d_text_view_message, iter);
 		}
 	}
 
@@ -1113,6 +1091,11 @@ public class Gitg.DiffView : Gtk.Grid
 				d_unreveal_options_timeout = 0;
 			}
 		}
+	}
+	public override void css_changed(Gtk.CssStyleChange change)
+	{
+		base.css_changed(change);
+		load_colors_from_theme(d_text_view_message);
 	}
 }
 
