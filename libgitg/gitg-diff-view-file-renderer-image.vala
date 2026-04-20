@@ -113,24 +113,24 @@ class Gitg.DiffViewFileRendererImage : Gtk.Grid, DiffViewFileRenderer
 		public Gdk.Pixbuf? old_pixbuf { get; construct set; }
 		public Gdk.Pixbuf? new_pixbuf { get; construct set; }
 
-		public Gdk.Window window { get; construct set; }
+		public Gdk.Surface window { get; construct set; }
 
 		public SurfaceCache(Gdk.Pixbuf? old_pixbuf, Gdk.Pixbuf? new_pixbuf)
 		{
 			Object(old_pixbuf: old_pixbuf, new_pixbuf: new_pixbuf);
 		}
 
-		public Cairo.Surface? get_old_surface(Gdk.Window window)
+		public Cairo.Surface? get_old_surface(Gdk.Surface window)
 		{
 			return get_cached_surface(window, old_pixbuf, ref d_old_surface);
 		}
 
-		public Cairo.Surface? get_new_surface(Gdk.Window window)
+		public Cairo.Surface? get_new_surface(Gdk.Surface window)
 		{
 			return get_cached_surface(window, new_pixbuf, ref d_new_surface);
 		}
 
-		private Cairo.Surface? get_cached_surface(Gdk.Window window, Gdk.Pixbuf? pixbuf, ref Cairo.Surface? cached)
+		private Cairo.Surface? get_cached_surface(Gdk.Surface window, Gdk.Pixbuf? pixbuf, ref Cairo.Surface? cached)
 		{
 			if (pixbuf == null)
 			{

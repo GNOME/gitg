@@ -22,8 +22,8 @@ interface Gitg.DiffImageSurfaceCache : Object
 	public abstract Gdk.Pixbuf? old_pixbuf { get; construct set; }
 	public abstract Gdk.Pixbuf? new_pixbuf { get; construct set; }
 
-	public abstract Gdk.Window window { get; construct set; }
+	public abstract Gdk.Surface window { get; construct set; }
 
-	public abstract Cairo.Surface? get_old_surface(Gdk.Window window);
-	public abstract Cairo.Surface? get_new_surface(Gdk.Window window);
+	public abstract Cairo.Surface? get_old_surface(Gdk.Surface window);
+	public abstract Cairo.Surface? get_new_surface(Gdk.Surface window);
 }
