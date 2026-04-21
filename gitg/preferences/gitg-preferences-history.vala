@@ -42,13 +42,13 @@ public class PreferencesHistory : Gtk.Grid, GitgExt.Preferences
 	private unowned Gtk.CheckButton d_mainline_head;
 
 	[GtkChild (name = "select_current_branch" )]
-	private unowned Gtk.RadioButton d_select_current_branch;
+	private unowned Gtk.CheckButton d_select_current_branch;
 
 	[GtkChild (name = "select_all_branches" )]
-	private unowned Gtk.RadioButton d_select_all_branches;
+	private unowned Gtk.CheckButton d_select_all_branches;
 
 	[GtkChild (name = "select_all_commits" )]
-	private unowned Gtk.RadioButton d_select_all_commits;
+	private unowned Gtk.CheckButton d_select_all_commits;
 
 	[GtkChild (name = "sort_references_by_activity")]
 	private unowned Gtk.CheckButton d_sort_references_by_activity;
@@ -59,7 +59,7 @@ public class PreferencesHistory : Gtk.Grid, GitgExt.Preferences
 	[GtkChild (name = "filter_unknown_refs")]
 	private unowned Gtk.CheckButton d_filter_unknown_refs;
 
-	private Gtk.RadioButton[] d_select_buttons;
+	private Gtk.CheckButton[] d_select_buttons;
 	private string[] d_select_names;
 
 	private static int round_val(double val)
@@ -119,7 +119,7 @@ public class PreferencesHistory : Gtk.Grid, GitgExt.Preferences
 
 		update_collapse_inactive_lanes(settings);
 
-		d_select_buttons = new Gtk.RadioButton[] {
+		d_select_buttons = new Gtk.CheckButton[] {
 			d_select_current_branch,
 			d_select_all_branches,
 			d_select_all_commits

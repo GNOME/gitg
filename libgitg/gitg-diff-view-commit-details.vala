@@ -146,7 +146,7 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 		}
 	}
 
-	private Gee.HashMap<Ggit.OId, Gtk.RadioButton> d_parents_map;
+	private Gee.HashMap<Ggit.OId, Gtk.CheckButton> d_parents_map;
 
 	private GLib.Regex regex_url = /\w+:(\/?\/?)[^\s]+/;
 	private Ggit.Config config {get; set;}
@@ -216,7 +216,7 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 
 	private void update()
 	{
-		d_parents_map = new Gee.HashMap<Ggit.OId, Gtk.RadioButton>((oid) => oid.hash(), (o1, o2) => o1.equal(o2));
+		d_parents_map = new Gee.HashMap<Ggit.OId, Gtk.CheckButton>((oid) => oid.hash(), (o1, o2) => o1.equal(o2));
 
 		foreach (var child in d_grid_parents.get_children())
 		{
@@ -269,23 +269,24 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 		if (parents.size > 1)
 		{
 			d_grid_parents_container.show();
-			var grp = new SList<Gtk.RadioButton>();
 
-			Gtk.RadioButton? first = null;
+			Gtk.CheckButton? first = null;
 
 			foreach (var parent in parents)
 			{
 				var pid = parent.get_id().to_string().substring(0, 6);
 				var psubj = parent.get_subject();
 
-				var button = new Gtk.RadioButton.with_label(grp, @"$pid: $psubj");
+				var button = new Gtk.CheckButton.with_label(@"$pid: $psubj");
 
 				if (first == null)
 				{
 					first = button;
 				}
-
-				button.group = first;
+				else
+				{
+					button.group = first;
+				}
 
 				d_parents_map[parent.get_id()] = button;
 

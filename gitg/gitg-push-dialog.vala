@@ -36,22 +36,22 @@ class PushDialog : Gtk.Dialog
 	private unowned Gtk.ComboBoxText d_remote_ref_name;
 
 	[GtkChild]
-	private unowned Gtk.RadioButton d_local_ref_tag;
+	private unowned Gtk.CheckButton d_local_ref_tag;
 
 	[GtkChild]
-	private unowned Gtk.RadioButton d_local_ref_branch;
+	private unowned Gtk.CheckButton d_local_ref_branch;
 
 	[GtkChild]
-	private unowned Gtk.RadioButton d_local_ref_commit;
+	private unowned Gtk.CheckButton d_local_ref_commit;
 
 	[GtkChild]
-	private unowned Gtk.RadioButton d_remote_ref_tag;
+	private unowned Gtk.CheckButton d_remote_ref_tag;
 
 	[GtkChild]
-	private unowned Gtk.RadioButton d_remote_ref_branch;
+	private unowned Gtk.CheckButton d_remote_ref_branch;
 
 	[GtkChild]
-	private unowned Gtk.RadioButton d_remote_ref_custom;
+	private unowned Gtk.CheckButton d_remote_ref_custom;
 
 	[GtkChild]
 	private unowned Gtk.CheckButton d_force;

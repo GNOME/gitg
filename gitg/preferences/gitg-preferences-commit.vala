@@ -60,10 +60,10 @@ public class PreferencesCommit : Gtk.Grid, GitgExt.Preferences
 	private unowned Gtk.SpinButton d_spin_button_max_num_days_commit_messages;
 
 	[GtkChild (name = "radiobutton_predefined_datetime" )]
-	private unowned Gtk.RadioButton d_predefined_datetime;
+	private unowned Gtk.CheckButton d_predefined_datetime;
 
 	[GtkChild (name = "radiobutton_custom_datetime" )]
-	private unowned Gtk.RadioButton d_custom_datetime;
+	private unowned Gtk.CheckButton d_custom_datetime;
 
 	[GtkChild (name = "combobox_predefined_datetime")]
 	private unowned Gtk.ComboBox d_predefined_datetime_combo;
