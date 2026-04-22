@@ -92,9 +92,9 @@ class Gitg.DiffViewLinesRenderer : GtkSource.GutterRendererText
 		get { return get_view().buffer; }
 	}
 
-	protected override void query_data(Gtk.TextIter start, Gtk.TextIter end, GtkSource.GutterRendererState state)
+	protected override void query_data(Object lines, uint uline)
 	{
-		var line = start.get_line();
+		var line = (int)uline;
 		bool is_hunk = false;
 		HunkInfo? info = null;
 
@@ -125,7 +125,7 @@ class Gitg.DiffViewLinesRenderer : GtkSource.GutterRendererText
 		}
 		else
 		{
-			set_text(info.line_infos[start.get_line() - info.start], -1);
+			set_text(info.line_infos[line - info.start], -1);
 		}
 	}
 
