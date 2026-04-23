@@ -30,19 +30,21 @@ public class CloneDialog : Gtk.Dialog
 	private unowned Gtk.Entry d_entry_url;
 
 	[GtkChild (name = "button_location")]
-	private unowned Gtk.FileChooserButton d_button_location;
-
+	private unowned Gtk.Button d_button_location;
+	
 	[GtkChild (name = "bare_repository")]
 	private unowned Gtk.CheckButton d_bare_repository;
+
+	private File? d_location = null;
 
 	public bool is_bare
 	{
 		get { return d_bare_repository.active; }
 	}
 
-	public File location
+	public File? location
 	{
-		owned get { return d_button_location.get_file(); }
+		owned get { return d_location; }
 	}
 
 	public string url
@@ -72,10 +74,28 @@ public class CloneDialog : Gtk.Dialog
 			default_dir = Environment.get_home_dir();
 		}
 
-		d_button_location.set_current_folder(default_dir);
-		d_button_location.selection_changed.connect((c) => {
-			main_settings.set_string("clone-directory", c.get_file().get_path());
+		d_location = File.new_for_path (default_dir);
+		d_button_location.label = Path.get_basename (default_dir);
+		d_button_location.tooltip_text = default_dir;
+		d_button_location.clicked.connect(() => {
+		var dialog = new Gtk.FileDialog();
+		dialog.title = _("Select Clone Location");
+		dialog.initial_folder = d_location;
+
+		dialog.select_folder.begin(this as Gtk.Window, null, (obj, res) => {
+			try
+			{
+				var folder = dialog.select_folder.end(res);
+				d_location = folder;
+				d_button_location.label = Path.get_basename(folder.get_path());
+				d_button_location.tooltip_text = folder.get_path();
+				main_settings.set_string("clone-directory", folder.get_path());
+			}
+			catch (Error e)
+			{
+			}
 		});
+	});
 
 		d_entry_url.changed.connect((e) => {
 			string ?tooltip_text = null;

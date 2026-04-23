@@ -98,18 +98,9 @@
               </packing>
             </child>
             <child>
-              <object class="GtkFileChooserButton" id="button_location">
-                <property name="orientation">vertical</property>
-                <property name="action">select-folder</property>
-                <property name="title" translatable="yes">Select location…</property>
+              <object class="GtkButton" id="button_location">
+                <property name="label" translatable="yes">Select location…</property>
               </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">1</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
-              </packing>
-            </child>
             <child>
               <object class="GtkCheckButton" id="bare_repository">
                 <property name="label" translatable="yes">Bare repository</property>
