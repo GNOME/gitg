@@ -473,7 +473,7 @@ public class Gitg.DiffView : Gtk.Grid
 
 			if (hovering_over_link)
 			{
-    				textview.set_cursor_from_name("pointer");
+    				d_text_view_message.set_cursor_from_name("pointer");
 				if (hover_tag != null)
 				{
 					hover_tag.foreground_rgba = color_hovered_link;
@@ -481,7 +481,7 @@ public class Gitg.DiffView : Gtk.Grid
 			}
 			else
 			{
-    				textview.set_cursor_from_name("text");
+    				d_text_view_message.set_cursor_from_name("text");
 				if (hover_tag != null)
 				{
 					restore_tag_color_link (hover_tag);
