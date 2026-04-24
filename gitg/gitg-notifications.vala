@@ -35,7 +35,6 @@ public class Notifications : Object, GitgExt.Notifications
 
 		d_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 3);
 		d_box.add_css_class("notifications");
-		d_box.show();
 
 		d_box.valign = Gtk.Align.END;
 		d_overlay.add_overlay(d_box);
@@ -67,12 +66,9 @@ public class Notifications : Object, GitgExt.Notifications
 		revealer.margin_top = 1;
 		revealer.set_transition_duration(500);
 		revealer.set_transition_type(Gtk.RevealerTransitionType.SLIDE_UP);
-		revealer.add(notification.widget);
+		revealer.child = notification.widget;
 
-		notification.widget.show();
-		revealer.show();
-
-		d_box.add(revealer);
+		d_box.append(revealer);
 		revealer.reveal_child = true;
 
 		d_handles[notification] = notification.close.connect((delay) => {
@@ -87,8 +83,8 @@ public class Notifications : Object, GitgExt.Notifications
 		notification.disconnect(d_handles[notification]);
 
 		revealer.notify["child-revealed"].connect(() => {
-			revealer.remove(notification.widget);
-			revealer.destroy();
+			revealer.child = null;
+			d_box.remove(revealer);
 		});
 
 		revealer.reveal_child = false;
