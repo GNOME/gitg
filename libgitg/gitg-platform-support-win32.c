@@ -54,17 +54,6 @@ gitg_platform_support_http_get_finish (GAsyncResult  *result,
 	return G_INPUT_STREAM (g_file_read_finish (g_async_result_get_source_object (result), result, error));
 }
 
-cairo_surface_t *
-gitg_platform_support_create_cursor_surface (GdkDisplay    *display,
-                                             GdkCursorType  cursor_type,
-                                             gdouble       *hot_x,
-                                             gdouble       *hot_y,
-                                             gdouble       *width,
-                                             gdouble       *height)
-{
-	return NULL;
-}
-
 GInputStream *
 gitg_platform_support_new_input_stream_from_fd (gint     fd,
                                                 gboolean close_fd)

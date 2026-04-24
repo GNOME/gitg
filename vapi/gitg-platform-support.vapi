@@ -6,13 +6,6 @@ namespace Gitg
 		public static bool use_native_window_controls(Gdk.Display? display = null);
 		public static async GLib.InputStream http_get(GLib.File url, GLib.Cancellable? cancellable = null) throws GLib.IOError;
 
-		public static Cairo.Surface create_cursor_surface(Gdk.Display? display,
-		                                                  Gdk.CursorType cursor_type,
-		                                                  out double hot_x = null,
-		                                                  out double hot_y = null,
-		                                                  out double width = null,
-		                                                  out double height = null);
-
 		public static GLib.InputStream new_input_stream_from_fd(int fd, bool close_fd);
 
 		public static string get_lib_dir();

@@ -53,52 +53,6 @@ gitg_platform_support_http_get_finish (GAsyncResult  *result,
 	return G_INPUT_STREAM (g_file_read_finish (G_FILE (g_async_result_get_source_object (result)), result, error));
 }
 
-cairo_surface_t *
-gitg_platform_support_create_cursor_surface (GdkDisplay    *display,
-                                             GdkCursorType  cursor_type,
-                                             gdouble       *hot_x,
-                                             gdouble       *hot_y,
-                                             gdouble       *width,
-                                             gdouble       *height)
-{
-	GdkCursor *cursor;
-	cairo_surface_t *surface;
-	gdouble w = 0, h = 0;
-
-	cursor = gdk_cursor_new_for_display (display, cursor_type);
-	surface = gdk_cursor_get_surface (cursor, hot_x, hot_y);
-
-	if (surface == NULL)
-	{
-		return NULL;
-	}
-
-	switch (cairo_surface_get_type (surface))
-	{
-	case CAIRO_SURFACE_TYPE_XLIB:
-		w = cairo_xlib_surface_get_width (surface);
-		h = cairo_xlib_surface_get_height (surface);
-		break;
-	case CAIRO_SURFACE_TYPE_IMAGE:
-		w = cairo_image_surface_get_width (surface);
-		h = cairo_image_surface_get_height (surface);
-		break;
-	default: /* silence compiler warning */
-	}
-
-	if (width)
-	{
-		*width = w;
-	}
-
-	if (height)
-	{
-		*height = h;
-	}
-
-	return surface;
-}
-
 GInputStream *
 gitg_platform_support_new_input_stream_from_fd (gint     fd,
                                                 gboolean close_fd)
