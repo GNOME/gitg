@@ -221,7 +221,7 @@ class ResultDialog : Dialog
 		tv.override_font (font_desc);
 		buf = tv.get_buffer ();
 		ansiRenderer = new AnsiRenderer(buf);
-		tv.add_events (Gdk.EventMask.BUTTON_PRESS_MASK | Gdk.EventMask.POINTER_MOTION_MASK);
+		// tv.add_events (Gdk.EventMask.BUTTON_PRESS_MASK | Gdk.EventMask.POINTER_MOTION_MASK);
 
 		buf.changed.connect (() => {
 			if (timer_id != 0) {
@@ -235,8 +235,14 @@ class ResultDialog : Dialog
 			});
 		});
 
-		tv.motion_notify_event.connect (on_hover_link);
-		tv.button_press_event.connect (on_link_press);
+		var motion_ctrl = new Gtk.EventControllerMotion ();
+		motion_ctrl.motion.connect (on_hover_link);
+		tv.add_controller (motion_ctrl);
+
+		var click_gesture = new Gtk.GestureClick ();
+		click_gesture.set_button(Gdk.BUTTON_PRIMARY);
+		click_gesture.pressed.connect (on_link_press);
+		tv.add_controller (click_gesture);
 		var key_controller = new Gtk.EventControllerKey ();
 		key_controller.key_pressed.connect (on_key_press);
 		add_controller (key_controller);
@@ -357,10 +363,10 @@ class ResultDialog : Dialog
 		return true;
 	}
 
-	private bool on_hover_link (EventMotion ev) {
+	private void on_hover_link (double x, double y) {
 		TextIter iter;
-		if (!get_iter_at_event ((int) ev.x, (int) ev.y, out iter))
-			return false;
+		if (!get_iter_at_event ((int) x, (int) y, out iter))
+			return;
 
 		var tags = iter.get_tags ();
 		bool over_link = false;
@@ -377,17 +383,12 @@ class ResultDialog : Dialog
 			} else {
 				tv.set_cursor (null);
 			}
-
-		return false;
 	}
 
-	private bool on_link_press (EventButton ev) {
-		if (ev.type != Gdk.EventType.BUTTON_PRESS || ev.button != Gdk.BUTTON_PRIMARY) {
-			return false;
-		}
+	private void on_link_press (int n_press, double x, double y) {
 		TextIter iter;
-		if (!get_iter_at_event ((int) ev.x, (int) ev.y, out iter))
-			return false;
+		if (!get_iter_at_event ((int) x, (int) y, out iter))
+			return;
 
 		var tags = iter.get_tags ();
 		foreach (var t in tags) {
@@ -415,10 +416,9 @@ class ResultDialog : Dialog
 				} catch (Error e) {
 					stderr.printf ("Failed to open %s: %s\n", href, e.message);
 				}
-				return true;
+				return;
 			}
 		}
-		return false;
 	}
 
 	public void append_message(string? message)
