@@ -50,26 +50,21 @@ class CreateTagDialog : Gtk.Dialog
 		var buf = d_text_view_message.buffer;
 		d_info_tag = buf.create_tag("info");
 
-		d_text_view_message.style_updated.connect(() => {
-			update_info_tag();
-		});
-
-		d_text_view_message.focus_in_event.connect(() => {
+		var focus_controller = new Gtk.EventControllerFocus();
+		focus_controller.enter.connect(() => {
 			if (d_is_showing_user_info)
 			{
 				Gtk.TextIter start, end;
 				buf.get_bounds(out start, out end);
-
 				buf.delete(ref start, ref end);
 			}
-
-			return false;
 		});
 
-		d_text_view_message.focus_out_event.connect(() => {
+		focus_controller.leave.connect(() => {
 			show_user_info();
-			return false;
 		});
+
+		d_text_view_message.add_controller(focus_controller);
 
 		update_info_tag();
 		show_user_info();
@@ -147,6 +142,11 @@ class CreateTagDialog : Gtk.Dialog
 
 			return buf.get_text(start, end, false);
 		}
+	}
+
+	public override void css_changed(Gtk.CssStyleChange change) {
+		base.css_changed(change);
+		update_info_tag();
 	}
 }
 
