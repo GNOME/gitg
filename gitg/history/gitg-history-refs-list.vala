@@ -476,7 +476,7 @@ public class RefHeader : RefTyped, Gtk.ListBoxRow
 
 		var gesture = new Gtk.GestureClick();
 		gesture.set_button(0);
-		gesture.pressed.connect((_, _, _) => {
+		gesture.pressed.connect((_n_press, _x, _y) => {
 			d_expander.expanded = !d_expander.expanded;
 			gesture.set_state(Gtk.EventSequenceState.CLAIMED);
 		});
@@ -551,7 +551,7 @@ public class RefHeader : RefTyped, Gtk.ListBoxRow
 	{
 		var gesture = new Gtk.GestureClick();
 		gesture.set_button(0);
-		gesture.pressed.connect((_, _, _) => {
+		gesture.pressed.connect((_n_press, _x, _y) => {
 			action.activate();
 			gesture.set_state(Gtk.EventSequenceState.CLAIMED);
 		});

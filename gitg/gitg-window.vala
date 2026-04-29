@@ -406,7 +406,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			shortcut_controller.add_shortcut(
 				new Gtk.Shortcut(
 					new Gtk.KeyvalTrigger(Gdk.Key.@0 + i, Gdk.ModifierType.ALT_MASK),
-					new Gtk.CallbackAction((_, _) => {
+					new Gtk.CallbackAction((_widget, _args) => {
 						return this.change_to_activity(captured_i);
 					})
 				)

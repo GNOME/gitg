@@ -180,7 +180,7 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 		});
 
 		var gesture = new Gtk.GestureClick();
-    		gesture.pressed.connect((_, _, _) => {
+		gesture.pressed.connect((_n_press, _x, _y) => {
         		d_expander_files.expanded = !d_expander_files.expanded;
         		gesture.set_state(Gtk.EventSequenceState.CLAIMED);
     		});

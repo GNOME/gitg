@@ -74,7 +74,7 @@ class Gitg.DiffViewFileSelectable : Object
 		click_gesture.pressed.connect((n_press, x, y) => {
 			button_press_event_on_view(x, y, click_gesture.get_current_event_state());
 		});
-		click_gesture.released.connect((_, _, _) => {
+		click_gesture.released.connect((_n_press, _x, _y) => {
 			button_release_event_on_view();
 		});
 		source_view.add_controller(click_gesture);

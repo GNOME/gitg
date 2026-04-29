@@ -102,7 +102,7 @@ namespace Gitg
 
 				var gesture = new Gtk.GestureClick();
 				gesture.set_button(Gdk.BUTTON_SECONDARY);
-				gesture.pressed.connect((_, _, _) => {
+				gesture.pressed.connect((_n_press, _x, _y) => {
 					secondary_clicked();
 				});
 				add_controller(gesture);
