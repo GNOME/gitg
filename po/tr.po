@@ -1,10 +1,10 @@
 # Turkish translation for gitg.
-# Copyright (C) 2014-2023 gitg's COPYRIGHT HOLDER
+# Copyright (C) 2014-2026 gitg's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gitg package.
 #
 # Taner Orak <tnrork@gmail.com>, 2015.
 # Gökhan Gurbetoğlu <ggurbet@gmail.com>, 2014, 2015.
-# Sabri Ünal <yakushabb@gmail.com>, 2014, 2019, 2020, 2022, 2023, 2025.
+# Sabri Ünal <yakushabb@gmail.com>, 2014, 2019, 2020, 2022-2026.
 # Muhammet Kara <muhammetk@gmail.com>, 2014-2025.
 # Emin Tufan Çetin <etcetin@gmail.com>, 2018-2026.
 #
@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2026-03-01 11:10+0000\n"
-"PO-Revision-Date: 2026-03-12 15:34+0300\n"
+"POT-Creation-Date: 2026-04-04 18:10+0000\n"
+"PO-Revision-Date: 2026-05-04 08:00+0300\n"
 "Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Language-Team: Turkish <takim@gnome.org.tr>\n"
 "Language: tr\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Gtranslator 49.0\n"
+"X-Generator: Poedit 3.9\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
@@ -254,14 +254,14 @@ msgstr "Geçmiş kenar çubuğundaki atıfların sıralama düzeni."
 
 #: data/org.gnome.gitg.gschema.xml.in:178
 msgid "Show Upstream With Branch"
-msgstr "Dalla Birlikte Ana Kaynağı Göster"
+msgstr "Dalla Birlikte Üst Akımı Göster"
 
 #: data/org.gnome.gitg.gschema.xml.in:179
 msgid ""
 "Determines whether to also show the upstream (remote) tracking branch when "
 "selecting a local branch in the history view."
 msgstr ""
-"Geçmiş görünümünde yerel dalı seçerken ana kaynaktaki (uzak) takip edilen "
+"Geçmiş görünümünde yerel dalı seçerken üst akımda (uzak) izlenen "
 "dalın da gösterilip gösterilmeyeceğini belirler."
 
 #: data/org.gnome.gitg.gschema.xml.in:186
@@ -669,7 +669,7 @@ msgstr ""
 #: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
 #: gitg/commit/gitg-commit.vala:1606
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:469
-#: gitg/gitg-window.vala:212 gitg/gitg-window.vala:801
+#: gitg/gitg-window.vala:214 gitg/gitg-window.vala:812
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
 #: gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
@@ -678,7 +678,9 @@ msgstr ""
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:20
 #: gitg/resources/ui/gitg-edit-remote-dialog.ui:18
+#: gitg/resources/ui/gitg-push-dialog.ui:18
 #: gitg/resources/ui/gitg-remote-notification.ui:30
+#: gitg/resources/ui/gitg-set-upstream-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-simple-notification.ui:61
 #: gitg/resources/ui/gitg-window.ui:154
 #: libgitg/resources/ui/gitg-authentication-dialog.ui:11
@@ -1174,7 +1176,7 @@ msgstr "Dal, çalışma dizinine başarıyla teslim alındı"
 #: gitg/gitg-ref-action-checkout.vala:197
 #, c-format
 msgid "Failed to set the upstream branch %s for %s"
-msgstr "%2$s için %1$s ana kaynak dalı belirlenemedi"
+msgstr "%2$s için %1$s üst akım dalı belirlenemedi"
 
 #: gitg/gitg-ref-action-copy-name.vala:48
 msgid "Copy name"
@@ -1498,42 +1500,46 @@ msgstr "Kaldır"
 msgid "Failed to remove remote"
 msgstr "Uzak kaldırılamadı"
 
-#: gitg/gitg-window.vala:209
+#: gitg/gitg-window.vala:211
 msgid "Add Repository"
 msgstr "Depo Ekle"
 
-#: gitg/gitg-window.vala:213
+#: gitg/gitg-window.vala:215
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:34
 #: gitg/resources/ui/gitg-window.ui:64
 msgid "_Add"
 msgstr "_Ekle"
 
-#: gitg/gitg-window.vala:215
+#: gitg/gitg-window.vala:217
 msgid "_Scan for all git repositories from this directory"
 msgstr "Bu dizindeki tüm git depolarını _tara"
 
-#: gitg/gitg-window.vala:562
+#: gitg/gitg-window.vala:564
 msgid "Projects"
 msgstr "Projeler"
 
-#: gitg/gitg-window.vala:799
+#: gitg/gitg-window.vala:608
+msgid "_Global Actions"
+msgstr "_Küresel Eylemler"
+
+#: gitg/gitg-window.vala:810
 msgid "Open Repository"
 msgstr "Depo Aç"
 
-#: gitg/gitg-window.vala:802 gitg/resources/ui/gitg-commit-submodule-info.ui:70
+#: gitg/gitg-window.vala:813 gitg/resources/ui/gitg-commit-submodule-info.ui:70
 msgid "_Open"
 msgstr "_Aç"
 
-#: gitg/gitg-window.vala:942
+#: gitg/gitg-window.vala:957
 msgid "Select items"
 msgstr "Ögeleri seçin"
 
-#: gitg/gitg-window.vala:1160
+#: gitg/gitg-window.vala:1175
 #, c-format
 msgid "“%s” is not a Git repository."
 msgstr "“%s” bir Git deposu değil."
 
-#: gitg/gitg-window.vala:1307
+#: gitg/gitg-window.vala:1322
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1541,7 +1547,7 @@ msgstr ""
 "Kullanıcı adınız ve e-posta adresiniz henüz yapılandırılmamış. Lütfen "
 "kullanıcı yapılandırmasına giderek adınızı ve e-posta adresinizi girin."
 
-#: gitg/gitg-window.vala:1311
+#: gitg/gitg-window.vala:1326
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1549,7 +1555,7 @@ msgstr ""
 "Kullanıcı adınız henüz yapılandırılmamış. Lütfen kullanıcı yapılandırmasına "
 "giderek adınızı girin."
 
-#: gitg/gitg-window.vala:1315
+#: gitg/gitg-window.vala:1330
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1557,7 +1563,7 @@ msgstr ""
 "E-posta adresiniz henüz yapılandırılmamış. Lütfen kullanıcı yapılandırmasına "
 "giderek e-posta adresinizi girin."
 
-#: gitg/gitg-window.vala:1318
+#: gitg/gitg-window.vala:1333
 msgid "Missing author details"
 msgstr "Yazar ayrıntıları eksik"
 
@@ -1702,10 +1708,12 @@ msgid "C_heckout"
 msgstr "_Teslim Al"
 
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:69
+#: gitg/resources/ui/gitg-set-upstream-branch-dialog.ui:69
 msgid "Local branch _name:"
 msgstr "Yerel dal _adı:"
 
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:99
+#: gitg/resources/ui/gitg-set-upstream-branch-dialog.ui:100
 msgid "_Remote branch:"
 msgstr "_Uzak dal:"
 
@@ -1935,6 +1943,14 @@ msgstr "Özel:"
 msgid "Check in vala documentation for datetime to write your own format."
 msgstr "Kendi biçiminizi yazmak için vala datetime belgelerini denetleyin."
 
+#: gitg/resources/ui/gitg-preferences-general.ui:24
+msgid "Push"
+msgstr "Gönder"
+
+#: gitg/resources/ui/gitg-preferences-general.ui:44
+msgid "Smart Push. Figure out parameters for push action"
+msgstr "Akıllı Gönder. Gönder için parametreleri çöz"
+
 #: gitg/resources/ui/gitg-preferences-history.ui:31
 msgid "Default selection"
 msgstr "Öntanımlı seçim"
@@ -1957,7 +1973,7 @@ msgstr "Kenar çubuğundaki atıfları son etkinliğe göre sırala"
 
 #: gitg/resources/ui/gitg-preferences-history.ui:135
 msgid "Show upstream (remote) branch when selecting a local branch"
-msgstr "Yerel dal seçerken ana kaynak (uzak) dalını göster"
+msgstr "Yerel dal seçerken üst akım (uzak) dalını göster"
 
 #: gitg/resources/ui/gitg-preferences-history.ui:170
 msgid "Commits"
@@ -1992,6 +2008,7 @@ msgid "Start with activity:"
 msgstr "Şu etkinlikle başla:"
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:61
+#: gitg/resources/ui/gitg-push-dialog.ui:141
 msgid "Commit"
 msgstr "İşle"
 
@@ -2048,6 +2065,130 @@ msgstr "Söz dizimi vurgulama renk şeması:"
 #: gitg/resources/ui/gitg-preferences.ui:11
 msgid "Preferences"
 msgstr "Tercihler"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:7
+msgid "Push Reference"
+msgstr "Atıf Gönder"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:34
+msgid "_Push"
+msgstr "_Gönder"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:69
+msgid "_Local ref:"
+msgstr "_Yerel atıf:"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:72
+msgid "Local reference to push from"
+msgstr "Gönder işlemi için yerel referans"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:106
+#: gitg/resources/ui/gitg-push-dialog.ui:236
+msgid "Branch"
+msgstr "Dal"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:114
+msgid "Reference to push from is a branch"
+msgstr "Gönder işlemine yapılan referans bir dal"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:123
+#: gitg/resources/ui/gitg-push-dialog.ui:253
+msgid "Tag"
+msgstr "Etiket"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:132
+msgid "Reference to push from is a tag"
+msgstr "Gönder işlemine yapılan referans bir etiket"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:150
+msgid "Reference to push from is a commit"
+msgstr "Gönder işlemine yapılan referans bir işleme"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:170
+msgid "Re_mote:"
+msgstr "U_zak:"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:187
+msgid "Remote to push to"
+msgstr "Gönderilecek uzak"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:201
+msgid "Rem_ote ref:"
+msgstr "U_zak atıf:"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:244
+msgid "Push to a remote branch"
+msgstr "Uzak dala gönder"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:262
+msgid "Push to a remote tag"
+msgstr "Uzak etikete gönder"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:271
+msgid "Custom"
+msgstr "Özel"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:280
+msgid "Push to a custom remote ref"
+msgstr "Özel uzak atıfa gönder"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:297
+msgid "_Smart"
+msgstr "_Akıllı"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:305
+msgid "Fill form based on config"
+msgstr "Formu yapılandırmaya göre düzenle"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:314
+msgid "_Set Upstream"
+msgstr "Üst Akım _Ayarla"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:322
+msgid "Mark remote as upstream for branch"
+msgstr "Uzağı dal için üst akım olarak imle"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:331
+msgid "_Force"
+msgstr "_Zorla"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:338
+msgid "Override remote ref if already exists"
+msgstr "Zaten varsa uzak referansı geçersiz kıl"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:347
+msgid "_Restart"
+msgstr "_Yeniden Başlat"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:353
+msgid "Restart default remote reference to push to"
+msgstr "Gönderilecek öntanımlı uzak referansı yeniden başlat"
+
+#: gitg/resources/ui/gitg-result-dialog.ui:19
+#: gitg/resources/ui/gitg-tag-show-info-dialog.ui:20
+#: gitg/resources/ui/gitg-window.ui:230
+msgid "_Close"
+msgstr "_Kapat"
+
+#: gitg/resources/ui/gitg-result-dialog.ui:52
+msgid "Result:"
+msgstr "Sonuç:"
+
+#: gitg/resources/ui/gitg-result-dialog.ui:99
+msgid "Remove ansi:"
+msgstr "Ansi kaldır:"
+
+#: gitg/resources/ui/gitg-result-dialog.ui:117
+msgid "Copy (Ctrl+Shift+C)"
+msgstr "Kopyala (Ctrl+Shift+C)"
+
+#: gitg/resources/ui/gitg-set-upstream-branch-dialog.ui:7
+msgid "Set Upstream Branch"
+msgstr "Üst Akım Dalı Ayarla"
+
+#: gitg/resources/ui/gitg-set-upstream-branch-dialog.ui:34
+msgid "Set U_pstream"
+msgstr "Üst _Akım Ayarla"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:14
 msgctxt "shortcut window"
@@ -2202,11 +2343,6 @@ msgstr "Genel eylemler bağlam menüsünü göster. (Tanımlanmışsa)"
 #: gitg/resources/ui/gitg-tag-show-info-dialog.ui:7
 msgid "Show Tag info"
 msgstr "Etiket Bilgisini Göster"
-
-#: gitg/resources/ui/gitg-tag-show-info-dialog.ui:20
-#: gitg/resources/ui/gitg-window.ui:230
-msgid "_Close"
-msgstr "_Kapat"
 
 #: gitg/resources/ui/gitg-window.ui:24
 msgid "Show the list of recently used repositories"
