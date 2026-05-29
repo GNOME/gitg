@@ -13,7 +13,7 @@
     <child internal-child="headerbar">
       <object class="GtkHeaderBar" id="dialog-header_bar">
         <property name="show_close_button">False</property>
-        <child>
+        <child type="start">
           <object class="GtkButton" id="button_cancel">
             <property name="label" translatable="yes">_Cancel</property>
             <property name="can_focus">True</property>
@@ -24,11 +24,8 @@
               <class name="text-button"/>
             </style>
           </object>
-          <packing>
-            <property name="pack_type">start</property>
-          </packing>
         </child>
-        <child>
+        <child type="end">
           <object class="GtkButton" id="d_button_create">
             <property name="label" translatable="yes">_Add</property>
             <property name="sensitive">False</property>
@@ -41,9 +38,6 @@
               <class name="suggested-action"/>
             </style>
           </object>
-          <packing>
-            <property name="pack_type">end</property>
-          </packing>
         </child>
       </object>
     </child>
@@ -62,26 +56,22 @@
                 <property name="label" translatable="yes">Remote _name:</property>
                 <property name="use_underline">True</property>
                 <property name="mnemonic_widget">d_entry_remote_name</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">0</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">0</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
-              </packing>
             </child>
             <child>
               <object class="GtkEntry" id="d_entry_remote_name">
                 <property name="can_focus">True</property>
                 <property name="hexpand">True</property>
                 <property name="activates_default">True</property>
+                <layout>
+                  <property name="column">1</property>
+                  <property name="row">0</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">0</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
-              </packing>
             </child>
             <child>
               <object class="GtkLabel" id="label2">
@@ -89,13 +79,11 @@
                 <property name="label" translatable="yes">Remote _URL:</property>
                 <property name="use_underline">True</property>
                 <property name="mnemonic_widget">d_entry_remote_url</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">1</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">1</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
-              </packing>
             </child>
             <child>
               <object class="GtkEntry" id="d_entry_remote_url">
@@ -103,18 +91,13 @@
                 <property name="can_focus">True</property>
                 <property name="hexpand">True</property>
                 <property name="activates_default">True</property>
+                <layout>
+                  <property name="column">1</property>
+                  <property name="row">1</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">1</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
-              </packing>
             </child>
           </object>
-          <packing>
-            <property name="position">1</property>
-          </packing>
         </child>
       </object>
     </child>
