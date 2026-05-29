@@ -176,7 +176,6 @@ namespace GitgFiles
 			d_imagevp = new Gtk.Viewport(null, null);
 			d_image = new Gtk.Image();
 			d_imagevp.add(d_image);
-			d_imagevp.show_all();
 
 			d_stylesettings = try_settings(Gitg.Config.APPLICATION_ID + ".preferences.interface");
 			if (d_stylesettings != null)

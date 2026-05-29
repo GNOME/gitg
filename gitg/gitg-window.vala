@@ -628,9 +628,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 				menu_actions = load_global_actions();
 				bool has_items = menu_actions.get_data<int>("items") > 0;
 				global_actions_item.set_attribute("visible", "b", has_items);
-				if (has_items)
-					menu_actions.show_all();
-				else
+				if (!has_items)
 					menu_actions = null;
 			});
 			d_gear_menu.add_controller(click_gesture);

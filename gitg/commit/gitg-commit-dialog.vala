@@ -718,7 +718,6 @@ class Dialog : Gtk.Dialog
 			lbl.selectable = true;
 
 			grid.attach(lbl, 1, 0, 1, 1);
-			row.show_all();
 
 			d_list_box_stats.add(row);
 			++num;

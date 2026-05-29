@@ -20,7 +20,7 @@ class TestRepositoryListBox
 		var window = new Window();
 		window.set_default_size(300, 300);
 		window.add(new RepositoryListBox());
-		window.show_all();
+		window.present();
 
 		window.delete_event.connect((w, ev) => {
 			Gtk.main_quit();

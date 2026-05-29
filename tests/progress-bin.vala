@@ -22,7 +22,7 @@ class TestProgressGrid
 		var grid = new ProgressBin();
 		grid.fraction = 0.3;
 		window.add(grid);
-		window.show_all();
+		window.present();
 
 		window.delete_event.connect((w, ev) => {
 			Gtk.main_quit();
