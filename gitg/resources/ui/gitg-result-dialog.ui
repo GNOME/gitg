@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <!-- interface-requires gtk+ 3.12 -->
+  <requires lib="gtk" version="4.0"/>
   <template class="GitgResultDialog" parent="GtkDialog">
     <property name="margin-top">12</property>
     <property name="margin-bottom">12</property>
@@ -10,14 +10,13 @@
     <property name="modal">True</property>
     <property name="default_width">600</property>
     <property name="default_height">300</property>
-    <property name="type_hint">dialog</property>
     <child internal-child="headerbar">
       <object class="GtkHeaderBar" id="dialog-header_bar">
-        <property name="show_close_button">False</property>
-        <child>
+        <property name="show-title-buttons">False</property>
+        <child type="end">
           <object class="GtkButton" id="d_button_close">
             <property name="label" translatable="yes">_Close</property>
-            <property name="can_focus">True</property>
+            <property name="focusable">True</property>
             <property name="use_underline">True</property>
             <property name="valign">center</property>
             <style>
@@ -25,111 +24,95 @@
               <class name="suggested-action"/>
             </style>
           </object>
-          <packing>
-            <property name="pack_type">end</property>
-          </packing>
         </child>
       </object>
     </child>
-    <child internal-child="vbox">
+    <property name="child">
       <object class="GtkBox" id="dialog-vbox1">
         <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child>
           <object class="GtkGrid" id="grid1">
-            <property name="hexpand">True</property>
+            <property name="hexpand">1</property>
             <property name="row_spacing">6</property>
             <property name="column_spacing">6</property>
             <child>
               <object class="GtkLabel" id="d_label_result">
                 <property name="halign">end</property>
                 <property name="label" translatable="yes">Result:</property>
-                <property name="use_underline">True</property>
+                <property name="use_underline">1</property>
                 <property name="mnemonic_widget">d_text_view_message</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">0</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">0</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
-              </packing>
             </child>
             <child>
               <object class="GtkScrolledWindow" id="scrolled_window_message">
-                <property name="can_focus">True</property>
-                <property name="vexpand">True</property>
-                <property name="hexpand">True</property>
+                <property name="focusable">1</property>
+                <property name="vexpand">1</property>
+                <property name="hexpand">1</property>
                 <child>
                   <object class="GtkTextView" id="d_text_view_message">
-                    <property name="editable">False</property>
-                    <property name="can_focus">True</property>
-                    <property name="left_margin">2</property>
-                    <property name="right_margin">2</property>
-                    <property name="cursor-visible">False</property>
+                    <property name="editable">0</property>
+                    <property name="focusable">1</property>
+                    <property name="left-margin">2</property>
+                    <property name="right-margin">2</property>
+                    <property name="cursor-visible">0</property>
                   </object>
                 </child>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">1</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">1</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
-              </packing>
             </child>
             <child>
               <object class="GtkBox">
                 <property name="spacing">6</property>
                 <property name="halign">end</property>
-                  <child>
-                    <object class="GtkLabel" id="label_remove_ansi">
-                      <property name="valign">center</property>
-                      <property name="halign">end</property>
-                      <property name="label" translatable="yes">Remove ansi:</property>
-                      <property name="mnemonic-widget">switch_remove_ansi</property>
-                      <property name="vexpand">False</property>
-                      <property name="hexpand">False</property>
-                    </object>
-                  </child>
-                  <child>
-                    <object class="GtkSwitch" id="switch_remove_ansi">
-                      <property name="can_focus">True</property>
-                      <property name="halign">end</property>
-                      <property name="valign">center</property>
-                      <property name="vexpand">False</property>
-                    </object>
-                  </child>
-                  <child>
-                    <object class="GtkButton" id="d_button_copy">
-                      <property name="tooltip_text" translatable="yes">Copy (Ctrl+Shift+C)</property>
-                      <property name="can_focus">True</property>
-                      <property name="halign">end</property>
-                      <property name="image">copy_image</property>
-                      <property name="always-show-image">True</property>
-                      <style>
-                        <class name="text-button"/>
-                      </style>
-                    </object>
-                  </child>
+                <child>
+                  <object class="GtkLabel" id="label_remove_ansi">
+                    <property name="valign">center</property>
+                    <property name="halign">end</property>
+                    <property name="label" translatable="yes">Remove ansi:</property>
+                    <property name="mnemonic-widget">switch_remove_ansi</property>
+                    <property name="vexpand">0</property>
+                    <property name="hexpand">0</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkSwitch" id="switch_remove_ansi">
+                    <property name="focusable">1</property>
+                    <property name="halign">end</property>
+                    <property name="valign">center</property>
+                    <property name="vexpand">0</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton" id="d_button_copy">
+                    <property name="tooltip_text" translatable="yes">Copy (Ctrl+Shift+C)</property>
+                    <property name="focusable">1</property>
+                    <property name="halign">end</property>
+                    <property name="icon-name">edit-copy-symbolic</property>
+                    <style>
+                      <class name="text-button"/>
+                    </style>
+                  </object>
+                </child>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">2</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left-attach">0</property>
-                <property name="top-attach">2</property>
-                <property name="width">1</property>
-              </packing>
             </child>
           </object>
-          <packing>
-            <property name="position">1</property>
-          </packing>
         </child>
       </object>
-    </child>
+    </property>
     <action-widgets>
       <action-widget response="-6">d_button_close</action-widget>
     </action-widgets>
   </template>
-  <object class="GtkImage" id="copy_image">
-    <property name="icon-name">edit-copy-symbolic</property>
-    <property name="icon-size">1</property>
-  </object>
 </interface>

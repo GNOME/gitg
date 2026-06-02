@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <!-- interface-requires gtk+ 3.0 -->
+  <requires lib="gtk" version="4.0"/>
   <template class="GitgEditRemoteDialog" parent="GtkDialog">
     <property name="margin-top">12</property>
     <property name="margin-bottom">12</property>
@@ -9,14 +9,13 @@
     <property name="title" translatable="yes">Edit Remote</property>
     <property name="resizable">False</property>
     <property name="modal">True</property>
-    <property name="type_hint">dialog</property>
     <child internal-child="headerbar">
       <object class="GtkHeaderBar" id="dialog-header_bar">
-        <property name="show_close_button">False</property>
-        <child>
+        <property name="show-title-buttons">False</property>
+        <child type="start">
           <object class="GtkButton" id="button_cancel">
             <property name="label" translatable="yes">_Cancel</property>
-            <property name="can_focus">True</property>
+            <property name="focusable">True</property>
             <property name="receives_default">True</property>
             <property name="use_underline">True</property>
             <property name="valign">center</property>
@@ -24,16 +23,12 @@
               <class name="text-button"/>
             </style>
           </object>
-          <packing>
-            <property name="pack_type">start</property>
-          </packing>
         </child>
-        <child>
+        <child type="end">
           <object class="GtkButton" id="d_button_save">
             <property name="label" translatable="yes">_Save</property>
             <property name="sensitive">False</property>
-            <property name="can_focus">True</property>
-            <property name="can_default">True</property>
+            <property name="focusable">True</property>
             <property name="receives_default">True</property>
             <property name="use_underline">True</property>
             <style>
@@ -41,83 +36,69 @@
               <class name="suggested-action"/>
             </style>
           </object>
-          <packing>
-            <property name="pack_type">end</property>
-          </packing>
         </child>
       </object>
     </child>
-    <child internal-child="vbox">
+    <property name="child">
       <object class="GtkBox" id="dialog-vbox1">
         <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child>
           <object class="GtkGrid" id="grid1">
-            <property name="hexpand">True</property>
+            <property name="hexpand">1</property>
             <property name="row_spacing">6</property>
             <property name="column_spacing">6</property>
             <child>
               <object class="GtkLabel" id="label1">
                 <property name="halign">end</property>
                 <property name="label" translatable="yes">Remote _name:</property>
-                <property name="use_underline">True</property>
+                <property name="use_underline">1</property>
                 <property name="mnemonic_widget">d_entry_remote_name</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">0</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">0</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
-              </packing>
             </child>
             <child>
               <object class="GtkEntry" id="d_entry_remote_name">
-                <property name="can_focus">True</property>
-                <property name="hexpand">True</property>
-                <property name="activates_default">True</property>
+                <property name="focusable">1</property>
+                <property name="hexpand">1</property>
+                <property name="activates_default">1</property>
+                <layout>
+                  <property name="column">1</property>
+                  <property name="row">0</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">0</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
-              </packing>
             </child>
             <child>
               <object class="GtkLabel" id="label2">
                 <property name="halign">end</property>
                 <property name="label" translatable="yes">Remote _URL:</property>
-                <property name="use_underline">True</property>
+                <property name="use_underline">1</property>
                 <property name="mnemonic_widget">d_entry_remote_url</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">1</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">1</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
-              </packing>
             </child>
             <child>
               <object class="GtkEntry" id="d_entry_remote_url">
                 <property name="width_request">350</property>
-                <property name="can_focus">True</property>
-                <property name="hexpand">True</property>
-                <property name="activates_default">True</property>
+                <property name="focusable">1</property>
+                <property name="hexpand">1</property>
+                <property name="activates_default">1</property>
+                <layout>
+                  <property name="column">1</property>
+                  <property name="row">1</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">1</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
-              </packing>
             </child>
           </object>
-          <packing>
-            <property name="position">1</property>
-          </packing>
         </child>
       </object>
-    </child>
+    </property>
     <action-widgets>
       <action-widget response="cancel">button_cancel</action-widget>
       <action-widget response="ok">d_button_save</action-widget>
