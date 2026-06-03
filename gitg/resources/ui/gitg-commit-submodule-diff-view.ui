@@ -1,25 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk+" version="3.3"/>
-  <requires lib="gitg" version="3.0"/>
+  <requires lib="gtk" version="4.0"/>
   <template class="GitgCommitSubmoduleDiffView" parent="GtkBox">
     <property name="orientation">vertical</property>
     <property name="spacing">12</property>
     <child>
       <object class="GitgCommitSubmoduleInfo" id="info">
       </object>
-      <packing>
-        <property name="position">0</property>
-      </packing>
     </child>
     <child>
       <object class="GtkLabel" id="label_message">
         <property name="halign">start</property>
         <property name="label" translatable="yes">The submodule is in a dirty state and has staged and/or unstaged changes that are not yet committed as shown below.</property>
       </object>
-      <packing>
-        <property name="position">1</property>
-      </packing>
     </child>
     <child>
       <object class="GtkBox" id="box_diffs">
@@ -41,13 +34,13 @@
             </child>
             <child>
               <object class="GtkFrame" id="frame_staged">
-                <property name="hexpand">True</property>
-                <property name="vexpand">True</property>
+                <property name="hexpand">1</property>
+                <property name="vexpand">1</property>
                 <child>
                   <object class="GitgDiffView" id="diff_view_staged">
-                    <property name="can_focus">True</property>
-                    <property name="hexpand">True</property>
-                    <property name="vexpand">True</property>
+                    <property name="focusable">1</property>
+                    <property name="hexpand">1</property>
+                    <property name="vexpand">1</property>
                   </object>
                 </child>
               </object>
@@ -70,13 +63,13 @@
             </child>
             <child>
               <object class="GtkFrame" id="frame_unstaged">
-                <property name="hexpand">True</property>
-                <property name="vexpand">True</property>
+                <property name="hexpand">1</property>
+                <property name="vexpand">1</property>
                 <child>
                   <object class="GitgDiffView" id="diff_view_unstaged">
-                    <property name="can_focus">True</property>
-                    <property name="hexpand">True</property>
-                    <property name="vexpand">True</property>
+                    <property name="focusable">1</property>
+                    <property name="hexpand">1</property>
+                    <property name="vexpand">1</property>
                   </object>
                 </child>
               </object>

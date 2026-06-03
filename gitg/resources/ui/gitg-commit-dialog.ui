@@ -1,55 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <!-- interface-requires gtk+ 3.12 -->
-  <!-- interface-requires gtksourceview 3.0 -->
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="gtksource" version="5.0"/>
   <template class="GitgCommitDialog" parent="GtkDialog">
     <property name="margin-top">5</property>
     <property name="margin-bottom">5</property>
     <property name="margin-start">5</property>
     <property name="margin-end">5</property>
     <property name="title" translatable="yes" context="Create Dialog">Commit</property>
-    <property name="modal">True</property>
+    <property name="modal">1</property>
     <property name="default_width">900</property>
     <property name="default_height">600</property>
-    <property name="type_hint">dialog</property>
     <child internal-child="headerbar">
       <object class="GtkHeaderBar" id="dialog-header_bar">
-        <property name="show_close_button">False</property>
-        <child>
+        <property name="show-title-buttons">0</property>
+        <child type="start">
           <object class="GtkButton" id="cancel-button">
             <property name="label" translatable="yes">_Cancel</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
-            <property name="use_underline">True</property>
+            <property name="focusable">1</property>
+            <property name="receives_default">1</property>
+            <property name="use_underline">1</property>
             <property name="valign">center</property>
             <style>
               <class name="text-button"/>
             </style>
           </object>
-          <packing>
-            <property name="pack_type">start</property>
-          </packing>
         </child>
-        <child>
+        <child type="end">
           <object class="GtkButton" id="ok-button">
             <property name="label" translatable="yes">C_ommit</property>
-            <property name="sensitive">False</property>
-            <property name="can_focus">True</property>
-            <property name="can_default">True</property>
-            <property name="receives_default">True</property>
-            <property name="use_underline">True</property>
+            <property name="sensitive">0</property>
+            <property name="focusable">1</property>
+            <property name="receives_default">1</property>
+            <property name="use_underline">1</property>
             <style>
               <class name="text-button"/>
               <class name="suggested-action"/>
             </style>
           </object>
-          <packing>
-            <property name="pack_type">end</property>
-          </packing>
         </child>
       </object>
     </child>
-    <child internal-child="vbox">
+    <property name="child">
       <object class="GtkBox" id="dialog-vbox1">
         <property name="orientation">vertical</property>
         <property name="spacing">2</property>
@@ -59,45 +51,40 @@
             <property name="column_spacing">6</property>
             <child>
               <object class="GtkImage" id="image_avatar">
-                <property name="pixel_size">50</property>
-                <property name="icon_size">6</property>
+                <property name="pixel-size">50</property>
+                <property name="icon_size">large</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">0</property>
+                  <property name="row-span">2</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">0</property>
-                <property name="width">1</property>
-                <property name="height">2</property>
-              </packing>
             </child>
             <child>
               <object class="GtkLabel" id="label_user">
                 <property name="valign">end</property>
-                <property name="hexpand">True</property>
+                <property name="hexpand">1</property>
+                <layout>
+                  <property name="column">1</property>
+                  <property name="row">0</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">0</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
-              </packing>
             </child>
             <child>
               <object class="GtkLabel" id="label_date">
                 <property name="valign">start</property>
-                <property name="hexpand">True</property>
+                <property name="hexpand">1</property>
+                <layout>
+                  <property name="column">1</property>
+                  <property name="row">1</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">1</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
-              </packing>
             </child>
             <child>
               <object class="GtkRevealer" id="infobar_revealer">
                 <child>
                   <object class="GtkInfoBar" id="infobar">
-                    <child internal-child="content_area">
+                    <child>
                       <object class="GtkBox" id="infobar_content_area">
                         <property name="margin-top">8</property>
                         <property name="margin-bottom">8</property>
@@ -107,72 +94,64 @@
                         <property name="spacing">16</property>
                         <child>
                           <object class="GtkLabel" id="infobar_primary_label">
-                            <property name="can_focus">True</property>
-                            <property name="selectable">True</property>
-                            <property name="use-markup">True</property>
-                            <property name="halign">GTK_ALIGN_START</property>
+                            <property name="focusable">1</property>
+                            <property name="selectable">1</property>
+                            <property name="use_markup">1</property>
+                            <property name="halign">start</property>
                           </object>
-                          <packing>
-                            <property name="position">0</property>
-                          </packing>
                         </child>
                         <child>
                           <object class="GtkLabel" id="infobar_secondary_label">
-                            <property name="can_focus">True</property>
-                            <property name="selectable">True</property>
-                            <property name="use-markup">True</property>
-                            <property name="halign">GTK_ALIGN_START</property>
+                            <property name="focusable">1</property>
+                            <property name="selectable">1</property>
+                            <property name="use_markup">1</property>
+                            <property name="halign">start</property>
                           </object>
-                          <packing>
-                            <property name="position">1</property>
-                          </packing>
                         </child>
                       </object>
                     </child>
                   </object>
                 </child>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">2</property>
+                  <property name="column-span">3</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">2</property>
-                <property name="width">3</property>
-                <property name="height">1</property>
-              </packing>
             </child>
             <child>
               <object class="GtkScrolledWindow" id="scrolled_window_message">
-                <property name="can_focus">True</property>
-                <property name="hexpand">True</property>
-                <property name="vexpand">True</property>
+                <property name="focusable">1</property>
+                <property name="hexpand">1</property>
+                <property name="vexpand">1</property>
                 <child>
                   <object class="GtkSourceView" id="source_view_message">
-                    <property name="can_focus">True</property>
+                    <property name="focusable">1</property>
                     <property name="left_margin">2</property>
                     <property name="right_margin">2</property>
-                    <property name="auto_indent">True</property>
-                    <property name="show_right_margin">True</property>
-                    <property name="right_margin_position">72</property>
-                    <property name="smart_home_end">after</property>
+                    <property name="auto-indent">1</property>
+                    <property name="show-right-margin">1</property>
+                    <property name="right-margin-position">72</property>
+                    <property name="smart-home-end">after</property>
                   </object>
                 </child>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">3</property>
+                  <property name="column-span">3</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">3</property>
-                <property name="width">3</property>
-                <property name="height">1</property>
-              </packing>
             </child>
             <child>
               <object class="GtkScrolledWindow" id="scrolled_window_stats">
-                <property name="vexpand">False</property>
+                <property name="vexpand">0</property>
                 <style>
                   <class name="view"/>
                   <class name="content-view"/>
                 </style>
                 <child>
                   <object class="GtkListBox" id="list_box_stats">
-                    <property name="can_focus">True</property>
+                    <property name="focusable">1</property>
                     <property name="selection_mode">none</property>
                     <style>
                       <class name="view"/>
@@ -180,61 +159,54 @@
                     </style>
                   </object>
                 </child>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">4</property>
+                  <property name="column-span">3</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">4</property>
-                <property name="width">3</property>
-                <property name="height">1</property>
-              </packing>
             </child>
             <child>
               <object class="GtkCheckButton" id="check_button_amend">
                 <property name="label" translatable="yes">_Amend previous commit</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="use_underline">True</property>
+                <property name="focusable">1</property>
+                <property name="receives_default">0</property>
+                <property name="use_underline">1</property>
                 <property name="halign">start</property>
-                <property name="draw_indicator">True</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">5</property>
+                  <property name="column-span">2</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">5</property>
-                <property name="width">2</property>
-                <property name="height">1</property>
-              </packing>
             </child>
             <child>
               <object class="GtkCheckButton" id="check_button_sign_off">
                 <property name="label" translatable="yes">Add _signed-off-by signature</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="use_underline">True</property>
+                <property name="focusable">1</property>
+                <property name="receives_default">0</property>
+                <property name="use_underline">1</property>
                 <property name="halign">start</property>
-                <property name="draw_indicator">True</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">6</property>
+                  <property name="column-span">2</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">6</property>
-                <property name="width">2</property>
-                <property name="height">1</property>
-              </packing>
             </child>
             <child>
               <object class="GtkCheckButton" id="check_button_sign_commit">
                 <property name="label" translatable="yes">Add si_gnature</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="use_underline">True</property>
+                <property name="focusable">1</property>
+                <property name="receives_default">0</property>
+                <property name="use_underline">1</property>
                 <property name="halign">start</property>
-                <property name="draw_indicator">True</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">7</property>
+                  <property name="column-span">2</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">7</property>
-                <property name="width">2</property>
-                <property name="height">1</property>
-              </packing>
             </child>
             <child>
               <object class="GtkBox">
@@ -253,7 +225,7 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="next_commit_message_button">
-                    <property name="sensitive">False</property>
+                    <property name="sensitive">0</property>
                     <signal name="clicked" handler="on_next_commit_message_button_clicked"/>
                     <child>
                       <object class="GtkImage">
@@ -262,21 +234,16 @@
                     </child>
                   </object>
                 </child>
+                <layout>
+                  <property name="column">2</property>
+                  <property name="row">7</property>
+                </layout>
               </object>
-              <packing>
-                <property name="left_attach">2</property>
-                <property name="top_attach">7</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
-              </packing>
             </child>
           </object>
-          <packing>
-            <property name="position">1</property>
-          </packing>
         </child>
       </object>
-    </child>
+    </property>
     <action-widgets>
       <action-widget response="cancel">cancel-button</action-widget>
       <action-widget response="ok">ok-button</action-widget>
