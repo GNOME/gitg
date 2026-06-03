@@ -107,21 +107,25 @@ public class CredentialsManager
 			var d = new AuthenticationDialog(url, username, tried != 0);
 			d.set_transient_for(d_window);
 
-			response = (Gtk.ResponseType)d.run();
+			d.response.connect((resp) => {
+					response = (Gtk.ResponseType)resp;
+					
+					if (response == Gtk.ResponseType.OK)
+						{
+							newusername = d.username;
+							password = d.password;
+							lifetime = d.life_time;
+						}
 
-			if (response == Gtk.ResponseType.OK)
-			{
-				newusername = d.username;
-				password = d.password;
-				lifetime = d.life_time;
-			}
+					d.destroy();
 
-			d.destroy();
+					mutex.lock();
+					cond.signal();
+					mutex.unlock();
+			});
 
-			mutex.lock();
-			cond.signal();
-			mutex.unlock();
-
+			d.present();
+			
 			return false;
 		});
 
