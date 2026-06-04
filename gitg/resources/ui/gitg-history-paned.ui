@@ -1,36 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <!-- interface-requires gtk+ 3.3 -->
-  <!-- interface-requires gitg 0.0 -->
-  <!-- interface-requires gd 1.0 -->
+  <requires lib="gtk" version="4.0"/>
   <template class="GitgHistoryPaned" parent="GitgAnimatedPaned">
-    <property name="hexpand">True</property>
-    <property name="vexpand">True</property>
-    <property name="can_focus">True</property>
+    <property name="hexpand">1</property>
+    <property name="vexpand">1</property>
+    <property name="focusable">1</property>
     <property name="position">200</property>
-    <property name="position_set">True</property>
+    <property name="position-set">1</property>
     <style>
       <class name="sidebar-paned"/>
     </style>
-    <child>
+    <property name="start-child">
       <object class="GtkBox" id="d_box_sidebar">
-        <property name="hexpand">True</property>
-        <property name="vexpand">True</property>
+        <property name="hexpand">1</property>
+        <property name="vexpand">1</property>
         <property name="orientation">vertical</property>
         <property name="spacing">6</property>
         <child>
           <object class="GtkScrolledWindow" id="scrolled_window_navigation">
-            <property name="can_focus">True</property>
-            <property name="hexpand">True</property>
-            <property name="vexpand">True</property>
-            <property name="hscrollbar_policy">never</property>
+            <property name="focusable">1</property>
+            <property name="hexpand">1</property>
+            <property name="vexpand">1</property>
+            <property name="hscrollbar-policy">never</property>
             <property name="name">scrolled_window_navigation</property>
             <style>
               <class name="sidebar"/>
             </style>
             <child>
               <object class="GitgHistoryRefsList" id="d_refs_list">
-                <property name="can_focus">True</property>
+                <property name="focusable">1</property>
                 <style>
                   <class name="sidebar"/>
                 </style>
@@ -42,43 +40,39 @@
           <object class="GtkStackSwitcher" id="d_stack_switcher_panels">
             <property name="halign">center</property>
             <property name="valign">center</property>
-            <property name="margin_bottom">6</property>
+            <property name="margin-bottom">6</property>
           </object>
         </child>
       </object>
-      <packing>
-        <property name="resize">False</property>
-        <property name="shrink">True</property>
-      </packing>
-    </child>
-    <child>
+    </property>
+    <property name="resize-start-child">0</property>
+    <property name="end-child">
       <object class="GitgAnimatedPaned" id="d_paned_panels">
-        <property name="hexpand">True</property>
-        <property name="vexpand">True</property>
-        <property name="can_focus">True</property>
+        <property name="hexpand">1</property>
+        <property name="vexpand">1</property>
+        <property name="focusable">1</property>
         <property name="orientation">vertical</property>
         <property name="position">300</property>
         <style>
           <class name="panels-paned"/>
         </style>
-        <child>
+        <property name="start-child">
           <object class="GtkScrolledWindow" id="d_scrolled_window_commit_list">
-            <property name="hexpand">True</property>
-            <property name="vexpand">True</property>
-            <property name="can_focus">True</property>
+            <property name="hexpand">1</property>
+            <property name="vexpand">1</property>
+            <property name="focusable">1</property>
             <child>
               <object class="GitgCommitListView" id="d_commit_list_view">
-                <property name="can_focus">True</property>
-                <property name="has_focus">True</property>
-                <property name="fixed-height-mode">True</property>
-                <property name="headers-visible">False</property>
-                <property name="enable-search">False</property>
+                <property name="focusable">1</property>
+                <property name="fixed-height-mode">1</property>
+                <property name="headers-visible">0</property>
+                <property name="enable-search">0</property>
                 <child>
                   <object class="GtkTreeViewColumn" id="column_commit_list_subject">
                     <property name="title" translatable="yes">Subject</property>
                     <property name="sizing">fixed</property>
-                    <property name="resizable">True</property>
-                    <property name="expand">True</property>
+                    <property name="resizable">1</property>
+                    <property name="expand">1</property>
                     <property name="fixed-width">400</property>
                     <child>
                       <object class="GitgCellRendererLanes" id="renderer_commit_list_subject">
@@ -94,7 +88,7 @@
                   <object class="GtkTreeViewColumn" id="column_commit_list_author">
                     <property name="title" translatable="yes">Author</property>
                     <property name="sizing">fixed</property>
-                    <property name="resizable">True</property>
+                    <property name="resizable">1</property>
                     <property name="fixed-width">180</property>
                     <child>
                       <object class="GtkCellRendererText" id="renderer_commit_list_author">
@@ -110,7 +104,7 @@
                   <object class="GtkTreeViewColumn" id="column_commit_list_committer_name">
                     <property name="title" translatable="yes">Committer</property>
                     <property name="sizing">fixed</property>
-                    <property name="resizable">True</property>
+                    <property name="resizable">1</property>
                     <property name="fixed-width">180</property>
                     <child>
                       <object class="GtkCellRendererText" id="renderer_commit_list_commiter_name">
@@ -126,7 +120,7 @@
                   <object class="GtkTreeViewColumn" id="column_commit_list_sha1">
                     <property name="title" translatable="yes">SHA1</property>
                     <property name="sizing">fixed</property>
-                    <property name="resizable">True</property>
+                    <property name="resizable">1</property>
                     <property name="fixed-width">180</property>
                     <child>
                       <object class="GtkCellRendererText" id="renderer_commit_list_sha1">
@@ -142,7 +136,7 @@
                   <object class="GtkTreeViewColumn" id="column_commit_list_author_date">
                     <property name="title" translatable="yes">Date</property>
                     <property name="sizing">fixed</property>
-                    <property name="resizable">True</property>
+                    <property name="resizable">1</property>
                     <property name="fixed-width">150</property>
                     <child>
                       <object class="GtkCellRendererText" id="renderer_commit_list_author_date">
@@ -157,20 +151,16 @@
               </object>
             </child>
           </object>
-        </child>
-        <child>
+        </property>
+        <property name="end-child">
           <object class="GtkStack" id="d_stack_panel">
             <child>
               <placeholder/>
             </child>
           </object>
-          <packing>
-            <property name="resize">True</property>
-            <property name="shrink">True</property>
-          </packing>
-        </child>
+        </property>
       </object>
-    </child>
+    </property>
   </template>
 </interface>
 <!-- ex:set ts=2 et: -->

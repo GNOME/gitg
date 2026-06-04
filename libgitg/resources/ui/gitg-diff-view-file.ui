@@ -1,34 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.19.0 -->
 <interface>
-  <requires lib="gtk+" version="3.16"/>
+  <requires lib="gtk" version="4.0"/>
   <template class="GitgDiffViewFile" parent="GtkGrid">
-    <property name="hexpand">True</property>
+    <property name="hexpand">1</property>
     <property name="orientation">vertical</property>
     <style>
       <class name="gitg-file-header"/>
     </style>
     <child>
       <object class="GtkBox" id="header_grid">
-        <property name="homogeneous">False</property>
         <property name="orientation">horizontal</property>
         <child>
           <object class="GtkExpander" id="expander">
-            <property name="can_focus">True</property>
-            <property name="hexpand">True</property>
-            <property name="margin_start">3</property>
+            <property name="focusable">1</property>
+            <property name="hexpand">1</property>
+            <property name="margin-start">3</property>
             <child type="label">
               <object class="GtkGrid" id="grid_file_header">
-                <property name="hexpand">True</property>
-                <property name="row_spacing">6</property>
-                <property name="column_spacing">12</property>
+                <property name="hexpand">1</property>
+                <property name="row-spacing">6</property>
+                <property name="column-spacing">12</property>
                 <property name="orientation">horizontal</property>
                 <child>
                   <object class="GitgDiffStat" id="diff_stat_file">
-                    <property name="vexpand">False</property>
+                    <property name="vexpand">0</property>
                     <property name="valign">baseline</property>
-                    <property name="margin_top">6</property>
-                    <property name="margin_bottom">6</property>
+                    <property name="margin-top">6</property>
+                    <property name="margin-bottom">6</property>
                     <style>
                       <class name="no-frame"/>
                     </style>
@@ -36,40 +34,34 @@
                 </child>
                 <child>
                   <object class="GtkLabel" id="label_file_header">
-                    <property name="hexpand">True</property>
+                    <property name="hexpand">1</property>
                     <property name="label">the/file/header</property>
                     <property name="halign">start</property>
-                    <property name="margin_top">6</property>
-                    <property name="margin_bottom">6</property>
+                    <property name="margin-top">6</property>
+                    <property name="margin-bottom">6</property>
                   </object>
                 </child>
               </object>
             </child>
           </object>
-          <packing>
-            <property name="pack-type">start</property>
-          </packing>
         </child>
-        <child>
+        <child type="end">
           <object class="GtkStackSwitcher" id="stack_switcher">
-            <property name="visible">False</property>
+            <property name="visible">0</property>
             <property name="stack">stack_file_renderer</property>
           </object>
-          <packing>
-            <property name="pack-type">end</property>
-          </packing>
         </child>
       </object>
     </child>
     <child>
       <object class="GtkRevealer" id="revealer_content">
-        <property name="transition_type">slide-down</property>
+        <property name="transition-type">slide-down</property>
         <child>
           <object class="GtkStack" id="stack_file_renderer">
-            <property name="vexpand">True</property>
-            <property name="hexpand">True</property>
-            <property name="hhomogeneous">False</property>
-            <property name="vhomogeneous">False</property>
+            <property name="vexpand">1</property>
+            <property name="hexpand">1</property>
+            <property name="hhomogeneous">0</property>
+            <property name="vhomogeneous">0</property>
           </object>
         </child>
       </object>

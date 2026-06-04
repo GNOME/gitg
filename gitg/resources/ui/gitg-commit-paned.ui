@@ -1,133 +1,117 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <!-- interface-requires gtk+ 3.3 -->
-  <!-- interface-requires gitg 3.0 -->
+  <requires lib="gtk" version="4.0"/>
   <template class="GitgCommitPaned" parent="GtkPaned">
-    <property name="hexpand">True</property>
-    <property name="vexpand">True</property>
-    <property name="can_focus">True</property>
+    <property name="hexpand">1</property>
+    <property name="vexpand">1</property>
+    <property name="focusable">1</property>
     <property name="position">200</property>
-    <property name="position_set">True</property>
+    <property name="position-set">1</property>
     <style>
       <class name="sidebar-paned"/>
     </style>
-    <child>
+    <property name="start-child">
       <object class="GtkBox">
-        <property name="hexpand">True</property>
-        <property name="vexpand">True</property>
+        <property name="hexpand">1</property>
+        <property name="vexpand">1</property>
         <property name="orientation">vertical</property>
         <child>
           <object class="GtkSearchBar" id="commit_files_search_bar">
-            <property name="hexpand">True</property>
-            <property name="can_focus">True</property>
-            <property name="show-close-button">False</property>
-            <property name="search_mode_enabled">True</property>
+            <property name="hexpand">1</property>
+            <property name="focusable">1</property>
+            <property name="show-close-button">0</property>
+            <property name="search-mode-enabled">1</property>
             <child>
               <object class="GtkSearchEntry" id="commit_files_search_entry">
-                <property name="hexpand">True</property>
-                <property name="can_focus">True</property>
-                <property name="placeholder_text" translatable="yes">Filter Files</property>
+                <property name="hexpand">1</property>
+                <property name="focusable">1</property>
+                <property name="placeholder-text" translatable="yes">Filter Files</property>
               </object>
             </child>
           </object>
         </child>
         <child>
           <object class="GtkScrolledWindow" id="scrolled_window_files">
-            <property name="can_focus">True</property>
-            <property name="hexpand">True</property>
-            <property name="vexpand">True</property>
-            <property name="hscrollbar_policy">never</property>
+            <property name="focusable">1</property>
+            <property name="hexpand">1</property>
+            <property name="vexpand">1</property>
+            <property name="hscrollbar-policy">never</property>
             <property name="name">scrolled_window_files</property>
             <style>
               <class name="sidebar"/>
             </style>
             <child>
               <object class="GitgCommitSidebar" id="tree_view_files">
-                <property name="can_focus">True</property>
-                <property name="headers_visible">False</property>
+                <property name="focusable">1</property>
+                <property name="headers-visible">0</property>
                 <property name="name">tree_view_files</property>
               </object>
             </child>
           </object>
         </child>
       </object>
-    </child>
-    <child>
+    </property>
+    <property name="end-child">
       <object class="GtkBox" id="box_sidebar">
-        <property name="hexpand">True</property>
-        <property name="vexpand">True</property>
+        <property name="hexpand">1</property>
+        <property name="vexpand">1</property>
         <property name="orientation">vertical</property>
         <child>
           <object class="GitgDiffView" id="diff_view">
-            <property name="hexpand">True</property>
-            <property name="vexpand">True</property>
-            <property name="can_focus">True</property>
-            <property name="handle_selection">True</property>
+            <property name="hexpand">1</property>
+            <property name="vexpand">1</property>
+            <property name="focusable">1</property>
+            <property name="handle_selection">1</property>
           </object>
         </child>
         <child>
           <object class="GitgCommitSubmoduleHistoryView" id="submodule_history_view">
-            <property name="visible">False</property>
+            <property name="visible">0</property>
           </object>
         </child>
         <child>
           <object class="GitgCommitSubmoduleDiffView" id="submodule_diff_view">
-            <property name="visible">False</property>
-            <property name="margin_start">12</property>
-            <property name="margin_end">12</property>
-            <property name="margin_top">12</property>
-            <property name="margin_bottom">12</property>
+            <property name="visible">0</property>
+            <property name="margin-start">12</property>
+            <property name="margin-end">12</property>
+            <property name="margin-top">12</property>
+            <property name="margin-bottom">12</property>
           </object>
         </child>
-        <child>
+        <child type="end">
           <object class="GtkActionBar" id="box_commit">
-            <child>
+            <child type="start">
               <object class="GtkCheckButton" id="check_button_skip_hooks">
                 <property name="halign">start</property>
-                <property name="hexpand">True</property>
-                <property name="use_underline">True</property>
+                <property name="hexpand">1</property>
+                <property name="use-underline">1</property>
                 <property name="label" translatable="yes">Skip commit _hooks</property>
               </object>
-              <packing>
-                <property name="pack-type">start</property>
-              </packing>
             </child>
-            <child>
+            <child type="end">
               <object class="GtkButton" id="button_commit">
-                <property name="use_underline">True</property>
+                <property name="use-underline">1</property>
                 <property name="label" translatable="yes">C_ommit</property>
               </object>
-              <packing>
-                <property name="pack-type">end</property>
-              </packing>
             </child>
-            <child>
+            <child type="end">
               <object class="GtkButton" id="button_stage">
-                <property name="use_underline">True</property>
+                <property name="use-underline">1</property>
                 <property name="label" translatable="yes">S_tage selection</property>
-                <property name="sensitive">False</property>
+                <property name="sensitive">0</property>
               </object>
-              <packing>
-                <property name="pack-type">end</property>
-              </packing>
             </child>
-            <child>
+            <child type="end">
               <object class="GtkButton" id="button_discard">
-                <property name="use_underline">True</property>
+                <property name="use-underline">1</property>
                 <property name="label" translatable="yes">D_iscard selection</property>
-                <property name="sensitive">False</property>
+                <property name="sensitive">0</property>
               </object>
-              <packing>
-                <property name="pack-type">end</property>
-              </packing>
             </child>
           </object>
-          <packing>
-            <property name="pack-type">end</property>
-          </packing>
         </child>
       </object>
-    </child>
+    </property>
   </template>
 </interface>
 <!-- ex:set ts=2 et: -->
