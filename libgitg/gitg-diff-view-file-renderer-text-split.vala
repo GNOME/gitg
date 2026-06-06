@@ -141,8 +141,8 @@ class Gitg.DiffViewFileRendererTextSplit : Gtk.Box, DiffSelectable, DiffViewFile
 		Object(info: info);
 		d_renderer_left = new Gitg.DiffViewFileRendererText(info, handle_selection, DiffViewFileRendererText.Style.OLD);
 		d_renderer_right = new Gitg.DiffViewFileRendererText(info, handle_selection, DiffViewFileRendererText.Style.NEW);
-		d_scroll_left.add(d_renderer_left);
-		d_scroll_right.add(d_renderer_right);
+		d_scroll_left.set_child(d_renderer_left);
+		d_scroll_right.set_child(d_renderer_right);
 
 		setup_hscrollbar_margins(d_scroll_left, d_renderer_left);
 		setup_hscrollbar_margins(d_scroll_right, d_renderer_right);
