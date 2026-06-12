@@ -230,8 +230,8 @@ namespace Gitg
 								label.set_attributes(attr_list);
 								label.show();
 
-								frame.add(label);
-								d_languages_box.add(frame);
+								frame.set_child(label);
+								d_languages_box.append(frame);
 							}
 						}
 					} catch {}
