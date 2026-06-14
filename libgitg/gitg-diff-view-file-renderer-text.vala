@@ -650,15 +650,15 @@ class Gitg.DiffViewFileRendererText : GtkSource.View, DiffSelectable, DiffViewFi
 
 		if (dark)
 		{
-			header_attributes.background = Gdk.RGBA() { red = 88.0 / 255.0, green = 88.0 / 255.0, blue = 88.0 / 255.0, alpha = 1.0 };
-			added_attributes.background = Gdk.RGBA() { red = 32.0 / 255.0, green = 68.0 / 255.0, blue = 21.0 / 255.0, alpha = 1.0 };
-			removed_attributes.background = Gdk.RGBA() { red = 130.0 / 255.0, green = 55.0 / 255.0, blue = 53.0 / 255.0, alpha = 1.0 };
+			header_attributes.background = Gdk.RGBA() { red = 88.0f / 255.0f, green = 88.0f / 255.0f, blue = 88.0f / 255.0f, alpha = 1.0f };
+			added_attributes.background = Gdk.RGBA() { red = 32.0f / 255.0f, green = 68.0f / 255.0f, blue = 21.0f / 255.0f, alpha = 1.0f };
+			removed_attributes.background = Gdk.RGBA() { red = 130.0f / 255.0f, green = 55.0f / 255.0f, blue = 53.0f / 255.0f, alpha = 1.0f };
 		}
 		else
 		{
-			header_attributes.background = Gdk.RGBA() { red = 244.0 / 255.0, green = 247.0 / 255.0, blue = 251.0 / 255.0, alpha = 1.0 };
-			added_attributes.background = Gdk.RGBA() { red = 220.0 / 255.0, green = 1.0, blue = 220.0 / 255.0, alpha = 1.0 };
-			removed_attributes.background = Gdk.RGBA() { red = 1.0, green = 220.0 / 255.0, blue = 220.0 / 255.0, alpha = 1.0 };
+			header_attributes.background = Gdk.RGBA() { red = 244.0f / 255.0f, green = 247.0f / 255.0f, blue = 251.0f / 255.0f, alpha = 1.0f };
+			added_attributes.background = Gdk.RGBA() { red = 220.0f / 255.0f, green = 1.0f, blue = 220.0f / 255.0f, alpha = 1.0f };
+			removed_attributes.background = Gdk.RGBA() { red = 1.0f, green = 220.0f / 255.0f, blue = 220.0f / 255.0f, alpha = 1.0f };
 		}
 
 		this.set_mark_attributes("header", header_attributes, 0);
