@@ -211,6 +211,9 @@ class Gitg.DiffViewFileRendererText : GtkSource.View, DiffSelectable, DiffViewFi
 			gutter.insert(d_old_lines, 0);
 			gutter.insert(d_new_lines, 1);
 			gutter.insert(d_sym_lines, 2);
+
+			d_old_lines.add_css_class("diff-lines-separator");
+			d_sym_lines.add_css_class("diff-lines-gutter-border");
 		}
 		else if (d_style == Style.OLD)
 		{
@@ -224,6 +227,7 @@ class Gitg.DiffViewFileRendererText : GtkSource.View, DiffSelectable, DiffViewFi
 
 			gutter.insert(d_old_lines, 0);
 			gutter.insert(d_sym_lines, 1);
+			d_sym_lines.add_css_class("diff-lines-gutter-border");
 		}
 		else if (d_style == Style.NEW)
 		{
@@ -237,9 +241,9 @@ class Gitg.DiffViewFileRendererText : GtkSource.View, DiffSelectable, DiffViewFi
 
 			gutter.insert(d_new_lines, 0);
 			gutter.insert(d_sym_lines, 1);
-		}
 
-		this.set_border_window_size(Gtk.TextWindowType.TOP, 1);
+			d_sym_lines.add_css_class("diff-lines-gutter-border");
+		}
 
 		var settings = Gtk.Settings.get_default();
 		settings.notify["gtk-application-prefer-dark-theme"].connect(update_theme);
@@ -586,58 +590,6 @@ class Gitg.DiffViewFileRendererText : GtkSource.View, DiffSelectable, DiffViewFi
 				buffer.apply_tag(tag, buffer_iter, buffer_end_iter);
 			}
 		}
-	}
-
-	protected override bool draw(Cairo.Context cr)
-	{
-		base.draw(cr);
-
-		var win = this.get_window(Gtk.TextWindowType.LEFT);
-
-		if (!Gtk.cairo_should_draw_window(cr, win))
-		{
-			return false;
-		}
-
-		var ctx = this.get_style_context();
-
-		var old_lines_width = 0;
-		var new_lines_width = 0;
-
-		switch (d_style)
-		{
-		case Style.ONE:
-			old_lines_width = d_old_lines.size + d_old_lines.xpad * 2;
-			new_lines_width = d_new_lines.size + d_new_lines.xpad * 2;
-			break;
-
-		case Style.OLD:
-			old_lines_width = d_old_lines.size + d_old_lines.xpad * 2;
-			break;
-
-		case Style.NEW:
-			new_lines_width = d_new_lines.size + d_new_lines.xpad * 2;
-			break;
-		}
-
-		var sym_lines_width = d_sym_lines.size + d_sym_lines.xpad * 2;
-
-		if (d_style == Style.ONE)
-		{
-			ctx.save();
-			Gtk.cairo_transform_to_window(cr, this, win);
-			ctx.add_class("diff-lines-separator");
-			ctx.render_frame(cr, 0, 0, old_lines_width, win.get_height());
-			ctx.restore();
-		}
-
-		ctx.save();
-		Gtk.cairo_transform_to_window(cr, this, win);
-		ctx.add_class("diff-lines-gutter-border");
-		ctx.render_frame(cr, old_lines_width + new_lines_width, 0, sym_lines_width, win.get_height());
-		ctx.restore();
-
-		return false;
 	}
 
 	private void update_theme()

@@ -82,8 +82,9 @@ class Gitg.DiffViewLinesRenderer : GtkSource.GutterRendererText
 	construct
 	{
 		d_hunks_list = new Gee.ArrayList<HunkInfo?>();
-
-		set_alignment(1.0f, 0.5f);
+                xalign = 1.0f;
+		yalign = 0.5f;
+		
 		calculate_num_digits();
 	}
 
@@ -155,11 +156,11 @@ class Gitg.DiffViewLinesRenderer : GtkSource.GutterRendererText
 
 	private void recalculate_size()
 	{
-		int size = 0;
+		int width = 0;
 		int height = 0;
 
-		measure(@"$d_num_digits_fill", out size, out height);
-		set_size(size);
+		measure(@"$d_num_digits_fill", out width, out height);
+		set_size_request(width + get_xpad() * 2, -1);
 	}
 
 	private void calculate_num_digits()
