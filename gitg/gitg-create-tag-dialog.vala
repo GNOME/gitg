@@ -105,7 +105,10 @@ class CreateTagDialog : Gtk.Dialog
 	private void update_info_tag()
 	{
 		var ctx = d_text_view_message.get_style_context();
-		d_info_tag.foreground_rgba = ctx.get_color(Gtk.StateFlags.INSENSITIVE);
+		ctx.save();
+		ctx.set_state(Gtk.StateFlags.INSENSITIVE);
+		d_info_tag.foreground_rgba = ctx.get_color();
+		ctx.restore();
 	}
 
 	public CreateTagDialog(Gtk.Window? parent)

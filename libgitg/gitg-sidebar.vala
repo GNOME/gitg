@@ -255,7 +255,7 @@ public class Sidebar : Gtk.TreeView
 
 				context.save();
 				context.set_state(Gtk.StateFlags.INSENSITIVE);
-				var col = context.get_color(context.get_state());
+				var col = context.get_color();
 				context.restore();
 
 				r.foreground_rgba = col;

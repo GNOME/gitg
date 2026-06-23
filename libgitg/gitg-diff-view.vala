@@ -366,10 +366,10 @@ public class Gitg.DiffView : Gtk.Grid
 
 		context.save ();
 		context.set_state (Gtk.StateFlags.LINK);
-		d_color_link = context.get_color (context.get_state ());
+		d_color_link = context.get_color ();
 
 		context.set_state (Gtk.StateFlags.LINK | Gtk.StateFlags.PRELIGHT);
-		color_hovered_link = context.get_color (context.get_state ());
+		color_hovered_link = context.get_color ();
 		context.restore ();
 
 		textview.buffer.tag_table.foreach ((tag) =>
