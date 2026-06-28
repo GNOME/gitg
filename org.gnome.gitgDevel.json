@@ -164,6 +164,23 @@
             ]
         },
         {
+          "name": "libhandy",
+          "buildsystem": "meson",
+          "config-opts": [
+            "-Dglade_catalog=disabled",
+            "-Dexamples=false",
+            "-Dtests=false",
+            "-Dvapi=true"
+          ],
+          "sources": [
+            {
+              "type": "git",
+              "url": "https://gitlab.gnome.org/GNOME/libhandy",
+              "branch": "main"
+            }
+          ]
+        },
+        {
             "name": "gitg",
             "buildsystem": "meson",
             "builddir": true,
