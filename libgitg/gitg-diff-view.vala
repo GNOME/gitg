@@ -256,7 +256,7 @@ public class Gitg.DiffView : Gtk.Grid
 	{
 		var expanded = d_commit_details.expanded;
 
-		foreach (var file in d_grid_files.get_children())
+		foreach (var file in get_grid_children(d_grid_files))
 		{
 			((Gitg.DiffViewFile) file).expanded = expanded;
 		}
@@ -619,7 +619,7 @@ public class Gitg.DiffView : Gtk.Grid
 	{
 		bool something_selected = false;
 
-		foreach (var file in d_grid_files.get_children())
+		foreach (var file in  get_grid_children(d_grid_files))
 		{
 			if (((Gitg.DiffViewFile) file).has_selection())
 			{
@@ -971,7 +971,7 @@ public class Gitg.DiffView : Gtk.Grid
 		add_hunk();
 		add_file();
 
-		var file_widgets = d_grid_files.get_children();
+		var file_widgets = get_grid_children(d_grid_files);
 		var was_expanded = new Gee.HashSet<string>();
 
 		foreach (var file in file_widgets)
@@ -988,7 +988,7 @@ public class Gitg.DiffView : Gtk.Grid
 				}
 			}
 
-			f.destroy();
+			d_grid_files.remove(f);
 		}
 
 		d_commit_details.expanded = (files.size <= 1 || !default_collapse_all);
@@ -1006,7 +1006,7 @@ public class Gitg.DiffView : Gtk.Grid
 				file.vexpand = true;
 			}
 
-			d_grid_files.add(file);
+			d_grid_files.attach(file, 0, i, 1, 1);
 
 			file.notify["expanded"].connect(auto_update_expanded);
 		}
@@ -1014,7 +1014,7 @@ public class Gitg.DiffView : Gtk.Grid
 
 	private void auto_update_expanded()
 	{
-		foreach (var file in d_grid_files.get_children())
+		foreach (var file in get_grid_children(d_grid_files))
 		{
 			if (!((Gitg.DiffViewFile) file).expanded)
 			{
@@ -1030,7 +1030,7 @@ public class Gitg.DiffView : Gtk.Grid
 	{
 		var ret = new PatchSet[0];
 
-		foreach (var file in d_grid_files.get_children())
+		foreach (var file in get_grid_children(d_grid_files))
 		{
 			ret += ((Gitg.DiffViewFile)file).get_selection();
 		}
@@ -1040,7 +1040,7 @@ public class Gitg.DiffView : Gtk.Grid
 
 	public void clear_selection()
 	{
-		foreach (var file in d_grid_files.get_children())
+		foreach (var file in get_grid_children(d_grid_files))
 		{
 			((Gitg.DiffViewFile)file).clear_selection();
 		}
@@ -1092,6 +1092,22 @@ public class Gitg.DiffView : Gtk.Grid
 			}
 		}
 	}
+
+	private Gee.ArrayList<Gtk.Widget> get_grid_children(Gtk.Grid grid)
+	{
+		var children = new Gee.ArrayList<Gtk.Widget>();
+
+		var child = grid.get_first_child();
+
+		while (child != null)
+		{
+			children.add(child);
+			child = child.get_next_sibling();
+		}
+
+		return children;
+	}
+
 	public override void css_changed(Gtk.CssStyleChange change)
 	{
 		base.css_changed(change);
