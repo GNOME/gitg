@@ -427,13 +427,15 @@ class Dialog : Gtk.Dialog
 				}
 				else
 				{
-					d_image_avatar.set_from_icon_name("avatar-default-symbolic", Gtk.IconSize.DIALOG);
+					d_image_avatar.set_from_icon_name("avatar-default-symbolic");
+					d_image_avatar.set_icon_size(Gtk.IconSize.LARGE);
 				}
 			});
 		}
 		else
 		{
-			d_image_avatar.set_from_icon_name("avatar-default-symbolic", Gtk.IconSize.DIALOG);
+			d_image_avatar.set_from_icon_name("avatar-default-symbolic");
+			d_image_avatar.set_icon_size(Gtk.IconSize.LARGE);
 		}
 	}
 

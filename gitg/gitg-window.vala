@@ -620,7 +620,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			add_action (show_global_actions);
 
 			d_gear_menu.menu_model = menu;
-			gear_image.set_from_icon_name ("view-more-symbolic", BUTTON);
+			gear_image.set_from_icon_name ("view-more-symbolic");
 			d_gear_menu.show();
 			d_gear_menu.sensitive = true;
 			var click_gesture = new Gtk.GestureClick();
@@ -646,7 +646,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			d_add_button.show();
 
 			d_gear_menu.menu_model = d_dash_model;
-			gear_image.set_from_icon_name ("open-menu-symbolic", BUTTON);
+			gear_image.set_from_icon_name ("open-menu-symbolic");
 			d_gear_menu.visible = d_dash_model != null;
 			d_gear_menu.sensitive = d_dash_model != null;
 		}

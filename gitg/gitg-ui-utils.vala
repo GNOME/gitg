@@ -387,7 +387,8 @@ public class UiUtils
 		                                    Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
 		                                    type, Gtk.ButtonsType.OK_CANCEL, message);
 
-		var img = new Gtk.Image.from_icon_name (icon_name, Gtk.IconSize.DIALOG);
+		var img = new Gtk.Image.from_icon_name (icon_name);
+		img.set_icon_size (Gtk.IconSize.LARGE);
 		dialog.set_image (img);
 
 		dialog.set_default_size (360, 120);
