@@ -37,9 +37,9 @@ public class UiUtils
 		return dlg;
 	}
 
-	public delegate Gtk.MenuItem BuildMenuItem(string action_prefix, Gee.HashMap<string, Gtk.MenuItem> item_groups);
+	public delegate GLib.MenuItem? BuildMenuItem(string action_prefix, Gee.HashMap<string, GLib.Menu> item_groups);
 
-	public static void add_custom_actions(Gtk.Menu menu,
+	public static void add_custom_actions(GLib.Menu menu,
 	                                      string type,
 	                                      Ggit.Config config,
 	                                      Regex regex_custom_actions,
@@ -49,10 +49,11 @@ public class UiUtils
 		menu.set_data("items", 0);
 		try
 		{
-			var item_groups = new Gee.HashMap<string, Gtk.MenuItem> ();
+			var item_groups = new Gee.HashMap<string, GLib.Menu> ();
 			config.match_foreach(regex_custom_actions_group, (match_info, val) => {
 				if (!item_groups.contains(val)) {
-					var item_group = new Gtk.MenuItem.with_label(val);
+					var item_group = new GLib.Menu();
+					item_group.set_data("items", 0);
 					item_groups.set(val, item_group);
 				}
 				return 0;
@@ -67,8 +68,7 @@ public class UiUtils
 				{
 					var item = build_menu_item(action_key_prefix, item_groups);
 					if (item != null) {
-						item.show();
-						menu.append(item);
+						menu.append_item(item);
 						int items = menu.get_data<int>("items");
 						menu.set_data("items", ++items);
 					}
@@ -79,12 +79,12 @@ public class UiUtils
 				return 0;
 			});
 
-			foreach (var item in item_groups.values) {
-				if (item.get_data<int>("items") > 0) {
-					menu.append(item);
+			foreach (var val in item_groups.keys) {
+				var item_group = item_groups.get(val);
+				if (item_group.get_data<int>("items") > 0) {
+					menu.append_submenu(val, item_group);
 					int items = menu.get_data<int>("items");
 					menu.set_data("items", ++items);
-					item.show();
 				}
 			}
 		} catch (Error e)
@@ -160,9 +160,10 @@ public class UiUtils
 
 	public delegate Gee.HashMap<string, string> BuildObjectVars();
 
-	public static Gtk.MenuItem build_custom_action(Gitg.Window parent, Ggit.Config conf,
+	public static GLib.MenuItem? build_custom_action(Gitg.Window parent, Ggit.Config conf,
 	                                               string action_key_prefix,
-	                                               Gee.HashMap<string, Gtk.MenuItem> groups,
+	                                               Gee.HashMap<string, GLib.Menu> groups,
+	                                               GLib.SimpleActionGroup actions,
 												   //BuildDialog build_dialog,
 												   BuildObjectVars build_object_vars = null)
 	{
@@ -241,19 +242,20 @@ public class UiUtils
 				return null;
 		}
 
-		var item = new Gtk.MenuItem.with_label(name);
+		var action_name_id = name.down().replace(" ", "_");
+		var action = new GLib.SimpleAction(action_name_id, null);
 
 		bool enabled_is_flag = false;
 		try {
 			var enabled_flag = conf.get_bool(action_key_prefix+"enabled");
 			if (!enabled_flag)
-				item.sensitive = false;
+				action.set_enabled(false);
 			enabled_is_flag = true;
 		} catch {}
 		if (!enabled_is_flag && enabled != "") {
 			var enabled_command = render_template (enabled, object_vars, dialog_vars);
 			if (enabled_command == null)
-				item.sensitive = false;
+				action.set_enabled(false);
 			else {
 				int exit_status;
 				string stdout_data, stderr_data;
@@ -263,56 +265,28 @@ public class UiUtils
 				                                                out exit_status);
 				if (!spawned) {
 					stderr.printf ("Failed to check enabled action %s\n: %s\n", name, stderr_data);
-					item.sensitive = false;
+					action.set_enabled(false);
 				} else if (exit_status != 0)
-					item.sensitive = false;
+					action.set_enabled(false);
 			}
 		}
 
+		var item = new GLib.MenuItem(name, "popup." + action_name_id);
 		var item_result = item;
 
 		try {
 			var group = conf.get_string(action_key_prefix+"group");
 			var item_group = groups.get(group);
-			Gtk.Menu submenu;
-			if (item_group.submenu != null)
-				submenu = item_group.submenu;
-			else {
-				submenu = new Gtk.Menu();
-				item_group.submenu = submenu;
-				item_group.set_data("items", 0);
-			}
-			submenu.add(item);
+			item_group.append_item(item);
 			int items = item_group.get_data<int>("items");
 			item_group.set_data("items", ++items);
-			item.show();
 			item_result = null;
 		} catch {}
 
-		item.set_tooltip_text(description);
+		// TODO: Tooltips and accelerators for GLib.MenuItem
+		// if (shortcut != null) { ... }
 
-		if (shortcut != null) {
-			uint key;
-			Gdk.ModifierType mods;
-
-			Gtk.accelerator_parse (shortcut, out key, out mods);
-
-			//var accel_group = new Gtk.AccelGroup ();
-			var accel_group = parent.get_accel_group();
-			//TODO: Get accel_group from main window
-
-			if (key != 0) {
-				item.add_accelerator (
-					"activate",
-					accel_group,
-					key,
-					mods,
-					Gtk.AccelFlags.VISIBLE
-				);
-			}
-		}
-
-		item.activate.connect(() => {
+		action.activate.connect(() => {
 			var cmd = render_template (command, object_vars, dialog_vars);
 			if (cmd == null)
 				return;
@@ -343,6 +317,8 @@ public class UiUtils
 				dlg.show();
 			}
 		});
+
+		actions.add_action(action);
 
 		return item_result;
 	}

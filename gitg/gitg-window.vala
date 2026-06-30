@@ -610,11 +610,19 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			menu.append_item(global_actions_item);
 
 			var show_global_actions = new SimpleAction ("global-actions", null);
-			Gtk.Menu menu_actions = null;
+			GLib.Menu menu_actions = null;
+			var custom_actions_group = new GLib.SimpleActionGroup();
+			this.insert_action_group("popup", custom_actions_group);
+
+			Gtk.PopoverMenu popover = null;
 			show_global_actions.activate.connect ((p) => {
 				if (menu_actions != null) {
-					menu_actions.show_all ();
-					menu_actions.popup_at_widget ((Gtk.Window)this, Gdk.Gravity.CENTER, Gdk.Gravity.CENTER, null);
+					if (popover == null) {
+						popover = new Gtk.PopoverMenu.from_model(menu_actions);
+						popover.set_parent(this);
+						popover.set_has_arrow(false);
+					}
+					popover.popup();
 				}
 			});
 			add_action (show_global_actions);
@@ -625,14 +633,14 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			d_gear_menu.sensitive = true;
 			var click_gesture = new Gtk.GestureClick();
 			click_gesture.pressed.connect((n_press, x, y) => {
-				menu_actions = load_global_actions();
+				menu_actions = load_global_actions(custom_actions_group);
 				bool has_items = menu_actions.get_data<int>("items") > 0;
-				global_actions_item.set_attribute("visible", "b", has_items);
+				global_actions_item.set_attribute_value("hidden-when", new GLib.Variant.string(has_items ? "" : "action-disabled"));
 				if (!has_items)
 					menu_actions = null;
 			});
 			d_gear_menu.add_controller(click_gesture);
-			menu_actions = load_global_actions();
+			menu_actions = load_global_actions(custom_actions_group);
 		}
 		else
 		{
@@ -664,8 +672,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		}
 	}
 
-	private Gtk.Menu load_global_actions() {
-		var menu = new Gtk.Menu();
+	private GLib.Menu load_global_actions(GLib.SimpleActionGroup actions) {
+		var menu = new GLib.Menu();
 		var conf = d_repository.get_config().snapshot();
 		Gitg.UiUtils.add_custom_actions(menu, "global",
 		                                conf, regex_custom_actions_global,
@@ -674,7 +682,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		  return Gitg.UiUtils.build_custom_action(this,
 		                                          conf,
 		                                          action_key_prefix,
-		                                          item_groups
+		                                          item_groups,
+		                                          actions
 		  );
 		});
 		return menu;
