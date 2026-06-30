@@ -308,11 +308,11 @@ class Gitg.DiffViewFile : Gtk.Grid
 		open_file_action.activate.connect(() => {
 			try
 			{
-				Gtk.show_uri_on_window((Gtk.Window)d_expander.get_toplevel(), location.get_uri(), Gdk.CURRENT_TIME);
+				GLib.AppInfo.launch_default_for_uri(location.get_uri(), null);
 			}
 			catch (Error e)
 			{
-				stderr.printf(@"Failed to open file: $(e.message)\n");
+				stderr.printf("Error opening file: %s", e.message);
 			}
 		});
 		action_group.add_action(open_file_action);
@@ -322,11 +322,11 @@ class Gitg.DiffViewFile : Gtk.Grid
 		open_folder_action.activate.connect(() => {
 			try
 			{
-				Gtk.show_uri_on_window((Gtk.Window)d_expander.get_toplevel(), location.get_parent().get_uri(), Gdk.CURRENT_TIME);
+				GLib.AppInfo.launch_default_for_uri(location.get_parent().get_uri(), null);
 			}
 			catch (Error e)
 			{
-				stderr.printf(@"Failed to open folder: $(e.message)\n");
+				stderr.printf("Error opening folder: %s", e.message);
 			}
 		});
 

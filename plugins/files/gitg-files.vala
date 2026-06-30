@@ -334,12 +334,13 @@ namespace GitgFiles
 				bool success = false;
 				try
 				{
-					success = Gtk.show_uri_on_window((Gtk.Window)d_paned.get_toplevel(), file.get_uri(), Gdk.CURRENT_TIME);
-				} catch (Error e) {
-					stderr.printf("Failed to open application \n");
-					return;
+					success = GLib.AppInfo.launch_default_for_uri(file.get_uri(), null);
 				}
-
+				catch (Error e)
+				{
+					success = false;
+				}
+				
 				if (!success)
 					stderr.printf("Failed to open application\n");
 			} catch (Error e) {

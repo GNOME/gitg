@@ -1218,7 +1218,7 @@ namespace GitgCommit
 		{
 			var dlg = new Dialog(application.repository, author, diff);
 
-			dlg.set_transient_for((Gtk.Window)d_main.get_toplevel());
+			dlg.set_transient_for((Gtk.Window)d_main.get_root());
 			dlg.set_default_response(Gtk.ResponseType.OK);
 
 			dlg.response.connect((d, id) => {
@@ -1409,7 +1409,6 @@ namespace GitgCommit
 
 		private void do_edit_items(Gitg.StageStatusItem[] items)
 		{
-			var window = (Gtk.Window)d_main.get_toplevel();
 			var root = application.repository.get_workdir();
 
 			foreach (var item in items)
@@ -1418,7 +1417,7 @@ namespace GitgCommit
 
 				try
 				{
-					Gtk.show_uri_on_window(window, file.get_uri(), Gdk.CURRENT_TIME);
+					GLib.AppInfo.launch_default_for_uri(file.get_uri(), null);
 				}
 				catch (Error e)
 				{

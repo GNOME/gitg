@@ -550,13 +550,13 @@ namespace Gitg
 			row.loading = true;
 			row.show();
 
-			add(row);
+			append(row);
 			return row;
 		}
 
 		private void delete_source_clicked(File workdir, string uri, Row row)
 		{
-			var alert_dialog = new Gtk.MessageDialog((Gtk.Window) row.get_toplevel(),
+			var alert_dialog = new Gtk.MessageDialog((Gtk.Window) row.get_root(),
 					Gtk.DialogFlags.MODAL, Gtk.MessageType.ERROR, Gtk.ButtonsType.NONE,
 					_("Deleting repository source files “%s” will delete them from disk and cannot be undone. Are you sure?"), uri);
 			alert_dialog.add_button(_("Cancel"), DeleteSources.CANCEL);
@@ -568,10 +568,10 @@ namespace Gitg
 
 			alert_dialog.response.connect ((id) => {
 				handle_delete_source_response(id, workdir, uri, row);
-				alert_dialog.destroy();
+				alert_dialog.close();
 			});
 
-			alert_dialog.run();
+			alert_dialog.present();
 		}
 
 		private void handle_delete_source_response(int id, File workdir, string uri, Row row)
