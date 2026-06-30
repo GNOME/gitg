@@ -459,7 +459,7 @@ public class Application : Gtk.Application
 
 		if (provider != null)
 		{
-			Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(),
+			Gtk.StyleContext.add_provider_for_display(Gdk.Display.get_default(),
 			                                         provider,
 			                                         600);
 		}
