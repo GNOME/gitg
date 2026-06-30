@@ -23,7 +23,9 @@ public class Gitg.DiffStat : Gtk.DrawingArea
 	private uint d_removed;
 
 	private Pango.Layout d_layout;
-
+	
+	private const int BAR_HEIGHT = 5; //TODO expose bar height via CSS min-height
+	
 	public uint added
 	{
 		get { return d_added; }
@@ -46,15 +48,6 @@ public class Gitg.DiffStat : Gtk.DrawingArea
 
 	static construct
 	{
-		install_style_property(new ParamSpecInt("bar-height",
-		                                        "bar height",
-		                                        "bar height",
-		                                        0,
-		                                        int.MAX,
-		                                        5,
-		                                        ParamFlags.READWRITE |
-		                                        ParamFlags.STATIC_STRINGS));
-
 		set_css_name("gitg-diffstat");
 	}
 
@@ -79,9 +72,9 @@ public class Gitg.DiffStat : Gtk.DrawingArea
 		queue_resize();
 	}
 
-	protected override void style_updated()
+	public override void css_changed(Gtk.CssStyleChange change)
 	{
-		base.style_updated();
+		base.css_changed(change);
 
 		d_layout = null;
 
@@ -99,18 +92,18 @@ public class Gitg.DiffStat : Gtk.DrawingArea
 		make_layout();
 	}
 
-	protected override bool draw(Cairo.Context context)
+	public override void snapshot(Gtk.Snapshot snapshot)
 	{
 		// Draw added/removed bars in center
 		var sctx = get_style_context();
-		var padding = sctx.get_padding(get_state_flags());
-		var border = sctx.get_border(get_state_flags());
+		var padding = sctx.get_padding();
+		var border = sctx.get_border();
 
 		var h = get_allocated_height();
 		var w = get_allocated_width();
 
-		sctx.render_background(context, 0, 0, w, h);
-		sctx.render_frame(context, 0, 0, w, h);
+		snapshot.render_background(sctx, 0, 0, w, h);
+		snapshot.render_frame(sctx, 0, 0, w, h);
 
 		Pango.Rectangle rect;
 		d_layout.get_extents(null, out rect);
@@ -127,13 +120,13 @@ public class Gitg.DiffStat : Gtk.DrawingArea
 			x = w - padding.right - border.right - rect.width / Pango.SCALE;
 		}
 
-		sctx.render_layout(context,
+		snapshot.render_layout(sctx,
 		                   x,
 		                   (h - rect.height / Pango.SCALE) / 2 + rect.y / Pango.SCALE,
 		                   d_layout);
 
-		int hbar;
-		sctx.get_style("bar-height", out hbar);
+		int hbar = BAR_HEIGHT;
+
 		var ybar = (h - hbar) / 2;
 
 		var wrest = (int)(w - padding.left * 2 - (rect.x + rect.width) / Pango.SCALE - padding.right - border.left - border.right);
@@ -160,73 +153,68 @@ public class Gitg.DiffStat : Gtk.DrawingArea
 		if (added == 0 && removed == 0)
 		{
 			sctx.save();
-			sctx.render_background(context, x, ybar, wrest, hbar);
+			snapshot.render_background(sctx, x, ybar, wrest, hbar);
 			sctx.restore();
 		}
 		else if (added == 0 || removed == 0)
 		{
 			sctx.save();
 			sctx.add_class(added == 0 ? "removed-only" : "added-only");
-			sctx.render_background(context, x, ybar, wrest, hbar);
+			snapshot.render_background(sctx, x, ybar, wrest, hbar);
 			sctx.restore();
 		}
 		else
 		{
 			sctx.save();
 			sctx.add_class("added");
-			sctx.render_background(context, x, ybar, wbar, hbar);
+			snapshot.render_background(sctx, x, ybar, wbar, hbar);
 			sctx.restore();
 
 			sctx.save();
 			sctx.add_class("removed");
 			x += rtl ? (wbar - wrest) : wbar;
-			sctx.render_background(context,
+			snapshot.render_background(sctx,
 			                       x,
 			                       ybar,
 			                       wrest - wbar,
 			                       hbar);
 			sctx.restore();
 		}
-
-		return false;
 	}
 
-	protected override void get_preferred_height(out int minimum_height,
-	                                             out int natural_height)
+
+	public override void measure(Gtk.Orientation orientation, int for_size, out int minimum, out int natural, out int minimum_baseline, out int natural_baseline)
 	{
+		minimum_baseline = -1;
+		natural_baseline = -1;
+
 		var sctx = get_style_context();
-		var padding = sctx.get_padding(get_state_flags());
-		var border = sctx.get_border(get_state_flags());
+		var padding = sctx.get_padding();
+		var border = sctx.get_border();
 
-		Pango.Rectangle rect;
-		d_layout.get_extents(null, out rect);
+		if (orientation == Gtk.Orientation.VERTICAL)
+		{
+			Pango.Rectangle rect;
+			d_layout.get_extents(null, out rect);
 
-		int h = padding.top + padding.bottom + border.top + border.bottom;
-		int hlbl = (rect.height + rect.y) / Pango.SCALE;
+			int h = padding.top + padding.bottom + border.top + border.bottom;
+			int hlbl = (rect.height + rect.y) / Pango.SCALE;
 
-		int bar_height;
-		sctx.get_style("bar-height", out bar_height);
+			h += int.max(hlbl, BAR_HEIGHT);
 
-		h += int.max(hlbl, bar_height);
+			minimum = h;
+			natural = h;
+		}
+		else
+		{
+			Pango.Rectangle rect;
+			d_layout.get_extents(out rect, null);
 
-		minimum_height = h;
-		natural_height = h;
-	}
+			var width = padding.left + padding.right + border.left + border.right + (rect.width + rect.x) / Pango.SCALE;
 
-	protected override void get_preferred_width(out int minimum_width,
-	                                            out int natural_width)
-	{
-		var sctx = get_style_context();
-		var padding = sctx.get_padding(get_state_flags());
-		var border = sctx.get_border(get_state_flags());
-
-		Pango.Rectangle rect;
-		d_layout.get_extents(out rect, null);
-
-		var w = padding.left + padding.right + border.left + border.right + (rect.width + rect.x) / Pango.SCALE;
-
-		minimum_width = w;
-		natural_width = 75;
+			minimum = width;
+			natural = 75;
+		}
 	}
 }
 
