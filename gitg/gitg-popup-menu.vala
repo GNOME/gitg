@@ -22,7 +22,7 @@ namespace Gitg
 
 class PopupMenu : Object
 {
-	public signal Gtk.Menu? populate_menu(Gdk.EventButton? event);
+	public signal void populate_menu(GLib.Menu menu, GLib.SimpleActionGroup actions, Gdk.Event? event);
 	public signal Gdk.Rectangle? request_menu_position();
 
 	private Gtk.Widget? d_widget;
@@ -34,7 +34,6 @@ class PopupMenu : Object
 		d_click_gesture.set_button(0);
 		d_click_gesture.pressed.connect(on_button_pressed);
 		widget.add_controller(d_click_gesture);
-		widget.popup_menu.connect(on_popup_menu);
 
 		d_widget = widget;
 	}
@@ -44,49 +43,48 @@ class PopupMenu : Object
 		if (d_widget != null)
 		{
 			d_widget.remove_controller(d_click_gesture);
-			d_widget.popup_menu.disconnect(on_popup_menu);
 
 			d_widget = null;
 		}
 	}
 
-	private bool popup_menu(Gtk.Widget widget, Gdk.EventButton? event)
+	private bool popup_menu(Gtk.Widget widget, Gdk.Event? event)
 	{
-		var menu = populate_menu(event);
+		var menu_model = new GLib.Menu();
+		var actions = new GLib.SimpleActionGroup();
+		
+		populate_menu(menu_model, actions, event);
 
-		if (menu == null)
+		if (menu_model.get_n_items() == 0)
 		{
 			return false;
 		}
 
-		menu.attach_to_widget(widget, null);
+		var popover = new Gtk.PopoverMenu.from_model(menu_model);
+		popover.set_parent(widget);
+		popover.insert_action_group("popup", actions);
+		popover.set_has_arrow(false);
 
 		if (event == null)
 		{
 			var position = request_menu_position();
 
-			if (position == null)
+			if (position != null)
 			{
-				menu.popup_at_widget(widget, Gdk.Gravity.CENTER, Gdk.Gravity.CENTER);
-			}
-			else
-			{
-				menu.popup_at_rect(widget.get_window(),
-				                   position,
-				                   Gdk.Gravity.CENTER, Gdk.Gravity.WEST);
+				popover.set_pointing_to(position);
 			}
 		}
 		else
 		{
-			menu.popup_at_pointer(event);
+			double x, y;
+			event.get_position(out x, out y);
+			Gdk.Rectangle rect = { (int)x, (int)y, 1, 1 };
+			popover.set_pointing_to(rect);
 		}
 
-		return true;
-	}
+		popover.popup();
 
-	private bool on_popup_menu(Gtk.Widget widget)
-	{
-		return popup_menu(widget, null);
+		return true;
 	}
 
 	private void on_button_pressed(int n_press, double x, double y)
@@ -99,7 +97,7 @@ class PopupMenu : Object
 		}
 
 		d_click_gesture.set_state(Gtk.EventSequenceState.CLAIMED);
-		popup_menu(d_widget, (Gdk.EventButton)event);
+		popup_menu(d_widget, event);
 	}
 }
 
