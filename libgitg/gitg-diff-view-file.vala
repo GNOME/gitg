@@ -60,7 +60,7 @@ class Gitg.DiffViewFile : Gtk.Grid
 				bool visible = false;
 				if (d_expanded)
 				{
-					visible = d_stack_file_renderer.get_children().length() > 1;
+					visible = d_stack_file_renderer.get_pages().get_n_items() > 1;
 				}
 				d_stack_switcher.set_visible(visible);
 

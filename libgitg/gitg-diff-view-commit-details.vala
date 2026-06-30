@@ -218,9 +218,12 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 	{
 		d_parents_map = new Gee.HashMap<Ggit.OId, Gtk.CheckButton>((oid) => oid.hash(), (o1, o2) => o1.equal(o2));
 
-		foreach (var child in d_grid_parents.get_children())
+		var child = d_grid_parents.get_first_child();
+		while (child != null)
 		{
-			child.destroy();
+			var next = child.get_next_sibling();
+			d_grid_parents.remove(child);
+			child = next;
 		}
 
 		if (commit == null)

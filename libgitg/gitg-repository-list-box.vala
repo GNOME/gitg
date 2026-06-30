@@ -453,7 +453,8 @@ namespace Gitg
 		{
 			Row? row = null;
 
-			foreach (var child in get_children())
+			var child = get_first_child();
+			while (child != null)
 			{
 				var d = (Row)child;
 
@@ -462,6 +463,7 @@ namespace Gitg
 					row = d;
 					break;
 				}
+				child = child.get_next_sibling();
 			}
 
 			return row;
@@ -736,7 +738,8 @@ namespace Gitg
 		{
 			var ret = new Row[0];
 
-			foreach (var row in get_children())
+			var row = get_first_child();
+			while (row != null)
 			{
 				var r = (Row)row;
 
@@ -744,6 +747,7 @@ namespace Gitg
 				{
 					ret += r;
 				}
+				row = row.get_next_sibling();
 			}
 
 			return ret;
@@ -753,7 +757,8 @@ namespace Gitg
 		{
 			get
 			{
-				foreach (var row in get_children())
+				var row = get_first_child();
+				while (row != null)
 				{
 					var r = (Row)row;
 
@@ -761,6 +766,7 @@ namespace Gitg
 					{
 						return true;
 					}
+					row = row.get_next_sibling();
 				}
 
 				return false;

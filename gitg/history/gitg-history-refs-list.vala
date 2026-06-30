@@ -710,24 +710,16 @@ public class RefsList : Gtk.ListBox
 
 	private RefHeader? find_header(Gtk.ListBoxRow row)
 	{
-		var children = get_children();
-		unowned List<weak Gtk.Widget> found = children.find(row);
-
-		if (found == null)
+		var prev = row.get_prev_sibling();
+		while (prev != null)
 		{
-			return null;
-		}
-
-		while (found.prev != null)
-		{
-			found = found.prev;
-
-			var header = found.data as RefHeader;
+			var header = prev as RefHeader;
 
 			if (header != null)
 			{
 				return header;
 			}
+			prev = prev.get_prev_sibling();
 		}
 
 		return null;
@@ -839,9 +831,12 @@ public class RefsList : Gtk.ListBox
 		d_header_map = new Gee.HashMap<string, RemoteHeader>();
 		d_ref_map = new Gee.HashMap<Gitg.Ref, RefRow>();
 
-		foreach (var child in get_children())
+		var child = get_first_child();
+		while (child != null)
 		{
-			child.destroy();
+			var next = child.get_next_sibling();
+			remove(child);
+			child = next;
 		}
 
 		foreach (var remote in d_remotes)
@@ -1379,7 +1374,8 @@ public class RefsList : Gtk.ListBox
 		{
 			var ret = new Gee.LinkedList<Gitg.Ref>();
 
-			foreach (var child in get_children())
+			var child = get_first_child();
+			while (child != null)
 			{
 				var r = get_ref_row(child as Gtk.ListBoxRow);
 
@@ -1387,6 +1383,7 @@ public class RefsList : Gtk.ListBox
 				{
 					ret.add(r.reference);
 				}
+				child = child.get_next_sibling();
 			}
 
 			try
@@ -1453,32 +1450,27 @@ public class RefsList : Gtk.ListBox
 				var ref_header = get_ref_header(row);
 				bool found = false;
 
-				foreach (var child in get_children())
+				var child = row.get_next_sibling();
+				while (child != null)
 				{
-					if (found)
+					var nrow = child as Gtk.ListBoxRow;
+					var nref_row = get_ref_row(nrow);
+
+					if (nref_row == null)
 					{
-						var nrow = child as Gtk.ListBoxRow;
-						var nref_row = get_ref_row(nrow);
+						var nref_header = get_ref_header(nrow);
 
-						if (nref_row == null)
+						if (ref_header.is_sub_header_remote ||
+							nref_header.ref_type != ref_header.ref_type)
 						{
-							var nref_header = get_ref_header(nrow);
-
-							if (ref_header.is_sub_header_remote ||
-								nref_header.ref_type != ref_header.ref_type)
-							{
-								break;
-							}
-						}
-						else
-						{
-							ret.add(nref_row.reference);
+							break;
 						}
 					}
-					else if (child == row)
+					else
 					{
-						found = true;
+						ret.add(nref_row.reference);
 					}
+					child = child.get_next_sibling();
 				}
 			}
 
