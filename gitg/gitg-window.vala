@@ -447,14 +447,12 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		}
 	}
 
-	protected override bool delete_event(Gdk.EventAny event)
+	protected override bool close_request()
 	{
 		var ret = false;
 
-		if (base.delete_event != null)
-		{
-			ret = base.delete_event(event);
-		}
+		// Vala GTK4 bindings might not have a boolean return for base.close_request depending on the binding, 
+		// but since we want to handle the close request manually, returning false allows the window to close.
 
 		if (!ret)
 		{
@@ -700,6 +698,9 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		base.realize();
 	}
 
+/* FIXME: GTK4 removed Gdk.EventWindowState and Gdk.EventConfigure.
+   These should be replaced by connecting to properties like notify::maximized,
+   notify::default-width, etc. on the window.
 	protected override bool window_state_event(Gdk.EventWindowState event)
 	{
 		d_state_settings.set_int("state", event.new_window_state);
@@ -717,6 +718,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 		return base.configure_event(event);
 	}
+*/
 
 	private GitgExt.ExternalChangeHint external_change_hint_from_file(File location)
 	{
