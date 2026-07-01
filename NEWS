@@ -1,323 +1,335 @@
 = gitg 44 =
-args to build libgit2
-linter fixes
-bundle git in flatpak distro
-Fix flatpak dependencies
-Add sha1 and committer name to history view
-control available lanes to paint
-gitg mainline needs to be explicitly set
-insert lanes directly in correct order
-avoid load history twice
-Show commit details for submodule history view
-Honor core.hooksPath property
-Add file filter by name for stage view
-refresh references on external change
-Check renamed branch prefix does not match with existing branches
-Start rename edition from history view
-Calculate selected ref on history view
-Disable remove current checked branch
-Show info on errors in command line about init option
-retrieve correctly the parent window for context menus
-Open files in external editor
-Reuse previous filemode when staging patches
-Fix window growing each start
-Allow to sign commits
-Correct behaviour of --standalone option
-Option to delete sources from disk
-customizable datetime format
-honor avatar service settings
-honor commit settings
-flatpak: upgrade libssh2 to version 1.10.0
-Deal correctly with stage/unstage of selection on new files
-Honor system preferences about using dark theme
-Do not disable image diff tools
-highlight characters outside margins
-Include conflict status
-use datetime for visited
-Use non deprecated show_uri
-Handle all DiffLineType
-Use timezone constructor
-Added init option
-Update release 41 metadata info
-Added reference action to create patch
-Added reference action to add tags
-Added reference action to create branch
-Manage invalid remotes
-Allow to edit remotes
-Allow to remove remotes
-Allow to add new remotes
-default to text diff if mime type detection fails
-Fix offset from parsing tags
-Avoid parse html tags from commits
-Show diff renderer switch only when diff expanded
-Update windows installer
+Version 44 was released on 2023-08-03.
+
+== Features ==
+  * bundle git in flatpak distro
+  * gitg mainline needs to be explicitly set
+  * Show commit details for submodule history view
+  * Honor core.hooksPath property
+  * Add file filter by name for stage view
+  * Check renamed branch prefix does not match with existing branches
+  * Start rename edition from history view
+  * Calculate selected ref on history view
+  * Open files in external editor
+  * Allow to sign commits
+  * Added reference action to create patch
+  * Added reference action to add tags
+  * Added reference action to create branch
+  * Allow to edit remotes
+  * Allow to remove remotes
+  * Allow to add new remotes
+
+== Bug fixes ==
+
+  * args to build libgit2
+  * linter fixes
+  * Fix flatpak dependencies
+  * Add sha1 and committer name to history view
+  * control available lanes to paint
+  * insert lanes directly in correct order
+  * avoid load history twice
+  * refresh references on external change
+  * Disable remove current checked branch
+  * Show info on errors in command line about init option
+  * retrieve correctly the parent window for context menus
+  * Reuse previous filemode when staging patches
+  * Fix window growing each start
+  * Correct behaviour of --standalone option
+  * Option to delete sources from disk
+  * customizable datetime format
+  * honor avatar service settings
+  * honor commit settings
+  * flatpak: upgrade libssh2 to version 1.10.0
+  * Deal correctly with stage/unstage of selection on new files
+  * Honor system preferences about using dark theme
+  * Do not disable image diff tools
+  * highlight characters outside margins
+  * Include conflict status
+  * use datetime for visited
+  * Use non deprecated show_uri
+  * Handle all DiffLineType
+  * Use timezone constructor
+  * Added init option
+  * Update release 41 metadata info
+  * Manage invalid remotes
+  * default to text diff if mime type detection fails
+  * Fix offset from parsing tags
+  * Avoid parse html tags from commits
+  * Show diff renderer switch only when diff expanded
+  * Update windows installer
 
 = gitg 41 =
-Manage if there's no textconv config
-Convert to text using gitattributes config
-Side by side diff text renderers
-Read setup for smart commits from git config
-Show diff stats only on text renderer
-Put image renderer first on stack
-Allow to diff images as text if its mime type supports it
-Add new-window action to desktop file
-Fix the ninja call in one of the building guides
-TextView needs to be wrapped in a scroll view
-fix libgitg-date test package failure
-Use GUri instead of SoupURI
-Avoid return null if old or new file fails to load
-Properly mark "head" parameter of ActionSupport.stash_if_needed() as nullable
-References of [GtkChild] fields is handled by GtkBuilder, type must be unowned
-Install correctly devel profile
-Icon honor profile
-Lane indicator line width set to 0.
-Option to switch to the newly created branch
-Remote branches can be checked out using double-click.
-Add shortcuts for history panels
-Give some button alt key
-Ctrl+O shortcut does not work
-Add missing Preferences shortcut
-Do not follow symlinks on recursive scan
-Local branch checkout using double-click.
-Lower the importance of missing gravatars from "warning" to "debug"
-Replace git.gnome.org with gitlab.gnome.org URLs
-Replace projects.gnome.org with wiki.gnome.org URLs
-fix CSS warning on MacOS
-Fix libgitg compile on macOS
-fixup! Honor prepare-commit-msg hook
-Remove unnecessery Shift key from a shortcut
-Access host XDG_CONFIG_HOME/git from flatpak
-Rely on libgit for global config file(s)
-Avoid shell injection on hooks
-Avoid G_LOG_DOMAIN redefinition on contrib code
-Fix deprecation for const
-Honor prepare-commit-msg hook
-Escape subject commit text
-preferences-interface: Disable gravatar loading by default
-Add message history to commit dialog
-Activities can process key events
-Update shortcut dialog
-Revert "Update GtkSourceView dependency"
-Fix vapi for gtksourceview
-Adding current gtksourceview vapi files
-config for fonts
-Don't ellipsize commit subject
-Avoid duplicating Signed-off-by signature
-Consider author and committer when filtering
-Setup editorconfig
-on close, selection should display back the gear menu
-add "RevisionControl" to desktop file Categories
-GitgHistory.RefRow: Don't assume that every GgitSignature has a time
-Allow loading of gravatar by default
-Change gtkspell3 to gspell
-vala: Remove obsolete vapi files
-Remove submodules config
+Version 41 was released on 2021-12-27.
+
+== Features ==
+  * Manage if there's no textconv config
+  * Convert to text using gitattributes config
+  * Side by side diff text renderers
+  * Allow to diff images as text if its mime type supports it
+  * Honor prepare-commit-msg hook
+
+== Bug fixes ==
+
+  * Read setup for smart commits from git config
+  * Show diff stats only on text renderer
+  * Put image renderer first on stack
+  * Add new-window action to desktop file
+  * Fix the ninja call in one of the building guides
+  * TextView needs to be wrapped in a scroll view
+  * fix libgitg-date test package failure
+  * Use GUri instead of SoupURI
+  * Avoid return null if old or new file fails to load
+  * Properly mark "head" parameter of ActionSupport.stash_if_needed() as nullable
+  * References of [GtkChild] fields is handled by GtkBuilder, type must be unowned
+  * Install correctly devel profile
+  * Icon honor profile
+  * Lane indicator line width set to 0.
+  * Option to switch to the newly created branch
+  * Remote branches can be checked out using double-click.
+  * Add shortcuts for history panels
+  * Give some button alt key
+  * Ctrl+O shortcut does not work
+  * Add missing Preferences shortcut
+  * Do not follow symlinks on recursive scan
+  * Local branch checkout using double-click.
+  * Lower the importance of missing gravatars from "warning" to "debug"
+  * Replace git.gnome.org with gitlab.gnome.org URLs
+  * Replace projects.gnome.org with wiki.gnome.org URLs
+  * fix CSS warning on MacOS
+  * Fix libgitg compile on macOS
+  * fixup! Honor prepare-commit-msg hook
+  * Remove unnecessery Shift key from a shortcut
+  * Access host XDG_CONFIG_HOME/git from flatpak
+  * Rely on libgit for global config file(s)
+  * Avoid shell injection on hooks
+  * Avoid G_LOG_DOMAIN redefinition on contrib code
+  * Fix deprecation for const
+  * Escape subject commit text
+  * preferences-interface: Disable gravatar loading by default
+  * Add message history to commit dialog
+  * Activities can process key events
+  * Update shortcut dialog
+  * Revert "Update GtkSourceView dependency"
+  * Fix vapi for gtksourceview
+  * Adding current gtksourceview vapi files
+  * config for fonts
+  * Don't ellipsize commit subject
+  * Avoid duplicating Signed-off-by signature
+  * Consider author and committer when filtering
+  * Setup editorconfig
+  * on close, selection should display back the gear menu
+  * add "RevisionControl" to desktop file Categories
+  * GitgHistory.RefRow: Don't assume that every GgitSignature has a time
+  * Allow loading of gravatar by default
+  * Change gtkspell3 to gspell
+  * vala: Remove obsolete vapi files
+  * Remove submodules config
 
 = gitg 3.32.1 =
 Version 3.32.1 was released on 2019-07-25
 
 == Bugs fixed ==
-- Support repository being null
-- Allow copying file names
+  * Support repository being null
+  * Allow copying file names
 
 = gitg 3.32.0 =
 Version 3.32.0 was released on 2019-05-23
 
 == Bugs fixed ==
-- Detect links in commit messages
-- Push action with http/ssh support
-- Fix time sort mode
-- Add push support
-- Add typeahead find feature
-- Respect system fonts
-- Update submodules at clone
-- Add body to patch
-- Shorcut to open preferences
-- Honor GIT_DIR env
-- Update menus for AppMenu removal
-- Bump libgit2 to 0.27
-- Use Unicode typography in user-visible strings
-- Fix shared library paths in typelib files
-- Migrate from Intltool to Gettext
-- Meson polish
-- Removed autotools
-- Fixes in documentation
-- Fixed several deprecations
-- Misc fixes
+  * Detect links in commit messages
+  * Push action with http/ssh support
+  * Fix time sort mode
+  * Add push support
+  * Add typeahead find feature
+  * Respect system fonts
+  * Update submodules at clone
+  * Add body to patch
+  * Shorcut to open preferences
+  * Honor GIT_DIR env
+  * Update menus for AppMenu removal
+  * Bump libgit2 to 0.27
+  * Use Unicode typography in user-visible strings
+  * Fix shared library paths in typelib files
+  * Migrate from Intltool to Gettext
+  * Meson polish
+  * Removed autotools
+  * Fixes in documentation
+  * Fixed several deprecations
+  * Misc fixes
 
 = gitg 3.30.1 =
 Version 3.30.1 was released on 2018-10-25
 
 == Bugs fixed ==
-- Meson improvements
-- Fix parsing title and body for message commit
-- Search repositories ignoring case
-- Added standalone mode
-- Allow to config patience algorithm
-- GUI improvements
-- Removed autotools buildsystem
-- Fixed mac compilation
-- Misc fixes
+  * Meson improvements
+  * Fix parsing title and body for message commit
+  * Search repositories ignoring case
+  * Added standalone mode
+  * Allow to config patience algorithm
+  * GUI improvements
+  * Removed autotools buildsystem
+  * Fixed mac compilation
+  * Misc fixes
 
 = gitg 3.30.0 =
 Version 3.30.0 was released on 2018-10-07
 
 == Bugs fixed ==
-- Detect dark theme from its background color
-- Buildsystem meson added
-- Added flatpak deployments
-- Updated translations
-- Misc fixes
+  * Detect dark theme from its background color
+  * Buildsystem meson added
+  * Added flatpak deployments
+  * Updated translations
+  * Misc fixes
 
 = gitg 3.26.0 =
 Version 3.26.0 was released on 2017-08-09
 
 == Bugs fixed ==
-- Updated translations
-- Misc fixes
+  * Updated translations
+  * Misc fixes
 
 = gitg 3.24.0 =
 Version 3.24.0 was released on 2017-04-30
 
 == Bugs fixed ==
-- Updated translations
-- Misc fixes
+  * Updated translations
+  * Misc fixes
 
 = gitg 3.23.90 =
 Version 3.23.90 was released on 2017-02-16
 
 == Changes ==
-- Fix for libgit2-glib api change
+  * Fix for libgit2-glib api change
 
 == Bugs fixed ==
-- Do not duplicate the fds
+  * Do not duplicate the fds
 
 = gitg 3.23.0 =
 Version 3.23.0 was released on 2016-11-26
 
 == Changes ==
-- Bump libgit2-glib version to 0.24.4
-- Show dash activity menu if shell does not show app menu
-- Add diff renderer for images
+  * Bump libgit2-glib version to 0.24.4
+  * Show dash activity menu if shell does not show app menu
+  * Add diff renderer for images
 
 == Bugs fixed ==
-- history: Fix printf format strings
-- Use same callbacks instance during remote connection life cycle
-- win32 installer fixes
+  * history: Fix printf format strings
+  * Use same callbacks instance during remote connection life cycle
+  * win32 installer fixes
 
 = gitg 3.21.91 =
 Version 3.21.91 was released on 2016-08-27
 
 == Changes ==
-- Add context menu to open files from the diff
-- Better support for bare and empty repositories
-- Add support for ssh short form remote urls
-- Improved selection toggling for incremental staging
-- Disable use of gravatar by default for privacy
+  * Add context menu to open files from the diff
+  * Better support for bare and empty repositories
+  * Add support for ssh short form remote urls
+  * Improved selection toggling for incremental staging
+  * Disable use of gravatar by default for privacy
 
 == Bugs fixed ==
-- Set primary selection to selected commit SHA1
-- Scrollable commit message in diff view
-- Incremental loading on large repositories
-- Faster switching of large repositories
-- Create global git config if it does not exist yet
-- Remember opened projects regardless of gnome privacy settings
+  * Set primary selection to selected commit SHA1
+  * Scrollable commit message in diff view
+  * Incremental loading on large repositories
+  * Faster switching of large repositories
+  * Create global git config if it does not exist yet
+  * Remember opened projects regardless of gnome privacy settings
 
 = gitg 3.20.0 =
 Version 3.20.0 was released on 2016-03-20
 
 == Bugs fixed ==
-- Updated translations
-- Misc fixes
+  * Updated translations
+  * Misc fixes
 
 = gitg 3.19.6 =
 Version 3.19.6 was released on 2016-02-04
 
 == Changes ==
-- Make use of shortcut window optional
+  * Make use of shortcut window optional
 
 == Bugs fixed ==
-- Make it build again on osx and windows
+  * Make it build again on osx and windows
 
 = gitg 3.19.5 =
 Version 3.19.5 was released on 2016-01-26
 
 == Changes ==
-- Improved Windows installer graphics
-- Add context menu on Windows
-- Provide shortcuts window
-- Rework dash view
+  * Improved Windows installer graphics
+  * Add context menu on Windows
+  * Provide shortcuts window
+  * Rework dash view
 
 == Bugs fixed ==
-- Do not hang on highlighting commit message
+  * Do not hang on highlighting commit message
 
 = gitg 3.19.4 =
 Version 3.19.4 was released on 2016-01-08
 
 == Changes ==
-- Add OSX bundle generator
-- Add syntax highlighting support on diffs
-- Show untracked content on stage
+  * Add OSX bundle generator
+  * Add syntax highlighting support on diffs
+  * Show untracked content on stage
 
 == Bugs fixed ==
-- Fix OSX paths
-- Missing includes
+  * Fix OSX paths
+  * Missing includes
 
 = gitg 3.19.3 =
 Version 3.19.3 was released on 2015-12-23
 
 == Changes ==
-- Add script to create windows installer
-- Add support for commit.template config setting
-- Dim default avatar image
+  * Add script to create windows installer
+  * Add support for commit.template config setting
+  * Dim default avatar image
 
 == Bugs fixed ==
-- Add icon to the windows binary
-- Handle console on windows
+  * Add icon to the windows binary
+  * Handle console on windows
 
 
 = gitg 3.19.2 =
 Version 3.19.2 was released on 2015-12-22
 
 == Changes ==
-- Support for Windows and OSX
-- Add platform specific styles
+  * Support for Windows and OSX
+  * Add platform specific styles
 
 == Bugs fixed ==
-- Fix dark style of diff-stat widget
-- Fix selectable button visibilities
+  * Fix dark style of diff-stat widget
+  * Fix selectable button visibilities
 
 
 = gitg 3.19.1 =
 Version 3.19.1 was released on 2015-12-21
 
 == Changes ==
-- Rework diff view to use GtkSourceView instead of Webkit
-- Initial support of dark theme
-- Better support on OSX
-- Improved commit selection
+  * Rework diff view to use GtkSourceView instead of Webkit
+  * Initial support of dark theme
+  * Better support on OSX
+  * Improved commit selection
 
 
 = gitg 3.17.1 =
 Version 3.17.1 was released on 2015-08-08
 
 == Changes ==
-- Make use of gravatar service optional (preference)
-- Stage/unstage all selected items when pressing Enter
-- Add command line arguments to modify default history
+  * Make use of gravatar service optional (preference)
+  * Stage/unstage all selected items when pressing Enter
+  * Add command line arguments to modify default history
   activity selection (--all, --branches, --remotes, --tags)
-- Add deleting of untracked files
-- Improvements to the dash/overview UX
-- Improvements to collapse/uncollapse behavior of diff view
+  * Add deleting of untracked files
+  * Improvements to the dash/overview UX
+  * Improvements to collapse/uncollapse behavior of diff view
 
 
 == Bugs fixed ==
-- Get icons at correct size in diff view
-- Small UI polish
-- Fixed authentication for cloning
-- Only use animations of gtk_enable_animations is set
-- Fix collation errors for python diffs
-- Fix race conditions in repository loading
+  * Get icons at correct size in diff view
+  * Small UI polish
+  * Fixed authentication for cloning
+  * Only use animations of gtk_enable_animations is set
+  * Fix collation errors for python diffs
+  * Fix race conditions in repository loading
 
 
 = gitg 3.16.1 =
@@ -753,8 +765,8 @@ release of gitg.
   * Load large repositories fast
   * Show revision details
   * Browse revision file tree
-    * Export parts of the file tree of a specific revision
+  * Export parts of the file tree of a specific revision
   * Commit changes in your working directory
-    * Stage/unstage/revert per hunk or file
+  * Stage/unstage/revert per hunk or file
 
 == Bug fixes ==
