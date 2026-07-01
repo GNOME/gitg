@@ -4,7 +4,7 @@
 
 gitg is a graphical user interface for git. It aims at being a small, fast and convenient tool to visualize the history of git repositories.  Besides visualization, gitg also provides several utilities to manage your repository and commit your work.
 
-The latest version of gitg is 50.
+The latest version of gitg is 44.
 
 - Website:      https://gitlab.gnome.org/GNOME/gitg
 - Issues:       https://gitlab.gnome.org/GNOME/gitg/issues
@@ -14,11 +14,11 @@ The latest version of gitg is 50.
 
 ## Installing gitg
 
-To install the latest version of gitg, make sure to download gitg-50.tar.xz from the download site. After downloading the following procedure installs gitg:
+To install the latest version of gitg, make sure to download gitg-44.tar.xz from the download site. After downloading the following procedure installs gitg:
 
 ```
-$ tar Jxf gitg-50.tar.xz
-$ cd gitg-50
+$ tar Jxf gitg-44.tar.xz
+$ cd gitg-44
 $ meson --prefix=/usr build
 $ ninja -C build
 $ sudo ninja -C build install
