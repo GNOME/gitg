@@ -1,4 +1,10 @@
-include: 'https://gitlab.gnome.org/GNOME/citemplates/raw/master/flatpak/flatpak_ci_initiative.yml'
+include: 
+  - project: "gnome/citemplates"
+    ref: "master"
+    file: "flatpak/flatpak_ci_initiative.yml"
+  - component: "gitlab.gnome.org/GNOME/citemplates/release-service@master"
+    inputs:
+      dist-job-name: "flatpak"
 
 flatpak:
   extends: '.flatpak'
