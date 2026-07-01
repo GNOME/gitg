@@ -187,7 +187,7 @@ class Gitg.DiffViewFile : Gtk.Grid
 	{
 		var renderer = new DiffViewFileRendererText(info, handle_selection, DiffViewFileRendererText.Style.ONE);
 		renderer.show();
-		var scrolled_window = new Gtk.ScrolledWindow (null, null);
+		var scrolled_window = new Gtk.ScrolledWindow ();
 		scrolled_window.set_policy (Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
 		scrolled_window.add(renderer);
 		setup_hscrollbar_margins(scrolled_window, renderer);

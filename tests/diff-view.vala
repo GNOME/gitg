@@ -108,7 +108,7 @@ class TestDiffView
 		var wnd = new Gtk.Window();
 		wnd.set_default_size(800, 600);
 
-		var sw = new Gtk.ScrolledWindow(null, null);
+		var sw = new Gtk.ScrolledWindow();
 		sw.show();
 
 		var v = new Gitg.DiffView();
