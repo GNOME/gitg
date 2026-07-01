@@ -1,3 +1,59 @@
+= gitg 50 =
+Version 50 was released on 2026-07-01.
+
+== Features ==
+  * Customizable column visibility and order in history
+  * New preferences general tab
+  * Custom actions
+  * Delete remote branches
+  * Full feature push action
+  * Checkout detached action
+  * Show HEAD in history view
+  * Edit upstream branch on local branches
+  * Rename tags
+  * Resolve local tags
+  * Allow choosing the default diff view: Unif or Split
+  * Add action to fetch all remotes
+  * Action to show info for tags
+  * Use Alt+Page_Up / Alt+Page_Down for previous/next in the commit dialog
+
+== Bug fixes ==
+
+  * Revert visibility of committer name and SHA1
+  * Manage global actions outside a repo
+  * resolve shortcut conflict between discard and edit actions
+  * Use proper quotes on messages
+  * Allow push action to be smart.
+  * Keep state for wrap lines on commit activity
+  * Avoid different diff renderers to keep same dimensions
+  * fix open externally opening gitdir instead of workdir
+  * Improve default window size and pane positions
+  * Keep commit dialog size
+  * enable translation on open externally action
+  * Load custom gitg styles only once
+  * Show push output from server
+  * Open repository directory externally
+  * Honor theme on source view
+  * Fetch without tags using Shift key
+  * Detect current upstream branch to disable edit upstream
+  * Avoid to ignore ssh key credential method
+  * Process correctly textconv parameters
+  * Detect stash references on sidebar
+  * fix details on dialog building
+  * Use small "Authored by" & "Committed by" labels
+  * Hyperlink emails onto names in commit details
+  * Added refresh to reload branch list in interface
+  * Add shortcuts and buttons to navigate through search results
+  * added quotation marks in branch name
+  * Open all references collapsed except for branches
+  * Add operational icon and set as add remote for Remotes
+  * Add push action only if upstream is set
+  * Do not close dialogs on errors
+  * Show full branch name in a tooltip in the branches listview
+  * Hide unknown refs
+  * Warn about destructive action
+  * Correct the shortcut documentation for committing
+
 = gitg 44 =
 Version 44 was released on 2023-08-03.
 
