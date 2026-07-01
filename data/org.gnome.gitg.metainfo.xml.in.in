@@ -45,6 +45,64 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="50" type="stable" date="2026-07-01">
+      <description>
+        <p>Features:</p>
+        <ul>
+          <li>Customizable column visibility and order in history</li>
+          <li>New preferences general tab</li>
+          <li>Custom actions</li>
+          <li>Delete remote branches</li>
+          <li>Full feature push action</li>
+          <li>Checkout detached action</li>
+          <li>Show HEAD in history view</li>
+          <li>Edit upstream branch on local branches</li>
+          <li>Rename tags</li>
+          <li>Resolve local tags</li>
+          <li>Allow choosing the default diff view: Unif or Split</li>
+          <li>Add action to fetch all remotes</li>
+          <li>Action to show info for tags</li>
+          <li>Use Alt+Page_Up / Alt+Page_Down for previous/next in the commit dialog</li>
+        </ul>
+        <p>Bug fixes:</p>
+        <ul>
+          <li>Revert visibility of committer name and SHA1</li>
+          <li>Manage global actions outside a repo</li>
+          <li>resolve shortcut conflict between discard and edit actions</li>
+          <li>Use proper quotes on messages</li>
+          <li>Allow push action to be smart.</li>
+          <li>Keep state for wrap lines on commit activity</li>
+          <li>Avoid different diff renderers to keep same dimensions</li>
+          <li>fix open externally opening gitdir instead of workdir</li>
+          <li>Improve default window size and pane positions</li>
+          <li>Keep commit dialog size</li>
+          <li>enable translation on open externally action</li>
+          <li>Load custom gitg styles only once</li>
+          <li>Show push output from server</li>
+          <li>Open repository directory externally</li>
+          <li>Honor theme on source view</li>
+          <li>Fetch without tags using Shift key</li>
+          <li>Detect current upstream branch to disable edit upstream</li>
+          <li>Avoid to ignore ssh key credential method</li>
+          <li>Process correctly textconv parameters</li>
+          <li>Detect stash references on sidebar</li>
+          <li>fix details on dialog building</li>
+          <li>Use small "Authored by" and "Committed by" labels</li>
+          <li>Hyperlink emails onto names in commit details</li>
+          <li>Added refresh to reload branch list in interface</li>
+          <li>Add shortcuts and buttons to navigate through search results</li>
+          <li>added quotation marks in branch name</li>
+          <li>Open all references collapsed except for branches</li>
+          <li>Add operational icon and set as add remote for Remotes</li>
+          <li>Add push action only if upstream is set</li>
+          <li>Do not close dialogs on errors</li>
+          <li>Show full branch name in a tooltip in the branches listview</li>
+          <li>Hide unknown refs</li>
+          <li>Warn about destructive action</li>
+          <li>Correct the shortcut documentation for committing</li>
+        </ul>
+      </description>
+    </release>
     <release version="44" type="stable" date="2023-08-03">
       <description>
         <p>Bug fixes:</p>
