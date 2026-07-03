@@ -373,10 +373,11 @@ public class Application : Gtk.Application
 		                                "%s",
 		                                msg);
 
-		dlg.window_position = Gtk.WindowPosition.CENTER;
-
-		dlg.response.connect(() => { Gtk.main_quit(); });
-		dlg.show();
+		dlg.response.connect((response_id) => {
+			dlg.destroy();
+			this.quit();
+		});
+		dlg.present();
 	}
 
 	protected override void startup()

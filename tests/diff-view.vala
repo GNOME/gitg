@@ -2,7 +2,7 @@ class TestDiffView
 {
 	public static int main(string[] args)
 	{
-		Gtk.init(ref args);
+		Gtk.init();
 
 		try
 		{
@@ -117,15 +117,17 @@ class TestDiffView
 
 		v.commit = commit;
 
-		wnd.delete_event.connect((w, ev) => {
-			Gtk.main_quit();
+		var loop = new GLib.MainLoop();
+
+		wnd.close_request.connect(() => {
+			loop.quit();
 			return true;
 		});
 
 		wnd.add(sw);
 		wnd.show();
 
-		Gtk.main();
+		loop.run();
 		return 0;
 	}
 }

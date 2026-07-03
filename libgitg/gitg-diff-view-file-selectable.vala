@@ -141,14 +141,7 @@ class Gitg.DiffViewFileSelectable : Object
 
 	private void update_cursor(Gdk.Cursor cursor)
 	{
-		var window = source_view.get_window(Gtk.TextWindowType.TEXT);
-
-		if (window == null)
-		{
-			return;
-		}
-
-		window.set_cursor(cursor);
+		source_view.set_cursor(cursor);
 	}
 
 	private void update_theme()

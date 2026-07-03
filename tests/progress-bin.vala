@@ -5,7 +5,7 @@ class TestProgressGrid
 {
 	public static int main(string[] args)
 	{
-		Gtk.init(ref args);
+		Gtk.init();
 
 		try
 		{
@@ -24,12 +24,14 @@ class TestProgressGrid
 		window.add(grid);
 		window.present();
 
-		window.delete_event.connect((w, ev) => {
-			Gtk.main_quit();
+		var loop = new GLib.MainLoop();
+
+		window.close_request.connect(() => {
+			loop.quit();
 			return true;
 		});
 
-		Gtk.main();
+		loop.run();
 
 		return 0;
 	}
