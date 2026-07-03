@@ -90,7 +90,7 @@ public class AnsiRenderer {
 		int fg = -1;
 
 		while (p < len) {
-			int escpos = s.index_of ("\u001b", p);
+			int escpos = s.index_of ("\x1b", p);
 			if (escpos < 0) {
 				// no more escapes — insert remainder
 				string seg = s.substring (p, len - p);
@@ -147,7 +147,7 @@ public class AnsiRenderer {
 			} else {
 				print("unsupported ");
 				// not a supported escape sequence, insert ESC as literal
-				insert_with_tag ("\u001b", bold, underline, fg);
+				insert_with_tag ("\x1b", bold, underline, fg);
 				p = escpos + 1;
 			}
 		}
