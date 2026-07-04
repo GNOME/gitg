@@ -274,7 +274,7 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 			d_grid_parents_container.show();
 
 			Gtk.CheckButton? first = null;
-
+			int row = 0;
 			foreach (var parent in parents)
 			{
 				var pid = parent.get_id().to_string().substring(0, 6);
@@ -293,9 +293,7 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 
 				d_parents_map[parent.get_id()] = button;
 
-				button.show();
-				d_grid_parents.add(button);
-
+				d_grid_parents.attach(button, 0, row ++, 1, 1);
 				var par = parent;
 
 				button.toggled.connect(() => {
@@ -450,7 +448,7 @@ class Gitg.DiffViewCommitDetails : Gtk.Grid
 
 					if (pixbuf != null)
 					{
-						d_image_avatar.pixbuf = pixbuf;
+						d_image_avatar.set_from_pixbuf(pixbuf);
 						d_image_avatar.remove_css_class("dim-label");
 					}
 					else
