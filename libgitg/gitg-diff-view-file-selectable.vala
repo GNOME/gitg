@@ -101,8 +101,9 @@ class Gitg.DiffViewFileSelectable : Object
 
 		d_selection_tag = source_view.buffer.create_tag("selection");
 
-		source_view.style_updated.connect(update_theme);
-		update_theme();
+		source_view.notify["state-flags"].connect(() => {
+			update_cursor(cursor_ptr);
+		});
 
 		d_originally_selected = new Gee.HashMap<int, bool>();
 
@@ -119,7 +120,7 @@ class Gitg.DiffViewFileSelectable : Object
 		{
 			if (d_cursor_ptr == null)
 			{
-				d_cursor_ptr = new Gdk.Cursor.for_display(source_view.get_display(), Gdk.CursorType.LEFT_PTR);
+				d_cursor_ptr = new Gdk.Cursor.from_name("default", null);
 			}
 
 			return d_cursor_ptr;
@@ -132,7 +133,7 @@ class Gitg.DiffViewFileSelectable : Object
 		{
 			if (d_cursor_hand == null)
 			{
-				d_cursor_hand = new Gdk.Cursor.for_display(source_view.get_display(), Gdk.CursorType.HAND1);
+				d_cursor_hand = new Gdk.Cursor.from_name("pointer", null);
 			}
 
 			return d_cursor_hand;
