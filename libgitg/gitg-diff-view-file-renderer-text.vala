@@ -186,7 +186,7 @@ class Gitg.DiffViewFileRendererText : GtkSource.View, DiffSelectable, DiffViewFi
 	public DiffViewFileRendererText(DiffViewFileInfo info, bool can_select, Style style)
 	{
 		Object(info: info, can_select: can_select, d_style: style);
-		Hdy.StyleManager.get_default ().notify["dark"].connect (() => {
+		Adw.StyleManager.get_default ().notify["dark"].connect (() => {
 			Gitg.Utils.update_style_by_theme(d_stylesettings);
 		});
 	}
