@@ -125,7 +125,7 @@ public class Utils
 			m.set("cobalt-light", "cobalt");
 		}
 
-		var dark = Hdy.StyleManager.get_default ().dark;
+		var dark = Adw.StyleManager.get_default ().dark;
 		var scheme = settings.get_string("style-scheme");
 		if (dark) {
 			if (theme_light_dark.has_key(scheme)) {
