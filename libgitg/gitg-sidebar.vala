@@ -440,7 +440,7 @@ public class Sidebar : Gtk.TreeView
 		return retval;
 	}
 
-	protected override void row_activated(Gtk.TreePath path, Gtk.TreeViewColumn column)
+	protected override void row_activated(Gtk.TreePath path, Gtk.TreeViewColumn? column)
 	{
 		if (model.clearing)
 		{
