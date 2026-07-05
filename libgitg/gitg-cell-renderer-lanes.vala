@@ -270,28 +270,35 @@ namespace Gitg
 			context.restore();
 		}
 
-		public override void render(Cairo.Context         context,
-		                            Gtk.Widget            widget,
-		                            Gdk.Rectangle         area,
-		                            Gdk.Rectangle         cell_area,
-		                            Gtk.CellRendererState flags)
+		public override void snapshot(Gtk.Snapshot          snapshot,
+									  Gtk.Widget            widget,
+									  Gdk.Rectangle         background_area,
+									  Gdk.Rectangle         cell_area,
+									  Gtk.CellRendererState flags)
 		{
 			var ncell_area = cell_area;
-			var narea = area;
+			var narea = background_area;
 
 			var rtl = (widget.get_style_context().get_state() & Gtk.StateFlags.DIR_RTL) != 0;
 
-			d_last_height = area.height;
+			d_last_height = background_area.height;
 
+			var bounds = Graphene.Rect();
+
+			bounds.init((float) background_area.x, (float) background_area.y,
+			            (float) background_area.width, (float) background_area.height);
+
+			var context = snapshot.append_cairo(bounds);
+			
 			if (commit != null)
 			{
 				context.save();
 
-				Gdk.cairo_rectangle(context, area);
+				Gdk.cairo_rectangle(context, background_area);
 				context.clip();
 
-				draw_lane(context, widget, area);
-				draw_labels(context, widget, area);
+				draw_lane(context, widget, background_area);
+				draw_labels(context, widget, background_area);
 
 				var tw = total_width(widget);
 
@@ -314,7 +321,7 @@ namespace Gitg
 				xalign = 1.0f;
 			}
 
-			base.render(context, widget, narea, ncell_area, flags);
+			base.snapshot(snapshot, widget, narea, ncell_area, flags);
 		}
 
 		public Ref? get_ref_at_pos(Gtk.Widget widget,
