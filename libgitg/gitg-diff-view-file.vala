@@ -150,14 +150,6 @@ class Gitg.DiffViewFile : Gtk.Grid
 		view.realize.connect(() => {
 			Idle.add(() => update_hscrollbar_margin(sw, view));
 		});
-
-		view.style_updated.connect(() => {
-			Idle.add(() => update_hscrollbar_margin(sw, view));
-		});
-
-		view.size_allocate.connect((allocation) => {
-			Idle.add(() => update_hscrollbar_margin(sw, view));
-		});
 	}
 
 	private bool update_hscrollbar_margin(Gtk.ScrolledWindow sw, Gtk.TextView view)
@@ -168,13 +160,10 @@ class Gitg.DiffViewFile : Gtk.Grid
 			return false;
 		}
 
-		var win = view.get_window(Gtk.TextWindowType.LEFT);
-		if (win == null)
-		{
-			return false;
-		}
+		var gutter = ((GtkSource.View) view).get_gutter(Gtk.TextWindowType.LEFT);
+		
+		int gutter_width = gutter.get_width();
 
-		int gutter_width = win.get_width();
 		if (gutter_width >= 0)
 		{
 			hbar.margin_start = gutter_width;
@@ -189,7 +178,7 @@ class Gitg.DiffViewFile : Gtk.Grid
 		renderer.show();
 		var scrolled_window = new Gtk.ScrolledWindow ();
 		scrolled_window.set_policy (Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
-		scrolled_window.add(renderer);
+		scrolled_window.set_child(renderer);
 		setup_hscrollbar_margins(scrolled_window, renderer);
 		scrolled_window.show();
 
