@@ -181,14 +181,8 @@ public class FontManager: Object
 
 		var font_desc = Pango.FontDescription.from_string(fname);
 		var css = "textview { %s }".printf(pango_font_description_to_css(font_desc));
-		try
-		{
-			css_provider.load_from_data(css);
-		}
-		catch(Error e)
-		{
-			warning("Error applying font: %s", e.message);
-		}
+
+		css_provider.load_from_string(css);
 	}
 }
 }
