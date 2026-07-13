@@ -354,7 +354,7 @@ public class UiUtils
 				break;
 		}
 		var dialog = new Gtk.MessageDialog (parent,
-		                                    Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
+		                                    Gtk.DialogFlags.MODAL,
 		                                    type, Gtk.ButtonsType.OK_CANCEL, message);
 
 		var img = new Gtk.Image.from_icon_name (icon_name);
@@ -397,7 +397,7 @@ public class UiUtils
 		var dialog = new Gtk.Dialog.with_buttons (
 			title,
 			parent,
-			Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT |
+			Gtk.DialogFlags.MODAL |
 			Gtk.DialogFlags.USE_HEADER_BAR,
 			cancel, Gtk.ResponseType.CANCEL,
 			yes, Gtk.ResponseType.OK

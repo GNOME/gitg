@@ -239,7 +239,7 @@ namespace Gitg
 		private void show_config_error(string primary_message, string secondary_message)
 		{
 			var error_dialog = new Gtk.MessageDialog(this,
-			                                         Gtk.DialogFlags.DESTROY_WITH_PARENT,
+			                                         Gtk.DialogFlags.MODAL,
 			                                         Gtk.MessageType.ERROR,
 			                                         Gtk.ButtonsType.OK,
 			                                         "%s",
