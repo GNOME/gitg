@@ -336,27 +336,21 @@ public class UiUtils
 		var cancel = get(vars, "question-no", _("Cancel"));
 		var yes = get(vars, "question-yes", _("Ok"));
 		Gtk.MessageType type;
-		string icon_name;
 		switch(level) {
 			case "info":
 				type = Gtk.MessageType.INFO;
-				icon_name = "dialog-information-symbolic";
 				break;
 			case "warning":
 				type = Gtk.MessageType.WARNING;
-				icon_name = "dialog-warning-symbolic";
 				break;
 			case "error":
 				type = Gtk.MessageType.ERROR;
-				icon_name = "dialog-error-symbolic";
 				break;
 			case "other":
 				type = Gtk.MessageType.OTHER;
-				icon_name = "dialog-question-symbolic";
 				break;
 			default:
 				type = Gtk.MessageType.INFO;
-				icon_name = "dialog-information-symbolic";
 				break;
 		}
 		var dialog = new Gtk.MessageDialog (parent,
@@ -370,15 +364,22 @@ public class UiUtils
 		dialog.set_default_size (360, 120);
 		dialog.set_resizable (false);
 
-		dialog.show_all ();
+		dialog.present ();
 
-		int response = dialog.run ();
+		int response = (int)Gtk.ResponseType.NONE;
+		var loop = new GLib.MainLoop(null, false);
+		dialog.response.connect((id) => {
+			response = id;
+			loop.quit();
+		});
+		loop.run();
+
 		string? result = null;
 		if (response == (int) Gtk.ResponseType.OK) {
 			result = "";
 		}
 
-		dialog.destroy ();
+		dialog.close ();
 		return result;
 	}
 
@@ -444,7 +445,7 @@ public class UiUtils
 				ok_button.set_sensitive (entry.text.strip().length > 0);
 		});
 
-		dialog.show_all ();
+		dialog.present ();
 
 		if (force_show_placeholder &&  placeholder_text != null) {
 			GLib.Idle.add (() => {
@@ -453,13 +454,20 @@ public class UiUtils
 			});
 		}
 
-		int response = dialog.run ();
+		int response = (int)Gtk.ResponseType.NONE;
+		var loop = new GLib.MainLoop(null, false);
+		dialog.response.connect((id) => {
+			response = id;
+			loop.quit();
+		});
+		loop.run();
+
 		string? result = null;
 		if (response == (int) Gtk.ResponseType.OK) {
 			result = entry.get_text ();
 		}
 
-		dialog.destroy ();
+		dialog.close ();
 		return result;
 	}
 
