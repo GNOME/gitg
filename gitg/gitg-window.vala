@@ -99,6 +99,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private unowned Gtk.Button d_search_up_button;
 	[GtkChild]
 	private unowned Gtk.Button d_search_down_button;
+	[GtkChild]
+	private unowned Gtk.Button d_search_advanced_button;
 
 	[GtkChild]
 	private unowned Gtk.Stack d_main_stack;
@@ -167,6 +169,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 
 	private const ActionEntry[] win_entries = {
 		{"search", on_search_activated, null, "false", null},
+		{"filter", on_filter_activated},
 		{"gear-menu", on_gear_menu_activated, null, "false", null},
 		{"open-repository", on_open_repository},
 		{"close", on_close_activated},
@@ -277,6 +280,10 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		}
 		d_search_up_button.set_visible(show_buttons);
 		d_search_down_button.set_visible(show_buttons);
+
+		var show_advanced = button.get_active() && searchable != null &&
+		                    searchable.get_filter_popover(d_search_advanced_button) != null;
+		d_search_advanced_button.set_visible(show_advanced);
 	}
 
 	[GtkCallback]
@@ -317,6 +324,26 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 	private void search_down_clicked(Gtk.Button button)
 	{
 		search_move(false);
+	}
+
+	[GtkCallback]
+	private void search_advanced_clicked(Gtk.Button button)
+	{
+		var searchable = current_activity as GitgExt.Searchable;
+		if (searchable == null) return;
+
+		var popover = searchable.get_filter_popover(d_search_advanced_button);
+		if (popover == null) return;
+
+		if (popover.visible)
+		{
+			popover.popdown();
+		}
+		else
+		{
+			d_filter_opened_search = false;
+			show_filter_popover(popover);
+		}
 	}
 
 	construct
@@ -475,6 +502,46 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		{
 			var state = action.get_state().get_boolean();
 			action.set_state(new Variant.boolean(!state));
+		}
+	}
+
+	private bool d_filter_opened_search;
+	private ulong d_filter_popover_closed_id;
+
+	private void show_filter_popover(Gtk.Popover popover)
+	{
+		d_search_bar.search_mode_enabled = true;
+		d_search_advanced_button.visible = true;
+
+		if (d_filter_popover_closed_id == 0)
+		{
+			d_filter_popover_closed_id = popover.closed.connect(() => {
+				if (d_filter_opened_search)
+				{
+					d_search_bar.search_mode_enabled = false;
+				}
+			});
+		}
+
+		popover.popup();
+	}
+
+	private void on_filter_activated()
+	{
+		var searchable = current_activity as GitgExt.Searchable;
+		if (searchable == null) return;
+
+		var popover = searchable.get_filter_popover(d_search_advanced_button);
+		if (popover == null) return;
+
+		if (popover.visible)
+		{
+			popover.popdown();
+		}
+		else
+		{
+			d_filter_opened_search = !d_search_bar.search_mode_enabled;
+			show_filter_popover(popover);
 		}
 	}
 
@@ -943,6 +1010,7 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 			d_search_button.active = false;
 			d_search_button.sensitive = false;
 			d_search_entry.text = "";
+			d_search_advanced_button.visible = false;
 		}
 
 		var selectable = (current as GitgExt.Selectable);

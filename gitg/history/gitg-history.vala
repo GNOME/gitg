@@ -50,6 +50,7 @@ namespace GitgHistory
 		private ulong d_commits_changed_id;
 
 		private Gitg.WhenMapped? d_reload_when_mapped;
+		private Gtk.Popover? d_filter_popover;
 
 		private Paned d_main;
 		private Gitg.DiffView? d_connected_diff_view;
@@ -148,6 +149,14 @@ namespace GitgHistory
 			});
 
 			d_settings.changed["show-upstream-with-branch"].connect((s, k) => {
+				update_walker();
+			});
+
+			d_settings.changed["skip-non-decorated"].connect((s, k) => {
+				update_walker();
+			});
+
+			d_settings.changed["path-filter"].connect((s, k) => {
 				update_walker();
 			});
 
@@ -1009,6 +1018,115 @@ switch (event.keyval)
 			return item;
 		}
 
+		private string get_effective_path_filter()
+		{
+			if (application.repository != null)
+			{
+				try
+				{
+					var config = application.repository.get_config().snapshot();
+					if (config.get_bool("gitg.filter.path-use-repo-config"))
+					{
+						try
+						{
+							return config.get_string("gitg.filter.path") ?? "";
+						}
+						catch
+						{
+							return "";
+						}
+					}
+				}
+				catch {}
+			}
+
+			return d_settings.get_string("path-filter") ?? "";
+		}
+
+		private bool get_effective_decorated()
+		{
+			if (application.repository != null)
+			{
+				try
+				{
+					var config = application.repository.get_config().snapshot();
+					if (config.get_bool("gitg.filter.path-use-repo-config"))
+					{
+						try
+						{
+							return config.get_bool("gitg.filter.decorated");
+						}
+						catch
+						{
+							return false;
+						}
+					}
+				}
+				catch {}
+			}
+
+			return d_settings.get_boolean("skip-non-decorated");
+		}
+
+		private void save_filters(string filter, bool decorated, bool in_repo,
+		                          string date_type = "none", string date_value = "",
+		                          string date_type2 = "none", string date_value2 = "",
+		                          string author_filter = "", string committer_filter = "",
+		                          string range_type = "none", string range_left = "",
+		                          string range_right = "", bool range_ancestry = false)
+		{
+			d_settings.set_string("date-filter-type", date_type);
+			d_settings.set_string("date-filter-value", date_value);
+			d_settings.set_string("date-filter-type2", date_type2);
+			d_settings.set_string("date-filter-value2", date_value2);
+			d_settings.set_string("author-filter", author_filter);
+			d_settings.set_string("committer-filter", committer_filter);
+			d_settings.set_string("range-filter-type", range_type);
+			d_settings.set_string("range-filter-left", range_left);
+			d_settings.set_string("range-filter-right", range_right);
+			d_settings.set_boolean("range-show-ancestry", range_ancestry);
+
+			if (application.repository == null)
+			{
+				d_settings.set_string("path-filter", filter);
+				d_settings.set_boolean("skip-non-decorated", decorated);
+				update_walker();
+				return;
+			}
+
+			try
+			{
+				var config = application.repository.get_config();
+				config.set_bool("gitg.filter.path-use-repo-config", in_repo);
+
+				if (in_repo)
+				{
+					if (filter.length > 0)
+					{
+						config.set_string("gitg.filter.path", filter);
+					}
+					else
+					{
+						try { config.delete_entry("gitg.filter.path"); } catch {}
+					}
+
+					config.set_bool("gitg.filter.decorated", decorated);
+				}
+				else
+				{
+					d_settings.set_string("path-filter", filter);
+					d_settings.set_boolean("skip-non-decorated", decorated);
+				}
+			}
+			catch
+			{
+				d_settings.set_string("path-filter", filter);
+				d_settings.set_boolean("skip-non-decorated", decorated);
+			}
+
+			update_walker();
+		}
+
 		private void show_visible_columns_dialog (Gtk.TreeView treeview) {
 			var listbox = Gitg.UiUtils.build_listbox_visible_columns (treeview);
 			var sw = new Gtk.ScrolledWindow (null, null);
@@ -1464,7 +1582,102 @@ switch (event.keyval)
 			}
 
 			d_commit_list_model.set_permanent_lanes(permanent);
+
+			var range_type = d_settings.get_string("range-filter-type");
+			var range_left = d_settings.get_string("range-filter-left").strip();
+			var range_right = d_settings.get_string("range-filter-right").strip();
+
+			var exclude = new Gee.HashSet<Ggit.OId>((Gee.HashDataFunc)Ggit.OId.hash,
+			                                        (Gee.EqualDataFunc)Ggit.OId.equal);
+
+			if (range_type != "none" && range_left.length > 0 && range_right.length > 0 &&
+			    application.repository != null)
+			{
+				try
+				{
+					var left_obj = application.repository.revparse(range_left);
+					var right_obj = application.repository.revparse(range_right);
+
+					if (left_obj != null && right_obj != null)
+					{
+						var left_oid = left_obj.get_id();
+						var right_oid = right_obj.get_id();
+
+						include.clear();
+
+						if (range_type == "..")
+						{
+							include.add(right_oid);
+							exclude.add(left_oid);
+						}
+						else if (range_type == "...")
+						{
+							include.add(left_oid);
+							include.add(right_oid);
+
+							try
+							{
+								var mb = application.repository.merge_base(left_oid, right_oid);
+								if (mb != null)
+								{
+									if (d_settings.get_boolean("range-show-ancestry"))
+									{
+										var mb_commit = application.repository.lookup<Ggit.Commit>(mb);
+										var parents = mb_commit.get_parents();
+										for (uint i = 0; i < parents.size; i++)
+										{
+											exclude.add(parents.get_id(i));
+										}
+									}
+									else
+									{
+										exclude.add(mb);
+									}
+								}
+							}
+							catch {}
+						}
+					}
+				}
+				catch {}
+			}
+
 			d_commit_list_model.set_include(include.to_array());
+			d_commit_list_model.set_exclude(exclude.to_array());
+
+			if (application.repository != null)
+			{
+				var decorated = get_effective_decorated();
+
+				d_commit_list_model.decorated_only = decorated;
+				d_commit_list_model.set_decorated_oids(
+					decorated ? application.repository.decorated_ids() : null);
+			}
+
+			var path_filter = get_effective_path_filter();
+
+			if (path_filter.length > 0)
+			{
+				d_commit_list_model.set_pathspec(path_filter.split(" "));
+			}
+			else
+			{
+				d_commit_list_model.set_pathspec(null);
+			}
+
+			var date_type_str = d_settings.get_string("date-filter-type");
+			var date_value_str = d_settings.get_string("date-filter-value");
+			var date_type_str2 = d_settings.get_string("date-filter-type2");
+			var date_value_str2 = d_settings.get_string("date-filter-value2");
+			d_commit_list_model.set_date_filter(
+				Gitg.DateFilterType.from_string(date_type_str),
+				date_value_str,
+				Gitg.DateFilterType.from_string(date_type_str2),
+				date_value_str2);
+
+			d_commit_list_model.set_author_filter(d_settings.get_string("author-filter"));
+			d_commit_list_model.set_committer_filter(d_settings.get_string("committer-filter"));
+
 			d_commit_list_model.reload();
 		}
 
@@ -1586,6 +1799,455 @@ switch (event.keyval)
 		public override bool show_buttons()
 		{
 			return true;
+		}
+
+		public override Gtk.Popover? get_filter_popover(Gtk.Widget relative_to)
+		{
+			if (d_filter_popover == null)
+			{
+				d_filter_popover = build_filter_popover();
+			}
+
+			d_filter_popover.relative_to = relative_to;
+			return d_filter_popover;
+		}
+
+		private Gtk.Popover build_filter_popover()
+		{
+			var popover = new Gtk.Popover(null);
+
+			var box = new Gtk.Box(Gtk.Orientation.VERTICAL, 6);
+			box.margin = 12;
+
+			var decorated_check = new Gtk.CheckButton.with_mnemonic(_("Show only d_ecorated commits"));
+			decorated_check.active = get_effective_decorated();
+			box.add(decorated_check);
+
+			var separator = new Gtk.Separator(Gtk.Orientation.HORIZONTAL);
+			box.add(separator);
+
+			var label = new Gtk.Label.with_mnemonic(_("_Path filter (separate patterns with spaces, prefix with :! to exclude)"));
+			label.halign = Gtk.Align.START;
+			label.wrap = true;
+			label.max_width_chars = 40;
+			box.add(label);
+
+			var entry = new Gtk.Entry();
+			entry.text = get_effective_path_filter();
+			entry.hexpand = true;
+			label.mnemonic_widget = entry;
+			box.add(entry);
+
+			var date_separator = new Gtk.Separator(Gtk.Orientation.HORIZONTAL);
+			box.add(date_separator);
+
+			var date_label = new Gtk.Label.with_mnemonic(_("_Date filter"));
+			date_label.halign = Gtk.Align.START;
+			box.add(date_label);
+
+			var date_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 6);
+
+			var date_combo = new Gtk.ComboBoxText();
+			date_combo.append("none", _("None"));
+			date_combo.append("since", _("Since"));
+			date_combo.append("until", _("Until"));
+			date_combo.append("before", _("Before"));
+			date_combo.append("after", _("After"));
+			date_combo.active_id = d_settings.get_string("date-filter-type");
+			if (date_combo.active_id == null)
+			{
+				date_combo.active_id = "none";
+			}
+			date_box.pack_start(date_combo, false, false, 0);
+
+			var date_entry = new Gtk.Entry();
+			date_entry.text = d_settings.get_string("date-filter-value");
+			date_entry.placeholder_text = _("e.g. 2 weeks ago, 2025-01-01");
+			date_entry.hexpand = true;
+			date_entry.sensitive = date_combo.active_id != "none";
+			date_label.mnemonic_widget = date_combo;
+			date_box.pack_start(date_entry, true, true, 0);
+
+			box.add(date_box);
+
+			var date_box2 = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 6);
+
+			var date_combo2 = new Gtk.ComboBoxText();
+			date_combo2.append("none", _("None"));
+			date_combo2.append("since", _("Since"));
+			date_combo2.append("until", _("Until"));
+			date_combo2.append("before", _("Before"));
+			date_combo2.append("after", _("After"));
+			date_combo2.active_id = d_settings.get_string("date-filter-type2");
+			if (date_combo2.active_id == null)
+			{
+				date_combo2.active_id = "none";
+			}
+			date_box2.pack_start(date_combo2, false, false, 0);
+
+			var date_entry2 = new Gtk.Entry();
+			date_entry2.text = d_settings.get_string("date-filter-value2");
+			date_entry2.placeholder_text = _("e.g. yesterday, 2025-06-15");
+			date_entry2.hexpand = true;
+			date_entry2.sensitive = date_combo2.active_id != "none";
+			date_box2.pack_start(date_entry2, true, true, 0);
+
+			box.add(date_box2);
+
+			var person_separator = new Gtk.Separator(Gtk.Orientation.HORIZONTAL);
+			box.add(person_separator);
+
+			var author_label = new Gtk.Label.with_mnemonic(_("_Author filter (regex on Name <email>)"));
+			author_label.halign = Gtk.Align.START;
+			author_label.wrap = true;
+			author_label.max_width_chars = 40;
+			box.add(author_label);
+
+			var author_entry = new Gtk.Entry();
+			author_entry.text = d_settings.get_string("author-filter");
+			author_entry.placeholder_text = _("e.g. John, john@example.com");
+			author_entry.hexpand = true;
+			author_label.mnemonic_widget = author_entry;
+			box.add(author_entry);
+
+			var committer_label = new Gtk.Label.with_mnemonic(_("Co_mmitter filter (regex on Name <email>)"));
+			committer_label.halign = Gtk.Align.START;
+			committer_label.wrap = true;
+			committer_label.max_width_chars = 40;
+			box.add(committer_label);
+
+			var committer_entry = new Gtk.Entry();
+			committer_entry.text = d_settings.get_string("committer-filter");
+			committer_entry.placeholder_text = _("e.g. bot, ci@");
+			committer_entry.hexpand = true;
+			committer_label.mnemonic_widget = committer_entry;
+			box.add(committer_entry);
+
+			var range_separator = new Gtk.Separator(Gtk.Orientation.HORIZONTAL);
+			box.add(range_separator);
+
+			var range_label = new Gtk.Label.with_mnemonic(_("_Range filter"));
+			range_label.halign = Gtk.Align.START;
+			box.add(range_label);
+
+			var range_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 6);
+
+			var range_left_entry = new Gtk.Entry();
+			range_left_entry.text = d_settings.get_string("range-filter-left");
+			range_left_entry.placeholder_text = _("e.g. origin/main");
+			range_left_entry.hexpand = true;
+			range_label.mnemonic_widget = range_left_entry;
+			range_box.pack_start(range_left_entry, true, true, 0);
+
+			var range_combo = new Gtk.ComboBoxText();
+			range_combo.append("none", _("None"));
+			range_combo.append("..", "..");
+			range_combo.append("...", "...");
+			range_combo.active_id = d_settings.get_string("range-filter-type");
+			if (range_combo.active_id == null)
+			{
+				range_combo.active_id = "none";
+			}
+			range_box.pack_start(range_combo, false, false, 0);
+
+			var range_right_entry = new Gtk.Entry();
+			range_right_entry.text = d_settings.get_string("range-filter-right");
+			range_right_entry.placeholder_text = _("e.g. HEAD");
+			range_right_entry.hexpand = true;
+			range_right_entry.sensitive = range_combo.active_id != "none";
+			range_left_entry.sensitive = range_combo.active_id != "none";
+			range_box.pack_start(range_right_entry, true, true, 0);
+
+			box.add(range_box);
+
+			var range_ancestry_check = new Gtk.CheckButton.with_mnemonic(_("Show _common ancestry"));
+			range_ancestry_check.active = d_settings.get_boolean("range-show-ancestry");
+			range_ancestry_check.sensitive = range_combo.active_id == "...";
+			box.add(range_ancestry_check);
+
+			var separator2 = new Gtk.Separator(Gtk.Orientation.HORIZONTAL);
+			box.add(separator2);
+
+			bool store_in_repo = false;
+
+			if (application.repository != null)
+			{
+				try
+				{
+					store_in_repo = application.repository.get_config().snapshot().get_bool("gitg.filter.path-use-repo-config");
+				}
+				catch {}
+			}
+
+			var repo_check = new Gtk.CheckButton.with_mnemonic(_("Use _repo config"));
+			repo_check.active = store_in_repo;
+			box.add(repo_check);
+
+			uint entry_timeout_id = 0;
+			uint date_entry_timeout_id = 0;
+			uint date_entry_timeout_id2 = 0;
+			uint author_entry_timeout_id = 0;
+			uint committer_entry_timeout_id = 0;
+
+			decorated_check.toggled.connect(() => {
+				save_filters(entry.text, decorated_check.active, repo_check.active,
+				             date_combo.active_id, date_entry.text,
+				             date_combo2.active_id, date_entry2.text,
+				             author_entry.text, committer_entry.text,
+				             range_combo.active_id, range_left_entry.text,
+				             range_right_entry.text, range_ancestry_check.active);
+			});
+
+			entry.changed.connect(() => {
+				if (entry_timeout_id != 0)
+				{
+					Source.remove(entry_timeout_id);
+				}
+
+				entry_timeout_id = Timeout.add(500, () => {
+					entry_timeout_id = 0;
+					save_filters(entry.text, decorated_check.active, repo_check.active,
+					             date_combo.active_id, date_entry.text,
+					             date_combo2.active_id, date_entry2.text,
+					             author_entry.text, committer_entry.text,
+					             range_combo.active_id, range_left_entry.text,
+					             range_right_entry.text);
+					return false;
+				});
+			});
+
+			date_combo.changed.connect(() => {
+				date_entry.sensitive = date_combo.active_id != "none";
+				save_filters(entry.text, decorated_check.active, repo_check.active,
+				             date_combo.active_id, date_entry.text,
+				             date_combo2.active_id, date_entry2.text,
+				             author_entry.text, committer_entry.text,
+				             range_combo.active_id, range_left_entry.text,
+				             range_right_entry.text, range_ancestry_check.active);
+			});
+
+			date_entry.changed.connect(() => {
+				if (date_entry_timeout_id != 0)
+				{
+					Source.remove(date_entry_timeout_id);
+				}
+
+				date_entry_timeout_id = Timeout.add(500, () => {
+					date_entry_timeout_id = 0;
+					save_filters(entry.text, decorated_check.active, repo_check.active,
+					             date_combo.active_id, date_entry.text,
+					             date_combo2.active_id, date_entry2.text,
+					             author_entry.text, committer_entry.text,
+					             range_combo.active_id, range_left_entry.text,
+					             range_right_entry.text);
+					return false;
+				});
+			});
+
+			date_combo2.changed.connect(() => {
+				date_entry2.sensitive = date_combo2.active_id != "none";
+				save_filters(entry.text, decorated_check.active, repo_check.active,
+				             date_combo.active_id, date_entry.text,
+				             date_combo2.active_id, date_entry2.text,
+				             author_entry.text, committer_entry.text,
+				             range_combo.active_id, range_left_entry.text,
+				             range_right_entry.text, range_ancestry_check.active);
+			});
+
+			date_entry2.changed.connect(() => {
+				if (date_entry_timeout_id2 != 0)
+				{
+					Source.remove(date_entry_timeout_id2);
+				}
+
+				date_entry_timeout_id2 = Timeout.add(500, () => {
+					date_entry_timeout_id2 = 0;
+					save_filters(entry.text, decorated_check.active, repo_check.active,
+					             date_combo.active_id, date_entry.text,
+					             date_combo2.active_id, date_entry2.text,
+					             author_entry.text, committer_entry.text,
+					             range_combo.active_id, range_left_entry.text,
+					             range_right_entry.text);
+					return false;
+				});
+			});
+
+			author_entry.changed.connect(() => {
+				if (author_entry_timeout_id != 0)
+				{
+					Source.remove(author_entry_timeout_id);
+				}
+
+				author_entry_timeout_id = Timeout.add(500, () => {
+					author_entry_timeout_id = 0;
+					save_filters(entry.text, decorated_check.active, repo_check.active,
+					             date_combo.active_id, date_entry.text,
+					             date_combo2.active_id, date_entry2.text,
+					             author_entry.text, committer_entry.text,
+					             range_combo.active_id, range_left_entry.text,
+					             range_right_entry.text);
+					return false;
+				});
+			});
+
+			committer_entry.changed.connect(() => {
+				if (committer_entry_timeout_id != 0)
+				{
+					Source.remove(committer_entry_timeout_id);
+				}
+
+				committer_entry_timeout_id = Timeout.add(500, () => {
+					committer_entry_timeout_id = 0;
+					save_filters(entry.text, decorated_check.active, repo_check.active,
+					             date_combo.active_id, date_entry.text,
+					             date_combo2.active_id, date_entry2.text,
+					             author_entry.text, committer_entry.text,
+					             range_combo.active_id, range_left_entry.text,
+					             range_right_entry.text);
+					return false;
+				});
+			});
+
+			range_combo.changed.connect(() => {
+				range_left_entry.sensitive = range_combo.active_id != "none";
+				range_right_entry.sensitive = range_combo.active_id != "none";
+				range_ancestry_check.sensitive = range_combo.active_id == "...";
+				save_filters(entry.text, decorated_check.active, repo_check.active,
+				             date_combo.active_id, date_entry.text,
+				             date_combo2.active_id, date_entry2.text,
+				             author_entry.text, committer_entry.text,
+				             range_combo.active_id, range_left_entry.text,
+				             range_right_entry.text, range_ancestry_check.active);
+			});
+
+			range_ancestry_check.toggled.connect(() => {
+				save_filters(entry.text, decorated_check.active, repo_check.active,
+				             date_combo.active_id, date_entry.text,
+				             date_combo2.active_id, date_entry2.text,
+				             author_entry.text, committer_entry.text,
+				             range_combo.active_id, range_left_entry.text,
+				             range_right_entry.text, range_ancestry_check.active);
+			});
+
+			uint range_left_timeout_id = 0;
+			uint range_right_timeout_id = 0;
+
+			range_left_entry.changed.connect(() => {
+				if (range_left_timeout_id != 0)
+				{
+					Source.remove(range_left_timeout_id);
+				}
+
+				range_left_timeout_id = Timeout.add(500, () => {
+					range_left_timeout_id = 0;
+					save_filters(entry.text, decorated_check.active, repo_check.active,
+					             date_combo.active_id, date_entry.text,
+					             date_combo2.active_id, date_entry2.text,
+					             author_entry.text, committer_entry.text,
+					             range_combo.active_id, range_left_entry.text,
+					             range_right_entry.text);
+					return false;
+				});
+			});
+
+			range_right_entry.changed.connect(() => {
+				if (range_right_timeout_id != 0)
+				{
+					Source.remove(range_right_timeout_id);
+				}
+
+				range_right_timeout_id = Timeout.add(500, () => {
+					range_right_timeout_id = 0;
+					save_filters(entry.text, decorated_check.active, repo_check.active,
+					             date_combo.active_id, date_entry.text,
+					             date_combo2.active_id, date_entry2.text,
+					             author_entry.text, committer_entry.text,
+					             range_combo.active_id, range_left_entry.text,
+					             range_right_entry.text);
+					return false;
+				});
+			});
+
+			repo_check.toggled.connect(() => {
+				if (repo_check.active)
+				{
+					string repo_val = "";
+					if (application.repository != null)
+					{
+						try
+						{
+							repo_val = application.repository.get_config().snapshot().get_string("gitg.filter.path");
+						}
+						catch {}
+					}
+					entry.text = repo_val;
+
+					bool repo_decorated = false;
+					if (application.repository != null)
+					{
+						try
+						{
+							repo_decorated = application.repository.get_config().snapshot().get_bool("gitg.filter.decorated");
+						}
+						catch {}
+					}
+					decorated_check.active = repo_decorated;
+				}
+				else
+				{
+					entry.text = d_settings.get_string("path-filter");
+					decorated_check.active = d_settings.get_boolean("skip-non-decorated");
+				}
+
+				save_filters(entry.text, decorated_check.active, repo_check.active,
+				             date_combo.active_id, date_entry.text,
+				             date_combo2.active_id, date_entry2.text,
+				             author_entry.text, committer_entry.text,
+				             range_combo.active_id, range_left_entry.text,
+				             range_right_entry.text, range_ancestry_check.active);
+			});
+
+			popover.closed.connect(() => {
+				if (entry_timeout_id != 0)
+				{
+					Source.remove(entry_timeout_id);
+				}
+				if (date_entry_timeout_id != 0)
+				{
+					Source.remove(date_entry_timeout_id);
+				}
+				if (date_entry_timeout_id2 != 0)
+				{
+					Source.remove(date_entry_timeout_id2);
+				}
+				if (author_entry_timeout_id != 0)
+				{
+					Source.remove(author_entry_timeout_id);
+				}
+				if (committer_entry_timeout_id != 0)
+				{
+					Source.remove(committer_entry_timeout_id);
+				}
+				if (range_left_timeout_id != 0)
+				{
+					Source.remove(range_left_timeout_id);
+				}
+				if (range_right_timeout_id != 0)
+				{
+					Source.remove(range_right_timeout_id);
+				}
+				save_filters(entry.text, decorated_check.active, repo_check.active,
+				             date_combo.active_id, date_entry.text,
+				             date_combo2.active_id, date_entry2.text,
+				             author_entry.text, committer_entry.text,
+				             range_combo.active_id, range_left_entry.text,
+				             range_right_entry.text, range_ancestry_check.active);
+			});
+
+			box.show_all();
+			popover.add(box);
+
+			return popover;
 		}
 	}
 }

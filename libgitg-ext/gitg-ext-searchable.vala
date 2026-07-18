@@ -34,6 +34,7 @@ public interface Searchable : Object, Activity
 	public abstract Gtk.Entry? search_entry { set; }
 	public virtual void search_move(string key, bool up) {}
 	public virtual bool show_buttons() { return false; }
+	public virtual Gtk.Popover? get_filter_popover(Gtk.Widget relative_to) { return null; }
 }
 
 }

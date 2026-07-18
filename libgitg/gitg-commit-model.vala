@@ -100,6 +100,49 @@ namespace Gitg
 		}
 	}
 
+	public enum DateFilterType
+	{
+		NONE,
+		SINCE,
+		UNTIL,
+		BEFORE,
+		AFTER;
+
+		public string to_string()
+		{
+			switch (this)
+			{
+				case SINCE:
+					return "since";
+				case UNTIL:
+					return "until";
+				case BEFORE:
+					return "before";
+				case AFTER:
+					return "after";
+				default:
+					return "";
+			}
+		}
+
+		public static DateFilterType from_string(string s)
+		{
+			switch (s.down())
+			{
+				case "since":
+					return SINCE;
+				case "until":
+					return UNTIL;
+				case "before":
+					return BEFORE;
+				case "after":
+					return AFTER;
+				default:
+					return NONE;
+			}
+		}
+	}
+
 	public class CommitModel : Object, Gtk.TreeModel
 	{
 		private Repository d_repository;
@@ -116,6 +159,21 @@ namespace Gitg
 
 		private Ggit.OId[] d_include;
 		private Ggit.OId[] d_exclude;
+
+		private bool d_decorated_only;
+		private Gee.HashSet<Ggit.OId>? d_decorated_oids;
+
+		private string[]? d_pathspec_include;
+		private string[]? d_pathspec_exclude;
+
+		private DateFilterType d_date_filter_type;
+		private GLib.DateTime? d_date_filter_value;
+
+		private DateFilterType d_date_filter_type2;
+		private GLib.DateTime? d_date_filter_value2;
+
+		private string d_author_filter = "";
+		private string d_committer_filter = "";
 
 		private uint d_size;
 		private int d_stamp;
@@ -278,6 +336,399 @@ namespace Gitg
 			this.d_exclude = ids;
 		}
 
+		public bool decorated_only
+		{
+			get { return d_decorated_only; }
+			set { d_decorated_only = value; }
+		}
+
+		public void set_decorated_oids(Gee.HashSet<Ggit.OId>? ids)
+		{
+			d_decorated_oids = ids;
+		}
+
+		public void set_pathspec(string[]? spec)
+		{
+			string[] inc = {};
+			string[] exc = {};
+
+			if (spec != null)
+			{
+				foreach (var s in spec)
+				{
+					if (s.has_prefix(":!"))
+					{
+						exc += s.substring(2);
+					}
+					else if (s.has_prefix(":^"))
+					{
+						exc += s.substring(2);
+					}
+					else
+					{
+						inc += s;
+					}
+				}
+			}
+
+			d_pathspec_include = inc.length > 0 ? inc : null;
+			d_pathspec_exclude = exc.length > 0 ? exc : null;
+		}
+
+		public void set_date_filter(DateFilterType type, string date_str,
+		                            DateFilterType type2 = DateFilterType.NONE,
+		                            string date_str2 = "")
+		{
+			d_date_filter_type = type;
+			d_date_filter_value = null;
+
+			if (type == DateFilterType.NONE || date_str.strip().length == 0)
+			{
+				d_date_filter_type = DateFilterType.NONE;
+			}
+			else
+			{
+				d_date_filter_value = parse_date_string(date_str.strip());
+			}
+
+			d_date_filter_type2 = type2;
+			d_date_filter_value2 = null;
+
+			if (type2 == DateFilterType.NONE || date_str2.strip().length == 0)
+			{
+				d_date_filter_type2 = DateFilterType.NONE;
+			}
+			else
+			{
+				d_date_filter_value2 = parse_date_string(date_str2.strip());
+			}
+		}
+
+		public void set_author_filter(string pattern)
+		{
+			d_author_filter = pattern.strip();
+		}
+
+		public void set_committer_filter(string pattern)
+		{
+			d_committer_filter = pattern.strip();
+		}
+
+		private bool commit_matches_person_filter(Ggit.Signature sig, string pattern)
+		{
+			if (pattern.length == 0)
+			{
+				return true;
+			}
+
+			var identity = "%s <%s>".printf(sig.get_name(), sig.get_email());
+
+			try
+			{
+				var regex = new Regex(pattern, RegexCompileFlags.CASELESS);
+				return regex.match(identity);
+			}
+			catch
+			{
+				return identity.down().contains(pattern.down());
+			}
+		}
+
+		private static GLib.DateTime? parse_date_string(string input)
+		{
+			var s = input.down().strip();
+			var tz = new GLib.TimeZone.local();
+
+			var relative = parse_relative_date(s);
+			if (relative != null)
+			{
+				return relative;
+			}
+
+			if (s == "yesterday")
+			{
+				return new GLib.DateTime.now_local().add_days(-1);
+			}
+
+			var dt = new GLib.DateTime.from_iso8601(s, tz);
+			if (dt != null)
+			{
+				return dt;
+			}
+
+			dt = try_normalize_iso8601(s, tz);
+			if (dt != null)
+			{
+				return dt;
+			}
+
+			return null;
+		}
+
+		private static GLib.DateTime? try_normalize_iso8601(string s, GLib.TimeZone tz)
+		{
+			var date_part = s;
+			var time_part = "";
+			var tz_suffix = "";
+
+			var space_pos = s.index_of_char(' ');
+			if (space_pos > 0)
+			{
+				date_part = s.substring(0, space_pos);
+				time_part = s.substring(space_pos + 1);
+			}
+
+			var date_parts = date_part.split("-");
+			if (date_parts.length < 3)
+			{
+				return null;
+			}
+
+			var year = int.parse(date_parts[0]);
+			var month = int.parse(date_parts[1]);
+			var day = int.parse(date_parts[2]);
+
+			if (year <= 0 || month < 1 || month > 12 || day < 1 || day > 31)
+			{
+				return null;
+			}
+
+			if (time_part.length == 0)
+			{
+				return new GLib.DateTime.local(year, month, day, 0, 0, 0);
+			}
+
+			foreach (unowned string suffix in new string[] {"z", "+", "-"})
+			{
+				if (suffix == "-" && time_part.length > 5)
+				{
+					var last_dash = time_part.last_index_of_char('-');
+					if (last_dash > 0)
+					{
+						tz_suffix = time_part.substring(last_dash);
+						time_part = time_part.substring(0, last_dash);
+						break;
+					}
+				}
+				else if (suffix != "-")
+				{
+					var pos = time_part.index_of(suffix);
+					if (pos > 0)
+					{
+						tz_suffix = time_part.substring(pos);
+						time_part = time_part.substring(0, pos);
+						break;
+					}
+				}
+			}
+
+			var time_parts = time_part.split(":");
+			int hour = 0, minute = 0;
+			double second = 0;
+
+			if (time_parts.length >= 1)
+				hour = int.parse(time_parts[0]);
+			if (time_parts.length >= 2)
+				minute = int.parse(time_parts[1]);
+			if (time_parts.length >= 3)
+				second = double.parse(time_parts[2]);
+
+			if (tz_suffix.length > 0)
+			{
+				var normalized = "%04d-%02d-%02dT%s%s".printf(
+					year, month, day, time_part, tz_suffix);
+				if (time_parts.length < 3)
+				{
+					normalized = "%04d-%02d-%02dT%02d:%02d:00%s".printf(
+						year, month, day, hour, minute, tz_suffix);
+				}
+				var result = new GLib.DateTime.from_iso8601(normalized, tz);
+				if (result != null)
+				{
+					return result;
+				}
+			}
+
+			return new GLib.DateTime.local(year, month, day, hour, minute, second);
+		}
+
+		private static GLib.DateTime? parse_relative_date(string s)
+		{
+			if (!s.has_suffix("ago"))
+			{
+				return null;
+			}
+
+			var trimmed = s.substring(0, s.length - 3).strip();
+			var parts = trimmed.split(" ");
+
+			if (parts.length != 2)
+			{
+				return null;
+			}
+
+			var amount = int.parse(parts[0]);
+			if (amount <= 0)
+			{
+				return null;
+			}
+
+			var unit = parts[1];
+			var now = new GLib.DateTime.now_local();
+
+			if (unit.has_prefix("second"))
+			{
+				return now.add_seconds(-amount);
+			}
+			else if (unit.has_prefix("minute"))
+			{
+				return now.add_minutes(-amount);
+			}
+			else if (unit.has_prefix("hour"))
+			{
+				return now.add_hours(-amount);
+			}
+			else if (unit.has_prefix("day"))
+			{
+				return now.add_days(-amount);
+			}
+			else if (unit.has_prefix("week"))
+			{
+				return now.add_weeks(-amount);
+			}
+			else if (unit.has_prefix("month"))
+			{
+				return now.add_months(-amount);
+			}
+			else if (unit.has_prefix("year"))
+			{
+				return now.add_years(-amount);
+			}
+
+			return null;
+		}
+
+		private bool commit_matches_date_filter(Commit commit,
+		                                        DateFilterType filter_type,
+		                                        GLib.DateTime filter_date)
+		{
+			var commit_date = commit.get_committer().get_time();
+
+			if (commit_date == null)
+			{
+				return true;
+			}
+
+			switch (filter_type)
+			{
+				case DateFilterType.SINCE:
+				case DateFilterType.AFTER:
+					return commit_date.compare(filter_date) >= 0;
+				case DateFilterType.UNTIL:
+				case DateFilterType.BEFORE:
+					return commit_date.compare(filter_date) <= 0;
+				default:
+					return true;
+			}
+		}
+
+		private static bool path_matches_pattern(string path, string pattern)
+		{
+			return path.has_prefix(pattern + "/") || path == pattern;
+		}
+
+		private bool commit_matches_pathspec(Commit commit,
+		                                     string[]? include_patterns,
+		                                     string[]? exclude_patterns)
+		{
+			Ggit.Tree? new_tree;
+
+			try
+			{
+				new_tree = commit.get_tree();
+			}
+			catch { return true; }
+
+			var parents = commit.get_parents();
+			Ggit.Tree? old_tree = null;
+
+			if (parents.size > 0)
+			{
+				try
+				{
+					old_tree = parents.get(0).get_tree();
+				}
+				catch {}
+			}
+
+			try
+			{
+				var diff = new Ggit.Diff.tree_to_tree(d_repository, old_tree, new_tree, null);
+				var n = diff.get_num_deltas();
+
+				for (size_t i = 0; i < n; i++)
+				{
+					var delta = diff.get_delta(i);
+					var file = delta.get_new_file();
+
+					if (file == null)
+					{
+						continue;
+					}
+
+					var path = file.get_path();
+
+					if (path == null)
+					{
+						continue;
+					}
+
+					if (exclude_patterns != null)
+					{
+						bool excluded = false;
+
+						foreach (var p in exclude_patterns)
+						{
+							if (path_matches_pattern(path, p))
+							{
+								excluded = true;
+								break;
+							}
+						}
+
+						if (excluded)
+						{
+							continue;
+						}
+					}
+
+					if (include_patterns != null)
+					{
+						bool included = false;
+
+						foreach (var p in include_patterns)
+						{
+							if (path_matches_pattern(path, p))
+							{
+								included = true;
+								break;
+							}
+						}
+
+						if (!included)
+						{
+							continue;
+						}
+					}
+
+					return true;
+				}
+			}
+			catch { return true; }
+
+			return false;
+		}
+
 		private void notify_batch(owned SourceFunc? finishedcb)
 		{
 			lock(d_idleid)
@@ -339,6 +790,15 @@ namespace Gitg
 		{
 			Ggit.OId[] included = d_include;
 			Ggit.OId[] excluded = d_exclude;
+			Gee.HashSet<Ggit.OId>? decorated_set = d_decorated_oids;
+			string[]? pathspec_inc = d_pathspec_include;
+			string[]? pathspec_exc = d_pathspec_exclude;
+			DateFilterType date_type = d_date_filter_type;
+			GLib.DateTime? date_value = d_date_filter_value;
+			DateFilterType date_type2 = d_date_filter_type2;
+			GLib.DateTime? date_value2 = d_date_filter_value2;
+			string author_filter = d_author_filter;
+			string committer_filter = d_committer_filter;
 
 			uint limit = this.limit;
 
@@ -454,11 +914,36 @@ namespace Gitg
 						commit = d_repository.lookup<Commit>(id);
 					} catch { break; }
 
+					if (decorated_only && decorated_set != null && !decorated_set.contains(id))
+					{
+						d_lanes.skip_commit(commit);
+						continue;
+					}
+
+					if ((pathspec_inc != null || pathspec_exc != null) &&
+					    !commit_matches_pathspec(commit, pathspec_inc, pathspec_exc))
+					{
+						d_lanes.skip_commit(commit);
+						continue;
+					}
+
+					bool date_excluded =
+					    (date_type != DateFilterType.NONE && date_value != null &&
+					     !commit_matches_date_filter(commit, date_type, date_value)) ||
+					    (date_type2 != DateFilterType.NONE && date_value2 != null &&
+					     !commit_matches_date_filter(commit, date_type2, date_value2));
+
+					bool person_excluded =
+					    (author_filter.length > 0 &&
+					     !commit_matches_person_filter(commit.get_author(), author_filter)) ||
+					    (committer_filter.length > 0 &&
+					     !commit_matches_person_filter(commit.get_committer(), committer_filter));
+
 					int mylane;
 					SList<Lane> lanes;
 
 					bool finded = d_lanes.next(commit, out lanes, out mylane, true);
-					if (finded)
+					if (finded && !date_excluded && !person_excluded)
 					{
 						debug ("finded parent for %s %s\n", commit.get_subject(), commit.get_id().to_string());
 						commit.update_lanes((owned)lanes, mylane);

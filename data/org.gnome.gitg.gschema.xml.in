@@ -201,6 +201,96 @@
          Hide any ref different from refs/heads and refs/remotes.
       </description>
     </key>
+    <key name="skip-non-decorated" type="b">
+      <default>false</default>
+      <summary>Show only decorated commits</summary>
+      <description>
+         Only show commits decorated.
+      </description>
+    </key>
+    <key name="path-filter" type="s">
+      <default>""</default>
+      <summary>Path Filter</summary>
+      <description>
+         Filter commits by file paths. Separate multiple patterns with spaces.
+         Prefix with :! to exclude (e.g. :!po excludes commits only touching po/).
+      </description>
+    </key>
+    <key name="date-filter-type" type="s">
+      <default>"none"</default>
+      <summary>Date Filter Type</summary>
+      <description>
+         Type of date filter to apply: none, since, until, before, or after.
+      </description>
+    </key>
+    <key name="date-filter-value" type="s">
+      <default>""</default>
+      <summary>Date Filter Value</summary>
+      <description>
+         Date value for filtering. Accepts dates like "2025-01-01",
+         "2025-01-01 14:30", or relative dates like "2 weeks ago".
+      </description>
+    </key>
+    <key name="date-filter-type2" type="s">
+      <default>"none"</default>
+      <summary>Second Date Filter Type</summary>
+      <description>
+         Type of second date filter: none, since, until, before, or after.
+         Use with the first date filter to define a date range.
+      </description>
+    </key>
+    <key name="date-filter-value2" type="s">
+      <default>""</default>
+      <summary>Second Date Filter Value</summary>
+      <description>
+         Date value for the second filter. Same format as the first.
+      </description>
+    </key>
+    <key name="author-filter" type="s">
+      <default>""</default>
+      <summary>Author Filter</summary>
+      <description>
+         Filter commits by author. Matches against "Name &lt;email&gt;" as
+         a case-insensitive regex, like git --author.
+      </description>
+    </key>
+    <key name="committer-filter" type="s">
+      <default>""</default>
+      <summary>Committer Filter</summary>
+      <description>
+         Filter commits by committer. Matches against "Name &lt;email&gt;" as
+         a case-insensitive regex, like git --committer.
+      </description>
+    </key>
+    <key name="range-filter-type" type="s">
+      <default>"none"</default>
+      <summary>Range Filter Type</summary>
+      <description>
+         Type of range filter: none, ".." (range), or "..." (symmetric difference).
+      </description>
+    </key>
+    <key name="range-filter-left" type="s">
+      <default>""</default>
+      <summary>Range Filter Left Ref</summary>
+      <description>
+         Left reference for range filter (e.g. origin/main, HEAD~5, a tag).
+      </description>
+    </key>
+    <key name="range-filter-right" type="s">
+      <default>""</default>
+      <summary>Range Filter Right Ref</summary>
+      <description>
+         Right reference for range filter (e.g. feature-branch, HEAD).
+      </description>
+    </key>
+    <key name="range-show-ancestry" type="b">
+      <default>false</default>
+      <summary>Show Common Ancestry</summary>
+      <description>
+         When using "..." symmetric range, include the merge base commit
+         for additional context.
+      </description>
+    </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="@APPLICATION_ID@.preferences.branch" path="@SCHEMA_PATH@/preferences/branch/">
     <key name="checkout-created-branch" type="b">
