@@ -117,6 +117,9 @@ namespace Gitg
 		private Ggit.OId[] d_include;
 		private Ggit.OId[] d_exclude;
 
+		private bool d_decorated_only;
+		private Gee.HashSet<Ggit.OId>? d_decorated_oids;
+
 		private uint d_size;
 		private int d_stamp;
 
@@ -278,6 +281,17 @@ namespace Gitg
 			this.d_exclude = ids;
 		}
 
+		public bool decorated_only
+		{
+			get { return d_decorated_only; }
+			set { d_decorated_only = value; }
+		}
+
+		public void set_decorated_oids(Gee.HashSet<Ggit.OId>? ids)
+		{
+			d_decorated_oids = ids;
+		}
+
 		private void notify_batch(owned SourceFunc? finishedcb)
 		{
 			lock(d_idleid)
@@ -339,6 +353,7 @@ namespace Gitg
 		{
 			Ggit.OId[] included = d_include;
 			Ggit.OId[] excluded = d_exclude;
+			Gee.HashSet<Ggit.OId>? decorated_set = d_decorated_oids;
 
 			uint limit = this.limit;
 
@@ -453,6 +468,12 @@ namespace Gitg
 
 						commit = d_repository.lookup<Commit>(id);
 					} catch { break; }
+
+					if (decorated_only && decorated_set != null && !decorated_set.contains(id))
+					{
+						d_lanes.skip_commit(commit);
+						continue;
+					}
 
 					int mylane;
 					SList<Lane> lanes;

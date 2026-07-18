@@ -150,6 +150,10 @@ namespace GitgHistory
 				update_walker();
 			});
 
+			d_settings.changed["skip-non-decorated"].connect((s, k) => {
+				update_walker();
+			});
+
 			d_selected = new Gee.HashSet<Ggit.OId>((Gee.HashDataFunc<Ggit.OId>)Ggit.OId.hash,
 			                                       (Gee.EqualDataFunc<Ggit.OId>)Ggit.OId.equal);
 
@@ -1333,6 +1337,14 @@ namespace GitgHistory
 
 			d_commit_list_model.set_permanent_lanes(permanent);
 			d_commit_list_model.set_include(include.to_array());
+
+			if (application.repository != null)
+			{
+				d_commit_list_model.decorated_only = d_settings.get_boolean("skip-non-decorated");
+				d_commit_list_model.set_decorated_oids(
+					d_commit_list_model.decorated_only ? application.repository.decorated_ids() : null);
+			}
+
 			d_commit_list_model.reload();
 		}
 
