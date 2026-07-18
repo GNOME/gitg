@@ -423,6 +423,7 @@ public class Application : Gtk.Application
 			{"app.shortcuts", "<Primary>question"},
 
 			{"win.search", "<Primary>F"},
+			{"win.filter", "<Primary><Shift>F"},
 			{"win.gear-menu", "F10"},
 			{"win.open-repository", "<Primary>O"},
 			{"win.close", "<Primary>W"},

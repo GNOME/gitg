@@ -201,6 +201,21 @@
          Hide any ref different from refs/heads and refs/remotes.
       </description>
     </key>
+    <key name="skip-non-decorated" type="b">
+      <default>false</default>
+      <summary>Show only decorated commits</summary>
+      <description>
+         Only show commits decorated.
+      </description>
+    </key>
+    <key name="path-filter" type="s">
+      <default>""</default>
+      <summary>Path Filter</summary>
+      <description>
+         Filter commits by file paths. Separate multiple patterns with spaces.
+         Prefix with :! to exclude (e.g. :!po excludes commits only touching po/).
+      </description>
+    </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="@APPLICATION_ID@.preferences.branch" path="@SCHEMA_PATH@/preferences/branch/">
     <key name="checkout-created-branch" type="b">

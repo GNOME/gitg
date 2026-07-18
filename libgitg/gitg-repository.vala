@@ -137,6 +137,21 @@ public class Repository : Ggit.Repository
 		return d_refs.lookup(id);
 	}
 
+	public Gee.HashSet<Ggit.OId> decorated_ids()
+	{
+		ensure_refs();
+
+		var ret = new Gee.HashSet<Ggit.OId>(
+			(Gee.HashDataFunc<Ggit.OId>)Ggit.OId.hash,
+			(Gee.EqualDataFunc<Ggit.OId>)Ggit.OId.equal);
+
+		d_refs.foreach((key, val) => {
+			ret.add(key);
+		});
+
+		return ret;
+	}
+
 	public new T? lookup<T>(Ggit.OId id) throws Error
 	{
 		return (T?)base.lookup(id, typeof(T));

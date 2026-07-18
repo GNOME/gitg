@@ -117,6 +117,12 @@ namespace Gitg
 		private Ggit.OId[] d_include;
 		private Ggit.OId[] d_exclude;
 
+		private bool d_decorated_only;
+		private Gee.HashSet<Ggit.OId>? d_decorated_oids;
+
+		private string[]? d_pathspec_include;
+		private string[]? d_pathspec_exclude;
+
 		private uint d_size;
 		private int d_stamp;
 
@@ -278,6 +284,142 @@ namespace Gitg
 			this.d_exclude = ids;
 		}
 
+		public bool decorated_only
+		{
+			get { return d_decorated_only; }
+			set { d_decorated_only = value; }
+		}
+
+		public void set_decorated_oids(Gee.HashSet<Ggit.OId>? ids)
+		{
+			d_decorated_oids = ids;
+		}
+
+		public void set_pathspec(string[]? spec)
+		{
+			string[] inc = {};
+			string[] exc = {};
+
+			if (spec != null)
+			{
+				foreach (var s in spec)
+				{
+					if (s.has_prefix(":!"))
+					{
+						exc += s.substring(2);
+					}
+					else if (s.has_prefix(":^"))
+					{
+						exc += s.substring(2);
+					}
+					else
+					{
+						inc += s;
+					}
+				}
+			}
+
+			d_pathspec_include = inc.length > 0 ? inc : null;
+			d_pathspec_exclude = exc.length > 0 ? exc : null;
+		}
+
+		private static bool path_matches_pattern(string path, string pattern)
+		{
+			return path.has_prefix(pattern + "/") || path == pattern;
+		}
+
+		private bool commit_matches_pathspec(Commit commit,
+		                                     string[]? include_patterns,
+		                                     string[]? exclude_patterns)
+		{
+			Ggit.Tree? new_tree;
+
+			try
+			{
+				new_tree = commit.get_tree();
+			}
+			catch { return true; }
+
+			var parents = commit.get_parents();
+			Ggit.Tree? old_tree = null;
+
+			if (parents.size > 0)
+			{
+				try
+				{
+					old_tree = parents.get(0).get_tree();
+				}
+				catch {}
+			}
+
+			try
+			{
+				var diff = new Ggit.Diff.tree_to_tree(d_repository, old_tree, new_tree, null);
+				var n = diff.get_num_deltas();
+
+				for (size_t i = 0; i < n; i++)
+				{
+					var delta = diff.get_delta(i);
+					var file = delta.get_new_file();
+
+					if (file == null)
+					{
+						continue;
+					}
+
+					var path = file.get_path();
+
+					if (path == null)
+					{
+						continue;
+					}
+
+					if (exclude_patterns != null)
+					{
+						bool excluded = false;
+
+						foreach (var p in exclude_patterns)
+						{
+							if (path_matches_pattern(path, p))
+							{
+								excluded = true;
+								break;
+							}
+						}
+
+						if (excluded)
+						{
+							continue;
+						}
+					}
+
+					if (include_patterns != null)
+					{
+						bool included = false;
+
+						foreach (var p in include_patterns)
+						{
+							if (path_matches_pattern(path, p))
+							{
+								included = true;
+								break;
+							}
+						}
+
+						if (!included)
+						{
+							continue;
+						}
+					}
+
+					return true;
+				}
+			}
+			catch { return true; }
+
+			return false;
+		}
+
 		private void notify_batch(owned SourceFunc? finishedcb)
 		{
 			lock(d_idleid)
@@ -339,6 +481,9 @@ namespace Gitg
 		{
 			Ggit.OId[] included = d_include;
 			Ggit.OId[] excluded = d_exclude;
+			Gee.HashSet<Ggit.OId>? decorated_set = d_decorated_oids;
+			string[]? pathspec_inc = d_pathspec_include;
+			string[]? pathspec_exc = d_pathspec_exclude;
 
 			uint limit = this.limit;
 
@@ -453,6 +598,19 @@ namespace Gitg
 
 						commit = d_repository.lookup<Commit>(id);
 					} catch { break; }
+
+					if (decorated_only && decorated_set != null && !decorated_set.contains(id))
+					{
+						d_lanes.skip_commit(commit);
+						continue;
+					}
+
+					if ((pathspec_inc != null || pathspec_exc != null) &&
+					    !commit_matches_pathspec(commit, pathspec_inc, pathspec_exc))
+					{
+						d_lanes.skip_commit(commit);
+						continue;
+					}
 
 					int mylane;
 					SList<Lane> lanes;

@@ -217,6 +217,65 @@ public class Lanes : Object
 		return !hidden;
 	}
 
+	public void skip_commit(Commit commit)
+	{
+		var myoid = commit.get_id();
+		int pos;
+		var mylane = find_lane_by_oid(myoid, out pos);
+
+		var parents = commit.get_parents();
+
+		if (mylane != null)
+		{
+			if (parents.size > 0)
+			{
+				var first_parent = parents.get_id(0);
+				int existing_pos;
+				var existing = find_lane_by_oid(first_parent, out existing_pos);
+
+				if (existing != null)
+				{
+					foreach (var f in mylane.lane.from)
+					{
+						existing.lane.from.append(f);
+					}
+
+					d_lanes.remove(mylane);
+				}
+				else
+				{
+					mylane.to = first_parent;
+					mylane.from = myoid;
+				}
+
+				for (uint i = 1; i < parents.size; ++i)
+				{
+					var poid = parents.get_id(i);
+					int lnpos;
+
+					if (find_lane_by_oid(poid, out lnpos) == null)
+					{
+						var newlane = new LaneContainer(myoid, poid);
+						newlane.lane.from.prepend(pos);
+						d_lanes.add(newlane);
+					}
+				}
+			}
+			else
+			{
+				d_lanes.remove(mylane);
+			}
+		}
+
+		if (inactive_enabled)
+		{
+			for (uint i = 0; i < parents.size; ++i)
+			{
+				expand_lane_from_oid(parents.get_id(i));
+			}
+		}
+	}
+
 	private void prepare_lanes(Commit next, int pos, bool hidden)
 	{
 		var parents = next.get_parents();

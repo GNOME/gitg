@@ -50,6 +50,7 @@ namespace GitgHistory
 		private ulong d_commits_changed_id;
 
 		private Gitg.WhenMapped? d_reload_when_mapped;
+		private Gtk.Popover? d_filter_popover;
 
 		private Paned d_main;
 		private Gitg.PopupMenu d_refs_list_popup;
@@ -147,6 +148,14 @@ namespace GitgHistory
 			});
 
 			d_settings.changed["show-upstream-with-branch"].connect((s, k) => {
+				update_walker();
+			});
+
+			d_settings.changed["skip-non-decorated"].connect((s, k) => {
+				update_walker();
+			});
+
+			d_settings.changed["path-filter"].connect((s, k) => {
 				update_walker();
 			});
 
@@ -877,6 +886,99 @@ namespace GitgHistory
 			return item;
 		}
 
+		private string get_effective_path_filter()
+		{
+			if (application.repository != null)
+			{
+				try
+				{
+					var config = application.repository.get_config().snapshot();
+					if (config.get_bool("gitg.filter.path-use-repo-config"))
+					{
+						try
+						{
+							return config.get_string("gitg.filter.path") ?? "";
+						}
+						catch
+						{
+							return "";
+						}
+					}
+				}
+				catch {}
+			}
+
+			return d_settings.get_string("path-filter") ?? "";
+		}
+
+		private bool get_effective_decorated()
+		{
+			if (application.repository != null)
+			{
+				try
+				{
+					var config = application.repository.get_config().snapshot();
+					if (config.get_bool("gitg.filter.path-use-repo-config"))
+					{
+						try
+						{
+							return config.get_bool("gitg.filter.decorated");
+						}
+						catch
+						{
+							return false;
+						}
+					}
+				}
+				catch {}
+			}
+
+			return d_settings.get_boolean("skip-non-decorated");
+		}
+
+		private void save_filters(string filter, bool decorated, bool in_repo)
+		{
+			if (application.repository == null)
+			{
+				d_settings.set_string("path-filter", filter);
+				d_settings.set_boolean("skip-non-decorated", decorated);
+				update_walker();
+				return;
+			}
+
+			try
+			{
+				var config = application.repository.get_config();
+				config.set_bool("gitg.filter.path-use-repo-config", in_repo);
+
+				if (in_repo)
+				{
+					if (filter.length > 0)
+					{
+						config.set_string("gitg.filter.path", filter);
+					}
+					else
+					{
+						try { config.delete_entry("gitg.filter.path"); } catch {}
+					}
+
+					config.set_bool("gitg.filter.decorated", decorated);
+				}
+				else
+				{
+					d_settings.set_string("path-filter", filter);
+					d_settings.set_boolean("skip-non-decorated", decorated);
+				}
+			}
+			catch
+			{
+				d_settings.set_string("path-filter", filter);
+				d_settings.set_boolean("skip-non-decorated", decorated);
+			}
+
+			update_walker();
+		}
+
 		private void show_visible_columns_dialog (Gtk.TreeView treeview) {
 			var listbox = Gitg.UiUtils.build_listbox_visible_columns (treeview);
 			var sw = new Gtk.ScrolledWindow (null, null);
@@ -1333,6 +1435,27 @@ namespace GitgHistory
 
 			d_commit_list_model.set_permanent_lanes(permanent);
 			d_commit_list_model.set_include(include.to_array());
+
+			if (application.repository != null)
+			{
+				var decorated = get_effective_decorated();
+
+				d_commit_list_model.decorated_only = decorated;
+				d_commit_list_model.set_decorated_oids(
+					decorated ? application.repository.decorated_ids() : null);
+			}
+
+			var path_filter = get_effective_path_filter();
+
+			if (path_filter.length > 0)
+			{
+				d_commit_list_model.set_pathspec(path_filter.split(" "));
+			}
+			else
+			{
+				d_commit_list_model.set_pathspec(null);
+			}
+
 			d_commit_list_model.reload();
 		}
 
@@ -1454,6 +1577,125 @@ namespace GitgHistory
 		public override bool show_buttons()
 		{
 			return true;
+		}
+
+		public override Gtk.Popover? get_filter_popover(Gtk.Widget relative_to)
+		{
+			if (d_filter_popover == null)
+			{
+				d_filter_popover = build_filter_popover();
+			}
+
+			d_filter_popover.relative_to = relative_to;
+			return d_filter_popover;
+		}
+
+		private Gtk.Popover build_filter_popover()
+		{
+			var popover = new Gtk.Popover(null);
+
+			var box = new Gtk.Box(Gtk.Orientation.VERTICAL, 6);
+			box.margin = 12;
+
+			var decorated_check = new Gtk.CheckButton.with_mnemonic(_("Show only _decorated commits"));
+			decorated_check.active = get_effective_decorated();
+			box.add(decorated_check);
+
+			var separator = new Gtk.Separator(Gtk.Orientation.HORIZONTAL);
+			box.add(separator);
+
+			var label = new Gtk.Label.with_mnemonic(_("_Path filter (separate patterns with spaces, prefix with :! to exclude)"));
+			label.halign = Gtk.Align.START;
+			label.wrap = true;
+			label.max_width_chars = 40;
+			box.add(label);
+
+			var entry = new Gtk.Entry();
+			entry.text = get_effective_path_filter();
+			entry.hexpand = true;
+			label.mnemonic_widget = entry;
+			box.add(entry);
+
+			bool store_in_repo = false;
+
+			if (application.repository != null)
+			{
+				try
+				{
+					store_in_repo = application.repository.get_config().snapshot().get_bool("gitg.filter.path-use-repo-config");
+				}
+				catch {}
+			}
+
+			var repo_check = new Gtk.CheckButton.with_mnemonic(_("Use _repo config"));
+			repo_check.active = store_in_repo;
+			box.add(repo_check);
+
+			uint entry_timeout_id = 0;
+
+			decorated_check.toggled.connect(() => {
+				save_filters(entry.text, decorated_check.active, repo_check.active);
+			});
+
+			entry.changed.connect(() => {
+				if (entry_timeout_id != 0)
+				{
+					Source.remove(entry_timeout_id);
+				}
+
+				entry_timeout_id = Timeout.add(500, () => {
+					entry_timeout_id = 0;
+					save_filters(entry.text, decorated_check.active, repo_check.active);
+					return false;
+				});
+			});
+
+			repo_check.toggled.connect(() => {
+				if (repo_check.active)
+				{
+					string repo_val = "";
+					if (application.repository != null)
+					{
+						try
+						{
+							repo_val = application.repository.get_config().snapshot().get_string("gitg.filter.path");
+						}
+						catch {}
+					}
+					entry.text = repo_val;
+
+					bool repo_decorated = false;
+					if (application.repository != null)
+					{
+						try
+						{
+							repo_decorated = application.repository.get_config().snapshot().get_bool("gitg.filter.decorated");
+						}
+						catch {}
+					}
+					decorated_check.active = repo_decorated;
+				}
+				else
+				{
+					entry.text = d_settings.get_string("path-filter");
+					decorated_check.active = d_settings.get_boolean("skip-non-decorated");
+				}
+
+				save_filters(entry.text, decorated_check.active, repo_check.active);
+			});
+
+			popover.closed.connect(() => {
+				if (entry_timeout_id != 0)
+				{
+					Source.remove(entry_timeout_id);
+					save_filters(entry.text, decorated_check.active, repo_check.active);
+				}
+			});
+
+			box.show_all();
+			popover.add(box);
+
+			return popover;
 		}
 	}
 }
