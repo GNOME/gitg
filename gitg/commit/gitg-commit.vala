@@ -141,12 +141,12 @@ namespace GitgCommit
 			return action == "commit";
 		}
 
-		public bool on_key_pressed (Gdk.EventKey event) {
+		public bool on_key_pressed (uint keyval, uint keycode, Gdk.ModifierType state) {
 			var mmask = Gtk.accelerator_get_default_mod_mask();
 
-			if ((mmask & event.state) == Gdk.ModifierType.CONTROL_MASK)
+			if ((mmask & state) == Gdk.ModifierType.CONTROL_MASK)
 			{
-				if ((event.keyval == Gdk.Key.Return || event.keyval == Gdk.Key.KP_Enter))
+				if ((keyval == Gdk.Key.Return || keyval == Gdk.Key.KP_Enter))
 				{
 					on_commit_clicked ();
 					return true;

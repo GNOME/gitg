@@ -45,11 +45,13 @@ public interface Activity : Object, UIElement
 	/**
 	 * Activity receives a key event to process it.
 	 *
-	 * @param event the key event
+	 * @param keyval the pressed key.
+	 * @param keycode the raw code of the pressed key.
+	 * @param state the bitmask, representing the state of modifier keys and pointer buttons.
 	 *
 	 * @return true if the key event is consumed by this activity.
 	 */
-	public virtual bool on_key_pressed (Gdk.EventKey event)
+	public virtual bool on_key_pressed (uint keyval, uint keycode, Gdk.ModifierType state)
 	{
 		return false;
 	}

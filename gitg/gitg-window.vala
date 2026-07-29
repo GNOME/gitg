@@ -292,15 +292,8 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		}
 	}
 
-	[GtkCallback]
-	private bool on_key_pressed (Gtk.Widget widget, Gdk.EventKey event) {
-		bool ret = d_search_bar.handle_event(event);
-		if (ret) {
-			d_search_bar.search_mode_enabled = true;
-		} else {
-			ret = d_activities.current.on_key_pressed(event);
-		}
-		return ret;
+	private bool on_key_pressed (uint keyval, uint keycode, Gdk.ModifierType state) {
+		return d_activities.current.on_key_pressed(keyval, keycode, state);
 	}
 
 	[GtkCallback]
@@ -368,6 +361,12 @@ public class Window : Gtk.ApplicationWindow, GitgExt.Application, Initable
 		                              d_search_bar,
 		                              "search-mode-enabled",
 		                              BindingFlags.BIDIRECTIONAL);
+
+		d_search_bar.set_key_capture_widget(this);
+
+		var key_controller = new Gtk.EventControllerKey();
+		key_controller.key_pressed.connect(on_key_pressed);
+		this.add_controller(key_controller);
 
 		d_activities_switcher.set_stack(d_stack_activities);
 
