@@ -327,6 +327,44 @@ class Gitg.DiffViewFile : Gtk.Grid
 
 		menu.add(copy_file_path);
 
+		bool has_folds = false;
+		foreach (DiffViewFileRenderer renderer in renderer_list)
+		{
+			var text_renderer = renderer as DiffViewFileRendererText;
+			if (text_renderer != null && text_renderer.show_full_file)
+			{
+				has_folds = true;
+				break;
+			}
+		}
+
+		if (has_folds)
+		{
+			var fold_separator = new Gtk.SeparatorMenuItem();
+			fold_separator.show();
+			menu.add(fold_separator);
+
+			var fold_all_item = new Gtk.MenuItem.with_mnemonic(_("_Fold all"));
+			fold_all_item.show();
+			fold_all_item.activate.connect(() => {
+				foreach (DiffViewFileRenderer r in renderer_list)
+				{
+					r.fold_all();
+				}
+			});
+			menu.add(fold_all_item);
+
+			var unfold_all_item = new Gtk.MenuItem.with_mnemonic(_("_Unfold all"));
+			unfold_all_item.show();
+			unfold_all_item.activate.connect(() => {
+				foreach (DiffViewFileRenderer r in renderer_list)
+				{
+					r.unfold_all();
+				}
+			});
+			menu.add(unfold_all_item);
+		}
+
 		menu.attach_to_widget(d_expander, null);
 		menu.popup_at_pointer(event);
 	}
@@ -353,6 +391,14 @@ class Gitg.DiffViewFile : Gtk.Grid
 		foreach (DiffViewFileRenderer renderer in renderer_list)
 		{
 			renderer.add_hunk(hunk, lines);
+		}
+	}
+
+	public void finish_hunks()
+	{
+		foreach (DiffViewFileRenderer renderer in renderer_list)
+		{
+			renderer.finish_hunks();
 		}
 	}
 }

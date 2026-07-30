@@ -42,6 +42,13 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		public int length;
 	}
 
+	public struct FoldRegion
+	{
+		public int buffer_line_start;
+		public int buffer_line_end;
+		public bool folded;
+	}
+
 	public uint added { get; set; }
 	public uint removed { get; set; }
 
@@ -64,6 +71,9 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 
 	private Region[] d_regions;
 	private bool d_constructed;
+
+	private FoldRegion[] d_fold_regions;
+	private Gtk.TextTag? d_folded_tag;
 
 	private Settings? d_stylesettings;
 
@@ -97,6 +107,23 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 	}
 
 	public int maxlines { get; set; }
+	public bool show_full_file { get; set; }
+	private int d_visible_context = 3;
+	public int visible_context
+	{
+		get { return d_visible_context; }
+		set
+		{
+			if (d_visible_context != value)
+			{
+				d_visible_context = value;
+				if (show_full_file && d_fold_regions.length > 0)
+				{
+					reapply_folds();
+				}
+			}
+		}
+	}
 
 	public DiffViewFileInfo info { get; construct set; }
 
@@ -211,6 +238,10 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 			gutter.insert(d_old_lines, 0);
 			gutter.insert(d_new_lines, 1);
 			gutter.insert(d_sym_lines, 2);
+
+			d_old_lines.fold_toggled.connect(toggle_fold);
+			d_new_lines.fold_toggled.connect(toggle_fold);
+			d_sym_lines.fold_toggled.connect(toggle_fold);
 		}
 		else if (d_style == Style.OLD)
 		{
@@ -224,6 +255,9 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 
 			gutter.insert(d_old_lines, 0);
 			gutter.insert(d_sym_lines, 1);
+
+			d_old_lines.fold_toggled.connect(toggle_fold);
+			d_sym_lines.fold_toggled.connect(toggle_fold);
 		}
 		else if (d_style == Style.NEW)
 		{
@@ -237,6 +271,9 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 
 			gutter.insert(d_new_lines, 0);
 			gutter.insert(d_sym_lines, 1);
+
+			d_new_lines.fold_toggled.connect(toggle_fold);
+			d_sym_lines.fold_toggled.connect(toggle_fold);
 		}
 
 		this.set_border_window_size(Gtk.TextWindowType.TOP, 1);
@@ -262,6 +299,8 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 
 		highlight = true;
 	}
+
+	public signal void fold_changed(int fold_index, bool folded);
 
 	protected override void dispose()
 	{
@@ -692,16 +731,19 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		Gtk.TextIter iter;
 		buffer.get_end_iter(out iter);
 
-		if (!iter.is_start())
+		if (!show_full_file)
 		{
-			buffer.insert(ref iter, "\n", 1);
+			if (!iter.is_start())
+			{
+				buffer.insert(ref iter, "\n", 1);
+			}
+
+			iter.set_line_offset(0);
+			buffer.create_source_mark(null, "header", iter);
+
+			var header = @"@@ -$(hunk.get_old_start()),$(hunk.get_old_lines()) +$(hunk.get_new_start()),$(hunk.get_new_lines()) @@ $h\n";
+			buffer.insert(ref iter, header, -1);
 		}
-
-		iter.set_line_offset(0);
-		buffer.create_source_mark(null, "header", iter);
-
-		var header = @"@@ -$(hunk.get_old_start()),$(hunk.get_old_lines()) +$(hunk.get_new_start()),$(hunk.get_new_lines()) @@ $h\n";
-		buffer.insert(ref iter, header, -1);
 
 		int buffer_line = iter.get_line();
 
@@ -934,6 +976,267 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		this.thaw_notify();
 
 		sensitive = true;
+	}
+
+	public void finish_hunks()
+	{
+		if (show_full_file)
+		{
+			apply_folds();
+		}
+	}
+
+	private void reapply_folds()
+	{
+		var buffer = this.buffer as Gtk.SourceBuffer;
+		if (buffer == null) return;
+
+		if (d_folded_tag != null)
+		{
+			Gtk.TextIter start, end;
+			buffer.get_start_iter(out start);
+			buffer.get_end_iter(out end);
+			buffer.remove_tag(d_folded_tag, start, end);
+		}
+
+		apply_folds();
+	}
+
+	private void apply_folds()
+	{
+		var buffer = this.buffer as Gtk.SourceBuffer;
+
+		if (d_folded_tag == null)
+		{
+			d_folded_tag = buffer.create_tag("folded");
+			d_folded_tag.invisible = true;
+		}
+
+		d_fold_regions = {};
+
+		var ctx = visible_context;
+
+		var change_lines = new bool[buffer.get_line_count()];
+
+		foreach (var region in d_regions)
+		{
+			if (region.type != RegionType.CONTEXT)
+			{
+				for (var i = 0; i < region.length; i++)
+				{
+					var line = region.buffer_line_start + i;
+					if (line >= 0 && line < change_lines.length)
+					{
+						change_lines[line] = true;
+					}
+				}
+			}
+		}
+
+		var near_change = new bool[change_lines.length];
+		for (var i = 0; i < change_lines.length; i++)
+		{
+			if (change_lines[i])
+			{
+				for (var j = int.max(0, i - ctx); j <= int.min(change_lines.length - 1, i + ctx); j++)
+				{
+					near_change[j] = true;
+				}
+			}
+		}
+
+		int fold_start = -1;
+		for (var i = 0; i < near_change.length; i++)
+		{
+			bool is_header = false;
+			var marks = buffer.get_source_marks_at_line(i, "header");
+			if (marks != null && marks.length() > 0)
+			{
+				is_header = true;
+			}
+
+			if (!near_change[i] && !is_header && !change_lines[i])
+			{
+				if (fold_start < 0)
+				{
+					fold_start = i;
+				}
+			}
+			else
+			{
+				if (fold_start >= 0 && (i - fold_start) >= 2)
+				{
+					var fr = FoldRegion() {
+						buffer_line_start = fold_start,
+						buffer_line_end = i - 1,
+						folded = true
+					};
+					d_fold_regions += fr;
+					fold_tag_region(buffer, fold_start, i - 1);
+				}
+				fold_start = -1;
+			}
+		}
+
+		if (fold_start >= 0 && (near_change.length - fold_start) >= 2)
+		{
+			var fr = FoldRegion() {
+				buffer_line_start = fold_start,
+				buffer_line_end = near_change.length - 1,
+				folded = true
+			};
+			d_fold_regions += fr;
+			fold_tag_region(buffer, fold_start, near_change.length - 1);
+		}
+
+		if (d_old_lines != null)
+		{
+			d_old_lines.fold_regions = d_fold_regions;
+		}
+		if (d_new_lines != null)
+		{
+			d_new_lines.fold_regions = d_fold_regions;
+		}
+		d_sym_lines.fold_regions = d_fold_regions;
+	}
+
+	private void fold_tag_region(Gtk.SourceBuffer buffer, int start_line, int end_line)
+	{
+		if (start_line + 1 > end_line)
+		{
+			return;
+		}
+
+		Gtk.TextIter start_iter;
+		Gtk.TextIter end_iter;
+
+		buffer.get_iter_at_line(out start_iter, start_line + 1);
+		buffer.get_iter_at_line(out end_iter, end_line);
+		end_iter.forward_to_line_end();
+
+		buffer.apply_tag(d_folded_tag, start_iter, end_iter);
+	}
+
+	public void toggle_fold(int buffer_line)
+	{
+		for (var i = 0; i < d_fold_regions.length; i++)
+		{
+			if (buffer_line >= d_fold_regions[i].buffer_line_start && buffer_line <= d_fold_regions[i].buffer_line_end)
+			{
+				set_fold_state(i, !d_fold_regions[i].folded);
+				fold_changed(i, d_fold_regions[i].folded);
+				break;
+			}
+		}
+	}
+
+	public void set_fold_state(int fold_index, bool folded)
+	{
+		if (d_folded_tag == null || d_fold_regions == null)
+		{
+			return;
+		}
+
+		if (fold_index < 0 || fold_index >= d_fold_regions.length)
+		{
+			return;
+		}
+
+		var fr = d_fold_regions[fold_index];
+
+		if (fr.folded == folded || fr.buffer_line_start + 1 > fr.buffer_line_end)
+		{
+			return;
+		}
+
+		var buffer = this.buffer as Gtk.SourceBuffer;
+		Gtk.TextIter start_iter;
+		Gtk.TextIter end_iter;
+
+		buffer.get_iter_at_line(out start_iter, fr.buffer_line_start + 1);
+		buffer.get_iter_at_line(out end_iter, fr.buffer_line_end);
+		end_iter.forward_to_line_end();
+
+		if (folded)
+		{
+			buffer.apply_tag(d_folded_tag, start_iter, end_iter);
+		}
+		else
+		{
+			buffer.remove_tag(d_folded_tag, start_iter, end_iter);
+		}
+
+		d_fold_regions[fold_index].folded = folded;
+		update_gutter_fold_regions();
+	}
+
+	public void fold_all()
+	{
+		var buffer = this.buffer as Gtk.SourceBuffer;
+
+		if (d_folded_tag == null || d_fold_regions == null)
+		{
+			return;
+		}
+
+		for (var i = 0; i < d_fold_regions.length; i++)
+		{
+			if (!d_fold_regions[i].folded && d_fold_regions[i].buffer_line_start + 1 <= d_fold_regions[i].buffer_line_end)
+			{
+				Gtk.TextIter start_iter;
+				Gtk.TextIter end_iter;
+
+				buffer.get_iter_at_line(out start_iter, d_fold_regions[i].buffer_line_start + 1);
+				buffer.get_iter_at_line(out end_iter, d_fold_regions[i].buffer_line_end);
+				end_iter.forward_to_line_end();
+
+				buffer.apply_tag(d_folded_tag, start_iter, end_iter);
+				d_fold_regions[i].folded = true;
+			}
+		}
+
+		update_gutter_fold_regions();
+	}
+
+	public void unfold_all()
+	{
+		var buffer = this.buffer as Gtk.SourceBuffer;
+
+		if (d_folded_tag == null || d_fold_regions == null)
+		{
+			return;
+		}
+
+		for (var i = 0; i < d_fold_regions.length; i++)
+		{
+			if (d_fold_regions[i].folded && d_fold_regions[i].buffer_line_start + 1 <= d_fold_regions[i].buffer_line_end)
+			{
+				Gtk.TextIter start_iter;
+				Gtk.TextIter end_iter;
+
+				buffer.get_iter_at_line(out start_iter, d_fold_regions[i].buffer_line_start + 1);
+				buffer.get_iter_at_line(out end_iter, d_fold_regions[i].buffer_line_end);
+				end_iter.forward_to_line_end();
+
+				buffer.remove_tag(d_folded_tag, start_iter, end_iter);
+				d_fold_regions[i].folded = false;
+			}
+		}
+
+		update_gutter_fold_regions();
+	}
+
+	private void update_gutter_fold_regions()
+	{
+		if (d_old_lines != null)
+		{
+			d_old_lines.fold_regions = d_fold_regions;
+		}
+		if (d_new_lines != null)
+		{
+			d_new_lines.fold_regions = d_fold_regions;
+		}
+		d_sym_lines.fold_regions = d_fold_regions;
 	}
 }
 
