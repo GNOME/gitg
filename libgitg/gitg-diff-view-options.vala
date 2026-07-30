@@ -23,10 +23,14 @@ public class Gitg.DiffViewOptions : Gtk.Toolbar
 	[GtkChild (name = "adjustment_context")]
 	private unowned Gtk.Adjustment d_adjustment_context;
 
+	[GtkChild (name = "check_button_full_file")]
+	private unowned Gtk.CheckButton d_check_button_full_file;
+
 	[GtkChild (name = "tool_button_spacing")]
 	private unowned Gtk.ToolButton d_tool_button_spacing;
 
 	public int context_lines { get; set; }
+	public bool show_full_file { get; set; }
 
 	private Gee.List<Binding> d_bindings;
 	private DiffView? d_view;
@@ -120,6 +124,13 @@ public class Gitg.DiffViewOptions : Gtk.Toolbar
 			                     BindingFlags.BIDIRECTIONAL | BindingFlags.SYNC_CREATE)
 		);
 
+		d_bindings.add(
+			d_view.bind_property("show-full-file",
+			                     this,
+			                     "show-full-file",
+			                     BindingFlags.BIDIRECTIONAL | BindingFlags.SYNC_CREATE)
+		);
+
 		d_notify_commit_id = d_view.notify["commit"].connect(update_commit);
 
 		update_commit();
@@ -140,6 +151,11 @@ public class Gitg.DiffViewOptions : Gtk.Toolbar
 		              BindingFlags.SYNC_CREATE,
 		              Transforms.int_to_double,
 		              Transforms.double_to_int);
+
+		bind_property("show-full-file",
+		              d_check_button_full_file,
+		              "active",
+		              BindingFlags.BIDIRECTIONAL | BindingFlags.SYNC_CREATE);
 	}
 
 	[GtkCallback]

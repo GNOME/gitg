@@ -125,6 +125,35 @@ public class Gitg.DiffView : Gtk.Grid
 	public bool handle_selection { get; construct set; default = false; }
 	public bool highlight { get; construct set; default = true; }
 
+	private bool d_show_full_file;
+	private int d_user_context_lines;
+
+	public bool show_full_file
+	{
+		get { return d_show_full_file; }
+		set
+		{
+			if (d_show_full_file != value)
+			{
+				d_show_full_file = value;
+
+				if (value)
+				{
+					d_user_context_lines = options.n_context_lines;
+					options.n_context_lines = 100000;
+					options.n_interhunk_lines = 100000;
+				}
+				else
+				{
+					options.n_context_lines = d_user_context_lines;
+					options.n_interhunk_lines = d_user_context_lines;
+				}
+
+				options_changed();
+			}
+		}
+	}
+
 	private Repository? d_repository;
 
 	private GLib.Regex regex_custom_links = /gitg\.custom-link\.(.+)\.regex/;
@@ -191,11 +220,16 @@ public class Gitg.DiffView : Gtk.Grid
 
 	public int context_lines
 	{
-		get { return options.n_context_lines; }
+		get { return d_show_full_file ? d_user_context_lines : options.n_context_lines; }
 
 		construct set
 		{
-			if (options.n_context_lines != value)
+			if (d_show_full_file)
+			{
+				d_user_context_lines = value;
+				update_visible_context(value);
+			}
+			else if (options.n_context_lines != value)
 			{
 				options.n_context_lines = value;
 				options.n_interhunk_lines = value;
@@ -237,6 +271,55 @@ public class Gitg.DiffView : Gtk.Grid
 	private void parent_commit_changed()
 	{
 		update(false);
+	}
+
+	private void update_visible_context(int ctx)
+	{
+		foreach (var file in d_grid_files.get_children())
+		{
+			var f = file as Gitg.DiffViewFile;
+			if (f != null)
+			{
+				foreach (DiffViewFileRenderer renderer in f.renderer_list)
+				{
+					var textable = renderer as DiffViewFileRendererTextable;
+					if (textable != null)
+					{
+						textable.visible_context = ctx;
+					}
+				}
+			}
+		}
+	}
+
+	public void fold_all_files()
+	{
+		foreach (var file in d_grid_files.get_children())
+		{
+			var f = file as Gitg.DiffViewFile;
+			if (f != null)
+			{
+				foreach (DiffViewFileRenderer renderer in f.renderer_list)
+				{
+					renderer.fold_all();
+				}
+			}
+		}
+	}
+
+	public void unfold_all_files()
+	{
+		foreach (var file in d_grid_files.get_children())
+		{
+			var f = file as Gitg.DiffViewFile;
+			if (f != null)
+			{
+				foreach (DiffViewFileRenderer renderer in f.renderer_list)
+				{
+					renderer.unfold_all();
+				}
+			}
+		}
 	}
 
 	private void update_expanded_files()
@@ -756,6 +839,7 @@ public class Gitg.DiffView : Gtk.Grid
 
 			if (current_file != null)
 			{
+				current_file.finish_hunks();
 				current_file.show();
 
 				files.add(current_file);
@@ -849,9 +933,12 @@ public class Gitg.DiffView : Gtk.Grid
 								bind_property("highlight", renderer_text, "highlight", BindingFlags.SYNC_CREATE);
 								bind_property("wrap-lines", renderer_text, "wrap-lines", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
 								bind_property("tab-width", renderer_text, "tab-width", BindingFlags.DEFAULT | BindingFlags.SYNC_CREATE);
+								bind_property("show-full-file", renderer_text, "show-full-file", BindingFlags.SYNC_CREATE);
+								renderer_text.visible_context = context_lines;
 								renderer_text.maxlines = maxlines;
 								renderer_text.notify["has-selection"].connect(on_selection_changed);
 							}
+
 						}
 						on_selection_changed();
 					}

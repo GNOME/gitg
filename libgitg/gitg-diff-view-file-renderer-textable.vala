@@ -23,6 +23,8 @@ interface Gitg.DiffViewFileRendererTextable : DiffSelectable, DiffViewFileRender
 	public abstract new int tab_width { get; set; }
 	public abstract int maxlines { get; set; }
 	public abstract bool highlight { get; construct set; }
+	public abstract bool show_full_file { get; set; }
+	public abstract int visible_context { get; set; }
 }
 
 // ex:ts=4 noet

@@ -23,6 +23,18 @@ class Gitg.DiffViewFileRendererBinary : Gtk.Grid, DiffViewFileRenderer
 	public void add_hunk(Ggit.DiffHunk hunk, Gee.ArrayList<Ggit.DiffLine> lines)
 	{
 	}
+
+	public void finish_hunks()
+	{
+	}
+
+	public void fold_all()
+	{
+	}
+
+	public void unfold_all()
+	{
+	}
 }
 
 // ex:ts=4 noet

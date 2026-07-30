@@ -51,6 +51,17 @@ class Gitg.DiffViewLinesRenderer : Gtk.SourceGutterRendererText
 	}
 
 	private Gee.ArrayList<HunkInfo?> d_hunks_list;
+	private DiffViewFileRendererText.FoldRegion[] d_fold_regions;
+
+	public DiffViewFileRendererText.FoldRegion[] fold_regions
+	{
+		get { return d_fold_regions; }
+		set
+		{
+			d_fold_regions = value;
+			queue_draw();
+		}
+	}
 
 	public Style style
 	{
@@ -79,12 +90,34 @@ class Gitg.DiffViewLinesRenderer : Gtk.SourceGutterRendererText
 		Object(style: style);
 	}
 
+	public signal void fold_toggled(int buffer_line);
+
 	construct
 	{
 		d_hunks_list = new Gee.ArrayList<HunkInfo?>();
 
 		set_alignment(1.0f, 0.5f);
 		calculate_num_digits();
+
+		activate.connect(on_activate);
+	}
+
+	protected override bool query_activatable(Gtk.TextIter iter, Gdk.Rectangle area, Gdk.Event event)
+	{
+		var line = iter.get_line();
+		DiffViewFileRendererText.FoldRegion? fold = null;
+		return get_fold_region_at_line(line, out fold);
+	}
+
+	private void on_activate(Gtk.TextIter iter, Gdk.Rectangle area, Gdk.Event event)
+	{
+		var line = iter.get_line();
+		DiffViewFileRendererText.FoldRegion? fold = null;
+
+		if (get_fold_region_at_line(line, out fold))
+		{
+			fold_toggled(fold.buffer_line_start);
+		}
 	}
 
 	protected Gtk.TextBuffer buffer
@@ -92,11 +125,81 @@ class Gitg.DiffViewLinesRenderer : Gtk.SourceGutterRendererText
 		get { return get_view().buffer; }
 	}
 
+	private bool is_fold_line(int line, out DiffViewFileRendererText.FoldRegion? fold_out)
+	{
+		fold_out = null;
+
+		if (d_fold_regions == null)
+		{
+			return false;
+		}
+
+		foreach (var fr in d_fold_regions)
+		{
+			if (line == fr.buffer_line_start)
+			{
+				fold_out = fr;
+				return true;
+			}
+
+			if (line > fr.buffer_line_start && line <= fr.buffer_line_end && fr.folded)
+			{
+				fold_out = fr;
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public bool get_fold_region_at_line(int line, out DiffViewFileRendererText.FoldRegion? fold_out)
+	{
+		fold_out = null;
+
+		if (d_fold_regions == null)
+		{
+			return false;
+		}
+
+		foreach (var fr in d_fold_regions)
+		{
+			if (line >= fr.buffer_line_start && line <= fr.buffer_line_end)
+			{
+				fold_out = fr;
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	protected override void query_data(Gtk.TextIter start, Gtk.TextIter end, Gtk.SourceGutterRendererState state)
 	{
 		var line = start.get_line();
 		bool is_hunk = false;
 		HunkInfo? info = null;
+
+		DiffViewFileRendererText.FoldRegion? fold = null;
+		if (is_fold_line(line, out fold))
+		{
+			if (line == fold.buffer_line_start)
+			{
+				if (style == Style.SYMBOL || style == Style.SYMBOL_OLD || style == Style.SYMBOL_NEW)
+				{
+					set_text(fold.folded ? "▶" : "▼", -1);
+				}
+				else
+				{
+					var n = fold.buffer_line_end - fold.buffer_line_start + 1;
+					set_text(fold.folded ? "⋯%d".printf(n) : "⋯", -1);
+				}
+			}
+			else
+			{
+				set_text("", -1);
+			}
+			return;
+		}
 
 		foreach (var i in d_hunks_list)
 		{

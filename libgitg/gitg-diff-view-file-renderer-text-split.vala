@@ -146,18 +146,63 @@ class Gitg.DiffViewFileRendererTextSplit : Gtk.Box, DiffSelectable, DiffViewFile
 
 		setup_hscrollbar_margins(d_scroll_left, d_renderer_left);
 		setup_hscrollbar_margins(d_scroll_right, d_renderer_right);
+
+		d_renderer_left.fold_changed.connect((index, folded) => {
+			d_renderer_right.set_fold_state(index, folded);
+		});
+
+		d_renderer_right.fold_changed.connect((index, folded) => {
+			d_renderer_left.set_fold_state(index, folded);
+		});
 	}
 
 	construct
 	{
-		//can_select = d_renderer_left.can_select() || d_renderer_right.can_select();
 		can_select = false;
+	}
+
+	public bool show_full_file
+	{
+		get { return d_renderer_left.show_full_file; }
+		set
+		{
+			d_renderer_left.show_full_file = value;
+			d_renderer_right.show_full_file = value;
+		}
+	}
+
+	public int visible_context
+	{
+		get { return d_renderer_left.visible_context; }
+		set
+		{
+			d_renderer_left.visible_context = value;
+			d_renderer_right.visible_context = value;
+		}
 	}
 
 	public void add_hunk(Ggit.DiffHunk hunk, Gee.ArrayList<Ggit.DiffLine> lines)
 	{
 		d_renderer_left.add_hunk(hunk, lines);
 		d_renderer_right.add_hunk(hunk, lines);
+	}
+
+	public void finish_hunks()
+	{
+		d_renderer_left.finish_hunks();
+		d_renderer_right.finish_hunks();
+	}
+
+	public void fold_all()
+	{
+		d_renderer_left.fold_all();
+		d_renderer_right.fold_all();
+	}
+
+	public void unfold_all()
+	{
+		d_renderer_left.unfold_all();
+		d_renderer_right.unfold_all();
 	}
 
 	public bool has_selection
