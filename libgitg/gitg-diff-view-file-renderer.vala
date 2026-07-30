@@ -20,6 +20,9 @@
 interface Gitg.DiffViewFileRenderer : Gtk.Widget
 {
 	public abstract void add_hunk(Ggit.DiffHunk hunk, Gee.ArrayList<Ggit.DiffLine> lines);
+	public abstract void finish_hunks();
+	public abstract void fold_all();
+	public abstract void unfold_all();
 }
 
 // ex:ts=4 noet

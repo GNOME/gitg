@@ -106,6 +106,18 @@ class Gitg.DiffViewFileRendererImage : Gtk.Grid, DiffViewFileRenderer
 	{
 	}
 
+	public void finish_hunks()
+	{
+	}
+
+	public void fold_all()
+	{
+	}
+
+	public void unfold_all()
+	{
+	}
+
 	private class SurfaceCache : Object, Gitg.DiffImageSurfaceCache {
 		private Cairo.Surface? d_old_surface;
 		private Cairo.Surface? d_new_surface;

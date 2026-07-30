@@ -66,6 +66,11 @@ namespace GitgDiff
 			              "context-lines",
 			              SettingsBindFlags.GET | SettingsBindFlags.SET);
 
+			settings.bind("show-full-file",
+			              d_diff,
+			              "show-full-file",
+			              SettingsBindFlags.GET | SettingsBindFlags.SET);
+
 			settings.bind("tab-width",
 			              d_diff,
 			              "tab-width",
