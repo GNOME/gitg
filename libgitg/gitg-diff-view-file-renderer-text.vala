@@ -300,7 +300,258 @@ class Gitg.DiffViewFileRendererText : Gtk.SourceView, DiffSelectable, DiffViewFi
 		highlight = true;
 	}
 
+	public signal void request_focus_sibling(int direction);
+	public signal void request_navigate_out(int direction);
 	public signal void fold_changed(int fold_index, bool folded);
+
+	public override bool key_press_event(Gdk.EventKey event)
+	{
+		var mod = event.state & Gtk.accelerator_get_default_mod_mask();
+
+		if (mod == Gdk.ModifierType.MOD1_MASK)
+		{
+			switch (event.keyval)
+			{
+			case Gdk.Key.Up:
+				if (navigate_change(-1))
+				{
+					return true;
+				}
+				request_navigate_out(-1);
+				return true;
+			case Gdk.Key.Down:
+				if (navigate_change(1))
+				{
+					return true;
+				}
+				request_navigate_out(1);
+				return true;
+			case Gdk.Key.Left:
+				request_focus_sibling(-1);
+				return true;
+			case Gdk.Key.Right:
+				request_focus_sibling(1);
+				return true;
+			}
+		}
+
+		if (mod == (Gdk.ModifierType.MOD1_MASK | Gdk.ModifierType.CONTROL_MASK))
+		{
+			switch (event.keyval)
+			{
+			case Gdk.Key.Up:
+				navigate_to_edge(-1);
+				return true;
+			case Gdk.Key.Down:
+				navigate_to_edge(1);
+				return true;
+			}
+		}
+
+		if (mod == (Gdk.ModifierType.SHIFT_MASK | Gdk.ModifierType.CONTROL_MASK))
+		{
+			switch (event.keyval)
+			{
+			case Gdk.Key.minus:
+			case Gdk.Key.underscore:
+				fold_all();
+				return true;
+			case Gdk.Key.plus:
+			case Gdk.Key.equal:
+				unfold_all();
+				return true;
+			}
+		}
+
+		return base.key_press_event(event);
+	}
+
+	private int[] get_change_group_starts()
+	{
+		int[] group_starts = {};
+		bool prev_was_change = false;
+
+		foreach (var region in d_regions)
+		{
+			if (region.type != RegionType.CONTEXT)
+			{
+				if (!prev_was_change)
+				{
+					group_starts += region.buffer_line_start;
+				}
+				prev_was_change = true;
+			}
+			else
+			{
+				prev_was_change = false;
+			}
+		}
+
+		return group_starts;
+	}
+
+	private bool navigate_change(int direction)
+	{
+		if (d_regions.length == 0)
+		{
+			return false;
+		}
+
+		var group_starts = get_change_group_starts();
+
+		var buffer = this.buffer as Gtk.SourceBuffer;
+		Gtk.TextIter cursor;
+		buffer.get_iter_at_mark(out cursor, buffer.get_insert());
+		var current_line = cursor.get_line();
+
+		int target_line = -1;
+
+		if (direction > 0)
+		{
+			foreach (var start in group_starts)
+			{
+				if (start > current_line)
+				{
+					target_line = start;
+					break;
+				}
+			}
+		}
+		else
+		{
+			for (var i = group_starts.length - 1; i >= 0; i--)
+			{
+				if (group_starts[i] < current_line)
+				{
+					target_line = group_starts[i];
+					break;
+				}
+			}
+		}
+
+		if (target_line >= 0)
+		{
+			go_to_line(target_line);
+			return true;
+		}
+
+		return false;
+	}
+
+	public int get_current_change_group_index()
+	{
+		var group_starts = get_change_group_starts();
+		if (group_starts.length == 0)
+		{
+			return -1;
+		}
+
+		var buffer = this.buffer as Gtk.SourceBuffer;
+		Gtk.TextIter cursor;
+		buffer.get_iter_at_mark(out cursor, buffer.get_insert());
+		var current_line = cursor.get_line();
+
+		int index = 0;
+		for (var i = 0; i < group_starts.length; i++)
+		{
+			if (group_starts[i] <= current_line)
+			{
+				index = i;
+			}
+			else
+			{
+				break;
+			}
+		}
+
+		return index;
+	}
+
+	public void navigate_to_change_group(int index)
+	{
+		var group_starts = get_change_group_starts();
+		if (group_starts.length == 0)
+		{
+			return;
+		}
+
+		var clamped = int.min(index, group_starts.length - 1);
+		clamped = int.max(clamped, 0);
+		go_to_line(group_starts[clamped]);
+	}
+
+	public void navigate_to_edge(int direction)
+	{
+		if (d_regions.length == 0)
+		{
+			return;
+		}
+
+		var group_starts = get_change_group_starts();
+
+		if (group_starts.length == 0)
+		{
+			return;
+		}
+
+		if (direction < 0)
+		{
+			go_to_line(group_starts[0]);
+		}
+		else
+		{
+			go_to_line(group_starts[group_starts.length - 1]);
+		}
+	}
+
+	private void go_to_line(int line)
+	{
+		var buffer = this.buffer as Gtk.SourceBuffer;
+		Gtk.TextIter target_iter;
+		buffer.get_iter_at_line(out target_iter, line);
+		buffer.place_cursor(target_iter);
+		this.cursor_visible = true;
+		scroll_into_view(line);
+	}
+
+	private void scroll_into_view(int line)
+	{
+		Gtk.TextIter iter;
+		this.buffer.get_iter_at_line(out iter, line);
+
+		Gdk.Rectangle rect;
+		get_iter_location(iter, out rect);
+
+		int dummy, wy;
+		buffer_to_window_coords(Gtk.TextWindowType.WIDGET, 0, rect.y, out dummy, out wy);
+
+		Gtk.Widget? w = this.get_parent();
+		while (w != null)
+		{
+			var sw = w as Gtk.ScrolledWindow;
+			if (sw != null)
+			{
+				var vadj = sw.get_vadjustment();
+				if (vadj.get_upper() > vadj.get_page_size())
+				{
+					int tx, ty;
+					if (this.translate_coordinates(sw, 0, wy, out tx, out ty))
+					{
+						var page = vadj.get_page_size();
+						if (ty < 20 || ty > page - 20)
+						{
+							var new_val = vadj.get_value() + (double)ty - page / 3.0;
+							new_val = double.max(new_val, vadj.get_lower());
+							new_val = double.min(new_val, vadj.get_upper() - page);
+							vadj.set_value(new_val);
+						}
+					}
+					break;
+				}
+			}
+			w = w.get_parent();
+		}
+	}
 
 	protected override void dispose()
 	{
