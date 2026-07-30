@@ -52,6 +52,7 @@ namespace GitgHistory
 		private Gitg.WhenMapped? d_reload_when_mapped;
 
 		private Paned d_main;
+		private Gitg.DiffView? d_connected_diff_view;
 		private Gitg.PopupMenu d_refs_list_popup;
 		private Gitg.PopupMenu d_commit_list_popup;
 
@@ -594,9 +595,140 @@ namespace GitgHistory
 			return false;
 		}
 
+		private void ensure_diff_view_connected(Gitg.DiffView diff_view)
+		{
+			if (diff_view != d_connected_diff_view)
+			{
+				d_connected_diff_view = diff_view;
+				diff_view.request_navigate_out.connect((dir) => {
+					if (dir < 0)
+					{
+						d_main.commit_list_view.grab_focus();
+					}
+				});
+			}
+		}
+
+		private void focus_diff_content()
+		{
+			var visible = d_main.stack_panel.get_visible_child();
+			var diff_view = visible as Gitg.DiffView;
+
+			if (diff_view != null)
+			{
+				ensure_diff_view_connected(diff_view);
+				diff_view.focus_first_file();
+			}
+			else if (visible != null)
+			{
+				visible.child_focus(Gtk.DirectionType.TAB_FORWARD);
+			}
+		}
+
+		private bool is_widget_in(Gtk.Widget? child, Gtk.Widget container)
+		{
+			if (child == null)
+			{
+				return false;
+			}
+
+			var w = child;
+			while (w != null)
+			{
+				if (w == container)
+				{
+					return true;
+				}
+				w = w.get_parent();
+			}
+
+			return false;
+		}
+
 		private void build_ui()
 		{
 			d_main = new Paned();
+
+			d_main.key_press_event.connect((event) => {
+				var mod = event.state & Gtk.accelerator_get_default_mod_mask();
+
+				if (mod == Gdk.ModifierType.MOD1_MASK)
+				{
+					var win = d_main.get_toplevel() as Gtk.Window;
+					var focused = win != null ? win.get_focus() : null;
+
+switch (event.keyval)
+					{
+					case Gdk.Key.Up:
+						d_main.commit_list_view.grab_focus();
+						return true;
+					case Gdk.Key.Down:
+						if (!is_widget_in(focused, d_main.stack_panel))
+						{
+							focus_diff_content();
+							return true;
+						}
+						return false;
+					case Gdk.Key.Left:
+						var selected_row = d_main.refs_list.get_selected_row();
+						if (selected_row != null)
+						{
+							selected_row.grab_focus();
+						}
+						else
+						{
+							d_main.refs_list.grab_focus();
+						}
+						return true;
+					case Gdk.Key.Right:
+						if (is_widget_in(focused, d_main.refs_list))
+						{
+							d_main.commit_list_view.grab_focus();
+						}
+						else if (!is_widget_in(focused, d_main.stack_panel))
+						{
+							focus_diff_content();
+						}
+						else
+						{
+						}
+						return true;
+					}
+				}
+
+				if (mod == (Gdk.ModifierType.SHIFT_MASK | Gdk.ModifierType.CONTROL_MASK))
+				{
+					switch (event.keyval)
+					{
+					case Gdk.Key.minus:
+					case Gdk.Key.underscore:
+						var diff_view = d_main.stack_panel.get_visible_child() as Gitg.DiffView;
+						if (diff_view != null)
+						{
+							diff_view.fold_all_files();
+						}
+						return true;
+					case Gdk.Key.plus:
+					case Gdk.Key.equal:
+						var diff_view = d_main.stack_panel.get_visible_child() as Gitg.DiffView;
+						if (diff_view != null)
+						{
+							diff_view.unfold_all_files();
+						}
+						return true;
+					}
+				}
+
+				return false;
+			});
+
+			d_main.stack_panel.notify["visible-child"].connect(() => {
+				var diff_view = d_main.stack_panel.get_visible_child() as Gitg.DiffView;
+				if (diff_view != null)
+				{
+					ensure_diff_view_connected(diff_view);
+				}
+			});
 
 			d_main.refs_list.application = application;
 

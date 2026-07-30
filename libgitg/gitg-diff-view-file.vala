@@ -394,6 +394,39 @@ class Gitg.DiffViewFile : Gtk.Grid
 		}
 	}
 
+	public bool focus_content(int edge_direction = -1)
+	{
+		var visible_name = d_stack_file_renderer.get_visible_child_name();
+
+		if (visible_name == "unified")
+		{
+			foreach (DiffViewFileRenderer renderer in renderer_list)
+			{
+				var text_renderer = renderer as DiffViewFileRendererText;
+				if (text_renderer != null)
+				{
+					text_renderer.grab_focus();
+					text_renderer.navigate_to_edge(edge_direction);
+					return true;
+				}
+			}
+		}
+		else if (visible_name == "split")
+		{
+			foreach (DiffViewFileRenderer renderer in renderer_list)
+			{
+				var split_renderer = renderer as DiffViewFileRendererTextSplit;
+				if (split_renderer != null)
+				{
+					split_renderer.focus_renderer(edge_direction);
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
 	public void finish_hunks()
 	{
 		foreach (DiffViewFileRenderer renderer in renderer_list)

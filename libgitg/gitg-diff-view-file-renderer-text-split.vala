@@ -147,6 +147,32 @@ class Gitg.DiffViewFileRendererTextSplit : Gtk.Box, DiffSelectable, DiffViewFile
 		setup_hscrollbar_margins(d_scroll_left, d_renderer_left);
 		setup_hscrollbar_margins(d_scroll_right, d_renderer_right);
 
+		d_renderer_left.request_focus_sibling.connect((dir) => {
+			if (dir > 0)
+			{
+				var idx = d_renderer_left.get_current_change_group_index();
+				d_renderer_right.grab_focus();
+				d_renderer_right.navigate_to_change_group(idx);
+			}
+		});
+
+		d_renderer_right.request_focus_sibling.connect((dir) => {
+			if (dir < 0)
+			{
+				var idx = d_renderer_right.get_current_change_group_index();
+				d_renderer_left.grab_focus();
+				d_renderer_left.navigate_to_change_group(idx);
+			}
+		});
+
+		d_renderer_left.request_navigate_out.connect((dir) => {
+			request_navigate_out(dir);
+		});
+
+		d_renderer_right.request_navigate_out.connect((dir) => {
+			request_navigate_out(dir);
+		});
+
 		d_renderer_left.fold_changed.connect((index, folded) => {
 			d_renderer_right.set_fold_state(index, folded);
 		});
@@ -154,6 +180,14 @@ class Gitg.DiffViewFileRendererTextSplit : Gtk.Box, DiffSelectable, DiffViewFile
 		d_renderer_right.fold_changed.connect((index, folded) => {
 			d_renderer_left.set_fold_state(index, folded);
 		});
+	}
+
+	public signal void request_navigate_out(int direction);
+
+	public void focus_renderer(int edge_direction = -1)
+	{
+		d_renderer_left.grab_focus();
+		d_renderer_left.navigate_to_edge(edge_direction);
 	}
 
 	construct

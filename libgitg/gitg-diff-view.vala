@@ -125,6 +125,8 @@ public class Gitg.DiffView : Gtk.Grid
 	public bool handle_selection { get; construct set; default = false; }
 	public bool highlight { get; construct set; default = true; }
 
+	public signal void request_navigate_out(int direction);
+
 	private bool d_show_full_file;
 	private int d_user_context_lines;
 
@@ -271,6 +273,69 @@ public class Gitg.DiffView : Gtk.Grid
 	private void parent_commit_changed()
 	{
 		update(false);
+	}
+
+	public void focus_first_file()
+	{
+		var children = d_grid_files.get_children();
+		children.reverse();
+
+		foreach (var child in children)
+		{
+			var file = child as Gitg.DiffViewFile;
+			if (file != null)
+			{
+				file.expanded = true;
+				file.focus_content(-1);
+				return;
+			}
+		}
+	}
+
+	private bool navigate_to_adjacent_file(int direction)
+	{
+		var win = this.get_toplevel() as Gtk.Window;
+		var focused = win != null ? win.get_focus() : null;
+		if (focused == null)
+		{
+			return false;
+		}
+
+		var children = d_grid_files.get_children();
+		children.reverse();
+
+		int current_index = -1;
+		int i = 0;
+		foreach (var child in children)
+		{
+			if (focused.is_ancestor(child))
+			{
+				current_index = i;
+				break;
+			}
+			i++;
+		}
+
+		if (current_index < 0)
+		{
+			return false;
+		}
+
+		int target_index = current_index + direction;
+		if (target_index < 0 || target_index >= (int)children.length())
+		{
+			return false;
+		}
+
+		var target_file = children.nth_data((uint)target_index) as Gitg.DiffViewFile;
+		if (target_file == null)
+		{
+			return false;
+		}
+
+		target_file.expanded = true;
+		target_file.focus_content(direction < 0 ? 1 : -1);
+		return true;
 	}
 
 	private void update_visible_context(int ctx)
@@ -939,6 +1004,27 @@ public class Gitg.DiffView : Gtk.Grid
 								renderer_text.notify["has-selection"].connect(on_selection_changed);
 							}
 
+							var unified = renderer as DiffViewFileRendererText;
+							if (unified != null)
+							{
+								unified.request_navigate_out.connect((dir) => {
+									if (!navigate_to_adjacent_file(dir))
+									{
+										request_navigate_out(dir);
+									}
+								});
+							}
+
+							var split = renderer as DiffViewFileRendererTextSplit;
+							if (split != null)
+							{
+								split.request_navigate_out.connect((dir) => {
+									if (!navigate_to_adjacent_file(dir))
+									{
+										request_navigate_out(dir);
+									}
+								});
+							}
 						}
 						on_selection_changed();
 					}
