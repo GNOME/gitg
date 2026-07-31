@@ -41,16 +41,16 @@ class Gitg.DiffViewLinesRenderer : Gtk.SourceGutterRendererText
 
 	private ulong d_view_style_updated_id;
 
-	private struct HunkInfo
+	private class HunkInfo
 	{
-		int start;
-		int end;
-		int hunk_line;
-		Ggit.DiffHunk hunk;
-		string[] line_infos;
+		public int start;
+		public int end;
+		public int hunk_line;
+		public Ggit.DiffHunk hunk;
+		public string[] line_infos;
 	}
 
-	private Gee.ArrayList<HunkInfo?> d_hunks_list;
+	private Gee.ArrayList<HunkInfo> d_hunks_list;
 	private DiffViewFileRendererText.FoldRegion[] d_fold_regions;
 
 	public DiffViewFileRendererText.FoldRegion[] fold_regions
@@ -94,7 +94,7 @@ class Gitg.DiffViewLinesRenderer : Gtk.SourceGutterRendererText
 
 	construct
 	{
-		d_hunks_list = new Gee.ArrayList<HunkInfo?>();
+		d_hunks_list = new Gee.ArrayList<HunkInfo>();
 
 		set_alignment(1.0f, 0.5f);
 		calculate_num_digits();
@@ -389,10 +389,9 @@ class Gitg.DiffViewLinesRenderer : Gtk.SourceGutterRendererText
 	}
 	public void add_hunk(int buffer_line_start, int buffer_line_end, Ggit.DiffHunk hunk, Gtk.SourceBuffer buffer)
 	{
-		HunkInfo info = HunkInfo();
-
 		calculate_num_digits();
 
+		var info = new HunkInfo();
 		info.start = buffer_line_start;
 		info.end = buffer_line_end;
 		info.hunk_line = buffer_line_start - 1;
