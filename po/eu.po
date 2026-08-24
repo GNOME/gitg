@@ -5,14 +5,14 @@
 #
 # Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2015, 2017.
 # Edurne Labaka <elabaka@uzei.com>, 2015.
-# Asier Sarasua Garmendia <asiersarasua@ni.eus>, 2019, 2020, 2022, 2023.
+# Asier Saratsua Garmendia <asiersarasua@ni.eus>, 2019, 2020, 2022, 2023, 2026.
 #
 msgid ""
 msgstr "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2023-07-23 10:13+0000\n"
-"PO-Revision-Date: 2023-09-07 08:00+0100\n"
-"Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
+"POT-Creation-Date: 2026-07-01 19:10+0000\n"
+"PO-Revision-Date: 2026-08-23 08:00+0100\n"
+"Last-Translator: Asier Saratsua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
@@ -25,106 +25,49 @@ msgstr "Project-Id-Version: gitg master\n"
 msgid "Could not parse XML from stream"
 msgstr "Ezin izan da korronteko XMLa analizatu"
 
-#: data/org.gnome.gitg.appdata.xml.in.in:5 gitg/gitg.vala:39
-#: gitg/resources/ui/gitg-window.ui:8
-msgid "gitg"
-msgstr "gitg"
-
-#: data/org.gnome.gitg.appdata.xml.in.in:9
-msgid "Graphical user interface for git"
-msgstr "Git erabiltzeko erabiltzaile-interfaze grafikoa"
-
-#: data/org.gnome.gitg.appdata.xml.in.in:11
-msgid ""
-"gitg is a graphical user interface for git. It aims at being a small, fast "
-"and convenient tool to visualize the history of git repositories. Besides "
-"visualization, gitg also provides several utilities to manage your "
-"repository and commit your work."
-msgstr "gitg git erabiltzeko erabiltzaile-interfaze grafikoa da. Tresna txikia, azkarra eta egokia izateko asmoz sortu zen, eta git biltegien historia bistaratzeko balio du. Bisualizazioaz gain, gitg-k zenbait tresna ditu zure biltegia kudeatzeko eta zure lana egikaritzeko."
-
-#: data/org.gnome.gitg.appdata.xml.in.in:17
-msgid "Goals:"
-msgstr "Helburuak:"
-
-#: data/org.gnome.gitg.appdata.xml.in.in:19
-msgid "Browse local git repositories"
-msgstr "Arakatu git biltegi lokalak"
-
-#: data/org.gnome.gitg.appdata.xml.in.in:20
-msgid "Clone local and remote git repositories"
-msgstr "Klonatu git biltegi lokalak eta urrunekoak"
-
-#: data/org.gnome.gitg.appdata.xml.in.in:21
-msgid "Commit files"
-msgstr "Egikaritu fitxategiak"
-
-#: data/org.gnome.gitg.appdata.xml.in.in:22
-msgid "Retrieve patch from a commit"
-msgstr "Atzitu adabakia egikaritze batetik"
-
-#: data/org.gnome.gitg.appdata.xml.in.in:32
-msgid "Browse repository history"
-msgstr "Arakatu biltegiaren historia"
-
-#: data/org.gnome.gitg.appdata.xml.in.in:36
-msgid "Staging area to compose your commit"
-msgstr "Zure egikaritzea konposatzeko konfigurazio-area"
-
-#: data/org.gnome.gitg.appdata.xml.in.in:40
-msgid "Commit staged changes"
-msgstr "Egikaritu konfiguratutako aldaketak"
-
-#: data/org.gnome.gitg.appdata.xml.in.in:44
-msgid "Overview of recently used repositories"
-msgstr "Azken aldian erabilitzko biltegien ikuspegi orokorra"
-
-#: data/org.gnome.gitg.appdata.xml.in.in:157
-msgid "The Gitg Team"
-msgstr "Gitg taldea"
+#: data/org.gnome.gitg.desktop.in.in:2
+msgid "Gitg"
+msgstr "Gitg"
 
 #: data/org.gnome.gitg.desktop.in.in:3
-msgid "@binary@"
-msgstr "@bitarra@"
-
-#: data/org.gnome.gitg.desktop.in.in:4
 msgid "Git repository browser"
 msgstr "Git biltegi-arakatzailea"
 
-#: data/org.gnome.gitg.desktop.in.in:17
+#: data/org.gnome.gitg.desktop.in.in:16
 msgid "New Window"
 msgstr "Leiho berria"
 
-#: data/org.gnome.gitg.gschema.xml.in:28
+#: data/org.gnome.gitg.gschema.xml.in:30
 msgid "Default Clone Directory"
 msgstr "Direktorioaren klon lehenetsia"
 
-#: data/org.gnome.gitg.gschema.xml.in:29
+#: data/org.gnome.gitg.gschema.xml.in:31
 msgid ""
 "The default directory in which new repositories should be suggested to be "
 "cloned."
 msgstr "Klonatzeko biltegi berriak iradokitzeko direktorio lehenetsia."
 
-#: data/org.gnome.gitg.gschema.xml.in:38
+#: data/org.gnome.gitg.gschema.xml.in:40
 msgid "Orientation of the main interface (vertical or horizontal)"
 msgstr "Interfaze nagusiaren orientazioa (bertikala edo horizontala)"
 
-#: data/org.gnome.gitg.gschema.xml.in:39
+#: data/org.gnome.gitg.gschema.xml.in:41
 msgid "Setting that sets the orientation of the main interface."
 msgstr "Interfaze nagusiaren orientazioa definitzen duen ezarpena."
 
-#: data/org.gnome.gitg.gschema.xml.in:45
+#: data/org.gnome.gitg.gschema.xml.in:47
 msgid "Default Activity"
 msgstr "Jarduera lehenetsia"
 
-#: data/org.gnome.gitg.gschema.xml.in:46
+#: data/org.gnome.gitg.gschema.xml.in:48
 msgid "The activity which gitg activates by default when first launched."
 msgstr "Gitg-k lehenetsi gisa aktibatzen duen jarduera aurreneko aldiz abiaraztean."
 
-#: data/org.gnome.gitg.gschema.xml.in:52
+#: data/org.gnome.gitg.gschema.xml.in:54
 msgid "Use Default Font"
 msgstr "Erabili letra-tipo lehenetsia"
 
-#: data/org.gnome.gitg.gschema.xml.in:53
+#: data/org.gnome.gitg.gschema.xml.in:55
 msgid ""
 "Whether to use the system’s default fixed width font for widget's text "
 "instead of a font specific. If this option is turned off, then the font "
@@ -132,65 +75,91 @@ msgid ""
 msgstr "Sistemak lehenetsita duen zabalera finkoko letra-tipoa erabiliko den ala ez trepetaren testua editatzeko, letra-tipo espezifiko baten ordez. Aukera hau desaktibatuta badago, 'Editorearen letra-tipoa' aukeran izendatutako letra-tipoa erabiliko da, sistemaren letra-tipoa erabili ordez."
 
 #. Translators: This is a GSettings default value. Do NOT change or localize the quotation marks!
-#: data/org.gnome.gitg.gschema.xml.in:57
+#: data/org.gnome.gitg.gschema.xml.in:59
 msgid "'Monospace 12'"
 msgstr "'Monospace 12'"
 
-#: data/org.gnome.gitg.gschema.xml.in:58
+#: data/org.gnome.gitg.gschema.xml.in:60
 msgid "Editor Font"
 msgstr "Editorearen letra-tipoa"
 
-#: data/org.gnome.gitg.gschema.xml.in:59
+#: data/org.gnome.gitg.gschema.xml.in:61
 msgid ""
 "A custom font that will be used for the text widgets. This will only take "
 "effect if the “Use Default Font” option is turned off."
 msgstr "Testu-trepetetan erabiliko den letra-tipo pertsonalizatua. Hau indarrean egoteko, 'Erabili letra-tipo lehenetsia' aukerak desaktibatuta egon behar du."
 
-#: data/org.gnome.gitg.gschema.xml.in:63
+#: data/org.gnome.gitg.gschema.xml.in:65
 msgid "Use Gravatar"
 msgstr "Erabili Gravatar"
 
-#: data/org.gnome.gitg.gschema.xml.in:64
+#: data/org.gnome.gitg.gschema.xml.in:66
 msgid "Enable the use of gravatar to display user avatars."
 msgstr "Gaitu gravatar erabiltzea erabiltzaileen avatar-ak bistaratzeko."
 
-#: data/org.gnome.gitg.gschema.xml.in:70
+#: data/org.gnome.gitg.gschema.xml.in:72
 msgid "Enable Monitoring"
 msgstr "Gaitu monitorizatzea"
 
-#: data/org.gnome.gitg.gschema.xml.in:71
+#: data/org.gnome.gitg.gschema.xml.in:73
 #: gitg/resources/ui/gitg-preferences-interface.ui:188
 msgid "Automatically update when external changes to .git are detected"
 msgstr "Eguneratu automatikoki kanpoko .git biltegian aldaketak atzematean"
 
-#: data/org.gnome.gitg.gschema.xml.in:77
+#: data/org.gnome.gitg.gschema.xml.in:79
 msgid "Enable Diff Highlighting"
 msgstr "Gaitu Diff nabarmentzea"
 
-#: data/org.gnome.gitg.gschema.xml.in:78
+#: data/org.gnome.gitg.gschema.xml.in:80
 msgid ""
 "Setting that determines whether to enable syntax highlighting in diff views."
 msgstr "Diff ikuspegietan sintaxia nabarmentzea gaituko  den edo ez zehazten duen ezarpena."
 
-#: data/org.gnome.gitg.gschema.xml.in:85
+#: data/org.gnome.gitg.gschema.xml.in:87
 msgid "Color scheme to use for syntax highlighting"
 msgstr "Sintaxia nabarmentzeko erabilitako kolore-eskema"
 
-#: data/org.gnome.gitg.gschema.xml.in:86
+#: data/org.gnome.gitg.gschema.xml.in:88
 msgid "Used by GtkSourceView to determine colors for syntax highlighting"
 msgstr "GtkSourceView funtzioak erabilitakoa sintaxia nabarmentzeko koloreak zehazteko"
 
 #: data/org.gnome.gitg.gschema.xml.in:92
+msgid "Text Diff Mode"
+msgstr "Testuaren diff modua"
+
+#: data/org.gnome.gitg.gschema.xml.in:93
+msgid "Text diff mode."
+msgstr "Testuaren diff modua."
+
+#: data/org.gnome.gitg.gschema.xml.in:99
+msgid ""
+"Setting that indicates whether push dialog is configured figuring out "
+"expected values to push."
+msgstr "Bultzatzeko elkarrizketa-koadroa bultzatzean espero diren balioekin konfiguratuta dagoen ala ez adierazten duen ezarpena."
+
+#: data/org.gnome.gitg.gschema.xml.in:106
+msgid "visible columns about a commit by default"
+msgstr ""
+
+#: data/org.gnome.gitg.gschema.xml.in:107
+msgid "Default visible columns about commit."
+msgstr ""
+
+#: data/org.gnome.gitg.gschema.xml.in:113
+msgid "Show column headers on history view."
+msgstr "Erakutsi zutabe-goiburuak historia-ikuspegian."
+
+#: data/org.gnome.gitg.gschema.xml.in:121
 msgid "When to Collapse Inactive Lanes"
 msgstr "Noiz tolestu errei inaktiboak"
 
-#: data/org.gnome.gitg.gschema.xml.in:93
+#: data/org.gnome.gitg.gschema.xml.in:122
 msgid ""
 "Setting that indicates when an inactive lane should be collapsed. Valid "
 "values are 0 — 4, where 0 indicates “early” and 4 indicates “late”."
 msgstr "Errei inaktibo bat noiz tolestu behar den adierazten duen ezarpena. Baliozko balioak 0-4 dira, 0 balioak “goiz” adierazten du eta 4 balioak “berandu“."
 
-#: data/org.gnome.gitg.gschema.xml.in:100
+#: data/org.gnome.gitg.gschema.xml.in:129
 msgid ""
 "Setting that indicates whether to collapse history lanes which do not show "
 "activity. Enabling this can provide a cleaner history view when there is a "
@@ -198,253 +167,321 @@ msgid ""
 "lanes should be collapsed."
 msgstr "Jarduerarik erakusten ez duten erreiak noiz tolestu adierazten duen ezarpena. Hau gaituz historia-ikuspegi garbiagoa lortuko duzu garapen paralelo asko dagoenean. Ikusi ' collapse-inactive-lanes' (tolestu-errei-inaktiboak) zein errei tolestuko diren kontrolatzeko."
 
-#: data/org.gnome.gitg.gschema.xml.in:109
+#: data/org.gnome.gitg.gschema.xml.in:138
 msgid "Show History in Topological Order"
 msgstr "Erakutsi Historia ordena topologikoan"
 
-#: data/org.gnome.gitg.gschema.xml.in:110
+#: data/org.gnome.gitg.gschema.xml.in:139
 msgid ""
 "Setting that indicates whether to show the history in topological order."
 msgstr "Historia ordena topologikoan erakutsiko den edo ez adierazten duen ezarpena."
 
-#: data/org.gnome.gitg.gschema.xml.in:116
+#: data/org.gnome.gitg.gschema.xml.in:145
 msgid "Show Stashed Changes"
 msgstr "Erakutsi pilako aldaketak"
 
-#: data/org.gnome.gitg.gschema.xml.in:117
+#: data/org.gnome.gitg.gschema.xml.in:146
 msgid ""
 "Setting that indicates whether to show items for the stash in the history."
 msgstr "Pilako elementuak historian erakutsiko diren edo ez adierazten duen ezarpena."
 
-#: data/org.gnome.gitg.gschema.xml.in:124
+#: data/org.gnome.gitg.gschema.xml.in:153
 msgid "Show Staged Changes"
 msgstr "Erakutsi gordailuko aldaketak"
 
-#: data/org.gnome.gitg.gschema.xml.in:125
+#: data/org.gnome.gitg.gschema.xml.in:154
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "staged changes in the history."
 msgstr "Unean gordailuko aldaketentzat elementu birtual bat historian erakutsiko den edo ez adierazten duen ezarpena."
 
-#: data/org.gnome.gitg.gschema.xml.in:132
+#: data/org.gnome.gitg.gschema.xml.in:161
 msgid "Show Unstaged Changes"
 msgstr "Erakutsi gordailutik kanpoko aldaketak"
 
-#: data/org.gnome.gitg.gschema.xml.in:133
+#: data/org.gnome.gitg.gschema.xml.in:162
 msgid ""
 "Setting that indicates whether to show a virtual item for the currently "
 "unstaged changes in the history."
 msgstr "Unean gordailuan ez dauden aldaketentzat elementu birtual bat historian erakutsiko den edo ez adierazten duen ezarpena."
 
-#: data/org.gnome.gitg.gschema.xml.in:140
+#: data/org.gnome.gitg.gschema.xml.in:169
 msgid "Mainline Head"
 msgstr "Lerro nagusiaren goiburua"
 
-#: data/org.gnome.gitg.gschema.xml.in:141
+#: data/org.gnome.gitg.gschema.xml.in:170
 msgid ""
 "Setting that indicates whether to always preserve a mainline in the history "
 "for the current HEAD."
 msgstr "Uneko HEAD adarraren historian lerro nagusia gordeko den edo ez adierazten du."
 
-#: data/org.gnome.gitg.gschema.xml.in:148
+#: data/org.gnome.gitg.gschema.xml.in:177
 msgid "Default selection of the history activity"
 msgstr "Historiaren jardueren hautapen lehenetsia"
 
-#: data/org.gnome.gitg.gschema.xml.in:149
+#: data/org.gnome.gitg.gschema.xml.in:178
 msgid ""
 "Setting that determines the default selection on startup of the history "
 "activity."
 msgstr "Ezarpenak hautapen lehenetsia zehazten du historiaren jardueren abioan."
 
-#: data/org.gnome.gitg.gschema.xml.in:155
+#: data/org.gnome.gitg.gschema.xml.in:184
 msgid "Reference Sort Order"
 msgstr "Erreferentzien ordena"
 
-#: data/org.gnome.gitg.gschema.xml.in:156
+#: data/org.gnome.gitg.gschema.xml.in:185
 msgid "The order by which references in the history sidebar should be sorted."
 msgstr "Erreferentziak historiaren alboko barran nola ordenatuko diren."
 
-#: data/org.gnome.gitg.gschema.xml.in:162
+#: data/org.gnome.gitg.gschema.xml.in:191
 msgid "Show Upstream With Branch"
 msgstr "Erakutsi maisua adarrarekin"
 
-#: data/org.gnome.gitg.gschema.xml.in:163
+#: data/org.gnome.gitg.gschema.xml.in:192
 msgid ""
 "Determines whether to also show the upstream (remote) tracking branch when "
 "selecting a local branch in the history view."
 msgstr "Historiaren ikuspegian lokaleko adarra hautatzean maisuaren (urrunekoa) arazte-adarra ere erakutsiko den ala ez zehazten du.."
 
-#: data/org.gnome.gitg.gschema.xml.in:172
+#: data/org.gnome.gitg.gschema.xml.in:199
+#: gitg/resources/ui/gitg-preferences-history.ui:151
+msgid "Filter unknown refs"
+msgstr "Iragazi ref ezezagunak"
+
+#: data/org.gnome.gitg.gschema.xml.in:200
+msgid "Hide any ref different from refs/heads and refs/remotes."
+msgstr "Ezkutatu ref/head eta ref/remote desberdinak diren ref-ak."
+
+#: data/org.gnome.gitg.gschema.xml.in:208
 msgid "Switch to the new branch on creation"
 msgstr "Aldatu adar berrira hura sortzean"
 
-#: data/org.gnome.gitg.gschema.xml.in:173
+#: data/org.gnome.gitg.gschema.xml.in:209
 msgid ""
 "Setting that controls whether the newly created branch is checked out "
 "automatically."
 msgstr "Adar sortu berria automatikoki erauziko den ala ez kontrolatzen duen ezarpena."
 
-#: data/org.gnome.gitg.gschema.xml.in:188
+#: data/org.gnome.gitg.gschema.xml.in:224
 msgid "Show Right Margin in Commit Message View"
 msgstr "Erakutsi eskuineko marjina egikaritze-mezuaren ikuspegian"
 
-#: data/org.gnome.gitg.gschema.xml.in:189
+#: data/org.gnome.gitg.gschema.xml.in:225
 msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
 msgstr "Erakutsi eskuineko marjinaren adierazle bat egikaritze-mezuaren ikuspegian. Zutabe jakin batean egikaritze-mezua non moztuko den erraz ikusteko erabil daiteke."
 
-#: data/org.gnome.gitg.gschema.xml.in:197
+#: data/org.gnome.gitg.gschema.xml.in:233
 msgid "Column at Which Right Margin is Shown"
 msgstr "Eskuineko marjina bistaratzeko zutabea"
 
-#: data/org.gnome.gitg.gschema.xml.in:198
+#: data/org.gnome.gitg.gschema.xml.in:234
 msgid ""
 "The column at which the right margin is shown if the show-right-margin "
 "preference is set to TRUE."
 msgstr "Eskuineko marjinaren hobespena EGIAZKO gisa ezarrita badago, zutabe horretan erakutsiko da eskuineko marjina."
 
-#: data/org.gnome.gitg.gschema.xml.in:205
+#: data/org.gnome.gitg.gschema.xml.in:241
 msgid "Show Subject Margin in Commit Message View"
 msgstr "Erakutsi gaiaren marjina Egikaritze-mezuaren ikuspegian"
 
-#: data/org.gnome.gitg.gschema.xml.in:206
+#: data/org.gnome.gitg.gschema.xml.in:242
 msgid ""
 "Highlight the subject text of the commit message when it passes the margin "
 "specified by subject-margin-position."
 msgstr "Nabarmendu egikaritze-mezuaren gaiaren testua zehaztutako gaiaren marjinaren posizioa pasatzen duenean."
 
-#: data/org.gnome.gitg.gschema.xml.in:213
+#: data/org.gnome.gitg.gschema.xml.in:249
 msgid "Column at Which Subject Margin is Shown"
 msgstr "Gaiaren marjina bistaratzeko zutabea"
 
-#: data/org.gnome.gitg.gschema.xml.in:214
+#: data/org.gnome.gitg.gschema.xml.in:250
 msgid ""
 "The column at which the subject margin is shown if the show-subject-margin "
 "preference is set to TRUE."
 msgstr "Gaiaren marjinaren hobespena EGIAZKO gisa ezarrita badago, zutabe horretan erakutsiko da gaiaren marjina."
 
-#: data/org.gnome.gitg.gschema.xml.in:221
+#: data/org.gnome.gitg.gschema.xml.in:257
 msgid "Enable Spell Checking"
 msgstr "Gaitu ortografia-egiaztapena"
 
-#: data/org.gnome.gitg.gschema.xml.in:222
+#: data/org.gnome.gitg.gschema.xml.in:258
 msgid ""
 "Setting which determines whether or not spell checking is enabled when "
 "writing a commit message."
 msgstr "Egikaritze-mezua idaztean ortografia-egiaztapena gaituko den edo ez zehazten duen ezarpena."
 
-#: data/org.gnome.gitg.gschema.xml.in:229
+#: data/org.gnome.gitg.gschema.xml.in:265
 msgid "Spell Checking Language"
 msgstr "Ortografia-egiaztapenaren hizkuntza"
 
-#: data/org.gnome.gitg.gschema.xml.in:230
+#: data/org.gnome.gitg.gschema.xml.in:266
 msgid ""
 "The language to use when spell checking is enabled for writing a commit "
 "message."
 msgstr "Ortografia-egiaztapena gaituta dagoenean erabiliko den hizkuntza egikaritze-mezu bat idaztean."
 
-#: data/org.gnome.gitg.gschema.xml.in:237
+#: data/org.gnome.gitg.gschema.xml.in:273
 msgid "Maximum number of previous commit messages"
 msgstr "Aurreko egikaritze-mezuen gehieneko kopurua"
 
-#: data/org.gnome.gitg.gschema.xml.in:238
+#: data/org.gnome.gitg.gschema.xml.in:274
 msgid ""
 "Maximum number of previous commit messages to store for commit message "
 "history."
 msgstr "Egikaritze-mezuen historiako aurreko egikaritze-mezuen gehieneko kopurua."
 
-#: data/org.gnome.gitg.gschema.xml.in:242
+#: data/org.gnome.gitg.gschema.xml.in:278
 msgid "Maximum number of days to store previous commit messages"
 msgstr "Aurreko egikaritze-mezuak gordeko diren gehieneko egun kopurua"
 
-#: data/org.gnome.gitg.gschema.xml.in:243
+#: data/org.gnome.gitg.gschema.xml.in:279
 msgid ""
 "Maximum number of days to store previous commit messages for commit message "
 "history."
 msgstr "Egikaritze-mezuen historian aurreko egikaritze-mezuak gordeko diren gehieneko egun kopurua"
 
-#: data/org.gnome.gitg.gschema.xml.in:247
-#: data/org.gnome.gitg.gschema.xml.in:248
+#: data/org.gnome.gitg.gschema.xml.in:283
+#: data/org.gnome.gitg.gschema.xml.in:284
 msgid "Type of datetime format selected."
 msgstr "Data eta ordurako hautatutako formatua."
 
-#: data/org.gnome.gitg.gschema.xml.in:254
+#: data/org.gnome.gitg.gschema.xml.in:290
 msgid "Preferred datetime format of the user."
 msgstr "Erabiltzaileak data eta ordurako hobetsi duen formatua."
 
-#: data/org.gnome.gitg.gschema.xml.in:255
+#: data/org.gnome.gitg.gschema.xml.in:291
 msgid "The datetime format to be used in commit-diff."
 msgstr "Commit-diff komandoan erabiliko den data eta ordua."
 
-#: data/org.gnome.gitg.gschema.xml.in:261
-#: data/org.gnome.gitg.gschema.xml.in:262
+#: data/org.gnome.gitg.gschema.xml.in:297
+#: data/org.gnome.gitg.gschema.xml.in:298
 msgid "Custom datetime format."
 msgstr "Data eta ordurako formatu pertsonalizatua."
 
-#: data/org.gnome.gitg.gschema.xml.in:270
+#: data/org.gnome.gitg.gschema.xml.in:306
 msgid "Use patience algorithm to show diffs"
 msgstr "Erabili pazientziaren algoritmoa diff-ak erakusteko"
 
-#: data/org.gnome.gitg.gschema.xml.in:271
+#: data/org.gnome.gitg.gschema.xml.in:307
 msgid "Setting to use patience algorithm to show diffs of a commit."
 msgstr "Egikaritze baten diff-ak erakustean pazientziaren algoritmoa erabiltzeko ezarpena"
 
-#: data/org.gnome.gitg.gschema.xml.in:277
+#: data/org.gnome.gitg.gschema.xml.in:313
 msgid "Ignore Whitespace Changes"
 msgstr "Ez ikusi egin zuriuneen aldaketei"
 
-#: data/org.gnome.gitg.gschema.xml.in:278
+#: data/org.gnome.gitg.gschema.xml.in:314
 msgid ""
 "Setting that indicates whether to ignore whitespace changes when showing the "
 "diff of a commit."
 msgstr "Egikaritze baten diff erakustean zuriuneen aldaketei ez ikusi egingo zaien edo ez adierazten duen ezarpena."
 
-#: data/org.gnome.gitg.gschema.xml.in:285
+#: data/org.gnome.gitg.gschema.xml.in:321
 msgid "Show Changes Inline"
 msgstr "Erakutsi aldaketak tartean"
 
-#: data/org.gnome.gitg.gschema.xml.in:286
+#: data/org.gnome.gitg.gschema.xml.in:322
 msgid ""
 "Setting that indicates whether changes within lines should be shown inline."
 msgstr "Lerroen arteko aldaketak tartean erakutsiko diren edo ez adierazten duen ezarpena."
 
-#: data/org.gnome.gitg.gschema.xml.in:293
+#: data/org.gnome.gitg.gschema.xml.in:329
+#: data/org.gnome.gitg.gschema.xml.in:371
 msgid "Wrap"
 msgstr "Egokitu"
 
-#: data/org.gnome.gitg.gschema.xml.in:294
+#: data/org.gnome.gitg.gschema.xml.in:330
+#: data/org.gnome.gitg.gschema.xml.in:372
 msgid "Wrap lines."
 msgstr "Egokitu lerroak."
 
-#: data/org.gnome.gitg.gschema.xml.in:300
-#: data/org.gnome.gitg.gschema.xml.in:318
+#: data/org.gnome.gitg.gschema.xml.in:336
+#: data/org.gnome.gitg.gschema.xml.in:354
 msgid "Number of Before/After Context Lines"
 msgstr "Aurreko/Ondorengo testuinguru-lerroen kopurua"
 
-#: data/org.gnome.gitg.gschema.xml.in:301
+#: data/org.gnome.gitg.gschema.xml.in:337
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff of a commit."
 msgstr "Egikaritze baten diff erakustean testuinguruko zenbat lerro (aurrekoak eta ondorengoak) erakutsiko diren zehazten duen ezarpena."
 
-#: data/org.gnome.gitg.gschema.xml.in:308
-#: data/org.gnome.gitg.gschema.xml.in:327
+#: data/org.gnome.gitg.gschema.xml.in:344
+#: data/org.gnome.gitg.gschema.xml.in:363
 msgid "Rendered Width of a Tab Character"
 msgstr "Tabulazio-karaktere baten errendatze-zabalera"
 
-#: data/org.gnome.gitg.gschema.xml.in:309
-#: data/org.gnome.gitg.gschema.xml.in:328
+#: data/org.gnome.gitg.gschema.xml.in:345
+#: data/org.gnome.gitg.gschema.xml.in:364
 msgid ""
 "Setting that determines how much space a tab character should occupy when "
 "showing the diff of a commit."
 msgstr "Egikaritze baten diff erakustean tabulazio-karaktere batek zenbat leku hartu beharko lukeen adierazten duen ezarpena."
 
-#: data/org.gnome.gitg.gschema.xml.in:319
+#: data/org.gnome.gitg.gschema.xml.in:355
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff to be staged/unstaged in the commit area."
 msgstr "testuinguruko zenbat lerro (aurrekoak eta ondorengoak) erakutsiko diren zehazten duen ezarpena, egikaritze-arean gordailuan gordetzeko (edo gordailutik kentzeko) diff erakustean."
+
+#: data/org.gnome.gitg.metainfo.xml.in.in:5 gitg/gitg.vala:39
+#: gitg/resources/ui/gitg-window.ui:8
+msgid "gitg"
+msgstr "gitg"
+
+#: data/org.gnome.gitg.metainfo.xml.in.in:9
+msgid "Graphical user interface for git"
+msgstr "Git erabiltzeko erabiltzaile-interfaze grafikoa"
+
+#: data/org.gnome.gitg.metainfo.xml.in.in:11
+msgid ""
+"Gitg is a graphical user interface for git. It aims at being a small, fast "
+"and convenient tool to visualize the history of git repositories. Besides "
+"visualization, gitg also provides several utilities to manage your "
+"repository and commit your work."
+msgstr "Gitg git erabiltzeko erabiltzaile-interfaze grafikoa da. Tresna txikia, azkarra eta egokia izateko asmoz sortu zen, eta git biltegien historia bistaratzeko balio du. Bisualizazioaz gain, gitg-k zenbait tresna ditu zure biltegia kudeatzeko eta zure lana egikaritzeko."
+
+#: data/org.gnome.gitg.metainfo.xml.in.in:17
+msgid "Goals:"
+msgstr "Helburuak:"
+
+#: data/org.gnome.gitg.metainfo.xml.in.in:19
+msgid "Browse local git repositories"
+msgstr "Arakatu git biltegi lokalak"
+
+#: data/org.gnome.gitg.metainfo.xml.in.in:20
+msgid "Clone local and remote git repositories"
+msgstr "Klonatu git biltegi lokalak eta urrunekoak"
+
+#: data/org.gnome.gitg.metainfo.xml.in.in:21
+msgid "Commit files"
+msgstr "Egikaritu fitxategiak"
+
+#: data/org.gnome.gitg.metainfo.xml.in.in:22
+msgid "Retrieve patch from a commit"
+msgstr "Atzitu adabakia egikaritze batetik"
+
+#: data/org.gnome.gitg.metainfo.xml.in.in:32
+msgid "Browse repository history"
+msgstr "Arakatu biltegiaren historia"
+
+#: data/org.gnome.gitg.metainfo.xml.in.in:36
+msgid "Staging area to compose your commit"
+msgstr "Zure egikaritzea konposatzeko konfigurazio-area"
+
+#: data/org.gnome.gitg.metainfo.xml.in.in:40
+msgid "Commit staged changes"
+msgstr "Egikaritu konfiguratutako aldaketak"
+
+#: data/org.gnome.gitg.metainfo.xml.in.in:44
+msgid "Overview of recently used repositories"
+msgstr "Azken aldian erabilitzko biltegien ikuspegi orokorra"
+
+#: data/org.gnome.gitg.metainfo.xml.in.in:274
+msgid "The Gitg Team"
+msgstr "Gitg taldea"
 
 #: gitg/commit/gitg-commit-dialog.vala:567 gitg/commit/gitg-commit.vala:1096
 msgid "There are no changes to be committed"
@@ -577,7 +614,7 @@ msgstr "Ziur zaude betiko baztertu nahi dituzula hautatutako aldaketak?"
 #: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
 #: gitg/commit/gitg-commit.vala:1606
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:469
-#: gitg/gitg-window.vala:205 gitg/gitg-window.vala:705
+#: gitg/gitg-window.vala:215 gitg/gitg-window.vala:813
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
 #: gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
@@ -586,7 +623,9 @@ msgstr "Ziur zaude betiko baztertu nahi dituzula hautatutako aldaketak?"
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:20
 #: gitg/resources/ui/gitg-edit-remote-dialog.ui:18
+#: gitg/resources/ui/gitg-push-dialog.ui:18
 #: gitg/resources/ui/gitg-remote-notification.ui:30
+#: gitg/resources/ui/gitg-set-upstream-branch-dialog.ui:18
 #: gitg/resources/ui/gitg-simple-notification.ui:61
 #: gitg/resources/ui/gitg-window.ui:154
 #: libgitg/resources/ui/gitg-authentication-dialog.ui:11
@@ -686,9 +725,9 @@ msgstr "Badirudi konfiguraziotik kendutako aldaketak daudela zure laneko direkto
 
 #: gitg/gitg-action-support.vala:133
 #: gitg/gitg-commit-action-cherry-pick.vala:163
-#: gitg/gitg-ref-action-delete.vala:88 gitg/gitg-ref-action-merge.vala:194
-#: gitg/gitg-ref-action-push.vala:138 gitg/gitg-remove-remote-action.vala:66
-#: libgitg/gitg-repository-list-box.vala:567
+#: gitg/gitg-ref-action-delete.vala:94 gitg/gitg-ref-action-merge.vala:195
+#: gitg/gitg-remove-remote-action.vala:67
+#: libgitg/gitg-repository-list-box.vala:560
 msgid "Cancel"
 msgstr "Utzi"
 
@@ -725,24 +764,24 @@ msgid "Failed to checkout index: %s"
 msgstr "Huts egin du indizea erauztean: %s"
 
 #: gitg/gitg-add-remote-action.vala:46
-msgid "Add Remote"
-msgstr "Gehitu urrunekoa"
+msgid "Add a new remote…"
+msgstr "Gehitu urruneko berria…"
 
 #: gitg/gitg-add-remote-action.vala:51
-msgid "Adds remote to the remotes list"
-msgstr "Urrunekoa gehitzen dio urrunekoen zerrendari"
+msgid "Configure a new remote to add to the remotes list"
+msgstr "Konfiguratu urruneko berria urrunekoen zerrendara gehitzeko"
 
-#: gitg/gitg-add-remote-action.vala:59 gitg/gitg-ref-action-fetch.vala:107
+#: gitg/gitg-add-remote-action.vala:59
 #, c-format
 msgid "Fetching from %s"
 msgstr "'%s'(e)ndik eskuratzen"
 
 #. Translators: new refers to a new remote reference having been fetched,
-#: gitg/gitg-add-remote-action.vala:65 gitg/gitg-ref-action-fetch.vala:115
+#: gitg/gitg-add-remote-action.vala:65 gitg/gitg-ref-action-fetch.vala:122
 msgid "new"
 msgstr "berria"
 
-#: gitg/gitg-add-remote-action.vala:75 gitg/gitg-ref-action-fetch.vala:130
+#: gitg/gitg-add-remote-action.vala:75
 #, c-format
 msgid "Failed to fetch from %s: %s"
 msgstr "Huts egin du `%s'(e)ndik eskuratzean: %s"
@@ -753,12 +792,12 @@ msgstr "Huts egin du gehitutako urrunekoa atzitzeak"
 
 #. Translators: the first %s is the remote url to fetch from,
 #. * the second is a list of references that got updated.
-#: gitg/gitg-add-remote-action.vala:90 gitg/gitg-ref-action-fetch.vala:149
+#: gitg/gitg-add-remote-action.vala:90 gitg/gitg-ref-action-fetch.vala:159
 #, c-format
 msgid "Fetched from %s: %s"
 msgstr "'%s'(e)ndik eskuratuta: %s"
 
-#: gitg/gitg-add-remote-action.vala:129
+#: gitg/gitg-add-remote-action.vala:132
 msgid "Failed to add remote"
 msgstr "Huts egin du urrunekoa gehitzeak"
 
@@ -802,13 +841,13 @@ msgstr "Asier Sarasua Garmendia <asier.sarasua@gmail.com>"
 msgid "gitg homepage"
 msgstr "gitg-ren orri nagusia"
 
-#: gitg/gitg-application.vala:399
+#: gitg/gitg-application.vala:400
 msgid ""
 "We are terribly sorry, but gitg requires libgit2 (a library on which gitg "
 "depends) to be compiled with threading support.\n"
 "\n"
-"If you manually compiled libgit2, then please configure libgit2 with -"
-"DTHREADSAFE:BOOL=ON.\n"
+"If you manually compiled libgit2, then please configure libgit2 with "
+"-DTHREADSAFE:BOOL=ON.\n"
 "\n"
 "Otherwise, report a bug in your distributions’ bug reporting system for "
 "providing libgit2 without threading support."
@@ -818,23 +857,28 @@ msgstr "Asko sentitzen dugu, baina gitg aplikazioak behar du libgit2 hari-euskar
 "\n"
 "Bestela, eman programazio-akatsaren berri banatzaileak akatask jakinarazteko duen sisteman libgit2 hari-euskarririk gabe jartzeko."
 
-#: gitg/gitg-author-details-dialog.vala:79
-#: gitg/gitg-author-details-dialog.vala:99
+#: gitg/gitg-author-details-dialog.vala:82
+#: gitg/gitg-author-details-dialog.vala:102
 #: gitg/resources/ui/gitg-author-details-dialog.ui:9
 msgid "Author Details"
 msgstr "Egilearen xehetasunak"
 
-#: gitg/gitg-author-details-dialog.vala:80
+#: gitg/gitg-author-details-dialog.vala:83
 msgid "Enter default details used for all repositories:"
 msgstr "Sartu biltegi guztietan erabilitako xehetasun lehenetsiak:"
 
 #. Translators: %s is the repository name
-#: gitg/gitg-author-details-dialog.vala:102
+#: gitg/gitg-author-details-dialog.vala:105
 #, c-format
 msgid "Override global details for repository “%s”:"
-msgstr "Ez ikusi egin “%s” biltegiaren xehetasun globalei:"
+msgstr "Indargabetu “%s” biltegiaren xehetasun globalak:"
 
-#: gitg/gitg-author-details-dialog.vala:214
+#: gitg/gitg-author-details-dialog.vala:208
+msgid ""
+"Disable override will clean existing local author details. Are you sure?"
+msgstr "Indargabetzea desgaitzeak egile lokalen xehetasunak garbituko ditu. Ziur zaude?"
+
+#: gitg/gitg-author-details-dialog.vala:228
 msgid "Failed to set Git user config."
 msgstr "Huts egin du Git erabiltzailearen konfigurazioa ezartzean."
 
@@ -881,7 +925,7 @@ msgid ""
 msgstr "“%s”(e)ko aldaketak “%s”(e)n aplikatzeak gatazkak sortu ditu, nahi al duzu aldaketak zure laneko direktorioan erauztea gatazkak konpontzeko?"
 
 #: gitg/gitg-commit-action-cherry-pick.vala:164
-#: gitg/gitg-ref-action-checkout.vala:48 gitg/gitg-ref-action-merge.vala:195
+#: gitg/gitg-ref-action-checkout.vala:48 gitg/gitg-ref-action-merge.vala:196
 msgid "Checkout"
 msgstr "Erauzi"
 
@@ -908,21 +952,21 @@ msgid "Cherry pick onto “%s”"
 msgstr "Aplikatu aldaketak “%s”(e)n"
 
 #: gitg/gitg-commit-action-create-branch.vala:48
-msgid "Create branch"
-msgstr "Sortu adarra"
+msgid "Create branch…"
+msgstr "Sortu adarra…"
 
 #: gitg/gitg-commit-action-create-branch.vala:53
 msgid "Create a new branch at the selected commit"
 msgstr "Sortu adar berri bat hautatutako egikaritzean"
 
 #: gitg/gitg-commit-action-create-branch.vala:75
-#: gitg/gitg-ref-action-checkout.vala:180
+#: gitg/gitg-ref-action-checkout.vala:182
 msgid "Failed to create branch"
 msgstr "Huts egin du adarra sortzean"
 
 #: gitg/gitg-commit-action-create-patch.vala:63
-msgid "Create patch"
-msgstr "Sortu adabakia"
+msgid "Create patch…"
+msgstr "Sortu adabakia…"
 
 #: gitg/gitg-commit-action-create-patch.vala:68
 msgid "Create a patch from the selected commit"
@@ -941,8 +985,8 @@ msgid "Failed to create patch"
 msgstr "Huts egin du adabakia sortzean"
 
 #: gitg/gitg-commit-action-create-tag.vala:48
-msgid "Create tag"
-msgstr "Sortu etiketa"
+msgid "Create tag…"
+msgstr "Sortu etiketa…"
 
 #: gitg/gitg-commit-action-create-tag.vala:53
 msgid "Create a new tag at the selected commit"
@@ -956,7 +1000,7 @@ msgstr "Huts egin du etiketa sortzean"
 msgid "Failed to lookup tag"
 msgstr "Huts egin du etiketa bilatzean"
 
-#: gitg/gitg-create-tag-dialog.vala:96
+#: gitg/gitg-create-tag-dialog.vala:98
 msgid "Provide a message to create an annotated tag"
 msgstr "Zehaztu mezu bat etiketa anotatu bat sortzeko"
 
@@ -1018,12 +1062,12 @@ msgid "Scanning for repositories in %s"
 msgstr "Biltegiak bilatzen %s(e)n"
 
 #: gitg/gitg-edit-remote-action.vala:51
-msgid "Edit remote"
-msgstr "Editatu urrunekoa"
+msgid "Edit remote…"
+msgstr "Editatu urrunekoa…"
 
 #: gitg/gitg-edit-remote-action.vala:56
-msgid "Edits the remote from the remotes list"
-msgstr "Urruneko zerrendan dagoen urrunekoa editatzen du"
+msgid "Reconfigure this remote's name or URL"
+msgstr "Birkonfiguratu urruneko honen izena edo URLa"
 
 #: gitg/gitg-edit-remote-action.vala:82
 msgid "Failed to edit remote"
@@ -1052,7 +1096,7 @@ msgstr "Huts egin du HEAD eguneratzean: %s"
 msgid "Successfully checked out branch to working directory"
 msgstr "Adarra laneko direktoriora ongi erauzi da"
 
-#: gitg/gitg-ref-action-checkout.vala:195
+#: gitg/gitg-ref-action-checkout.vala:197
 #, c-format
 msgid "Failed to set the upstream branch %s for %s"
 msgstr "Huts egin du %s adar maisua ezartzeak %s(r)ako"
@@ -1083,110 +1127,171 @@ msgstr "SOrtu adabakia hautatutako erreferentziatik"
 msgid "Create a new tag at the selected reference"
 msgstr "Sortu etiketa berri bat hautatutako erreferentzian"
 
-#: gitg/gitg-ref-action-delete.vala:48 gitg/gitg-ref-action-delete.vala:89
-msgid "Delete"
-msgstr "Ezabatu"
+#: gitg/gitg-ref-action-delete.vala:48
+msgid "Delete…"
+msgstr "Ezabatu…"
 
 #: gitg/gitg-ref-action-delete.vala:53
 msgid "Delete the selected reference"
 msgstr "Ezabatu hautatutako erreferentzia"
 
 #: gitg/gitg-ref-action-delete.vala:73
-#, c-format
-msgid "Delete branch %s"
-msgstr "Ezabatu %s adarra"
+msgid "Confirm branch deletion"
+msgstr "Baieztatu adarra ezabatzea"
 
 #: gitg/gitg-ref-action-delete.vala:74
 #, c-format
-msgid "Are you sure that you want to permanently delete the branch %s?"
-msgstr "Ziur zaude %s adarra betiko ezabatu nahi duzula?"
+msgid ""
+"Are you sure that you want to permanently delete the branch <b><i>“%s”</i></"
+"b>?"
+msgstr "Ziur zaude <b><i>“%s”</i></b> adarra betiko ezabatu nahi duzula?"
 
-#: gitg/gitg-ref-action-delete.vala:78
-#, c-format
-msgid "Delete tag %s"
-msgstr "Ezabatu %s etiketa"
+#: gitg/gitg-ref-action-delete.vala:80
+msgid "Confirm tag deletion"
+msgstr "Baieztatu etiketa ezabatzea"
 
-#: gitg/gitg-ref-action-delete.vala:79
+#: gitg/gitg-ref-action-delete.vala:81
 #, c-format
-msgid "Are you sure that you want to permanently delete the tag %s?"
-msgstr "Ziur zaude betiko ezabatu nahi duzula %s etiketa?"
+msgid ""
+"Are you sure that you want to permanently delete the tag <b><i>“%s”</i></b>?"
+msgstr "Ziur zaude <b><i>“%s”</i></b> etiketa betiko ezabatu nahi duzula?"
 
-#: gitg/gitg-ref-action-delete.vala:83
-#, c-format
-msgid "Delete remote branch %s"
-msgstr "Ezabatu urruneko %s adarra"
+#: gitg/gitg-ref-action-delete.vala:87
+msgid "Confirm remote branch deletion"
+msgstr "Baieztatu urruneko adarra ezabatzea"
 
-#: gitg/gitg-ref-action-delete.vala:84
+#: gitg/gitg-ref-action-delete.vala:88
 #, c-format
-msgid "Are you sure that you want to permanently delete the remote branch %s?"
-msgstr "Ziur zaude betiko ezabatu nahi duzula urruneko %s etiketa?"
+msgid ""
+"Are you sure that you want to permanently delete the remote branch "
+"<b><i>“%s”</i></b>?"
+msgstr "Ziur zaude urruneko <b><i>“%s”</i></b> adarra betiko ezabatu nahi duzula?"
+
+#: gitg/gitg-ref-action-delete.vala:95
+msgid "Delete"
+msgstr "Ezabatu"
 
 #. Translators: %s is the name of the tag
-#: gitg/gitg-ref-action-delete.vala:119
+#: gitg/gitg-ref-action-delete.vala:136
 #, c-format
 msgid "Failed to delete tag %s"
 msgstr "Huts egin du %s etiketa ezabatzean"
 
 #. Translators: the first %s is the name of the tag, the second is an error message
-#: gitg/gitg-ref-action-delete.vala:122
+#: gitg/gitg-ref-action-delete.vala:139
 #, c-format
 msgid "The tag %s could not be deleted: %s"
 msgstr "Ezin izan da ezabatu %s etiketa: %s"
 
 #. Translators: %s is the name of the branch
-#: gitg/gitg-ref-action-delete.vala:127
+#: gitg/gitg-ref-action-delete.vala:144
 #, c-format
 msgid "Failed to delete branch %s"
 msgstr "Ezin izan da ezabatu %s adarra"
 
 #. Translators: the first %s is the name of the branch, the second is an error message
-#: gitg/gitg-ref-action-delete.vala:130
+#: gitg/gitg-ref-action-delete.vala:147
 #, c-format
 msgid "The branch %s could not be deleted: %s"
 msgstr "Ezin izan da ezabatu %s adarra: %s"
 
-#: gitg/gitg-ref-action-fetch.vala:83
+#. Translators: %s is the name of the branch
+#: gitg/gitg-ref-action-delete.vala:152
 #, c-format
-msgid "Fetch from %s"
-msgstr "Hemendik eskuratu: %s"
+msgid "Failed to delete remote branch %s"
+msgstr "Ezin izan da ezabatu urruneko %s adarra"
 
-#: gitg/gitg-ref-action-fetch.vala:94
+#. Translators: the first %s is the name of the branch, the second is an error message
+#: gitg/gitg-ref-action-delete.vala:155
 #, c-format
-msgid "Fetch remote objects from %s"
-msgstr "Eskuratu urruneko objektuak hemendik: %s"
+msgid "The remote branch %s could not be deleted: %s"
+msgstr "Ezin izan da ezabatu urruneko %s adarra: %s"
+
+#: gitg/gitg-ref-action-delete.vala:175
+#, c-format
+msgid "Deleting branch %s from %s"
+msgstr "%s adarra ezabatzen %s biltegitik"
+
+#: gitg/gitg-ref-action-delete.vala:184
+#, c-format
+msgid "Failed to delete branch %s from %s: %s"
+msgstr "Huts egin du %s adarra %s biltegitik ezabatzeak: %s"
+
+#. Translators: the %s will get replaced with the remote url,
+#: gitg/gitg-ref-action-delete.vala:192
+#, c-format
+msgid "Deleted from %s"
+msgstr "”%s”(e)tik ezabatu ad"
+
+#: gitg/gitg-ref-action-fetch.vala:87
+msgid " (without tags)"
+msgstr " (etiketarik gabe)"
+
+#: gitg/gitg-ref-action-fetch.vala:88
+#, c-format
+msgid "Fetch from %s%s"
+msgstr "Atzitu hemendik: %s%s"
+
+#: gitg/gitg-ref-action-fetch.vala:100
+#, c-format
+msgid "Fetch remote objects from %s (hold Shift to ignore tags)"
+msgstr "Atzitu urruneko objektuak hemendik: %s (eutsi Shift tekla sakatuta etiketei ez ikusiarena egiteko)"
+
+#: gitg/gitg-ref-action-fetch.vala:114
+#, c-format
+msgid "Fetching from <a href='%s'>%s</a>"
+msgstr "Hemendik atzitzen: <a href='%s'>%s</a>"
 
 #. Translators: updated refers to a remote reference having been updated,
-#: gitg/gitg-ref-action-fetch.vala:120
+#: gitg/gitg-ref-action-fetch.vala:127
 msgid "updated"
 msgstr "eguneratuta"
 
-#. Translators: the %s will get replaced with the remote url,
-#: gitg/gitg-ref-action-fetch.vala:143
+#: gitg/gitg-ref-action-fetch.vala:140
 #, c-format
-msgid "Fetched from %s: everything is up to date"
-msgstr "%s(e)ndik eskuratuta: guztia eguneratuta dago"
+msgid "Failed to fetch from <a href='%s'>%s</a>: <b>%s</b>"
+msgstr "Huts egin du hemendik atzitzeak: <a href='%s'>%s</a>: <b>%s</b>"
+
+#. Translators: the %s will get replaced with the remote url,
+#: gitg/gitg-ref-action-fetch.vala:153
+#, c-format
+msgid "Fetched from <a href='%s'>%s</a>: <b>everything is up to date</b>"
+msgstr "Hemendik atzitu da: <a href='%s'>%s</a>: <b>dena dago eguneratuta</b>"
 
 #: gitg/gitg-ref-action-merge.vala:63
 #, c-format
-msgid "Merge into %s"
-msgstr "Batu %s(e)n"
+msgid "Merge into “%s”"
+msgstr "Batu honekin: “%s”"
 
-#. TODO
-#: gitg/gitg-ref-action-merge.vala:69
+#: gitg/gitg-ref-action-merge.vala:68
 #, c-format
-msgid "Merge another branch into branch %s"
-msgstr "Batu beste adarra '%s' adarrean"
+msgid "Merge another branch into branch “%s”"
+msgstr "Batu beste adar bat honekin: “%s”"
 
-#: gitg/gitg-ref-action-merge.vala:106
+#: gitg/gitg-ref-action-merge.vala:105
 #, c-format
 msgid "Failed to merge commits: %s"
 msgstr "Huts egin du egikaritzeak batzean: %s"
 
-#: gitg/gitg-ref-action-merge.vala:175 gitg/gitg-ref-action-merge.vala:191
+#: gitg/gitg-ref-action-merge.vala:141
+#, c-format
+msgid "Merge remote branch “%s”"
+msgstr "Batu urruneko “%s” adarra"
+
+#: gitg/gitg-ref-action-merge.vala:145
+#, c-format
+msgid "Merge branch “%s”"
+msgstr "Batu “%s” adarra"
+
+#: gitg/gitg-ref-action-merge.vala:149
+msgid "Conflicts:"
+msgstr "Gatazkak:"
+
+#: gitg/gitg-ref-action-merge.vala:176 gitg/gitg-ref-action-merge.vala:192
 msgid "Merge has conflicts"
 msgstr "Batzeak gatazkak dauzka"
 
-#: gitg/gitg-ref-action-merge.vala:184
+#: gitg/gitg-ref-action-merge.vala:185
 #, c-format
 msgid ""
 "The merge of “%s” into “%s” has caused conflicts, would you like to checkout "
@@ -1194,94 +1299,58 @@ msgid ""
 "conflicts?"
 msgstr "'%s' aldaketa '%s'(e)kin batzeak gatazkak sortu ditu, nahi al duzu batuketa duen '%s' adarra zure laneko direktorioan erauztea gatazkak konpontzeko?"
 
-#: gitg/gitg-ref-action-merge.vala:188
+#: gitg/gitg-ref-action-merge.vala:189
 #, c-format
 msgid ""
 "The merge of “%s” into “%s” has caused conflicts, would you like to checkout "
 "the merge to your working directory to resolve the conflicts?"
 msgstr "'%s' '%s'(e)n batzeak gatazkak sortu ditu, nahi al duzu batuketa zure laneko direktorioan erauztea gatazkak konpontzeko?"
 
-#: gitg/gitg-ref-action-merge.vala:199
+#: gitg/gitg-ref-action-merge.vala:200
 msgid "Merge failed with conflicts"
 msgstr "Huts egin du gatazkekin batzean"
 
-#: gitg/gitg-ref-action-merge.vala:210
+#: gitg/gitg-ref-action-merge.vala:211
 msgid "Finished merge with conflicts in working directory"
 msgstr "Batzea gatazkekin amaituta laneko direktorioan"
 
-#: gitg/gitg-ref-action-merge.vala:222
+#: gitg/gitg-ref-action-merge.vala:223
 #, c-format
 msgid "Merge “%s” into “%s”"
 msgstr "Batu “%s” honekin: “%s”"
 
-#: gitg/gitg-ref-action-merge.vala:231
+#: gitg/gitg-ref-action-merge.vala:232
 #, c-format
 msgid "Failed to lookup our commit: %s"
 msgstr "Huts egin du gure egikaritzeak bilatzean: %s"
 
-#: gitg/gitg-ref-action-merge.vala:241
+#: gitg/gitg-ref-action-merge.vala:242
 #, c-format
 msgid "Failed to lookup their commit: %s"
 msgstr "Huts egin du haien egikariketak bilatzean: %s"
 
-#: gitg/gitg-ref-action-merge.vala:278
+#: gitg/gitg-ref-action-merge.vala:279
 #, c-format
 msgid "Successfully merged “%s” into “%s”"
 msgstr "“%s” eta “%s” ondo batu dira"
 
-#: gitg/gitg-ref-action-merge.vala:320
+#: gitg/gitg-ref-action-merge.vala:321
 #, c-format
 msgid "Merge “%s” into branch “%s”"
 msgstr "Batu “%s” aldaketa “%s” adarrarekin"
 
-#: gitg/gitg-ref-action-merge.vala:482
-#: gitg/history/gitg-history-refs-list.vala:1199
+#: gitg/gitg-ref-action-merge.vala:483
+#: gitg/history/gitg-history-refs-list.vala:1267
 msgid "Tags"
 msgstr "Etiketak"
 
-#: gitg/gitg-ref-action-push.vala:80
-#, c-format
-msgid "Push to %s"
-msgstr "Bultzatu %s gunera"
-
-#: gitg/gitg-ref-action-push.vala:91
-#, c-format
-msgid "Push branch to %s"
-msgstr "Bultzatu adarra %s gunera"
-
-#: gitg/gitg-ref-action-push.vala:107
-#, c-format
-msgid "Pushing to %s"
-msgstr "%s gunera bultzatzen"
-
-#: gitg/gitg-ref-action-push.vala:116
-#, c-format
-msgid "Failed to push to %s: %s"
-msgstr "Huts egin du %s gunera bultzatzeak: %s"
-
-#. Translators: the %s will get replaced with the remote url,
-#: gitg/gitg-ref-action-push.vala:123
-#, c-format
-msgid "Pushed to %s"
-msgstr "%s gunera bultzatu da"
-
-#: gitg/gitg-ref-action-push.vala:134
-#, c-format
-msgid "Push branch %s"
-msgstr "Bultzatu %s adarra"
-
-#: gitg/gitg-ref-action-push.vala:135
-#, c-format
-msgid "Are you sure that you want to push the branch %s?"
-msgstr "Ziur zaude %s adarra bultzatu nahi duzula?"
-
-#: gitg/gitg-ref-action-push.vala:139
-msgid "Push"
-msgstr "Bultzatu"
+#: gitg/gitg-ref-action-push.vala:46
+msgid "Push ref to a remote"
+msgstr "Bultzatu ref urrunekora"
 
 #: gitg/gitg-ref-action-rename.vala:48
-msgid "Rename"
-msgstr "Aldatu izena"
+msgid "Rename…"
+msgstr "Aldatu izena…"
 
 #: gitg/gitg-ref-action-rename.vala:53
 msgid "Rename the selected reference"
@@ -1305,6 +1374,14 @@ msgstr "Zehaztutako “%s” izenak karaktere baliogabeak ditu"
 msgid "Failed to rename"
 msgstr "Huts egin du izena aldatzean"
 
+#: gitg/gitg-ref-action-tag-info.vala:46
+msgid "Show tag info"
+msgstr "Erakutsi etiketa-informazioa"
+
+#: gitg/gitg-ref-action-tag-info.vala:51
+msgid "Show info at selected tag"
+msgstr "Erakutsi hautatutako etiketaren informazioa"
+
 #: gitg/gitg-remote-notification.vala:90 gitg/gitg-simple-notification.vala:99
 msgid "Close"
 msgstr "Itxi"
@@ -1318,77 +1395,80 @@ msgid "Removes remote from the remotes list"
 msgstr "Urrunekoen zerrendan dagoen urrunekoa kentzen du"
 
 #: gitg/gitg-remove-remote-action.vala:62
-#, c-format
-msgid "Delete remote %s"
-msgstr "Kedu %s urrunekoa"
+msgid "Confirm remote deletion"
+msgstr "Baieztatu urruneko ezabatzea"
 
 #: gitg/gitg-remove-remote-action.vala:63
 #, c-format
-msgid "Are you sure that you want to remove the remote %s?"
-msgstr "Ziur zaude %s urrunekoa kendu nahi duzula?"
+msgid "Are you sure that you want to remove the remote <b><i>“%s”</i></b>?"
+msgstr "Ziur zaude <b><i>“%s”</i></b> urrunekoa kendu nahi duzula?"
 
-#: gitg/gitg-remove-remote-action.vala:67
+#: gitg/gitg-remove-remote-action.vala:68
 msgid "Remove"
 msgstr "Kendu"
 
-#: gitg/gitg-remove-remote-action.vala:91
+#: gitg/gitg-remove-remote-action.vala:92
 msgid "Failed to remove remote"
 msgstr "Huts egin du urrunekoa kentzeak"
 
-#: gitg/gitg-window.vala:202
+#: gitg/gitg-window.vala:212
 msgid "Add Repository"
 msgstr "Gehitu biltegia"
 
-#: gitg/gitg-window.vala:206
+#: gitg/gitg-window.vala:216
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:34
 #: gitg/resources/ui/gitg-window.ui:64
 msgid "_Add"
 msgstr "_Gehitu"
 
-#: gitg/gitg-window.vala:208
+#: gitg/gitg-window.vala:218
 msgid "_Scan for all git repositories from this directory"
 msgstr "_Eskaneatu direktorio honetako git biltegi guztiak"
 
-#: gitg/gitg-window.vala:517
+#: gitg/gitg-window.vala:565
 msgid "Projects"
 msgstr "Proiektuak"
 
-#: gitg/gitg-window.vala:703
+#: gitg/gitg-window.vala:609
+msgid "_Global Actions"
+msgstr "Ekintza _globalak"
+
+#: gitg/gitg-window.vala:811
 msgid "Open Repository"
 msgstr "Ireki biltegia"
 
-#: gitg/gitg-window.vala:706 gitg/resources/ui/gitg-commit-submodule-info.ui:70
+#: gitg/gitg-window.vala:814 gitg/resources/ui/gitg-commit-submodule-info.ui:70
 msgid "_Open"
 msgstr "_Ireki"
 
-#: gitg/gitg-window.vala:846
+#: gitg/gitg-window.vala:961
 msgid "Select items"
 msgstr "Hautatu elementuak"
 
-#: gitg/gitg-window.vala:1064
+#: gitg/gitg-window.vala:1180
 #, c-format
 msgid "“%s” is not a Git repository."
 msgstr "“%s” ez da Git biltegia."
 
-#: gitg/gitg-window.vala:1213
+#: gitg/gitg-window.vala:1327
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
 msgstr "Zure erabiltzaile-izena eta helbide elektronikoa ez daude konfiguratuta oraindik. Joan erabiltzaile-konfiguraziora eta zehaztu izena eta helbide elektronikoa."
 
-#: gitg/gitg-window.vala:1217
+#: gitg/gitg-window.vala:1331
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
 msgstr "Zure erabiltzaile-izena ez dago konfiguratuta oraindik. Joan erabiltzaile-konfiguraziora eta zehaztu izena."
 
-#: gitg/gitg-window.vala:1221
+#: gitg/gitg-window.vala:1335
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
 msgstr "Zure helbide elektronikoa ez dago konfiguratuta oraindik. Joan erabiltzaile-konfiguraziora eta zehaztu helbide elektronikoa."
 
-#: gitg/gitg-window.vala:1224
+#: gitg/gitg-window.vala:1338
 msgid "Missing author details"
 msgstr "Egilearen xehetasunak falta dira"
 
@@ -1416,59 +1496,79 @@ msgstr "Hautatu lehenetsi gisa zehaztutako erreferentzia guztiak historiaren jar
 msgid "REFERENCE"
 msgstr "ERREFERENTZIA"
 
-#: gitg/history/gitg-history-refs-list.vala:165
+#: gitg/history/gitg-history-refs-list.vala:168
 #, c-format
 msgid "%zu ahead, %zu behind"
 msgstr "%zu aurrean, %zu atzean"
 
-#: gitg/history/gitg-history-refs-list.vala:169
+#: gitg/history/gitg-history-refs-list.vala:172
 #, c-format
 msgid "%zu ahead"
 msgstr "%zu aurrean"
 
-#: gitg/history/gitg-history-refs-list.vala:173
+#: gitg/history/gitg-history-refs-list.vala:176
 #, c-format
 msgid "%zu behind"
 msgstr "%zu atzean"
 
-#: gitg/history/gitg-history-refs-list.vala:207
+#: gitg/history/gitg-history-refs-list.vala:210
 #: gitg/resources/ui/gitg-preferences-history.ui:81
 msgid "All commits"
 msgstr "Egikaritze guztiak"
 
-#: gitg/history/gitg-history-refs-list.vala:1197
+#: gitg/history/gitg-history-refs-list.vala:1265
 msgid "Branches"
 msgstr "Adarrak"
 
-#: gitg/history/gitg-history-refs-list.vala:1198
+#: gitg/history/gitg-history-refs-list.vala:1266
 msgid "Remotes"
 msgstr "Urrunekoak"
 
-#: gitg/history/gitg-history.vala:348
-#: gitg/preferences/gitg-preferences-history.vala:218
+#: gitg/history/gitg-history-refs-list.vala:1268
+msgid "Stash"
+msgstr "Jarri pilan"
+
+#: gitg/history/gitg-history.vala:353
+#: gitg/preferences/gitg-preferences-history.vala:226
 #: gitg/resources/ui/gitg-preferences-interface.ui:60
 msgid "History"
 msgstr "Historia"
 
-#: gitg/history/gitg-history.vala:353
+#: gitg/history/gitg-history.vala:358
 msgid "Examine the history of the repository"
 msgstr "Aztertu biltegiaren historia"
 
-#: gitg/history/gitg-history.vala:959
+#: gitg/history/gitg-history.vala:1117
 msgid "Mainline"
 msgstr "Lerro nagusia"
+
+#: gitg/history/gitg-history.vala:1198
+msgid "Main remote"
+msgstr "Urruneko nagusia"
 
 #: gitg/preferences/gitg-preferences-commit.vala:180
 msgctxt "Preferences"
 msgid "Commit"
 msgstr "Egikaritu"
 
-#: gitg/preferences/gitg-preferences-interface.vala:142
+#. Translators: Unif stands for unified diff format
+#: gitg/preferences/gitg-preferences-interface.vala:143
+#: libgitg/gitg-diff-view-file.vala:199
+msgid "Unif"
+msgstr "Unif"
+
+#. Translators: Split stands for the noun
+#: gitg/preferences/gitg-preferences-interface.vala:144
+#: libgitg/gitg-diff-view-file.vala:204
+msgid "Split"
+msgstr "Zatitu"
+
+#: gitg/preferences/gitg-preferences-interface.vala:161
 #, c-format
 msgid "_Use the system fixed width font (%s)"
 msgstr "_Erabili sistemaren letra-zabalera (%s)"
 
-#: gitg/preferences/gitg-preferences-interface.vala:179
+#: gitg/preferences/gitg-preferences-interface.vala:198
 msgid "Interface"
 msgstr "Interfazea"
 
@@ -1513,10 +1613,12 @@ msgid "C_heckout"
 msgstr "E_rauzi"
 
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:69
+#: gitg/resources/ui/gitg-set-upstream-branch-dialog.ui:69
 msgid "Local branch _name:"
 msgstr "Adar lokalaren _izena:"
 
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:99
+#: gitg/resources/ui/gitg-set-upstream-branch-dialog.ui:100
 msgid "_Remote branch:"
 msgstr "_Urruneko adarra:"
 
@@ -1597,30 +1699,51 @@ msgstr "Gordailuan:"
 msgid "Unstaged:"
 msgstr "Gordailutik kanpo:"
 
-#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:25
-#: gitg/resources/ui/gitg-history-paned.ui:94
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:26
+#: gitg/resources/ui/gitg-history-paned.ui:95
 msgid "Subject"
 msgstr "Gaia"
 
-#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:42
-#: gitg/resources/ui/gitg-history-paned.ui:111
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:44
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:115
+#: gitg/resources/ui/gitg-history-paned.ui:183
 msgid "Author"
 msgstr "Egilea"
 
-#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:58
-#: gitg/resources/ui/gitg-history-paned.ui:127
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:61
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:134
+#: gitg/resources/ui/gitg-history-paned.ui:202
 msgid "Committer"
 msgstr "Bidaltzailea"
 
-#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:74
-#: gitg/resources/ui/gitg-history-paned.ui:143
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:79
+#: gitg/resources/ui/gitg-history-paned.ui:148
 msgid "SHA1"
 msgstr "SHA1"
 
-#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:90
-#: gitg/resources/ui/gitg-history-paned.ui:159
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:97
 msgid "Date"
 msgstr "Data"
+
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:153
+#: gitg/resources/ui/gitg-history-paned.ui:221
+msgid "Message"
+msgstr "Mezua"
+
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:172
+#: gitg/resources/ui/gitg-history-paned.ui:240
+msgid "Author email"
+msgstr "Egilearen posta-helbidea"
+
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:191
+#: gitg/resources/ui/gitg-history-paned.ui:259
+msgid "Committer email"
+msgstr "Egikaritzailearen posta-helbidea"
+
+#: gitg/resources/ui/gitg-commit-submodule-history-view.ui:210
+#: gitg/resources/ui/gitg-history-paned.ui:278
+msgid "Committer date"
+msgstr "Egikaritzailearen data"
 
 #: gitg/resources/ui/gitg-create-branch-dialog.ui:7
 msgid "Create Branch"
@@ -1644,6 +1767,7 @@ msgid "Create Tag"
 msgstr "Sortu etiketa"
 
 #: gitg/resources/ui/gitg-create-tag-dialog.ui:71
+#: gitg/resources/ui/gitg-tag-show-info-dialog.ui:53
 msgid "Tag _name:"
 msgstr "Etiketa-ize_na:"
 
@@ -1657,27 +1781,43 @@ msgstr "Ez da biltegirik gehitu oraindik. Hasteko, existitzen biltegi bat gehi d
 msgid "Edit Remote"
 msgstr "Editatu urrunekoa"
 
+#: gitg/resources/ui/gitg-history-paned.ui:113
+msgid "Author name"
+msgstr "Egilearen izena"
+
+#: gitg/resources/ui/gitg-history-paned.ui:130
+msgid "Committer name"
+msgstr "Egikaritzailearen izena"
+
+#: gitg/resources/ui/gitg-history-paned.ui:166
+msgid "Author date"
+msgstr "Egilearen data"
+
 #: gitg/resources/ui/gitg-menus.ui:7
+msgid "_Open externally"
+msgstr "_Ireki kanpotik"
+
+#: gitg/resources/ui/gitg-menus.ui:13
 msgid "_Reload"
 msgstr "Bir_kargatu"
 
-#: gitg/resources/ui/gitg-menus.ui:13 gitg/resources/ui/gitg-menus.ui:49
+#: gitg/resources/ui/gitg-menus.ui:19 gitg/resources/ui/gitg-menus.ui:55
 msgid "_Preferences"
 msgstr "_Hobespenak"
 
-#: gitg/resources/ui/gitg-menus.ui:19 gitg/resources/ui/gitg-menus.ui:43
+#: gitg/resources/ui/gitg-menus.ui:25 gitg/resources/ui/gitg-menus.ui:49
 msgid "_Author Details"
 msgstr "Egilearen _xehetasunak"
 
-#: gitg/resources/ui/gitg-menus.ui:25 gitg/resources/ui/gitg-menus.ui:55
+#: gitg/resources/ui/gitg-menus.ui:31 gitg/resources/ui/gitg-menus.ui:61
 msgid "_Keyboard Shortcuts"
 msgstr "Las_ter-teklak"
 
-#: gitg/resources/ui/gitg-menus.ui:29 gitg/resources/ui/gitg-menus.ui:59
+#: gitg/resources/ui/gitg-menus.ui:35 gitg/resources/ui/gitg-menus.ui:65
 msgid "_About gitg"
 msgstr "Gitg aplikazioari _buruz"
 
-#: gitg/resources/ui/gitg-menus.ui:37
+#: gitg/resources/ui/gitg-menus.ui:43
 msgid "_New Window"
 msgstr "_Leiho berria"
 
@@ -1737,6 +1877,22 @@ msgstr "Pertsonalizatua:"
 msgid "Check in vala documentation for datetime to write your own format."
 msgstr "Begiratu vala lengoaiaren dokumentazioa data eta ordua zure formatuan nola idatzi jakiteko."
 
+#: gitg/resources/ui/gitg-preferences-general.ui:24
+msgid "Push"
+msgstr "Bultzatu"
+
+#: gitg/resources/ui/gitg-preferences-general.ui:44
+msgid "Smart Push. Figure out parameters for push action"
+msgstr "Bultzatze adimentsua. Igarri bultzatze-ekintzaren parametroak"
+
+#: gitg/resources/ui/gitg-preferences-general.ui:69
+msgid "Default visible columns"
+msgstr "Zutabe ikusgai lehenetsiak"
+
+#: gitg/resources/ui/gitg-preferences-general.ui:101
+msgid "Default show column headers"
+msgstr "Erakutsi lehenespenez zutabe-goiburuak"
+
 #: gitg/resources/ui/gitg-preferences-history.ui:31
 msgid "Default selection"
 msgstr "Hautapen lehenetsia"
@@ -1761,27 +1917,27 @@ msgstr "Ordenatu erreferentziak alboko barran azken jardueren arabera"
 msgid "Show upstream (remote) branch when selecting a local branch"
 msgstr "Erakutsi adar nagusia (urrunekoa) lokaleko adarra hautatzean"
 
-#: gitg/resources/ui/gitg-preferences-history.ui:154
+#: gitg/resources/ui/gitg-preferences-history.ui:170
 msgid "Commits"
 msgstr "Egikaritzeak"
 
-#: gitg/resources/ui/gitg-preferences-history.ui:174
+#: gitg/resources/ui/gitg-preferences-history.ui:190
 msgid "Collapse inactive lanes"
 msgstr "Tolestu errei inaktiboak"
 
-#: gitg/resources/ui/gitg-preferences-history.ui:215
+#: gitg/resources/ui/gitg-preferences-history.ui:231
 msgid "Early"
 msgstr "Goiz"
 
-#: gitg/resources/ui/gitg-preferences-history.ui:227
+#: gitg/resources/ui/gitg-preferences-history.ui:243
 msgid "Late"
 msgstr "Berandu"
 
-#: gitg/resources/ui/gitg-preferences-history.ui:242
+#: gitg/resources/ui/gitg-preferences-history.ui:258
 msgid "Show history in topological order"
 msgstr "Erakutsi historia ordena topologikoan"
 
-#: gitg/resources/ui/gitg-preferences-history.ui:257
+#: gitg/resources/ui/gitg-preferences-history.ui:273
 msgid "Preserve mainline for currently checked out branch"
 msgstr "Mantendu unean darabilen adarraren lerro nagusia"
 
@@ -1794,6 +1950,7 @@ msgid "Start with activity:"
 msgstr "Abiarazi jarduera honekin:"
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:61
+#: gitg/resources/ui/gitg-push-dialog.ui:141
 msgid "Commit"
 msgstr "Egikaritu"
 
@@ -1834,17 +1991,145 @@ msgstr "Aukeratu editorearen letra-tipoa"
 msgid "Diff"
 msgstr "Diff"
 
-#: gitg/resources/ui/gitg-preferences-interface.ui:312
+#: gitg/resources/ui/gitg-preferences-interface.ui:322
+msgid "Text mode:"
+msgstr "Testu-modua:"
+
+#: gitg/resources/ui/gitg-preferences-interface.ui:348
 msgid "Enable syntax highlighting of source code in diff views"
 msgstr "Gaitu iturburuko kodearen sintaxia nabarmentzea diff ikuspegietan"
 
-#: gitg/resources/ui/gitg-preferences-interface.ui:338
+#: gitg/resources/ui/gitg-preferences-interface.ui:374
 msgid "Syntax highlighting color scheme:"
 msgstr "Sintaxia nabarmentzeko kolore-eskema:"
 
 #: gitg/resources/ui/gitg-preferences.ui:11
 msgid "Preferences"
 msgstr "Hobespenak"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:7
+msgid "Push Reference"
+msgstr "Bultzatu erreferentzia"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:34
+msgid "_Push"
+msgstr "_Bultzatu"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:69
+msgid "_Local ref:"
+msgstr "_Ref lokala:"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:72
+msgid "Local reference to push from"
+msgstr "Bultzatzea zein erreferentzia lokaletik gertatuko den"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:106
+#: gitg/resources/ui/gitg-push-dialog.ui:236
+msgid "Branch"
+msgstr "Adarra"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:114
+msgid "Reference to push from is a branch"
+msgstr "Bultzatuko den erreferentzia adar bat da"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:123
+#: gitg/resources/ui/gitg-push-dialog.ui:253
+msgid "Tag"
+msgstr "Etiketa"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:132
+msgid "Reference to push from is a tag"
+msgstr "Bultzatuko den erreferentzia etiketa bat da"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:150
+msgid "Reference to push from is a commit"
+msgstr "Bultzatuko den erreferentzia egikaritze bat da"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:170
+msgid "Re_mote:"
+msgstr "_Urrunekoa:"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:187
+msgid "Remote to push to"
+msgstr "Zein urrunekora bultzatuko den"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:201
+msgid "Rem_ote ref:"
+msgstr "Urruneko _erreferentzia:"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:244
+msgid "Push to a remote branch"
+msgstr "Bultzatu urruneko adar batera"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:262
+msgid "Push to a remote tag"
+msgstr "Bultzatu urruneko etiketa batera"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:271
+msgid "Custom"
+msgstr "Pertsonalizatua"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:280
+msgid "Push to a custom remote ref"
+msgstr "Bultzatu urruneko erreferentzia pertsonalizatu batera"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:297
+msgid "_Smart"
+msgstr "A_dimentsua"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:305
+msgid "Fill form based on config"
+msgstr "Bete inprimakia konfigurazioan oinarrituta"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:314
+msgid "_Set Upstream"
+msgstr "_Ezarri gorakoa"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:322
+msgid "Mark remote as upstream for branch"
+msgstr "Markatu urrunekoa gorako gisa adarrerako"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:331
+msgid "_Force"
+msgstr "_Behartu"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:338
+msgid "Override remote ref if already exists"
+msgstr "Indargabetu urruneko erreferentzia, baldin badago"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:347
+msgid "_Restart"
+msgstr "Be_rrabiarazi"
+
+#: gitg/resources/ui/gitg-push-dialog.ui:353
+msgid "Restart default remote reference to push to"
+msgstr ""
+
+#: gitg/resources/ui/gitg-result-dialog.ui:19
+#: gitg/resources/ui/gitg-tag-show-info-dialog.ui:20
+#: gitg/resources/ui/gitg-window.ui:230
+msgid "_Close"
+msgstr "It_xi"
+
+#: gitg/resources/ui/gitg-result-dialog.ui:52
+msgid "Result:"
+msgstr "Emaitza:"
+
+#: gitg/resources/ui/gitg-result-dialog.ui:99
+msgid "Remove ansi:"
+msgstr "Kendu ansi:"
+
+#: gitg/resources/ui/gitg-result-dialog.ui:117
+msgid "Copy (Ctrl+Shift+C)"
+msgstr "Kopiatu (Ctrl+Shift+C)"
+
+#: gitg/resources/ui/gitg-set-upstream-branch-dialog.ui:7
+msgid "Set Upstream Branch"
+msgstr "Ezarri gorako adarra"
+
+#: gitg/resources/ui/gitg-set-upstream-branch-dialog.ui:34
+msgid "Set U_pstream"
+msgstr "Ezarri _gorakoa"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:14
 msgctxt "shortcut window"
@@ -1888,98 +2173,117 @@ msgstr "Bilatu"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:68
 msgctxt "shortcut window"
+msgid "Move to next search result"
+msgstr "Joan bilaketaren hurrengo emaitzara"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:75
+msgctxt "shortcut window"
+msgid "Move to previous search result"
+msgstr "Joan bilaketaren aurreko emaitzara"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:82
+msgctxt "shortcut window"
 msgid "Close the active window"
 msgstr "Itxi leiho aktiboa"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:75
+#: gitg/resources/ui/gitg-shortcuts.ui:89
 msgctxt "shortcut window"
 msgid "Quit the application"
 msgstr "Irten aplikaziotik"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:82
+#: gitg/resources/ui/gitg-shortcuts.ui:96
 msgctxt "shortcut window"
 msgid "Change to Dash"
 msgstr "Aldatu panelera"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:89
+#: gitg/resources/ui/gitg-shortcuts.ui:103
 msgctxt "shortcut window"
 msgid "Change to History View"
 msgstr "Aldatu historiaren bistara"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:96
+#: gitg/resources/ui/gitg-shortcuts.ui:110
 msgctxt "shortcut window"
 msgid "Change to Commit View"
 msgstr "Aldatu egikaritzeen bistara"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:103
+#: gitg/resources/ui/gitg-shortcuts.ui:117
 msgctxt "shortcut window"
 msgid "Change to activity"
 msgstr "Aldatu jarduerara"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:111
+#: gitg/resources/ui/gitg-shortcuts.ui:125
 msgctxt "shortcut window"
 msgid "Commit Activity"
 msgstr "Egikaritze-jarduera"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:116
+#: gitg/resources/ui/gitg-shortcuts.ui:130
 msgctxt "shortcut window"
 msgid "Select/Unselect"
 msgstr "Hautatu/desautatu"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:123
+#: gitg/resources/ui/gitg-shortcuts.ui:137
 msgctxt "shortcut window"
 msgid "Open commit dialog"
 msgstr "Ireki egikaritzeetarako elkarrizketa-koadroa"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:130
+#: gitg/resources/ui/gitg-shortcuts.ui:144
 msgctxt "shortcut window"
 msgid "Stage selection"
 msgstr "Konfiguratu hautapena"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:137
+#: gitg/resources/ui/gitg-shortcuts.ui:151
 msgctxt "shortcut window"
 msgid "Unstage selection"
 msgstr "Atera hautapena konfiguraziotik"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:144
+#: gitg/resources/ui/gitg-shortcuts.ui:158
 msgctxt "shortcut window"
 msgid "Discard selection"
 msgstr "Baztertu hautapena"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:151
+#: gitg/resources/ui/gitg-shortcuts.ui:165
 msgctxt "shortcut window"
 msgid "Edit selection"
 msgstr "Editatu hautapena"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:159
+#: gitg/resources/ui/gitg-shortcuts.ui:173
 msgctxt "shortcut window"
 msgid "Commit Dialog"
 msgstr "Egikaritzeetarako elkarrizketa-koadroa"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:164
+#: gitg/resources/ui/gitg-shortcuts.ui:178
 msgctxt "shortcut window"
 msgid "Commit"
 msgstr "Egikaritu"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:171
+#: gitg/resources/ui/gitg-shortcuts.ui:185
 msgctxt "shortcut window"
 msgid "Cancel Commit"
 msgstr "Utzi egikaritzea"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:178
+#: gitg/resources/ui/gitg-shortcuts.ui:192
 msgctxt "shortcut window"
 msgid "Previous commit message"
 msgstr "Aurreko egikaritze-mezua"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:185
+#: gitg/resources/ui/gitg-shortcuts.ui:199
 msgctxt "shortcut window"
 msgid "Next commit message"
 msgstr "Hurrengo egikaritze-mezua"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:193
+#: gitg/resources/ui/gitg-shortcuts.ui:207
 msgctxt "shortcut window"
 msgid "History Activity"
 msgstr "Historia-jarduera"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:212
+msgctxt "shortcut window"
+msgid "Show global actions contextual menu. (If any defined)"
+msgstr "Erakutsi ekintza globalen testuinguru-menua (definituta badago)."
+
+#: gitg/resources/ui/gitg-tag-show-info-dialog.ui:7
+msgid "Show Tag info"
+msgstr "Erakutsi etiketa-informazioa"
 
 #: gitg/resources/ui/gitg-window.ui:24
 msgid "Show the list of recently used repositories"
@@ -2001,9 +2305,13 @@ msgstr "Bilatu hitz edo esaldi bat"
 msgid "General settings and options"
 msgstr "Ezarpen eta aukera orokorrak"
 
-#: gitg/resources/ui/gitg-window.ui:230
-msgid "_Close"
-msgstr "It_xi"
+#: gitg/resources/ui/gitg-window.ui:266
+msgid "Previous result"
+msgstr "Aurreko emaitza"
+
+#: gitg/resources/ui/gitg-window.ui:282
+msgid "Next result"
+msgstr "Hurrengo emaitza"
 
 #. Translators: %s will be replaced with a URL indicating the resource
 #. for which the authentication is required.
@@ -2012,29 +2320,29 @@ msgstr "It_xi"
 msgid "Password required for %s"
 msgstr "%s(e)k pasahitza eskatzen du"
 
-#: libgitg/gitg-date.vala:346
+#: libgitg/gitg-date.vala:345
 msgid "Now"
 msgstr "Orain"
 
-#: libgitg/gitg-date.vala:350
+#: libgitg/gitg-date.vala:349
 #, c-format
 msgid "A minute ago"
 msgid_plural "%d minutes ago"
 msgstr[0] "Duela minutu bat"
 msgstr[1] "duela %d minutu"
 
-#: libgitg/gitg-date.vala:355
+#: libgitg/gitg-date.vala:354
 msgid "Half an hour ago"
 msgstr "Duela ordu-erdi"
 
-#: libgitg/gitg-date.vala:360
+#: libgitg/gitg-date.vala:359
 #, c-format
 msgid "An hour ago"
 msgid_plural "%d hours ago"
 msgstr[0] "Duela ordubete"
 msgstr[1] "duela %d ordu"
 
-#: libgitg/gitg-date.vala:365
+#: libgitg/gitg-date.vala:364
 #, c-format
 msgid "A day ago"
 msgid_plural "%d days ago"
@@ -2044,28 +2352,28 @@ msgstr[1] "duela %d egun"
 #. Translators: this is a strftime type date format which is
 #. used when the date is in the current year and uses a 24 hour
 #. clock.
-#: libgitg/gitg-date.vala:374
+#: libgitg/gitg-date.vala:385
 msgid "%b %e, %H∶%M"
 msgstr "%b %e, %H∶%M"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is in the current year and uses a 12 hour
 #. clock.
-#: libgitg/gitg-date.vala:381
+#: libgitg/gitg-date.vala:392
 msgid "%b %e, %I∶%M %p"
 msgstr "%b %e, %I∶%M %p"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is not in the current year and uses a 24
 #. hour clock.
-#: libgitg/gitg-date.vala:391
+#: libgitg/gitg-date.vala:402
 msgid "%b %e %Y, %H∶%M"
 msgstr "%b %e %Y, %H∶%M"
 
 #. Translators: this is a strftime type date format which is
 #. used when the date is not in the current year and uses a 12
 #. hour clock.
-#: libgitg/gitg-date.vala:398
+#: libgitg/gitg-date.vala:409
 msgid "%b %e %Y, %I∶%M %p"
 msgstr "%b %e %Y, %I∶%M %p"
 
@@ -2102,73 +2410,69 @@ msgid "Collapse all"
 msgstr "Tolestu denak"
 
 #: libgitg/gitg-diff-view-commit-details.vala:176
-#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:211
+#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:217
 msgid "Expand all"
 msgstr "Zabaldu dena"
 
-#: libgitg/gitg-diff-view-commit-details.vala:237
+#: libgitg/gitg-diff-view-commit-details.vala:229
 #, c-format
-msgid "Committed by %s"
-msgstr "Egikarituta: %s"
+msgid "<small>Authored by</small> %s"
+msgstr "<small>Egilea:</small> %s"
 
-#. Translators: Unif stands for unified diff format
-#: libgitg/gitg-diff-view-file.vala:160
-msgid "Unif"
-msgstr "Unif"
+#: libgitg/gitg-diff-view-commit-details.vala:243
+#: libgitg/gitg-diff-view-commit-details.vala:247
+#, c-format
+msgid "<small>Committed by</small> %s"
+msgstr "<small>Egikaritzailea:</small> %s"
 
-#. Translators: Split stands for the noun
-#: libgitg/gitg-diff-view-file.vala:165
-msgid "Split"
-msgstr "Zatitu"
-
-#: libgitg/gitg-diff-view-file.vala:172
+#: libgitg/gitg-diff-view-file.vala:215
 msgid "Binary"
 msgstr "Bitarra"
 
-#: libgitg/gitg-diff-view-file.vala:179
+#: libgitg/gitg-diff-view-file.vala:222
 msgid "Image"
 msgstr "Irudia"
 
-#: libgitg/gitg-diff-view-file.vala:224
+#: libgitg/gitg-diff-view-file.vala:267
 msgid "_Open file"
 msgstr "_Ireki fitxategia"
 
-#: libgitg/gitg-diff-view-file.vala:257
+#: libgitg/gitg-diff-view-file.vala:300
 msgid "Open containing _folder"
 msgstr "Ireki karpeta _edukitzailea"
 
-#: libgitg/gitg-diff-view-file.vala:277
+#: libgitg/gitg-diff-view-file.vala:320
 msgid "_Copy file path"
 msgstr "_Kopiatu fitxategiaren bide-izena"
 
 #. Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
-#: libgitg/gitg-repository-list-box.vala:161
+#: libgitg/gitg-repository-list-box.vala:162
 #, c-format
 msgid "at %s"
 msgstr "'%s'(e)n"
 
 #. Translators: this is used to construct: "<branch-name> at <directory>"
-#: libgitg/gitg-repository-list-box.vala:170
+#: libgitg/gitg-repository-list-box.vala:171
 #, c-format
 msgid "%s at %s"
 msgstr "%s - %s"
 
-#: libgitg/gitg-repository-list-box.vala:553
+#: libgitg/gitg-repository-list-box.vala:546
 msgid "Cloning…"
 msgstr "Klonatzen…"
 
-#: libgitg/gitg-repository-list-box.vala:566
+#: libgitg/gitg-repository-list-box.vala:559
 #, c-format
 msgid ""
 "Deleting repository source files “%s” will delete them from disk and cannot "
 "be undone. Are you sure?"
 msgstr "Biltegiaren  “%s” iturburu-fitxategiak ezabatzen badira, diskotik ere ezabatuko dira eta hori ezin da desegin. Jarraitu?"
 
-#: libgitg/gitg-repository-list-box.vala:568
+#: libgitg/gitg-repository-list-box.vala:561
 msgid "Move to trash"
 msgstr "Bota zakarrontzira"
 
-#: libgitg/gitg-repository-list-box.vala:569
+#: libgitg/gitg-repository-list-box.vala:562
 msgid "Delete permanently"
 msgstr "Ezabatu betiko"
 
@@ -2222,7 +2526,7 @@ msgstr "Gogoratu pasahitza saioa _amaitu arte"
 msgid "Remember _forever"
 msgstr "_Gogoratu beti"
 
-#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:151
+#: libgitg/resources/ui/gitg-diff-view-commit-details.ui:157
 msgid "Parents"
 msgstr "Gurasoak"
 
@@ -2234,15 +2538,15 @@ msgstr "Ezin dira fitxategi bitarraren aldaketak bistaratu"
 msgid "Side by side"
 msgstr "Alboz albo"
 
-#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:62
+#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:63
 msgid "Slider"
 msgstr "Graduatzailea"
 
-#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:89
+#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:91
 msgid "Overlay"
 msgstr "Gainjartzea"
 
-#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:107
+#: libgitg/resources/ui/gitg-diff-view-file-renderer-image.ui:109
 msgid "Difference"
 msgstr "Diferentzia"
 
@@ -2276,13 +2580,55 @@ msgstr "Kendu biltegia zerrendatik (ez du biltegia ezabatzen diskotik)"
 msgid "Show the changes introduced by the selected commit"
 msgstr "Erakutsi hautatutako egikaritzeak sartutako aldaketak"
 
-#: plugins/files/gitg-files.vala:68
+#: plugins/files/gitg-files.vala:71
 msgid "Files"
 msgstr "Fitxategiak"
 
-#: plugins/files/gitg-files.vala:73
+#: plugins/files/gitg-files.vala:76
 msgid "Show the files in the tree of the selected commit"
 msgstr "Erakutsi hautatutako egikaritzearen zuhaitzeko fitxategiak"
+
+#: plugins/files/gitg-files.vala:144
+msgid "Open externally"
+msgstr "Ireki kanpotik"
+
+#~ msgid "@binary@"
+#~ msgstr "@bitarra@"
+
+#~ msgid "Edits the remote from the remotes list"
+#~ msgstr "Urruneko zerrendan dagoen urrunekoa editatzen du"
+
+#, c-format
+#~ msgid "Delete tag %s"
+#~ msgstr "Ezabatu %s etiketa"
+
+#, c-format
+#~ msgid "Push to %s"
+#~ msgstr "Bultzatu %s gunera"
+
+#, c-format
+#~ msgid "Push branch to %s"
+#~ msgstr "Bultzatu adarra %s gunera"
+
+#, c-format
+#~ msgid "Pushing to %s"
+#~ msgstr "%s gunera bultzatzen"
+
+#, c-format
+#~ msgid "Failed to push to %s: %s"
+#~ msgstr "Huts egin du %s gunera bultzatzeak: %s"
+
+#, c-format
+#~ msgid "Pushed to %s"
+#~ msgstr "%s gunera bultzatu da"
+
+#, c-format
+#~ msgid "Push branch %s"
+#~ msgstr "Bultzatu %s adarra"
+
+#, c-format
+#~ msgid "Are you sure that you want to push the branch %s?"
+#~ msgstr "Ziur zaude %s adarra bultzatu nahi duzula?"
 
 #~ msgid "The GNOME Project"
 #~ msgstr "GNOME proiektua"
