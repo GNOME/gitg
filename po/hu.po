@@ -10,15 +10,15 @@ msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
 "POT-Creation-Date: 2026-07-01 20:03+0000\n"
-"PO-Revision-Date: 2026-09-12 13:04+0200\n"
-"Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
+"PO-Revision-Date: 2026-09-13 22:00+0200\n"
+"Last-Translator: Meskó Balázs <mesko.balazs@fsf.hu>\n"
 "Language-Team: Hungarian <openscope at fsf dot hu>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 25.12.3\n"
+"X-Generator: Poedit 3.9\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
@@ -271,15 +271,15 @@ msgstr ""
 
 #: data/org.gnome.gitg.gschema.xml.in:191
 msgid "Show Upstream With Branch"
-msgstr "Távoli tároló megjelenítése az ágak között"
+msgstr "Távoli ág megjelenítése az ágak között"
 
 #: data/org.gnome.gitg.gschema.xml.in:192
 msgid ""
 "Determines whether to also show the upstream (remote) tracking branch when "
 "selecting a local branch in the history view."
 msgstr ""
-"Meghatározza, hogy megjelenjen-e a távoli tároló (távoli) követési ága, ha hel"
-"yi ágat választ ki az előzménynézetben."
+"Meghatározza, hogy megjelenjen-e a távoli követési ág, ha helyi ágat választ "
+"ki az előzménynézetben."
 
 #: data/org.gnome.gitg.gschema.xml.in:199
 #: gitg/resources/ui/gitg-preferences-history.ui:151
@@ -1850,25 +1850,21 @@ msgstr "Dátum"
 
 #: gitg/resources/ui/gitg-commit-submodule-history-view.ui:153
 #: gitg/resources/ui/gitg-history-paned.ui:221
-#| msgid "Commit Message"
 msgid "Message"
 msgstr "Üzenet"
 
 #: gitg/resources/ui/gitg-commit-submodule-history-view.ui:172
 #: gitg/resources/ui/gitg-history-paned.ui:240
-#| msgid "Author Details"
 msgid "Author email"
 msgstr "Szerző e-mail-címe"
 
 #: gitg/resources/ui/gitg-commit-submodule-history-view.ui:191
 #: gitg/resources/ui/gitg-history-paned.ui:259
-#| msgid "Committer"
 msgid "Committer email"
 msgstr "Véglegesítő e-mail-címe"
 
 #: gitg/resources/ui/gitg-commit-submodule-history-view.ui:210
 #: gitg/resources/ui/gitg-history-paned.ui:278
-#| msgid "Committer"
 msgid "Committer date"
 msgstr "Véglegesítő dátuma"
 
@@ -1911,17 +1907,14 @@ msgid "Edit Remote"
 msgstr "Távoli szerkesztése"
 
 #: gitg/resources/ui/gitg-history-paned.ui:113
-#| msgid "Author"
 msgid "Author name"
 msgstr "Szerző neve"
 
 #: gitg/resources/ui/gitg-history-paned.ui:130
-#| msgid "Committer"
 msgid "Committer name"
 msgstr "Véglegesítő neve"
 
 #: gitg/resources/ui/gitg-history-paned.ui:166
-#| msgid "Author"
 msgid "Author date"
 msgstr "Szerző dátuma"
 
@@ -2024,7 +2017,6 @@ msgid "Smart Push. Figure out parameters for push action"
 msgstr "Intelligens felküldés. Paraméterek kitalálása a felküldési művelethez."
 
 #: gitg/resources/ui/gitg-preferences-general.ui:69
-#| msgid "Default selection"
 msgid "Default visible columns"
 msgstr "Alapértelmezett látható oszlopok"
 
@@ -2054,8 +2046,7 @@ msgstr "Hivatkozások rendezése az oldalsávon a legutóbbi tevékenység szeri
 
 #: gitg/resources/ui/gitg-preferences-history.ui:135
 msgid "Show upstream (remote) branch when selecting a local branch"
-msgstr ""
-"Jelenítse meg a távoli tároló (távoli) ágát a helyi ágak kiválasztásakor"
+msgstr "Távoli ág megjelenítése a helyi ág kiválasztásakor"
 
 #: gitg/resources/ui/gitg-preferences-history.ui:170
 msgid "Commits"
@@ -2148,7 +2139,6 @@ msgid "Preferences"
 msgstr "Beállítások"
 
 #: gitg/resources/ui/gitg-push-dialog.ui:7
-#| msgid "References"
 msgid "Push Reference"
 msgstr "Hivatkozás felküldése"
 
@@ -2157,7 +2147,6 @@ msgid "_Push"
 msgstr "_Felküldés"
 
 #: gitg/resources/ui/gitg-push-dialog.ui:69
-#| msgid "_Local Folder:"
 msgid "_Local ref:"
 msgstr "_Helyi hivatkozás:"
 
@@ -2167,7 +2156,6 @@ msgstr "Felküldendő helyi hivatkozás forrása"
 
 #: gitg/resources/ui/gitg-push-dialog.ui:106
 #: gitg/resources/ui/gitg-push-dialog.ui:236
-#| msgid "Branches"
 msgid "Branch"
 msgstr "Ág"
 
@@ -2177,7 +2165,6 @@ msgstr "A felküldendő hivatkozás egy ág"
 
 #: gitg/resources/ui/gitg-push-dialog.ui:123
 #: gitg/resources/ui/gitg-push-dialog.ui:253
-#| msgid "Tags"
 msgid "Tag"
 msgstr "Címke"
 
@@ -2186,12 +2173,10 @@ msgid "Reference to push from is a tag"
 msgstr "A felküldendő hivatkozás egy címke"
 
 #: gitg/resources/ui/gitg-push-dialog.ui:150
-#| msgid "Retrieve patch from a commit"
 msgid "Reference to push from is a commit"
 msgstr "A felküldendő hivatkozás egy véglegesítés"
 
 #: gitg/resources/ui/gitg-push-dialog.ui:170
-#| msgid "Remotes"
 msgid "Re_mote:"
 msgstr "_Távoli:"
 
@@ -2200,27 +2185,22 @@ msgid "Remote to push to"
 msgstr "Felküldés távoli célja"
 
 #: gitg/resources/ui/gitg-push-dialog.ui:201
-#| msgid "Remote _name:"
 msgid "Rem_ote ref:"
 msgstr "Távoli _hivatkozás:"
 
 #: gitg/resources/ui/gitg-push-dialog.ui:244
-#| msgid "Push ref to a remote"
 msgid "Push to a remote branch"
 msgstr "Felküldés egy távoli ágba"
 
 #: gitg/resources/ui/gitg-push-dialog.ui:262
-#| msgid "Push ref to a remote"
 msgid "Push to a remote tag"
 msgstr "Felküldés egy távoli címkébe"
 
 #: gitg/resources/ui/gitg-push-dialog.ui:271
-#| msgid "Custom:"
 msgid "Custom"
 msgstr "Egyéni"
 
 #: gitg/resources/ui/gitg-push-dialog.ui:280
-#| msgid "Push ref to a remote"
 msgid "Push to a custom remote ref"
 msgstr "Felküldés egy egyéni távoli hivatkozásba"
 
@@ -2234,11 +2214,11 @@ msgstr "Űrlap kitöltése konfiguráció alapján"
 
 #: gitg/resources/ui/gitg-push-dialog.ui:314
 msgid "_Set Upstream"
-msgstr "Távoli tároló _beállítása"
+msgstr "Távoli _beállítása"
 
 #: gitg/resources/ui/gitg-push-dialog.ui:322
 msgid "Mark remote as upstream for branch"
-msgstr "Távoli megjelölése az ág távoli tárolójaként"
+msgstr "Távoli cél megjelölése az ág távoli ágaként"
 
 #: gitg/resources/ui/gitg-push-dialog.ui:331
 msgid "_Force"
@@ -2267,7 +2247,6 @@ msgid "Result:"
 msgstr "Eredmény:"
 
 #: gitg/resources/ui/gitg-result-dialog.ui:99
-#| msgid "Remove"
 msgid "Remove ansi:"
 msgstr "ANSI eltávolítása:"
 
@@ -2276,7 +2255,6 @@ msgid "Copy (Ctrl+Shift+C)"
 msgstr "Másolás (Ctrl+Shift+C)"
 
 #: gitg/resources/ui/gitg-set-upstream-branch-dialog.ui:7
-#| msgid "Show Upstream With Branch"
 msgid "Set Upstream Branch"
 msgstr "Távoli tároló ágának beállítása"
 
