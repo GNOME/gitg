@@ -177,7 +177,6 @@ class RefActionDelete : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Ob
 		try
 		{
 			yield remote.push(false, "", remote_branch, null);
-			((Gtk.ApplicationWindow)application).activate_action("reload", null);
 		}
 		catch (Error e)
 		{
@@ -190,6 +189,11 @@ class RefActionDelete : GitgExt.UIElement, GitgExt.Action, GitgExt.RefAction, Ob
 
 		/* Translators: the %s will get replaced with the remote url, */
 		notification.success(_("Deleted from %s").printf(remote.get_url()));
+
+		Idle.add(() => {
+			((Gtk.ApplicationWindow)application).activate_action("reload", null);
+			return false;
+		});
 
 		return true;
 	}

@@ -123,7 +123,6 @@ class CommitActionPush : GitgExt.UIElement, GitgExt.Action, GitgExt.CommitAction
 		try
 		{
 			yield remote.push(force, local_branch, remote_branch, new PushCallbacks(application));
-			((Gtk.ApplicationWindow)application).activate_action("reload", null);
 		}
 		catch (Error e)
 		{
@@ -135,6 +134,11 @@ class CommitActionPush : GitgExt.UIElement, GitgExt.Action, GitgExt.CommitAction
 
 		/* Translators: the %s will get replaced with the remote url, */
 		notification.success(_("Pushed to “%s”").printf(remote.get_url()));
+
+		Idle.add(() => {
+			((Gtk.ApplicationWindow)application).activate_action("reload", null);
+			return false;
+		});
 
 		return true;
 	}

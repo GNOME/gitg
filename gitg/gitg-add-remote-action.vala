@@ -84,13 +84,21 @@ class AddRemoteAction : GitgExt.UIElement, GitgExt.Action, Object
 			((Object)d_remote).disconnect(tip_updated_id);
 		}
 
-		((Gtk.ApplicationWindow)application).activate_action("reload", null);
 		if (updates.size != 0)
 		{
 			notification.success(_("Fetched from %s: %s").printf(d_remote.get_url(), string.joinv(", ", updates.to_array())));
+			Idle.add(() => {
+				((Gtk.ApplicationWindow)application).activate_action("reload", null);
+				return false;
+			});
 		}
 		else
 		{
+			Idle.add(() => {
+				((Gtk.ApplicationWindow)application).activate_action("reload", null);
+				return false;
+			});
+
 			add_remote(remote_name, remote_url);
 
 			return false;

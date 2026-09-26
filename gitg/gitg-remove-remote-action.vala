@@ -94,7 +94,10 @@ class RemoveRemoteAction : GitgExt.UIElement, GitgExt.Action, Object
 			                         Gtk.MessageType.ERROR);
 		}
 
-		((Gtk.ApplicationWindow)application).activate_action("reload", null);
+		Idle.add(() => {
+			((Gtk.ApplicationWindow)application).activate_action("reload", null);
+			return false;
+		});
 		return true;
 	}
     }
