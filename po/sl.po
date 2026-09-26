@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2026-06-29 23:10+0000\n"
-"PO-Revision-Date: 2026-06-30 18:43+0200\n"
+"POT-Creation-Date: 2026-09-26 13:40+0000\n"
+"PO-Revision-Date: 2026-09-26 17:09+0200\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -441,17 +441,17 @@ msgstr ""
 "besedila."
 
 #: data/org.gnome.gitg.gschema.xml.in:329
-#: data/org.gnome.gitg.gschema.xml.in:371
+#: data/org.gnome.gitg.gschema.xml.in:379
 msgid "Wrap"
 msgstr "Prelom"
 
 #: data/org.gnome.gitg.gschema.xml.in:330
-#: data/org.gnome.gitg.gschema.xml.in:372
+#: data/org.gnome.gitg.gschema.xml.in:380
 msgid "Wrap lines."
 msgstr "Prelomi vrstice"
 
 #: data/org.gnome.gitg.gschema.xml.in:336
-#: data/org.gnome.gitg.gschema.xml.in:354
+#: data/org.gnome.gitg.gschema.xml.in:362
 msgid "Number of Before/After Context Lines"
 msgstr "Število začetnih in končnih vsebinskih vrstic"
 
@@ -464,12 +464,25 @@ msgstr ""
 "prikazanih v izpisu ukaza diff med uveljavljanjem."
 
 #: data/org.gnome.gitg.gschema.xml.in:344
-#: data/org.gnome.gitg.gschema.xml.in:363
+msgid "Show Full File in Diff"
+msgstr "Prikaži celotno datoteko v primerjavi"
+
+#: data/org.gnome.gitg.gschema.xml.in:345
+msgid ""
+"When enabled, the diff view shows the entire file with unchanged regions "
+"folded, instead of showing only the changed hunks."
+msgstr ""
+"Ko je ta možnost omogočena, pogled razlik prikazuje celotno datoteko, pri "
+"čemer so nespremenjeni deli zloženi, namesto da bi prikazoval le spremenjene "
+"dele."
+
+#: data/org.gnome.gitg.gschema.xml.in:352
+#: data/org.gnome.gitg.gschema.xml.in:371
 msgid "Rendered Width of a Tab Character"
 msgstr "Izris širine tabulatorja"
 
-#: data/org.gnome.gitg.gschema.xml.in:345
-#: data/org.gnome.gitg.gschema.xml.in:364
+#: data/org.gnome.gitg.gschema.xml.in:353
+#: data/org.gnome.gitg.gschema.xml.in:372
 msgid ""
 "Setting that determines how much space a tab character should occupy when "
 "showing the diff of a commit."
@@ -477,7 +490,7 @@ msgstr ""
 "Nastavitev, ki določa, koliko prostora zavzema znak tab v izpisu ukaza diff "
 "med uveljavljanjem."
 
-#: data/org.gnome.gitg.gschema.xml.in:355
+#: data/org.gnome.gitg.gschema.xml.in:363
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff to be staged/unstaged in the commit area."
@@ -542,7 +555,7 @@ msgstr "Uveljavi pripravljene spremembe"
 msgid "Overview of recently used repositories"
 msgstr "Pregled nedavno uporabljenih skladišč"
 
-#: data/org.gnome.gitg.metainfo.xml.in.in:216
+#: data/org.gnome.gitg.metainfo.xml.in.in:274
 msgid "The Gitg Team"
 msgstr "Ekipa gitg"
 
@@ -1639,21 +1652,21 @@ msgstr "Oddaljeno"
 msgid "Stash"
 msgstr "Zaloga"
 
-#: gitg/history/gitg-history.vala:353
+#: gitg/history/gitg-history.vala:354
 #: gitg/preferences/gitg-preferences-history.vala:226
 #: gitg/resources/ui/gitg-preferences-interface.ui:60
 msgid "History"
 msgstr "Zgodovina"
 
-#: gitg/history/gitg-history.vala:358
+#: gitg/history/gitg-history.vala:359
 msgid "Examine the history of the repository"
 msgstr "Preglej zgodovino skladišča"
 
-#: gitg/history/gitg-history.vala:1117
+#: gitg/history/gitg-history.vala:1249
 msgid "Mainline"
 msgstr "Glavna veja"
 
-#: gitg/history/gitg-history.vala:1198
+#: gitg/history/gitg-history.vala:1330
 msgid "Main remote"
 msgstr "Uredi oddaljeno mesto"
 
@@ -2103,7 +2116,7 @@ msgid "Pick the editor font"
 msgstr "Izbor pisave urejevalnika"
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:292
-#: plugins/diff/gitg-diff.vala:120
+#: plugins/diff/gitg-diff.vala:125
 msgid "Diff"
 msgstr "Primerjava"
 
@@ -2567,6 +2580,14 @@ msgstr "Odpri _mapo z datoteko"
 msgid "_Copy file path"
 msgstr "_Kopiraj pot datoteke"
 
+#: libgitg/gitg-diff-view-file.vala:347
+msgid "_Fold all"
+msgstr "_Zloži vse"
+
+#: libgitg/gitg-diff-view-file.vala:357
+msgid "_Unfold all"
+msgstr "_Razgrni vse"
+
 #. Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
 #: libgitg/gitg-repository-list-box.vala:162
 #, c-format
@@ -2694,7 +2715,11 @@ msgstr "Prezri presledne znake:"
 msgid "Context:"
 msgstr "Vsebina:"
 
-#: libgitg/resources/ui/gitg-diff-view-options.ui:63
+#: libgitg/resources/ui/gitg-diff-view-options.ui:67
+msgid "Full file"
+msgstr "Celotna datoteka"
+
+#: libgitg/resources/ui/gitg-diff-view-options.ui:82
 msgid "Spacing"
 msgstr "Razmik"
 
@@ -2704,7 +2729,7 @@ msgid ""
 "disk)"
 msgstr "Odstrani skladišče iz seznama (ne izbriši seznama z diska)"
 
-#: plugins/diff/gitg-diff.vala:125
+#: plugins/diff/gitg-diff.vala:130
 msgid "Show the changes introduced by the selected commit"
 msgstr "Pokaži spremembe, ki so uvedene z izbrano uveljavitvijo"
 
