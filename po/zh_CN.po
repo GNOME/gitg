@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2026-06-29 23:10+0000\n"
-"PO-Revision-Date: 2026-07-01 08:20+0800\n"
+"POT-Creation-Date: 2026-09-26 15:24+0000\n"
+"PO-Revision-Date: 2026-09-27 16:15+0800\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Gtranslator 50.0\n"
+"X-Generator: Gtranslator 51.0\n"
 "X-DamnedLies-Scope: partial\n"
 
 #: contrib/xml/xml-reader.c:327
@@ -402,17 +402,17 @@ msgid ""
 msgstr "设置行内变更是否在行内显示。"
 
 #: data/org.gnome.gitg.gschema.xml.in:329
-#: data/org.gnome.gitg.gschema.xml.in:371
+#: data/org.gnome.gitg.gschema.xml.in:379
 msgid "Wrap"
 msgstr "折行"
 
 #: data/org.gnome.gitg.gschema.xml.in:330
-#: data/org.gnome.gitg.gschema.xml.in:372
+#: data/org.gnome.gitg.gschema.xml.in:380
 msgid "Wrap lines."
 msgstr "自动折行。"
 
 #: data/org.gnome.gitg.gschema.xml.in:336
-#: data/org.gnome.gitg.gschema.xml.in:354
+#: data/org.gnome.gitg.gschema.xml.in:362
 msgid "Number of Before/After Context Lines"
 msgstr "前/后上下文行数"
 
@@ -423,18 +423,30 @@ msgid ""
 msgstr "设置显示一个提交的变更时应该显示的上下文行数。"
 
 #: data/org.gnome.gitg.gschema.xml.in:344
-#: data/org.gnome.gitg.gschema.xml.in:363
+msgid "Show Full File in Diff"
+msgstr "在差异中显示完整文件"
+
+#: data/org.gnome.gitg.gschema.xml.in:345
+msgid ""
+"When enabled, the diff view shows the entire file with unchanged regions "
+"folded, instead of showing only the changed hunks."
+msgstr ""
+"当启用时，差异视图将通过折叠未更改区域的方式显示整个文件，而不是仅显示已更改"
+"的部分。"
+
+#: data/org.gnome.gitg.gschema.xml.in:352
+#: data/org.gnome.gitg.gschema.xml.in:371
 msgid "Rendered Width of a Tab Character"
 msgstr "制表符呈现的宽度"
 
-#: data/org.gnome.gitg.gschema.xml.in:345
-#: data/org.gnome.gitg.gschema.xml.in:364
+#: data/org.gnome.gitg.gschema.xml.in:353
+#: data/org.gnome.gitg.gschema.xml.in:372
 msgid ""
 "Setting that determines how much space a tab character should occupy when "
 "showing the diff of a commit."
 msgstr "设置显示提交的变更时，一个制表符应该占用几个空格。"
 
-#: data/org.gnome.gitg.gschema.xml.in:355
+#: data/org.gnome.gitg.gschema.xml.in:363
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff to be staged/unstaged in the commit area."
@@ -496,7 +508,7 @@ msgstr "提交暂存的变更"
 msgid "Overview of recently used repositories"
 msgstr "当前所用仓库的概览"
 
-#: data/org.gnome.gitg.metainfo.xml.in.in:216
+#: data/org.gnome.gitg.metainfo.xml.in.in:274
 msgid "The Gitg Team"
 msgstr "Gitg 团队"
 
@@ -1563,21 +1575,21 @@ msgstr "远程"
 msgid "Stash"
 msgstr "储藏"
 
-#: gitg/history/gitg-history.vala:353
+#: gitg/history/gitg-history.vala:354
 #: gitg/preferences/gitg-preferences-history.vala:226
 #: gitg/resources/ui/gitg-preferences-interface.ui:60
 msgid "History"
 msgstr "历史"
 
-#: gitg/history/gitg-history.vala:358
+#: gitg/history/gitg-history.vala:359
 msgid "Examine the history of the repository"
 msgstr "查看仓库的历史"
 
-#: gitg/history/gitg-history.vala:1117
+#: gitg/history/gitg-history.vala:1249
 msgid "Mainline"
 msgstr "主线"
 
-#: gitg/history/gitg-history.vala:1198
+#: gitg/history/gitg-history.vala:1330
 msgid "Main remote"
 msgstr "主要远程仓库"
 
@@ -2022,7 +2034,7 @@ msgid "Pick the editor font"
 msgstr "选择编辑器字体"
 
 #: gitg/resources/ui/gitg-preferences-interface.ui:292
-#: plugins/diff/gitg-diff.vala:120
+#: plugins/diff/gitg-diff.vala:125
 msgid "Diff"
 msgstr "差异"
 
@@ -2477,6 +2489,14 @@ msgstr "打开所在文件夹(_F)"
 msgid "_Copy file path"
 msgstr "复制文件路径(_C)"
 
+#: libgitg/gitg-diff-view-file.vala:347
+msgid "_Fold all"
+msgstr "全部折叠(_F)"
+
+#: libgitg/gitg-diff-view-file.vala:357
+msgid "_Unfold all"
+msgstr "全部展开(_U)"
+
 #. Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
 #: libgitg/gitg-repository-list-box.vala:162
 #, c-format
@@ -2598,7 +2618,11 @@ msgstr "忽略空白："
 msgid "Context:"
 msgstr "上下文："
 
-#: libgitg/resources/ui/gitg-diff-view-options.ui:63
+#: libgitg/resources/ui/gitg-diff-view-options.ui:67
+msgid "Full file"
+msgstr "完整文件"
+
+#: libgitg/resources/ui/gitg-diff-view-options.ui:82
 msgid "Spacing"
 msgstr "间距"
 
@@ -2608,7 +2632,7 @@ msgid ""
 "disk)"
 msgstr "从列表中移除仓库（仍在磁盘上保留）"
 
-#: plugins/diff/gitg-diff.vala:125
+#: plugins/diff/gitg-diff.vala:130
 msgid "Show the changes introduced by the selected commit"
 msgstr "显示选中的提交所进行的变更"
 
