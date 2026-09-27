@@ -3,22 +3,22 @@
 # This file is distributed under the same licence as the gitg package.
 # Serhij Dubyk <dubyk@ukr.net>, 2011.
 # Daniel Korostil <ted.korostiled@gmail.com>, 2014.
-# Yuri Chornoivan <yurchor@ukr.net>, 2020, 2021, 2022, 2023, 2024, 2025, 2026.
+# SPDX-FileCopyrightText: 2020, 2021, 2022, 2023, 2024, 2025, 2026 Yuri Chornoivan <yurchor@ukr.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2026-07-01 20:03+0000\n"
-"PO-Revision-Date: 2026-07-02 20:13+0300\n"
+"POT-Creation-Date: 2026-09-27 10:23+0000\n"
+"PO-Revision-Date: 2026-09-27 22:29+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
-"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Lokalize 23.04.3\n"
+"Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n%10>="
+"2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Lokalize 25.12.1\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
@@ -297,11 +297,151 @@ msgid "Hide any ref different from refs/heads and refs/remotes."
 msgstr ""
 "Приховати усі посилання, які є відмінними від refs/heads та refs/remotes."
 
-#: data/org.gnome.gitg.gschema.xml.in:208
+#: data/org.gnome.gitg.gschema.xml.in:206
+msgid "Show only decorated commits"
+msgstr "Показувати лише оформлені внески"
+
+#: data/org.gnome.gitg.gschema.xml.in:207
+msgid "Only show commits decorated."
+msgstr "Показувати лише оформлені внески."
+
+#: data/org.gnome.gitg.gschema.xml.in:213
+#| msgid "Save Patch File"
+msgid "Path Filter"
+msgstr "Фільтр шляхів"
+
+#: data/org.gnome.gitg.gschema.xml.in:214
+msgid ""
+"Filter commits by file paths. Separate multiple patterns with spaces. Prefix "
+"with :! to exclude (e.g. :!po excludes commits only touching po/)."
+msgstr ""
+"Фільтрувати внески за шляхами до файлів. Окремі взірці слід розділяти пробіла"
+"ми. Додайте префікс :! для виключення (наприклад, :!po виключає внески, що ст"
+"осуються лише каталогу po/)."
+
+#: data/org.gnome.gitg.gschema.xml.in:221
+msgid "Date Filter Type"
+msgstr "Тип фільтра за датою"
+
+#: data/org.gnome.gitg.gschema.xml.in:222
+msgid "Type of date filter to apply: none, since, until, before, or after."
+msgstr "Тип фільтра за датою: none, since, until, before або after."
+
+#: data/org.gnome.gitg.gschema.xml.in:228
+#| msgid "Filter Files"
+msgid "Date Filter Value"
+msgstr "Значення фільтра за датами"
+
+#: data/org.gnome.gitg.gschema.xml.in:229
+msgid ""
+"Date value for filtering. Accepts dates like \"2025-01-01\", \"2025-01-01 "
+"14:30\", or relative dates like \"2 weeks ago\"."
+msgstr ""
+"Значення дати для фільтрування. Можливі дати у форматах подібних до «2025-01-"
+"01», «2025-01-01 14:30» або відносні дати, як-от «2 weeks ago» (2 тижні тому)"
+"."
+
+#: data/org.gnome.gitg.gschema.xml.in:236
+msgid "Second Date Filter Type"
+msgstr "Тип фільтра за другою датою"
+
+#: data/org.gnome.gitg.gschema.xml.in:237
+msgid ""
+"Type of second date filter: none, since, until, before, or after. Use with "
+"the first date filter to define a date range."
+msgstr ""
+"Тип фільтра за другою датою: «none, since», «until», «before» або «after». Ви"
+"користовуйте разом із фільтром за першою датою, щоб визначити діапазон дат."
+
+#: data/org.gnome.gitg.gschema.xml.in:244
+msgid "Second Date Filter Value"
+msgstr "Значення фільтра за другою датою"
+
+#: data/org.gnome.gitg.gschema.xml.in:245
+msgid "Date value for the second filter. Same format as the first."
+msgstr ""
+"Значення другої дати для фільтрування. Формат такий самий, як і для першої да"
+"ти."
+
+# Автор
+#: data/org.gnome.gitg.gschema.xml.in:251
+#| msgid "Author date"
+msgid "Author Filter"
+msgstr "Фільтр за автором"
+
+#: data/org.gnome.gitg.gschema.xml.in:252
+msgid ""
+"Filter commits by author. Matches against \"Name <email>\" as a case-"
+"insensitive regex, like git --author."
+msgstr ""
+"Фільтрувати внески за автором. Відповідність встановлюється за виразом «Ім'я "
+"<пошта>» як формальним виразом без врахування регістру символів, подібно до g"
+"it --author."
+
+# Здійснювати
+#: data/org.gnome.gitg.gschema.xml.in:259
+#| msgid "Committer date"
+msgid "Committer Filter"
+msgstr "Фільтра за автором записування"
+
+#: data/org.gnome.gitg.gschema.xml.in:260
+msgid ""
+"Filter commits by committer. Matches against \"Name <email>\" as a case-"
+"insensitive regex, like git --committer."
+msgstr ""
+"Фільтрувати внески за автором записування. Відповідність встановлюється за ви"
+"разом «Ім'я <пошта>» як формальним виразом без врахування регістру символів, "
+"подібно до git --committer."
+
+#: data/org.gnome.gitg.gschema.xml.in:267
+msgid "Range Filter Type"
+msgstr "Тип фільтра за діапазоном"
+
+#: data/org.gnome.gitg.gschema.xml.in:268
+msgid ""
+"Type of range filter: none, \"..\" (range), or \"...\" (symmetric "
+"difference)."
+msgstr ""
+"Тип фільтрування за діапазоном: none, \"..\" (діапазон) або \"...\" (симетрич"
+"на різниця)."
+
+#: data/org.gnome.gitg.gschema.xml.in:274
+msgid "Range Filter Left Ref"
+msgstr "Ліве посилання фільтра за діапазоном"
+
+#: data/org.gnome.gitg.gschema.xml.in:275
+msgid "Left reference for range filter (e.g. origin/main, HEAD~5, a tag)."
+msgstr ""
+"Ліве посилання для фільтра за діапазоном (Приклади: origin/main, HEAD~5, мітк"
+"а)."
+
+#: data/org.gnome.gitg.gschema.xml.in:281
+msgid "Range Filter Right Ref"
+msgstr "Права посилання фільтра за діапазоном"
+
+#: data/org.gnome.gitg.gschema.xml.in:282
+msgid "Right reference for range filter (e.g. feature-branch, HEAD)."
+msgstr ""
+"Праве посилання для фільтрування за діапазоном (Приклади: feature-branch, HEA"
+"D)."
+
+#: data/org.gnome.gitg.gschema.xml.in:288
+msgid "Show Common Ancestry"
+msgstr "Показати спільного попередника"
+
+#: data/org.gnome.gitg.gschema.xml.in:289
+msgid ""
+"When using \"...\" symmetric range, include the merge base commit for "
+"additional context."
+msgstr ""
+"При використанні симетричного діапазону \"...\", включити базовий внесок об'є"
+"днання для додаткового контексту."
+
+#: data/org.gnome.gitg.gschema.xml.in:298
 msgid "Switch to the new branch on creation"
 msgstr "Перемикатися на нову гілку при створенні"
 
-#: data/org.gnome.gitg.gschema.xml.in:209
+#: data/org.gnome.gitg.gschema.xml.in:299
 msgid ""
 "Setting that controls whether the newly created branch is checked out "
 "automatically."
@@ -310,12 +450,12 @@ msgstr ""
 "новостворених гілок."
 
 # Показати правому краю у фіксації повідомлення Переглянути
-#: data/org.gnome.gitg.gschema.xml.in:224
+#: data/org.gnome.gitg.gschema.xml.in:314
 msgid "Show Right Margin in Commit Message View"
 msgstr "Показати праве поле в перегляді повідомлення щодо внесків"
 
 # Показати право показник маржі у фіксації зору. Це може бути використано, щоб легко побачити, де розбити фіксації у певному стовпці.
-#: data/org.gnome.gitg.gschema.xml.in:225
+#: data/org.gnome.gitg.gschema.xml.in:315
 msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
@@ -325,12 +465,12 @@ msgstr ""
 "у повідомленні щодо внесків."
 
 # Колонка на якому правому краю показано
-#: data/org.gnome.gitg.gschema.xml.in:233
+#: data/org.gnome.gitg.gschema.xml.in:323
 msgid "Column at Which Right Margin is Shown"
 msgstr "Позиція у рядку, на якій показується праве поле"
 
 # Стовпця, на якому праве поле з’являється, якщо право-маржа перевагу встановлений у значення TRUE.
-#: data/org.gnome.gitg.gschema.xml.in:234
+#: data/org.gnome.gitg.gschema.xml.in:324
 msgid ""
 "The column at which the right margin is shown if the show-right-margin "
 "preference is set to TRUE."
@@ -339,11 +479,11 @@ msgstr ""
 "margin» вказано як TRUE."
 
 # Показати правому краю у фіксації повідомлення Переглянути
-#: data/org.gnome.gitg.gschema.xml.in:241
+#: data/org.gnome.gitg.gschema.xml.in:331
 msgid "Show Subject Margin in Commit Message View"
 msgstr "Показати поле теми в перегляді повідомлення щодо внесків"
 
-#: data/org.gnome.gitg.gschema.xml.in:242
+#: data/org.gnome.gitg.gschema.xml.in:332
 msgid ""
 "Highlight the subject text of the commit message when it passes the margin "
 "specified by subject-margin-position."
@@ -352,12 +492,12 @@ msgstr ""
 "яке вказано через «subject-margin-position»."
 
 # Колонка на якому правому краю показано
-#: data/org.gnome.gitg.gschema.xml.in:249
+#: data/org.gnome.gitg.gschema.xml.in:339
 msgid "Column at Which Subject Margin is Shown"
 msgstr "Позиція у рядку, на якій показується поле теми"
 
 # Стовпця, на якому праве поле з’являється, якщо право-маржа перевагу встановлений у значення TRUE.
-#: data/org.gnome.gitg.gschema.xml.in:250
+#: data/org.gnome.gitg.gschema.xml.in:340
 msgid ""
 "The column at which the subject margin is shown if the show-subject-margin "
 "preference is set to TRUE."
@@ -365,11 +505,11 @@ msgstr ""
 "Стовпчик рядка, поле теми якого показується, якщо параметр «show-subject-"
 "margin» вказано як TRUE."
 
-#: data/org.gnome.gitg.gschema.xml.in:257
+#: data/org.gnome.gitg.gschema.xml.in:347
 msgid "Enable Spell Checking"
 msgstr "Увімкнути перевіряння орфографії"
 
-#: data/org.gnome.gitg.gschema.xml.in:258
+#: data/org.gnome.gitg.gschema.xml.in:348
 msgid ""
 "Setting which determines whether or not spell checking is enabled when "
 "writing a commit message."
@@ -377,11 +517,11 @@ msgstr ""
 "Параметр, який визначає, чи буде увімкнено перевірку правопису при написанні "
 "повідомлення про внесок."
 
-#: data/org.gnome.gitg.gschema.xml.in:265
+#: data/org.gnome.gitg.gschema.xml.in:355
 msgid "Spell Checking Language"
 msgstr "Мова для перевірки правопису"
 
-#: data/org.gnome.gitg.gschema.xml.in:266
+#: data/org.gnome.gitg.gschema.xml.in:356
 msgid ""
 "The language to use when spell checking is enabled for writing a commit "
 "message."
@@ -389,11 +529,11 @@ msgstr ""
 "Мова, яку слід використовувати, якщо увімкнено перевірку правопису, для "
 "перевірки правопису у повідомлення внеску."
 
-#: data/org.gnome.gitg.gschema.xml.in:273
+#: data/org.gnome.gitg.gschema.xml.in:363
 msgid "Maximum number of previous commit messages"
 msgstr "Максимальна кількість попередніх повідомлень щодо внесків"
 
-#: data/org.gnome.gitg.gschema.xml.in:274
+#: data/org.gnome.gitg.gschema.xml.in:364
 msgid ""
 "Maximum number of previous commit messages to store for commit message "
 "history."
@@ -401,12 +541,12 @@ msgstr ""
 "Максимальна кількість попередніх повідомлень про внесок для зберігання у "
 "журналі повідомлень щодо внесків."
 
-#: data/org.gnome.gitg.gschema.xml.in:278
+#: data/org.gnome.gitg.gschema.xml.in:368
 msgid "Maximum number of days to store previous commit messages"
 msgstr ""
 "Максимальна тривалість зберігання попередніх повідомлень щодо внесків у днях"
 
-#: data/org.gnome.gitg.gschema.xml.in:279
+#: data/org.gnome.gitg.gschema.xml.in:369
 msgid ""
 "Maximum number of days to store previous commit messages for commit message "
 "history."
@@ -414,39 +554,39 @@ msgstr ""
 "Максимальна тривалість зберігання попередніх повідомлень щодо внесків у днях "
 "для журналу повідомлень щодо внесків."
 
-#: data/org.gnome.gitg.gschema.xml.in:283
-#: data/org.gnome.gitg.gschema.xml.in:284
+#: data/org.gnome.gitg.gschema.xml.in:373
+#: data/org.gnome.gitg.gschema.xml.in:374
 msgid "Type of datetime format selected."
 msgstr "Тип вибраного формату дати і часу."
 
-#: data/org.gnome.gitg.gschema.xml.in:290
+#: data/org.gnome.gitg.gschema.xml.in:380
 msgid "Preferred datetime format of the user."
 msgstr "Бажаний для користувача формат запису дати і часу."
 
-#: data/org.gnome.gitg.gschema.xml.in:291
+#: data/org.gnome.gitg.gschema.xml.in:381
 msgid "The datetime format to be used in commit-diff."
 msgstr "Формат запису дати і часу, який буде використано у різниці внесків."
 
-#: data/org.gnome.gitg.gschema.xml.in:297
-#: data/org.gnome.gitg.gschema.xml.in:298
+#: data/org.gnome.gitg.gschema.xml.in:387
+#: data/org.gnome.gitg.gschema.xml.in:388
 msgid "Custom datetime format."
 msgstr "Нетиповий формат запису дати і часу."
 
-#: data/org.gnome.gitg.gschema.xml.in:306
+#: data/org.gnome.gitg.gschema.xml.in:396
 msgid "Use patience algorithm to show diffs"
 msgstr "Використовувати терплячий алгоритм для показу різниць"
 
-#: data/org.gnome.gitg.gschema.xml.in:307
+#: data/org.gnome.gitg.gschema.xml.in:397
 msgid "Setting to use patience algorithm to show diffs of a commit."
 msgstr ""
 "Параметр для використання терплячого алгоритму для показу різниць у внесках."
 
-#: data/org.gnome.gitg.gschema.xml.in:313
+#: data/org.gnome.gitg.gschema.xml.in:403
 msgid "Ignore Whitespace Changes"
 msgstr "Ігнорувати зміни у пробілах"
 
 # Параметр, який вказує, чи потрібно показувати історію у топологічному порядку.
-#: data/org.gnome.gitg.gschema.xml.in:314
+#: data/org.gnome.gitg.gschema.xml.in:404
 msgid ""
 "Setting that indicates whether to ignore whitespace changes when showing the "
 "diff of a commit."
@@ -454,33 +594,33 @@ msgstr ""
 "Параметр, який визначає, чи слід ігнорувати зміни у пробілах при показі "
 "різниці для внеску."
 
-#: data/org.gnome.gitg.gschema.xml.in:321
+#: data/org.gnome.gitg.gschema.xml.in:411
 msgid "Show Changes Inline"
 msgstr "Показувати вбудовані зміни"
 
 # Параметр, який вказує, чи потрібно показувати історію у топологічному порядку.
-#: data/org.gnome.gitg.gschema.xml.in:322
+#: data/org.gnome.gitg.gschema.xml.in:412
 msgid ""
 "Setting that indicates whether changes within lines should be shown inline."
 msgstr ""
 "Параметр, який визначає, чи буде позначено самі зміни у змінених рядках."
 
-#: data/org.gnome.gitg.gschema.xml.in:329
-#: data/org.gnome.gitg.gschema.xml.in:371
+#: data/org.gnome.gitg.gschema.xml.in:419
+#: data/org.gnome.gitg.gschema.xml.in:469
 msgid "Wrap"
 msgstr "Перенесення"
 
-#: data/org.gnome.gitg.gschema.xml.in:330
-#: data/org.gnome.gitg.gschema.xml.in:372
+#: data/org.gnome.gitg.gschema.xml.in:420
+#: data/org.gnome.gitg.gschema.xml.in:470
 msgid "Wrap lines."
 msgstr "Перенесення рядків."
 
-#: data/org.gnome.gitg.gschema.xml.in:336
-#: data/org.gnome.gitg.gschema.xml.in:354
+#: data/org.gnome.gitg.gschema.xml.in:426
+#: data/org.gnome.gitg.gschema.xml.in:452
 msgid "Number of Before/After Context Lines"
 msgstr "Кількість рядків контексту до/після"
 
-#: data/org.gnome.gitg.gschema.xml.in:337
+#: data/org.gnome.gitg.gschema.xml.in:427
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff of a commit."
@@ -488,13 +628,25 @@ msgstr ""
 "Параметр, який визначає скільки рядків контексту (рядків до і після "
 "зміненого рядка) має бути показано у різниці внеску."
 
-#: data/org.gnome.gitg.gschema.xml.in:344
-#: data/org.gnome.gitg.gschema.xml.in:363
+#: data/org.gnome.gitg.gschema.xml.in:434
+msgid "Show Full File in Diff"
+msgstr "Показувати увесь файл у різниці"
+
+#: data/org.gnome.gitg.gschema.xml.in:435
+msgid ""
+"When enabled, the diff view shows the entire file with unchanged regions "
+"folded, instead of showing only the changed hunks."
+msgstr ""
+"Якщо увімкнено, режим перегляду різниці показуватиме увесь файл, а не лише зм"
+"інені фрагменти зі згортанням незмінених фрагментів."
+
+#: data/org.gnome.gitg.gschema.xml.in:442
+#: data/org.gnome.gitg.gschema.xml.in:461
 msgid "Rendered Width of a Tab Character"
 msgstr "Показана ширина символу табуляції"
 
-#: data/org.gnome.gitg.gschema.xml.in:345
-#: data/org.gnome.gitg.gschema.xml.in:364
+#: data/org.gnome.gitg.gschema.xml.in:443
+#: data/org.gnome.gitg.gschema.xml.in:462
 msgid ""
 "Setting that determines how much space a tab character should occupy when "
 "showing the diff of a commit."
@@ -502,7 +654,7 @@ msgstr ""
 "Параметр, який визначає, скількома пробілами буде замінено символ табуляції "
 "при показі різниці внеску."
 
-#: data/org.gnome.gitg.gschema.xml.in:355
+#: data/org.gnome.gitg.gschema.xml.in:453
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff to be staged/unstaged in the commit area."
@@ -724,7 +876,7 @@ msgstr "Ви справді хочете назавжди відкинути в�
 #: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
 #: gitg/commit/gitg-commit.vala:1606
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:469
-#: gitg/gitg-window.vala:215 gitg/gitg-window.vala:813
+#: gitg/gitg-window.vala:218 gitg/gitg-window.vala:880
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
 #: gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
@@ -1639,49 +1791,49 @@ msgid "Failed to remove remote"
 msgstr "Не вдалося вилучити запис віддаленого сховища"
 
 # Відкрити Git репозиторій
-#: gitg/gitg-window.vala:212
+#: gitg/gitg-window.vala:215
 msgid "Add Repository"
 msgstr "Додати сховище"
 
-#: gitg/gitg-window.vala:216
+#: gitg/gitg-window.vala:219
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:34
 #: gitg/resources/ui/gitg-window.ui:64
 msgid "_Add"
 msgstr "_Додати"
 
-#: gitg/gitg-window.vala:218
+#: gitg/gitg-window.vala:221
 msgid "_Scan for all git repositories from this directory"
 msgstr "С_канувати усі сховища git з цього каталогу"
 
-#: gitg/gitg-window.vala:565
+#: gitg/gitg-window.vala:632
 msgid "Projects"
 msgstr "Проєкти"
 
-#: gitg/gitg-window.vala:609
+#: gitg/gitg-window.vala:676
 msgid "_Global Actions"
 msgstr "_Загальні дії"
 
 # Відкрити Git репозиторій
-#: gitg/gitg-window.vala:811
+#: gitg/gitg-window.vala:878
 msgid "Open Repository"
 msgstr "Відкрити сховище"
 
 # Відкрити…
-#: gitg/gitg-window.vala:814 gitg/resources/ui/gitg-commit-submodule-info.ui:70
+#: gitg/gitg-window.vala:881 gitg/resources/ui/gitg-commit-submodule-info.ui:70
 msgid "_Open"
 msgstr "_Відкрити"
 
-#: gitg/gitg-window.vala:961
+#: gitg/gitg-window.vala:1029
 msgid "Select items"
 msgstr "Вибрати елементи"
 
 # Не вдалося знайти Git репозиторій
-#: gitg/gitg-window.vala:1180
+#: gitg/gitg-window.vala:1248
 #, c-format
 msgid "“%s” is not a Git repository."
 msgstr "«%s» — не сховище Git."
 
-#: gitg/gitg-window.vala:1327
+#: gitg/gitg-window.vala:1395
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
@@ -1689,7 +1841,7 @@ msgstr ""
 "Ще не налаштовано користувача та пошту. Перейдіть у користувацькі параметри "
 "і вкажіть їх."
 
-#: gitg/gitg-window.vala:1331
+#: gitg/gitg-window.vala:1399
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
@@ -1697,7 +1849,7 @@ msgstr ""
 "Ще не налаштовано користувача. Перейдіть у користувацькі параметри і вкажіть "
 "його."
 
-#: gitg/gitg-window.vala:1335
+#: gitg/gitg-window.vala:1403
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
@@ -1705,7 +1857,7 @@ msgstr ""
 "Ще не налаштовано пошту. Перейдіть у користувацькі параметри і вкажіть її."
 
 # Детальна інформація
-#: gitg/gitg-window.vala:1338
+#: gitg/gitg-window.vala:1406
 msgid "Missing author details"
 msgstr "Немає подробиць щодо автора"
 
@@ -1769,23 +1921,105 @@ msgid "Stash"
 msgstr "Накопичити"
 
 # Історія
-#: gitg/history/gitg-history.vala:353
+#: gitg/history/gitg-history.vala:363
 #: gitg/preferences/gitg-preferences-history.vala:226
 #: gitg/resources/ui/gitg-preferences-interface.ui:60
 msgid "History"
 msgstr "Журнал"
 
-#: gitg/history/gitg-history.vala:358
+#: gitg/history/gitg-history.vala:368
 msgid "Examine the history of the repository"
 msgstr "Вивчення журналу сховища"
 
-#: gitg/history/gitg-history.vala:1117
+#: gitg/history/gitg-history.vala:1367
 msgid "Mainline"
 msgstr "Основа"
 
-#: gitg/history/gitg-history.vala:1198
+#: gitg/history/gitg-history.vala:1448
 msgid "Main remote"
 msgstr "Основне віддалене сховище"
+
+#: gitg/history/gitg-history.vala:1822
+msgid "Show only d_ecorated commits"
+msgstr "Показувати лише о_формлені внески"
+
+#: gitg/history/gitg-history.vala:1829
+msgid ""
+"_Path filter (separate patterns with spaces, prefix with :! to exclude)"
+msgstr "Фільтр за _шляхом (окремі взірці з пробілами, префікс :! — виключити)"
+
+#: gitg/history/gitg-history.vala:1844
+#| msgid "Delete file"
+#| msgid_plural "Delete files"
+msgid "_Date filter"
+msgstr "Фільтр за _датою"
+
+#: gitg/history/gitg-history.vala:1851 gitg/history/gitg-history.vala:1876
+#: gitg/history/gitg-history.vala:1943
+msgid "None"
+msgstr "Немає"
+
+#: gitg/history/gitg-history.vala:1852 gitg/history/gitg-history.vala:1877
+msgid "Since"
+msgstr "Початкова дата"
+
+#: gitg/history/gitg-history.vala:1853 gitg/history/gitg-history.vala:1878
+msgid "Until"
+msgstr "Кінцева дата"
+
+#: gitg/history/gitg-history.vala:1854 gitg/history/gitg-history.vala:1879
+msgid "Before"
+msgstr "До"
+
+#: gitg/history/gitg-history.vala:1855 gitg/history/gitg-history.vala:1880
+msgid "After"
+msgstr "Після"
+
+#: gitg/history/gitg-history.vala:1865
+msgid "e.g. 2 weeks ago, 2025-01-01"
+msgstr "Приклад: 2 тижні тому, 2025-01-01"
+
+#: gitg/history/gitg-history.vala:1890
+msgid "e.g. yesterday, 2025-06-15"
+msgstr "Приклади: вчора, 2025-06-15"
+
+#: gitg/history/gitg-history.vala:1900
+msgid "_Author filter (regex on Name <email>)"
+msgstr "Фільтр за _автором (формальний вираз або Ім'я <пошта>)"
+
+#: gitg/history/gitg-history.vala:1908
+msgid "e.g. John, john@example.com"
+msgstr "Приклади: John, john@example.com"
+
+#: gitg/history/gitg-history.vala:1913
+msgid "Co_mmitter filter (regex on Name <email>)"
+msgstr "Фільтр за автором зап_исування (формальний вираз або Ім'я <пошта>)"
+
+#: gitg/history/gitg-history.vala:1921
+msgid "e.g. bot, ci@"
+msgstr "Приклади: bot, ci@"
+
+# Відкрити…
+#: gitg/history/gitg-history.vala:1929
+#| msgid "_Open file"
+msgid "_Range filter"
+msgstr "Фільтр за ді_апазоном"
+
+#: gitg/history/gitg-history.vala:1937
+msgid "e.g. origin/main"
+msgstr "Приклад: origin/main"
+
+#: gitg/history/gitg-history.vala:1955
+msgid "e.g. HEAD"
+msgstr "Приклад: HEAD"
+
+#: gitg/history/gitg-history.vala:1963
+msgid "Show _common ancestry"
+msgstr "Показати с_пільного попередника"
+
+#: gitg/history/gitg-history.vala:1982
+msgid "Use _repo config"
+msgstr "_Налаштування сховища"
 
 # Здійснювати
 #: gitg/preferences/gitg-preferences-commit.vala:180
@@ -1994,28 +2228,24 @@ msgstr "Дата"
 # Фіксація повідомлення
 #: gitg/resources/ui/gitg-commit-submodule-history-view.ui:153
 #: gitg/resources/ui/gitg-history-paned.ui:221
-#| msgid "Commit Message"
 msgid "Message"
 msgstr "Повідомлення"
 
 # Детальна інформація
 #: gitg/resources/ui/gitg-commit-submodule-history-view.ui:172
 #: gitg/resources/ui/gitg-history-paned.ui:240
-#| msgid "Author Details"
 msgid "Author email"
 msgstr "Електронна пошта автора"
 
 # Здійснювати
 #: gitg/resources/ui/gitg-commit-submodule-history-view.ui:191
 #: gitg/resources/ui/gitg-history-paned.ui:259
-#| msgid "Committer"
 msgid "Committer email"
 msgstr "Адреса автора внеску"
 
 # Здійснювати
 #: gitg/resources/ui/gitg-commit-submodule-history-view.ui:210
 #: gitg/resources/ui/gitg-history-paned.ui:278
-#| msgid "Committer"
 msgid "Committer date"
 msgstr "Дата автора внеску"
 
@@ -2065,19 +2295,16 @@ msgstr "Редагувати віддалене сховище"
 
 # Автор
 #: gitg/resources/ui/gitg-history-paned.ui:113
-#| msgid "Author"
 msgid "Author name"
 msgstr "Ім'я автора"
 
 # Здійснювати
 #: gitg/resources/ui/gitg-history-paned.ui:130
-#| msgid "Committer"
 msgid "Committer name"
 msgstr "Ім'я автора внеску"
 
 # Автор
 #: gitg/resources/ui/gitg-history-paned.ui:166
-#| msgid "Author"
 msgid "Author date"
 msgstr "Дата автора"
 
@@ -2186,7 +2413,6 @@ msgid "Smart Push. Figure out parameters for push action"
 msgstr "Кмітливе записування. Вгадувати параметри для дії із записування"
 
 #: gitg/resources/ui/gitg-preferences-general.ui:69
-#| msgid "Default selection"
 msgid "Default visible columns"
 msgstr "Типові видимі стовпчики"
 
@@ -2300,7 +2526,7 @@ msgstr "Виберіть колір редактора"
 
 # Diff
 #: gitg/resources/ui/gitg-preferences-interface.ui:292
-#: plugins/diff/gitg-diff.vala:120
+#: plugins/diff/gitg-diff.vala:125
 msgid "Diff"
 msgstr "Порівняти"
 
@@ -2499,117 +2725,122 @@ msgstr "Знайти"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:68
 msgctxt "shortcut window"
+msgid "Advanced filtering"
+msgstr "Додаткове фільтрування"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:75
+msgctxt "shortcut window"
 msgid "Move to next search result"
 msgstr "Перейти до наступного результату пошуку"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:75
+#: gitg/resources/ui/gitg-shortcuts.ui:82
 msgctxt "shortcut window"
 msgid "Move to previous search result"
 msgstr "Перейти до попереднього результату пошуку"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:82
+#: gitg/resources/ui/gitg-shortcuts.ui:89
 msgctxt "shortcut window"
 msgid "Close the active window"
 msgstr "Закрити активне вікно"
 
 # Показати версію програми
-#: gitg/resources/ui/gitg-shortcuts.ui:89
+#: gitg/resources/ui/gitg-shortcuts.ui:96
 msgctxt "shortcut window"
 msgid "Quit the application"
 msgstr "Вийти з програми"
 
 # Зміни
-#: gitg/resources/ui/gitg-shortcuts.ui:96
+#: gitg/resources/ui/gitg-shortcuts.ui:103
 msgctxt "shortcut window"
 msgid "Change to Dash"
 msgstr "Перейти до панелі приладів"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:103
+#: gitg/resources/ui/gitg-shortcuts.ui:110
 msgctxt "shortcut window"
 msgid "Change to History View"
 msgstr "Перейти до панелі журналу"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:110
+#: gitg/resources/ui/gitg-shortcuts.ui:117
 msgctxt "shortcut window"
 msgid "Change to Commit View"
 msgstr "Перейти до панелі внесків"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:117
+#: gitg/resources/ui/gitg-shortcuts.ui:124
 msgctxt "shortcut window"
 msgid "Change to activity"
 msgstr "Перейти до списку дій"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:125
+#: gitg/resources/ui/gitg-shortcuts.ui:132
 msgctxt "shortcut window"
 msgid "Commit Activity"
 msgstr "Робота із внесками"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:130
+#: gitg/resources/ui/gitg-shortcuts.ui:137
 msgctxt "shortcut window"
 msgid "Select/Unselect"
 msgstr "Позначити або зняти позначення"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:137
+#: gitg/resources/ui/gitg-shortcuts.ui:144
 msgctxt "shortcut window"
 msgid "Open commit dialog"
 msgstr "Відкрити вікно внеску"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:144
+#: gitg/resources/ui/gitg-shortcuts.ui:151
 msgctxt "shortcut window"
 msgid "Stage selection"
 msgstr "Сформувати позначене"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:151
+#: gitg/resources/ui/gitg-shortcuts.ui:158
 msgctxt "shortcut window"
 msgid "Unstage selection"
 msgstr "Скасувати формування позначеного"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:158
+#: gitg/resources/ui/gitg-shortcuts.ui:165
 msgctxt "shortcut window"
 msgid "Discard selection"
 msgstr "Відкинути позначене"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:165
+#: gitg/resources/ui/gitg-shortcuts.ui:172
 msgctxt "shortcut window"
 msgid "Edit selection"
 msgstr "Змінити позначене"
 
 # Фіксація повідомлення
-#: gitg/resources/ui/gitg-shortcuts.ui:173
+#: gitg/resources/ui/gitg-shortcuts.ui:180
 msgctxt "shortcut window"
 msgid "Commit Dialog"
 msgstr "Вікно внеску"
 
 # Здійснювати
-#: gitg/resources/ui/gitg-shortcuts.ui:178
+#: gitg/resources/ui/gitg-shortcuts.ui:185
 msgctxt "shortcut window"
 msgid "Commit"
 msgstr "Внести"
 
 # Здійснювати
-#: gitg/resources/ui/gitg-shortcuts.ui:185
+#: gitg/resources/ui/gitg-shortcuts.ui:192
 msgctxt "shortcut window"
 msgid "Cancel Commit"
 msgstr "Скасувати внесення"
 
 # Фіксація повідомлення
-#: gitg/resources/ui/gitg-shortcuts.ui:192
+#: gitg/resources/ui/gitg-shortcuts.ui:199
 msgctxt "shortcut window"
 msgid "Previous commit message"
 msgstr "Попереднє повідомлення щодо внеску"
 
 # Фіксація повідомлення
-#: gitg/resources/ui/gitg-shortcuts.ui:199
+#: gitg/resources/ui/gitg-shortcuts.ui:206
 msgctxt "shortcut window"
 msgid "Next commit message"
 msgstr "Наступне повідомлення щодо внеску"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:207
+#: gitg/resources/ui/gitg-shortcuts.ui:214
 msgctxt "shortcut window"
 msgid "History Activity"
 msgstr "Дії з журналом"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:212
+#: gitg/resources/ui/gitg-shortcuts.ui:219
 msgctxt "shortcut window"
 msgid "Show global actions contextual menu. (If any defined)"
 msgstr "Показати контекстне меню загальних дій. (Якщо їх визначено)"
@@ -2647,6 +2878,10 @@ msgstr "Попередній результат"
 #: gitg/resources/ui/gitg-window.ui:282
 msgid "Next result"
 msgstr "Наступний результат"
+
+#: gitg/resources/ui/gitg-window.ui:298
+msgid "_Advanced…"
+msgstr "Д_одатково…"
 
 #. Translators: %s will be replaced with a URL indicating the resource
 #. for which the authentication is required.
@@ -2789,6 +3024,14 @@ msgstr "Відкрити _теку із даними"
 msgid "_Copy file path"
 msgstr "_Копіювати шлях до файла"
 
+#: libgitg/gitg-diff-view-file.vala:347
+msgid "_Fold all"
+msgstr "З_горнути усе"
+
+#: libgitg/gitg-diff-view-file.vala:357
+msgid "_Unfold all"
+msgstr "_Розгорнути усе"
+
 #. Translators: this is used to construct: "at <directory>", to indicate where the repository is at.
 #: libgitg/gitg-repository-list-box.vala:162
 #, c-format
@@ -2921,7 +3164,13 @@ msgstr "Ігнорування пробілів:"
 msgid "Context:"
 msgstr "Контекст:"
 
-#: libgitg/resources/ui/gitg-diff-view-options.ui:63
+#: libgitg/resources/ui/gitg-diff-view-options.ui:67
+#| msgid "Delete file"
+#| msgid_plural "Delete files"
+msgid "Full file"
+msgstr "Увесь файл"
+
+#: libgitg/resources/ui/gitg-diff-view-options.ui:82
 msgid "Spacing"
 msgstr "Інтервал"
 
@@ -2931,7 +3180,7 @@ msgid ""
 "disk)"
 msgstr "Вилучити сховище зі списку (дані сховища не буде вилучено з диска)"
 
-#: plugins/diff/gitg-diff.vala:125
+#: plugins/diff/gitg-diff.vala:130
 msgid "Show the changes introduced by the selected commit"
 msgstr "Показати зміни у результаті вибраного внеску"
 
