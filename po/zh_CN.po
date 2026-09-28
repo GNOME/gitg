@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2026-09-26 15:24+0000\n"
-"PO-Revision-Date: 2026-09-27 16:15+0800\n"
+"POT-Creation-Date: 2026-09-27 10:23+0000\n"
+"PO-Revision-Date: 2026-09-28 09:44+0800\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -262,21 +262,141 @@ msgstr "过滤未知引用"
 msgid "Hide any ref different from refs/heads and refs/remotes."
 msgstr "隐藏任何不同于 refs/heads 和 refs/remotes 的引用。"
 
-#: data/org.gnome.gitg.gschema.xml.in:208
+#: data/org.gnome.gitg.gschema.xml.in:206
+msgid "Show only decorated commits"
+msgstr "仅显示带标记的提交"
+
+#: data/org.gnome.gitg.gschema.xml.in:207
+msgid "Only show commits decorated."
+msgstr "仅显示带有指向标记的提交。"
+
+#: data/org.gnome.gitg.gschema.xml.in:213
+msgid "Path Filter"
+msgstr "路径筛选"
+
+#: data/org.gnome.gitg.gschema.xml.in:214
+msgid ""
+"Filter commits by file paths. Separate multiple patterns with spaces. Prefix "
+"with :! to exclude (e.g. :!po excludes commits only touching po/)."
+msgstr ""
+"通过文件路径筛选提交。用空格分隔多个模式。用前缀 :! 来排除（例如：:!po 排除仅"
+"修改了 po/ 的提交）。"
+
+#: data/org.gnome.gitg.gschema.xml.in:221
+msgid "Date Filter Type"
+msgstr "日期筛选类型"
+
+#: data/org.gnome.gitg.gschema.xml.in:222
+msgid "Type of date filter to apply: none, since, until, before, or after."
+msgstr "要应用的日期筛选器类型：none、since、until、before 或 after。"
+
+#: data/org.gnome.gitg.gschema.xml.in:228
+msgid "Date Filter Value"
+msgstr "日期筛选值"
+
+#: data/org.gnome.gitg.gschema.xml.in:229
+msgid ""
+"Date value for filtering. Accepts dates like \"2025-01-01\", \"2025-01-01 "
+"14:30\", or relative dates like \"2 weeks ago\"."
+msgstr ""
+"用于筛选的日期值。可接受的日期如“2025-01-01”、“2025-01-01 14:30”或相对日期"
+"如“2 weeks ago”。"
+
+#: data/org.gnome.gitg.gschema.xml.in:236
+msgid "Second Date Filter Type"
+msgstr "第二日期筛选类型"
+
+#: data/org.gnome.gitg.gschema.xml.in:237
+msgid ""
+"Type of second date filter: none, since, until, before, or after. Use with "
+"the first date filter to define a date range."
+msgstr ""
+"第二日期筛选器的类型：none、since、until、before 或 after。与第一日期筛选配合"
+"使用来定义日期范围。"
+
+#: data/org.gnome.gitg.gschema.xml.in:244
+msgid "Second Date Filter Value"
+msgstr "第二日期筛选值"
+
+#: data/org.gnome.gitg.gschema.xml.in:245
+msgid "Date value for the second filter. Same format as the first."
+msgstr "用于第二筛选器的日期值。与第一日期筛选格式相同。"
+
+#: data/org.gnome.gitg.gschema.xml.in:251
+msgid "Author Filter"
+msgstr "作者筛选"
+
+#: data/org.gnome.gitg.gschema.xml.in:252
+msgid ""
+"Filter commits by author. Matches against \"Name <email>\" as a case-"
+"insensitive regex, like git --author."
+msgstr ""
+"通过作者筛选提交。针对“Name <email>”作为不区分大小写的正则表达式进行匹配，如 "
+"git --author。"
+
+#: data/org.gnome.gitg.gschema.xml.in:259
+msgid "Committer Filter"
+msgstr "提交者筛选"
+
+#: data/org.gnome.gitg.gschema.xml.in:260
+msgid ""
+"Filter commits by committer. Matches against \"Name <email>\" as a case-"
+"insensitive regex, like git --committer."
+msgstr ""
+"通过提交者筛选提交。针对“Name <email>”作为不区分大小写的正则表达式进行匹配，"
+"如 git --committer。"
+
+#: data/org.gnome.gitg.gschema.xml.in:267
+msgid "Range Filter Type"
+msgstr "范围筛选类型"
+
+#: data/org.gnome.gitg.gschema.xml.in:268
+msgid ""
+"Type of range filter: none, \"..\" (range), or \"...\" (symmetric "
+"difference)."
+msgstr "范围筛选器的类型：none、“..”（范围）或“...”（对称差异）。"
+
+#: data/org.gnome.gitg.gschema.xml.in:274
+msgid "Range Filter Left Ref"
+msgstr "范围筛选左引用"
+
+#: data/org.gnome.gitg.gschema.xml.in:275
+msgid "Left reference for range filter (e.g. origin/main, HEAD~5, a tag)."
+msgstr "范围筛选器的左侧引用（例如：origin/main、HEAD~5、一个标签）。"
+
+#: data/org.gnome.gitg.gschema.xml.in:281
+msgid "Range Filter Right Ref"
+msgstr "范围筛选右引用"
+
+#: data/org.gnome.gitg.gschema.xml.in:282
+msgid "Right reference for range filter (e.g. feature-branch, HEAD)."
+msgstr "范围筛选器的右侧引用（例如：特性分支、HEAD）。"
+
+#: data/org.gnome.gitg.gschema.xml.in:288
+msgid "Show Common Ancestry"
+msgstr "显示共同起源"
+
+#: data/org.gnome.gitg.gschema.xml.in:289
+msgid ""
+"When using \"...\" symmetric range, include the merge base commit for "
+"additional context."
+msgstr "当使用“...”对称范围时，包括用于额外上下文的合并基础提交。"
+
+#: data/org.gnome.gitg.gschema.xml.in:298
 msgid "Switch to the new branch on creation"
 msgstr "创建分支时切换至新分支"
 
-#: data/org.gnome.gitg.gschema.xml.in:209
+#: data/org.gnome.gitg.gschema.xml.in:299
 msgid ""
 "Setting that controls whether the newly created branch is checked out "
 "automatically."
 msgstr "控制是否在新分支被创建时自动切换至该分支。"
 
-#: data/org.gnome.gitg.gschema.xml.in:224
+#: data/org.gnome.gitg.gschema.xml.in:314
 msgid "Show Right Margin in Commit Message View"
 msgstr "在提交说明视图中显示右边距"
 
-#: data/org.gnome.gitg.gschema.xml.in:225
+#: data/org.gnome.gitg.gschema.xml.in:315
 msgid ""
 "Show a right margin indicator in the commit message view. This can be used "
 "to easily see where to break the commit message at a particular column."
@@ -284,21 +404,21 @@ msgstr ""
 "在提交说明视图中显示一个右边距指示器。这可以用来方便地看出在哪一列打断提交信"
 "息。"
 
-#: data/org.gnome.gitg.gschema.xml.in:233
+#: data/org.gnome.gitg.gschema.xml.in:323
 msgid "Column at Which Right Margin is Shown"
 msgstr "显示右边距的列"
 
-#: data/org.gnome.gitg.gschema.xml.in:234
+#: data/org.gnome.gitg.gschema.xml.in:324
 msgid ""
 "The column at which the right margin is shown if the show-right-margin "
 "preference is set to TRUE."
 msgstr "若 show-right-margin 首选项设为 TRUE，显示右边界的列。"
 
-#: data/org.gnome.gitg.gschema.xml.in:241
+#: data/org.gnome.gitg.gschema.xml.in:331
 msgid "Show Subject Margin in Commit Message View"
 msgstr "在提交说明视图中显示主题边距"
 
-#: data/org.gnome.gitg.gschema.xml.in:242
+#: data/org.gnome.gitg.gschema.xml.in:332
 msgid ""
 "Highlight the subject text of the commit message when it passes the margin "
 "specified by subject-margin-position."
@@ -306,127 +426,127 @@ msgstr ""
 "在提交说明的主题文字超出 subject-margin-position 指定的边界时，高亮显示越界部"
 "分。"
 
-#: data/org.gnome.gitg.gschema.xml.in:249
+#: data/org.gnome.gitg.gschema.xml.in:339
 msgid "Column at Which Subject Margin is Shown"
 msgstr "显示主题边界的列"
 
-#: data/org.gnome.gitg.gschema.xml.in:250
+#: data/org.gnome.gitg.gschema.xml.in:340
 msgid ""
 "The column at which the subject margin is shown if the show-subject-margin "
 "preference is set to TRUE."
 msgstr "若 show-subject-margin 首选项设为 TRUE，显示主题边界的列。"
 
-#: data/org.gnome.gitg.gschema.xml.in:257
+#: data/org.gnome.gitg.gschema.xml.in:347
 msgid "Enable Spell Checking"
 msgstr "启用拼写检查"
 
-#: data/org.gnome.gitg.gschema.xml.in:258
+#: data/org.gnome.gitg.gschema.xml.in:348
 msgid ""
 "Setting which determines whether or not spell checking is enabled when "
 "writing a commit message."
 msgstr "设置在写提交说明时是否启用拼写检查。"
 
-#: data/org.gnome.gitg.gschema.xml.in:265
+#: data/org.gnome.gitg.gschema.xml.in:355
 msgid "Spell Checking Language"
 msgstr "拼写检查语言"
 
-#: data/org.gnome.gitg.gschema.xml.in:266
+#: data/org.gnome.gitg.gschema.xml.in:356
 msgid ""
 "The language to use when spell checking is enabled for writing a commit "
 "message."
 msgstr "对写作提交说明启用拼写检查时使用的语言。"
 
-#: data/org.gnome.gitg.gschema.xml.in:273
+#: data/org.gnome.gitg.gschema.xml.in:363
 msgid "Maximum number of previous commit messages"
 msgstr "历史提交信息的最大数量"
 
-#: data/org.gnome.gitg.gschema.xml.in:274
+#: data/org.gnome.gitg.gschema.xml.in:364
 msgid ""
 "Maximum number of previous commit messages to store for commit message "
 "history."
 msgstr "存储提交信息历史条目的最大数量。"
 
-#: data/org.gnome.gitg.gschema.xml.in:278
+#: data/org.gnome.gitg.gschema.xml.in:368
 msgid "Maximum number of days to store previous commit messages"
 msgstr "历史提交信息的最长存储日期"
 
-#: data/org.gnome.gitg.gschema.xml.in:279
+#: data/org.gnome.gitg.gschema.xml.in:369
 msgid ""
 "Maximum number of days to store previous commit messages for commit message "
 "history."
 msgstr "存储最久的提交信息历史条目对应的天数。"
 
-#: data/org.gnome.gitg.gschema.xml.in:283
-#: data/org.gnome.gitg.gschema.xml.in:284
+#: data/org.gnome.gitg.gschema.xml.in:373
+#: data/org.gnome.gitg.gschema.xml.in:374
 msgid "Type of datetime format selected."
 msgstr "选择的日期格式类型。"
 
-#: data/org.gnome.gitg.gschema.xml.in:290
+#: data/org.gnome.gitg.gschema.xml.in:380
 msgid "Preferred datetime format of the user."
 msgstr "用户首选的日期格式。"
 
-#: data/org.gnome.gitg.gschema.xml.in:291
+#: data/org.gnome.gitg.gschema.xml.in:381
 msgid "The datetime format to be used in commit-diff."
 msgstr "提交差异中使用的日期格式。"
 
-#: data/org.gnome.gitg.gschema.xml.in:297
-#: data/org.gnome.gitg.gschema.xml.in:298
+#: data/org.gnome.gitg.gschema.xml.in:387
+#: data/org.gnome.gitg.gschema.xml.in:388
 msgid "Custom datetime format."
 msgstr "自定义日期格式"
 
-#: data/org.gnome.gitg.gschema.xml.in:306
+#: data/org.gnome.gitg.gschema.xml.in:396
 msgid "Use patience algorithm to show diffs"
 msgstr "使用耐心算法来显示差异"
 
-#: data/org.gnome.gitg.gschema.xml.in:307
+#: data/org.gnome.gitg.gschema.xml.in:397
 msgid "Setting to use patience algorithm to show diffs of a commit."
 msgstr "设置使用耐心（patience）算法来显示提交的差异。"
 
-#: data/org.gnome.gitg.gschema.xml.in:313
+#: data/org.gnome.gitg.gschema.xml.in:403
 msgid "Ignore Whitespace Changes"
 msgstr "忽略空白变更"
 
-#: data/org.gnome.gitg.gschema.xml.in:314
+#: data/org.gnome.gitg.gschema.xml.in:404
 msgid ""
 "Setting that indicates whether to ignore whitespace changes when showing the "
 "diff of a commit."
 msgstr "设置显示提交间的不同时是否忽略空白变更。"
 
-#: data/org.gnome.gitg.gschema.xml.in:321
+#: data/org.gnome.gitg.gschema.xml.in:411
 msgid "Show Changes Inline"
 msgstr "行内显示变更"
 
-#: data/org.gnome.gitg.gschema.xml.in:322
+#: data/org.gnome.gitg.gschema.xml.in:412
 msgid ""
 "Setting that indicates whether changes within lines should be shown inline."
 msgstr "设置行内变更是否在行内显示。"
 
-#: data/org.gnome.gitg.gschema.xml.in:329
-#: data/org.gnome.gitg.gschema.xml.in:379
+#: data/org.gnome.gitg.gschema.xml.in:419
+#: data/org.gnome.gitg.gschema.xml.in:469
 msgid "Wrap"
 msgstr "折行"
 
-#: data/org.gnome.gitg.gschema.xml.in:330
-#: data/org.gnome.gitg.gschema.xml.in:380
+#: data/org.gnome.gitg.gschema.xml.in:420
+#: data/org.gnome.gitg.gschema.xml.in:470
 msgid "Wrap lines."
 msgstr "自动折行。"
 
-#: data/org.gnome.gitg.gschema.xml.in:336
-#: data/org.gnome.gitg.gschema.xml.in:362
+#: data/org.gnome.gitg.gschema.xml.in:426
+#: data/org.gnome.gitg.gschema.xml.in:452
 msgid "Number of Before/After Context Lines"
 msgstr "前/后上下文行数"
 
-#: data/org.gnome.gitg.gschema.xml.in:337
+#: data/org.gnome.gitg.gschema.xml.in:427
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff of a commit."
 msgstr "设置显示一个提交的变更时应该显示的上下文行数。"
 
-#: data/org.gnome.gitg.gschema.xml.in:344
+#: data/org.gnome.gitg.gschema.xml.in:434
 msgid "Show Full File in Diff"
 msgstr "在差异中显示完整文件"
 
-#: data/org.gnome.gitg.gschema.xml.in:345
+#: data/org.gnome.gitg.gschema.xml.in:435
 msgid ""
 "When enabled, the diff view shows the entire file with unchanged regions "
 "folded, instead of showing only the changed hunks."
@@ -434,19 +554,19 @@ msgstr ""
 "当启用时，差异视图将通过折叠未更改区域的方式显示整个文件，而不是仅显示已更改"
 "的部分。"
 
-#: data/org.gnome.gitg.gschema.xml.in:352
-#: data/org.gnome.gitg.gschema.xml.in:371
+#: data/org.gnome.gitg.gschema.xml.in:442
+#: data/org.gnome.gitg.gschema.xml.in:461
 msgid "Rendered Width of a Tab Character"
 msgstr "制表符呈现的宽度"
 
-#: data/org.gnome.gitg.gschema.xml.in:353
-#: data/org.gnome.gitg.gschema.xml.in:372
+#: data/org.gnome.gitg.gschema.xml.in:443
+#: data/org.gnome.gitg.gschema.xml.in:462
 msgid ""
 "Setting that determines how much space a tab character should occupy when "
 "showing the diff of a commit."
 msgstr "设置显示提交的变更时，一个制表符应该占用几个空格。"
 
-#: data/org.gnome.gitg.gschema.xml.in:363
+#: data/org.gnome.gitg.gschema.xml.in:453
 msgid ""
 "Setting that determines how many lines of context (before and after) should "
 "be shown when showing the diff to be staged/unstaged in the commit area."
@@ -644,7 +764,7 @@ msgstr "确定要永久丢弃选中的变更吗？"
 #: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
 #: gitg/commit/gitg-commit.vala:1606
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:469
-#: gitg/gitg-window.vala:215 gitg/gitg-window.vala:813
+#: gitg/gitg-window.vala:218 gitg/gitg-window.vala:880
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
 #: gitg/resources/ui/gitg-author-details-dialog.ui:20
 #: gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
@@ -1458,64 +1578,64 @@ msgstr "移除"
 msgid "Failed to remove remote"
 msgstr "移除远程仓库失败"
 
-#: gitg/gitg-window.vala:212
+#: gitg/gitg-window.vala:215
 msgid "Add Repository"
 msgstr "添加仓库"
 
-#: gitg/gitg-window.vala:216
+#: gitg/gitg-window.vala:219
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:34
 #: gitg/resources/ui/gitg-window.ui:64
 msgid "_Add"
 msgstr "添加(_A)"
 
-#: gitg/gitg-window.vala:218
+#: gitg/gitg-window.vala:221
 msgid "_Scan for all git repositories from this directory"
 msgstr "在本目录寻找所有 Git 仓库(_S)"
 
-#: gitg/gitg-window.vala:565
+#: gitg/gitg-window.vala:632
 msgid "Projects"
 msgstr "工程"
 
-#: gitg/gitg-window.vala:609
+#: gitg/gitg-window.vala:676
 msgid "_Global Actions"
 msgstr "全局动作(_G)"
 
-#: gitg/gitg-window.vala:811
+#: gitg/gitg-window.vala:878
 msgid "Open Repository"
 msgstr "打开仓库"
 
-#: gitg/gitg-window.vala:814 gitg/resources/ui/gitg-commit-submodule-info.ui:70
+#: gitg/gitg-window.vala:881 gitg/resources/ui/gitg-commit-submodule-info.ui:70
 msgid "_Open"
 msgstr "打开(_O)"
 
-#: gitg/gitg-window.vala:961
+#: gitg/gitg-window.vala:1029
 msgid "Select items"
 msgstr "选择项目"
 
-#: gitg/gitg-window.vala:1180
+#: gitg/gitg-window.vala:1248
 #, c-format
 msgid "“%s” is not a Git repository."
 msgstr "“%s”不是有效的 Git 仓库。"
 
-#: gitg/gitg-window.vala:1327
+#: gitg/gitg-window.vala:1395
 msgid ""
 "Your user name and email are not configured yet. Please go to the user "
 "configuration and provide your name and email."
 msgstr "您的用户名和邮箱尚未配置。请转到用户配置，填写您的姓名和邮箱。"
 
-#: gitg/gitg-window.vala:1331
+#: gitg/gitg-window.vala:1399
 msgid ""
 "Your user name is not configured yet. Please go to the user configuration "
 "and provide your name."
 msgstr "您的用户名尚未配置。请转到用户配置，填写您的姓名。"
 
-#: gitg/gitg-window.vala:1335
+#: gitg/gitg-window.vala:1403
 msgid ""
 "Your email is not configured yet. Please go to the user configuration and "
 "provide your email."
 msgstr "您的邮箱尚未配置。请转到用户配置，填写您的邮箱。"
 
-#: gitg/gitg-window.vala:1338
+#: gitg/gitg-window.vala:1406
 msgid "Missing author details"
 msgstr "作者详情缺失"
 
@@ -1575,23 +1695,100 @@ msgstr "远程"
 msgid "Stash"
 msgstr "储藏"
 
-#: gitg/history/gitg-history.vala:354
+#: gitg/history/gitg-history.vala:363
 #: gitg/preferences/gitg-preferences-history.vala:226
 #: gitg/resources/ui/gitg-preferences-interface.ui:60
 msgid "History"
 msgstr "历史"
 
-#: gitg/history/gitg-history.vala:359
+#: gitg/history/gitg-history.vala:368
 msgid "Examine the history of the repository"
 msgstr "查看仓库的历史"
 
-#: gitg/history/gitg-history.vala:1249
+#: gitg/history/gitg-history.vala:1367
 msgid "Mainline"
 msgstr "主线"
 
-#: gitg/history/gitg-history.vala:1330
+#: gitg/history/gitg-history.vala:1448
 msgid "Main remote"
 msgstr "主要远程仓库"
+
+#: gitg/history/gitg-history.vala:1822
+msgid "Show only d_ecorated commits"
+msgstr "仅显示带标记的提交(_E)"
+
+#: gitg/history/gitg-history.vala:1829
+msgid "_Path filter (separate patterns with spaces, prefix with :! to exclude)"
+msgstr "路径筛选（用空格分隔模式，用前缀 :! 排除）(_P)"
+
+#: gitg/history/gitg-history.vala:1844
+msgid "_Date filter"
+msgstr "日期筛选(_D)"
+
+#: gitg/history/gitg-history.vala:1851 gitg/history/gitg-history.vala:1876
+#: gitg/history/gitg-history.vala:1943
+msgid "None"
+msgstr "无"
+
+#: gitg/history/gitg-history.vala:1852 gitg/history/gitg-history.vala:1877
+msgid "Since"
+msgstr "始于"
+
+#: gitg/history/gitg-history.vala:1853 gitg/history/gitg-history.vala:1878
+msgid "Until"
+msgstr "直到"
+
+#: gitg/history/gitg-history.vala:1854 gitg/history/gitg-history.vala:1879
+msgid "Before"
+msgstr "之前"
+
+#: gitg/history/gitg-history.vala:1855 gitg/history/gitg-history.vala:1880
+msgid "After"
+msgstr "之后"
+
+#: gitg/history/gitg-history.vala:1865
+msgid "e.g. 2 weeks ago, 2025-01-01"
+msgstr "例如：2 weeks ago、2025-01-01"
+
+#: gitg/history/gitg-history.vala:1890
+msgid "e.g. yesterday, 2025-06-15"
+msgstr "例如：yesterday、2025-06-15"
+
+#: gitg/history/gitg-history.vala:1900
+msgid "_Author filter (regex on Name <email>)"
+msgstr "作者筛选（Name <email> 上的正则表达式）(_A)"
+
+#: gitg/history/gitg-history.vala:1908
+msgid "e.g. John, john@example.com"
+msgstr "例如：John、john@example.com"
+
+#: gitg/history/gitg-history.vala:1913
+msgid "Co_mmitter filter (regex on Name <email>)"
+msgstr "提交者筛选（Name <email> 上的正则表达式）(_M)"
+
+#: gitg/history/gitg-history.vala:1921
+msgid "e.g. bot, ci@"
+msgstr "例如：bot、ci@"
+
+#: gitg/history/gitg-history.vala:1929
+msgid "_Range filter"
+msgstr "范围筛选(_R)"
+
+#: gitg/history/gitg-history.vala:1937
+msgid "e.g. origin/main"
+msgstr "例如：origin/main"
+
+#: gitg/history/gitg-history.vala:1955
+msgid "e.g. HEAD"
+msgstr "例如：HEAD"
+
+#: gitg/history/gitg-history.vala:1963
+msgid "Show _common ancestry"
+msgstr "显示共同起源(_C)"
+
+#: gitg/history/gitg-history.vala:1982
+msgid "Use _repo config"
+msgstr "使用仓库配置(_R)"
 
 #: gitg/preferences/gitg-preferences-commit.vala:180
 msgctxt "Preferences"
@@ -2220,110 +2417,115 @@ msgstr "查找"
 
 #: gitg/resources/ui/gitg-shortcuts.ui:68
 msgctxt "shortcut window"
+msgid "Advanced filtering"
+msgstr "高级筛选"
+
+#: gitg/resources/ui/gitg-shortcuts.ui:75
+msgctxt "shortcut window"
 msgid "Move to next search result"
 msgstr "移至下个搜索结果"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:75
+#: gitg/resources/ui/gitg-shortcuts.ui:82
 msgctxt "shortcut window"
 msgid "Move to previous search result"
 msgstr "移至上个搜索结果"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:82
+#: gitg/resources/ui/gitg-shortcuts.ui:89
 msgctxt "shortcut window"
 msgid "Close the active window"
 msgstr "关闭活动窗口"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:89
+#: gitg/resources/ui/gitg-shortcuts.ui:96
 msgctxt "shortcut window"
 msgid "Quit the application"
 msgstr "退出应用程序"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:96
+#: gitg/resources/ui/gitg-shortcuts.ui:103
 msgctxt "shortcut window"
 msgid "Change to Dash"
 msgstr "更改为 Dash"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:103
+#: gitg/resources/ui/gitg-shortcuts.ui:110
 msgctxt "shortcut window"
 msgid "Change to History View"
 msgstr "更改为历史视图"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:110
+#: gitg/resources/ui/gitg-shortcuts.ui:117
 msgctxt "shortcut window"
 msgid "Change to Commit View"
 msgstr "更改为提交视图"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:117
+#: gitg/resources/ui/gitg-shortcuts.ui:124
 msgctxt "shortcut window"
 msgid "Change to activity"
 msgstr "更改为活动"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:125
+#: gitg/resources/ui/gitg-shortcuts.ui:132
 msgctxt "shortcut window"
 msgid "Commit Activity"
 msgstr "提交活动"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:130
+#: gitg/resources/ui/gitg-shortcuts.ui:137
 msgctxt "shortcut window"
 msgid "Select/Unselect"
 msgstr "选择/取消选择"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:137
+#: gitg/resources/ui/gitg-shortcuts.ui:144
 msgctxt "shortcut window"
 msgid "Open commit dialog"
 msgstr "打开提交对话框"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:144
+#: gitg/resources/ui/gitg-shortcuts.ui:151
 msgctxt "shortcut window"
 msgid "Stage selection"
 msgstr "暂存选中项"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:151
+#: gitg/resources/ui/gitg-shortcuts.ui:158
 msgctxt "shortcut window"
 msgid "Unstage selection"
 msgstr "取消暂存选中项"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:158
+#: gitg/resources/ui/gitg-shortcuts.ui:165
 msgctxt "shortcut window"
 msgid "Discard selection"
 msgstr "丢弃选中项"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:165
+#: gitg/resources/ui/gitg-shortcuts.ui:172
 msgctxt "shortcut window"
 msgid "Edit selection"
 msgstr "编辑选项"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:173
+#: gitg/resources/ui/gitg-shortcuts.ui:180
 msgctxt "shortcut window"
 msgid "Commit Dialog"
 msgstr "提交对话框"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:178
+#: gitg/resources/ui/gitg-shortcuts.ui:185
 msgctxt "shortcut window"
 msgid "Commit"
 msgstr "提交"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:185
+#: gitg/resources/ui/gitg-shortcuts.ui:192
 msgctxt "shortcut window"
 msgid "Cancel Commit"
 msgstr "取消提交"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:192
+#: gitg/resources/ui/gitg-shortcuts.ui:199
 msgctxt "shortcut window"
 msgid "Previous commit message"
 msgstr "上一个提交消息"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:199
+#: gitg/resources/ui/gitg-shortcuts.ui:206
 msgctxt "shortcut window"
 msgid "Next commit message"
 msgstr "提交说明"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:207
+#: gitg/resources/ui/gitg-shortcuts.ui:214
 msgctxt "shortcut window"
 msgid "History Activity"
 msgstr "历史活动"
 
-#: gitg/resources/ui/gitg-shortcuts.ui:212
+#: gitg/resources/ui/gitg-shortcuts.ui:219
 msgctxt "shortcut window"
 msgid "Show global actions contextual menu. (If any defined)"
 msgstr "显示全局操作上下文菜单。（如果有已定义操作）"
@@ -2359,6 +2561,10 @@ msgstr "上个结果"
 #: gitg/resources/ui/gitg-window.ui:282
 msgid "Next result"
 msgstr "下个结果"
+
+#: gitg/resources/ui/gitg-window.ui:298
+msgid "_Advanced…"
+msgstr "高级(_A)…"
 
 #. Translators: %s will be replaced with a URL indicating the resource
 #. for which the authentication is required.
