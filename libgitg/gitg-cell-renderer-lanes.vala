@@ -26,6 +26,7 @@ namespace Gitg
 		public uint lane_width { get; set; default = 16; }
 		public uint dot_width { get; set; default = 10; }
 		public unowned SList<Ref> labels { get; set; }
+		public string? stash_label { get; set; }
 
 		private int d_last_height;
 
@@ -58,8 +59,15 @@ namespace Gitg
 
 		private uint total_width(Gtk.Widget widget)
 		{
-			return num_visible_lanes * lane_width +
-			       LabelRenderer.width(widget, font_desc, labels);
+			uint w = num_visible_lanes * lane_width +
+			         LabelRenderer.width(widget, font_desc, labels);
+
+			if (stash_label != null)
+			{
+				w += LabelRenderer.stash_label_width(widget, font_desc, stash_label);
+			}
+
+			return w;
 		}
 
 		public override void get_preferred_width(Gtk.Widget widget,
@@ -241,6 +249,13 @@ namespace Gitg
 			context.save();
 			context.translate(offset, 0);
 			LabelRenderer.draw(widget, font_desc, context, labels, area);
+
+			if (stash_label != null)
+			{
+				int ref_labels_w = LabelRenderer.width(widget, font_desc, labels);
+				LabelRenderer.draw_stash_label(widget, font_desc, context, stash_label, area, ref_labels_w);
+			}
+
 			context.restore();
 		}
 

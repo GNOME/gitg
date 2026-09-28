@@ -23,6 +23,8 @@ namespace Gitg
 public class Repository : Ggit.Repository
 {
 	private HashTable<Ggit.OId, SList<Gitg.Ref>> d_refs;
+	private HashTable<Ggit.OId, string> d_stash_labels;
+	private HashTable<Ggit.OId, size_t?> d_stash_indices;
 	private Stage ?d_stage;
 
 	public string? name
@@ -67,6 +69,45 @@ public class Repository : Ggit.Repository
 	public void clear_refs_cache()
 	{
 		d_refs = null;
+		d_stash_labels = null;
+		d_stash_indices = null;
+	}
+
+	private void ensure_stash_labels()
+	{
+		if (d_stash_labels != null)
+		{
+			return;
+		}
+
+		d_stash_labels = new HashTable<Ggit.OId, string>(Ggit.OId.hash,
+		                                                 Ggit.OId.equal);
+
+		d_stash_indices = new HashTable<Ggit.OId, size_t?>(Ggit.OId.hash,
+		                                                   Ggit.OId.equal);
+
+		try
+		{
+			stash_foreach((index, message, stash_oid) => {
+				d_stash_labels.insert(stash_oid, "stash@{%zu}".printf(index));
+				d_stash_indices.insert(stash_oid, index);
+				return 0;
+			});
+		} catch {}
+	}
+
+	public string? stash_label_for_id(Ggit.OId id)
+	{
+		ensure_stash_labels();
+
+		return d_stash_labels.lookup(id);
+	}
+
+	public size_t? stash_index_for_id(Ggit.OId id)
+	{
+		ensure_stash_labels();
+
+		return d_stash_indices.lookup(id);
 	}
 
 	private void ensure_refs()
@@ -96,6 +137,11 @@ public class Repository : Ggit.Repository
 				catch { return 0; }
 
 				if (r == null)
+				{
+					return 0;
+				}
+
+				if (r.parsed_name.rtype == Gitg.RefType.STASH)
 				{
 					return 0;
 				}

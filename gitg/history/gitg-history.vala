@@ -971,6 +971,22 @@ switch (event.keyval)
 				ac.populate_menu(menu);
 			}
 
+			var stash_index = application.repository.stash_index_for_id(commit.get_id());
+			if (stash_index != null)
+			{
+				var stash_sep = new Gtk.SeparatorMenuItem();
+				stash_sep.show();
+				menu.append(stash_sep);
+
+				var stash_submenu = new Gtk.Menu();
+				append_stash_actions(stash_submenu, stash_index);
+
+				var stash_item = new Gtk.MenuItem.with_label(_("Stash"));
+				stash_item.submenu = stash_submenu;
+				stash_item.show();
+				menu.append(stash_item);
+			}
+
 			var sep = new Gtk.SeparatorMenuItem();
 			sep.show();
 			menu.append(sep);
@@ -1467,11 +1483,78 @@ switch (event.keyval)
 				} else {
 					return null;
 				}
+			} else if (selection is GitgHistory.StashRow) {
+				return popup_menu_for_stash((GitgHistory.StashRow)selection);
 			} else if (!references.is_empty && references.first() == references.last()) {
 				return popup_menu_for_ref(references.first(), event);
 			} else {
 				return null;
 			}
+		}
+
+		private void append_stash_actions(Gtk.Menu menu, size_t stash_index)
+		{
+			var si = stash_index;
+
+			var pop_item = new Gtk.MenuItem.with_label(_("Pop"));
+			pop_item.show();
+			pop_item.activate.connect(() => {
+				try
+				{
+					application.repository.pop_stash(si);
+					application.repository.clear_refs_cache();
+					((Gtk.ApplicationWindow)application).activate_action("reload", null);
+				}
+				catch (Error e)
+				{
+					application.show_infobar(_("Failed to pop stash"),
+					                         e.message,
+					                         Gtk.MessageType.ERROR);
+				}
+			});
+			menu.append(pop_item);
+
+			var drop_item = new Gtk.MenuItem.with_label(_("Drop"));
+			drop_item.show();
+			drop_item.activate.connect(() => {
+				var query = new GitgExt.UserQuery();
+				query.title = _("Confirm stash deletion");
+				query.message = _("Are you sure that you want to permanently delete <b><i>stash@{%zu}</i></b>?").printf(si);
+				query.message_use_markup = true;
+				query.set_responses(new GitgExt.UserQueryResponse[] {
+					new GitgExt.UserQueryResponse(_("Cancel"), Gtk.ResponseType.CANCEL),
+					new GitgExt.UserQueryResponse(_("Drop"), Gtk.ResponseType.OK)
+				});
+				query.default_response = Gtk.ResponseType.OK;
+				query.default_is_destructive = true;
+				query.response.connect((q, response) => {
+					if (response == Gtk.ResponseType.OK)
+					{
+						try
+						{
+							application.repository.drop_stash(si);
+							application.repository.clear_refs_cache();
+							((Gtk.ApplicationWindow)application).activate_action("reload", null);
+						}
+						catch (Error e)
+						{
+							application.show_infobar(_("Failed to drop stash"),
+							                         e.message,
+							                         Gtk.MessageType.ERROR);
+						}
+					}
+					return true;
+				});
+				application.user_query(query);
+			});
+			menu.append(drop_item);
+		}
+
+		private Gtk.Menu? popup_menu_for_stash(GitgHistory.StashRow stash_row)
+		{
+			var menu = new Gtk.Menu();
+			append_stash_actions(menu, stash_row.stash_index);
+			return menu;
 		}
 
 		private Ggit.OId? id_for_ref(Ggit.Ref r)
@@ -1578,6 +1661,22 @@ switch (event.keyval)
 							}
 						} catch {}
 					}
+				}
+			}
+
+			if (d_main.refs_list.is_stash_selected)
+			{
+				foreach (var stash_oid in d_main.refs_list.selected_stash_oids)
+				{
+					include.add(stash_oid);
+				}
+			}
+
+			if (isall)
+			{
+				foreach (var stash_oid in d_main.refs_list.stash_oids)
+				{
+					include.add(stash_oid);
 				}
 			}
 

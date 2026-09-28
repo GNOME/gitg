@@ -97,6 +97,7 @@ namespace Gitg
 			lanes.commit = commit;
 			lanes.next_commit = next_commit;
 			lanes.labels = labels;
+			lanes.stash_label = m.repository.stash_label_for_id(commit.get_id());
 		}
 
 		private void parser_finished(Gtk.Builder builder)

@@ -276,6 +276,89 @@ namespace Gitg
 			}
 		}
 
+		public static int stash_label_width(Gtk.Widget             widget,
+		                                    Pango.FontDescription *font,
+		                                    string                 stash_label)
+		{
+			var ctx = widget.get_pango_context();
+			var layout = new Pango.Layout(ctx);
+
+			layout.set_font_description(font);
+
+			var escaped = Markup.escape_text(stash_label);
+			var markup = @"<span size='smaller'>$escaped</span>";
+
+			int w;
+
+			layout.set_markup(markup, -1);
+			layout.get_pixel_size(out w, null);
+
+			return w + padding * 2 + margin * 2;
+		}
+
+		public static void draw_stash_label(Gtk.Widget            widget,
+		                                    Pango.FontDescription font,
+		                                    Cairo.Context         cr,
+		                                    string                stash_label,
+		                                    Gdk.Rectangle         area,
+		                                    int                   x_offset)
+		{
+			var context = widget.get_style_context();
+			var ctx = widget.get_pango_context();
+			var layout = new Pango.Layout(ctx);
+
+			layout.set_font_description(font);
+
+			var escaped = Markup.escape_text(stash_label);
+			var markup = @"<span size='smaller'>$escaped</span>";
+
+			layout.set_markup(markup, -1);
+
+			int w;
+			int h;
+
+			layout.get_pixel_size(out w, out h);
+
+			var rtl = (context.get_state() & Gtk.StateFlags.DIR_RTL) != 0;
+
+			double pos;
+
+			if (!rtl)
+			{
+				pos = area.x + x_offset + margin + 0.5;
+			}
+			else
+			{
+				pos = area.x + area.width - x_offset - margin - 0.5 - w - padding * 2;
+			}
+
+			cr.save();
+			cr.set_line_width(1.0);
+
+			context.save();
+			context.add_class("stash");
+
+			context.render_background(cr,
+			                          pos,
+			                          area.y + margin,
+			                          w + padding * 2,
+			                          area.height - margin * 2);
+
+			context.render_frame(cr,
+			                     pos,
+			                     area.y + margin,
+			                     w + padding * 2,
+			                     area.height - margin * 2);
+
+			context.render_layout(cr,
+			                      pos + padding,
+			                      area.y + (area.height - h) / 2.0 - 1,
+			                      layout);
+
+			context.restore();
+			cr.restore();
+		}
+
 		public static Gdk.Pixbuf render_ref(Gtk.Widget            widget,
 		                                    Pango.FontDescription font,
 		                                    Ref                   r,

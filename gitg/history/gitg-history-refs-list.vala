@@ -404,6 +404,48 @@ private class RefRow : RefTyped, Gtk.ListBoxRow
 	}
 }
 
+private class StashRow : RefTyped, Gtk.ListBoxRow
+{
+	public Ggit.OId stash_oid { get; private set; }
+	public size_t stash_index { get; private set; }
+
+	public Gitg.RefType ref_type
+	{
+		get { return Gitg.RefType.STASH; }
+	}
+
+	public StashRow(size_t index, string message, Ggit.OId oid)
+	{
+		stash_index = index;
+		stash_oid = oid;
+
+		var display = "stash@{%zu}".printf(index);
+
+		var label = new Gtk.Label(display);
+		label.halign = Gtk.Align.START;
+		label.ellipsize = Pango.EllipsizeMode.MIDDLE;
+		label.hexpand = true;
+
+		var box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 6);
+		box.margin_start = 30;
+		box.margin_top = 3;
+		box.margin_bottom = 3;
+		box.margin_end = 6;
+		box.add(label);
+
+		this.add(box);
+
+		var tooltip = display;
+		if (message.length > 0)
+		{
+			tooltip = "%s: %s".printf(display, message);
+		}
+		this.set_tooltip_text(tooltip);
+		this.get_style_context().add_class("sidebar");
+		this.show_all();
+	}
+}
+
 [GtkTemplate (ui = "/org/gnome/gitg/ui/gitg-history-ref-header.ui")]
 public class RefHeader : RefTyped, Gtk.ListBoxRow
 {
@@ -587,11 +629,26 @@ public class RefsList : Gtk.ListBox
 	private Gee.LinkedList<GitgExt.Action> d_remotes_actions = null;
 	private Gee.LinkedList<GitgExt.Action> d_tags_actions = null;
 	private Gee.LinkedList<GitgExt.Action> d_stash_actions = null;
+	private Gee.LinkedList<StashRow> d_stash_rows = new Gee.LinkedList<StashRow>();
+	private Gitg.Ref? d_stash_ref = null;
 	public Gee.LinkedList<GitgExt.Action> branches_actions { get {return d_branches_actions;} set { d_branches_actions = value; refresh();} }
 	public Gee.LinkedList<GitgExt.Action> remotes_actions { get {return d_remotes_actions;} set { d_remotes_actions = value; refresh();} }
 	public Gee.LinkedList<GitgExt.Action> tags_actions { get {return d_tags_actions;} set { d_tags_actions = value; refresh();} }
 	public Gee.LinkedList<GitgExt.Action> stash_actions { get {return d_stash_actions;} set { d_stash_actions = value; refresh();} }
 	public bool filter_unknown_refs { get {return d_filter_unknown_refs;} set { d_filter_unknown_refs = value; refresh();} }
+
+	public Ggit.OId[] stash_oids
+	{
+		owned get
+		{
+			var ret = new Ggit.OId[0];
+			foreach (var row in d_stash_rows)
+			{
+				ret += row.stash_oid;
+			}
+			return ret;
+		}
+	}
 
 	public signal void changed();
 
@@ -792,6 +849,25 @@ public class RefsList : Gtk.ListBox
 			return rs1 < rs2 ? -1 : 1;
 		}
 
+		var stash1 = row1 as StashRow;
+		var stash2 = row2 as StashRow;
+
+		if (stash1 != null || stash2 != null)
+		{
+			var head1s = row1 as RefHeader;
+			var head2s = row2 as RefHeader;
+
+			if (head1s != null) return -1;
+			if (head2s != null) return 1;
+
+			if (stash1 != null && stash2 != null)
+			{
+				return (int)(stash1.stash_index - stash2.stash_index);
+			}
+
+			return stash1 != null ? 1 : -1;
+		}
+
 		var head1 = row1 as RefHeader;
 		var ref1 = row1 as RefRow;
 
@@ -833,6 +909,8 @@ public class RefsList : Gtk.ListBox
 		d_all_remotes = null;
 		d_all_tags = null;
 		d_stash = null;
+		d_stash_rows = new Gee.LinkedList<StashRow>();
+		d_stash_ref = null;
 
 		d_header_map = new Gee.HashMap<string, RemoteHeader>();
 		d_ref_map = new Gee.HashMap<Gitg.Ref, RefRow>();
@@ -1297,6 +1375,11 @@ public class RefsList : Gtk.ListBox
 				if (filter_unknown_refs && ref_is_filtered(r)) {
 					return 0;
 				}
+				if (r.parsed_name.rtype == Gitg.RefType.STASH)
+				{
+					d_stash_ref = r;
+					return 0;
+				}
 
 				var row = add_ref_internal(r);
 
@@ -1314,6 +1397,16 @@ public class RefsList : Gtk.ListBox
 				var name = info.fetch(1);
 				if (!d_header_map.has_key(name))
 				  add_remote_header(name);
+				return 0;
+			});
+		} catch {}
+
+		try
+		{
+			d_repository.stash_foreach((index, message, stash_oid) => {
+				var stash_row = new StashRow(index, message, stash_oid);
+				add(stash_row);
+				d_stash_rows.add(stash_row);
 				return 0;
 			});
 		} catch {}
@@ -1387,6 +1480,11 @@ public class RefsList : Gtk.ListBox
 				}
 			}
 
+			if (d_stash_ref != null)
+			{
+				ret.add(d_stash_ref);
+			}
+
 			try
 			{
 				if (d_repository != null && d_repository.is_head_detached())
@@ -1402,6 +1500,44 @@ public class RefsList : Gtk.ListBox
 	public bool is_header
 	{
 		get { return (get_selected_row() as RefHeader) != null; }
+	}
+
+	public bool is_stash_selected
+	{
+		get
+		{
+			var row = get_selected_row();
+			if (row == null) return false;
+
+			var stash_row = row as StashRow;
+			if (stash_row != null) return true;
+
+			var header = row as RefHeader;
+			return header != null && header.ref_type == Gitg.RefType.STASH;
+		}
+	}
+
+	public Ggit.OId[] selected_stash_oids
+	{
+		owned get
+		{
+			var row = get_selected_row();
+			if (row == null) return new Ggit.OId[0];
+
+			var stash_row = row as StashRow;
+			if (stash_row != null)
+			{
+				return new Ggit.OId[] { stash_row.stash_oid };
+			}
+
+			var header = row as RefHeader;
+			if (header != null && header.ref_type == Gitg.RefType.STASH)
+			{
+				return stash_oids;
+			}
+
+			return new Ggit.OId[0];
+		}
 	}
 
 	public bool is_all
@@ -1432,6 +1568,11 @@ public class RefsList : Gtk.ListBox
 				return all;
 			}
 
+			if (row is StashRow)
+			{
+				return new Gee.LinkedList<Gitg.Ref>();
+			}
+
 			var ref_row = get_ref_row(row);
 			var ret = new Gee.LinkedList<Gitg.Ref>();
 
@@ -1449,6 +1590,12 @@ public class RefsList : Gtk.ListBox
 			else
 			{
 				var ref_header = get_ref_header(row);
+
+				if (ref_header != null && ref_header.ref_type == Gitg.RefType.STASH)
+				{
+					return ret;
+				}
+
 				bool found = false;
 
 				foreach (var child in get_children())

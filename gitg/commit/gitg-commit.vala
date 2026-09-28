@@ -999,6 +999,7 @@ namespace GitgCommit
 
 				d_main.sidebar.expand_all();
 				d_has_staged = staged.length != 0;
+				d_main.button_stash.sensitive = (staged.length != 0 || unstaged.length != 0);
 
 				d_reloading = false;
 
@@ -1364,6 +1365,62 @@ namespace GitgCommit
 			});
 
 			return false;
+		}
+
+		private void on_stash_clicked()
+		{
+			var committer = application.get_verified_committer();
+
+			if (committer == null)
+			{
+				return;
+			}
+
+			Gitg.Ref? head = null;
+
+			try
+			{
+				head = application.repository.get_head();
+			} catch {}
+
+			string message;
+
+			if (head != null)
+			{
+				var headname = head.parsed_name.shortname;
+
+				try
+				{
+					var head_commit = head.resolve().lookup() as Ggit.Commit;
+					var shortid = head_commit.get_id().to_string()[0:6];
+					var subject = head_commit.get_subject();
+
+					message = @"WIP on $(headname): $(shortid) $(subject)";
+				}
+				catch
+				{
+					message = @"WIP on $(headname)";
+				}
+			}
+			else
+			{
+				message = "WIP on HEAD";
+			}
+
+			try
+			{
+				application.repository.save_stash(committer, message, Ggit.StashFlags.DEFAULT);
+			}
+			catch (Error e)
+			{
+				application.show_infobar(_("Failed to stash changes"),
+				                         e.message,
+				                         Gtk.MessageType.ERROR);
+				return;
+			}
+
+			application.repository.clear_refs_cache();
+			reload();
 		}
 
 		private void on_stage_clicked()
@@ -1867,6 +1924,10 @@ namespace GitgCommit
 
 			d_main.button_discard.clicked.connect(() => {
 				on_discard_clicked();
+			});
+
+			d_main.button_stash.clicked.connect(() => {
+				on_stash_clicked();
 			});
 
 			d_main.submodule_diff_view.info.request_open_repository.connect((submodule) => {
