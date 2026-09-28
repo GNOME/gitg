@@ -53,7 +53,7 @@ class PreferencesDialog : Gtk.Dialog, Gtk.Buildable
 		d_notebook.child_set_property (page, "tab-expand", true);
 	}
 
-	public void populate(Gitg.CommitListView commit_list_view = null)
+	public void populate(Gitg.CommitListView? commit_list_view = null)
 	{
 		var engine = PluginsEngine.get_default();
 		var ext = new Peas.ExtensionSet(engine, typeof(GitgExt.Preferences));
