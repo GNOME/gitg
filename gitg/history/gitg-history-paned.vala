@@ -171,9 +171,6 @@ class Paned : AnimatedPaned
 		foreach (var col in commit_list_view.get_columns()) {
 			var visible = col.get_data<CommitModelColumns>("enum") in array_cols;
 			col.visible = visible;
-			col.notify["visible"].connect (() => {
-				Gitg.UiUtils.store_visible_columns_on_gsettings(commit_list_view);
-			});
 		}
 		commit_list_view.headers_visible = general_settings.get_boolean ("columns-header-visible");
 	}
@@ -185,7 +182,7 @@ class Paned : AnimatedPaned
 		message_col.set_data("enum", CommitModelColumns.MESSAGE);
 		author_col.set_data("enum", CommitModelColumns.AUTHOR);
 		author_name_col.set_data("enum", CommitModelColumns.AUTHOR_NAME);
-		author_email_col.set_data("enum", CommitModelColumns.AUTHOR_DATE);
+		author_email_col.set_data("enum", CommitModelColumns.AUTHOR_EMAIL);
 		author_date_col.set_data("enum", CommitModelColumns.AUTHOR_DATE);
 		committer_col.set_data("enum", CommitModelColumns.COMMITTER);
 		committer_name_col.set_data("enum", CommitModelColumns.COMMITTER_NAME);
@@ -198,6 +195,12 @@ class Paned : AnimatedPaned
 		});
 
 		update_column_visibility ();
+
+		foreach (var col in commit_list_view.get_columns()) {
+			col.notify["visible"].connect (() => {
+				Gitg.UiUtils.store_visible_columns_on_gsettings(commit_list_view);
+			});
+		}
 
 		var state_settings = new GLib.Settings(Gitg.Config.APPLICATION_ID + ".state.history");
 

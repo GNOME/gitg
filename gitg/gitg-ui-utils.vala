@@ -490,15 +490,12 @@ public class UiUtils
 
 	public static void store_visible_columns_on_gsettings(Gtk.TreeView treeview) {
 		string[] visible_columns = {};
-		print("storing columns [");
 		foreach( var col in treeview.get_columns()) {
 			if (!col.visible)
 				continue;
 			var cmc = col.get_data<Gitg.CommitModelColumns>("enum");
-			 print("%s,", cmc.nick());
 			visible_columns += cmc.nick();
 		}
-		print("]\n");
 		var settings = new Settings(Gitg.Config.APPLICATION_ID + ".preferences.general");
 		settings.set_strv ("visible-columns", visible_columns);
 	}
