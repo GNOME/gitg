@@ -330,7 +330,6 @@
                   <object class="GtkComboBoxText" id="text_diff_mode">
                     <property name="visible">True</property>
                     <property name="halign">start</property>
-                    <property name="active">True</property>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
@@ -379,11 +378,18 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkComboBoxText" id="default_style_scheme">
+                  <object class="GtkComboBox" id="default_style_scheme">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="model">syntax_scheme_store</property>
+                    <property name="id-column">1</property>
                     <property name="halign">start</property>
+                    <child>
+                      <object class="GtkCellRendererText" id="style_scheme_renderer"/>
+                      <attributes>
+                        <attribute name="text">0</attribute>
+                      </attributes>
+                    </child>
                   </object>
                   <packing>
                     <property name="left_attach">2</property>
