@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2026-09-27 10:23+0000\n"
-"PO-Revision-Date: 2026-09-27 22:29+0300\n"
+"POT-Creation-Date: 2026-09-29 13:54+0000\n"
+"PO-Revision-Date: 2026-09-29 18:12+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -306,7 +306,6 @@ msgid "Only show commits decorated."
 msgstr "Показувати лише оформлені внески."
 
 #: data/org.gnome.gitg.gschema.xml.in:213
-#| msgid "Save Patch File"
 msgid "Path Filter"
 msgstr "Фільтр шляхів"
 
@@ -315,9 +314,9 @@ msgid ""
 "Filter commits by file paths. Separate multiple patterns with spaces. Prefix "
 "with :! to exclude (e.g. :!po excludes commits only touching po/)."
 msgstr ""
-"Фільтрувати внески за шляхами до файлів. Окремі взірці слід розділяти пробіла"
-"ми. Додайте префікс :! для виключення (наприклад, :!po виключає внески, що ст"
-"осуються лише каталогу po/)."
+"Фільтрувати внески за шляхами до файлів. Окремі взірці слід розділяти "
+"пробілами. Додайте префікс :! для виключення (наприклад, :!po виключає "
+"внески, що стосуються лише каталогу po/)."
 
 #: data/org.gnome.gitg.gschema.xml.in:221
 msgid "Date Filter Type"
@@ -328,7 +327,6 @@ msgid "Type of date filter to apply: none, since, until, before, or after."
 msgstr "Тип фільтра за датою: none, since, until, before або after."
 
 #: data/org.gnome.gitg.gschema.xml.in:228
-#| msgid "Filter Files"
 msgid "Date Filter Value"
 msgstr "Значення фільтра за датами"
 
@@ -337,9 +335,9 @@ msgid ""
 "Date value for filtering. Accepts dates like \"2025-01-01\", \"2025-01-01 "
 "14:30\", or relative dates like \"2 weeks ago\"."
 msgstr ""
-"Значення дати для фільтрування. Можливі дати у форматах подібних до «2025-01-"
-"01», «2025-01-01 14:30» або відносні дати, як-от «2 weeks ago» (2 тижні тому)"
-"."
+"Значення дати для фільтрування. Можливі дати у форматах подібних до "
+"«2025-01-01», «2025-01-01 14:30» або відносні дати, як-от «2 weeks ago» (2 "
+"тижні тому)."
 
 #: data/org.gnome.gitg.gschema.xml.in:236
 msgid "Second Date Filter Type"
@@ -350,8 +348,8 @@ msgid ""
 "Type of second date filter: none, since, until, before, or after. Use with "
 "the first date filter to define a date range."
 msgstr ""
-"Тип фільтра за другою датою: «none, since», «until», «before» або «after». Ви"
-"користовуйте разом із фільтром за першою датою, щоб визначити діапазон дат."
+"Тип фільтра за другою датою: «none, since», «until», «before» або «after». "
+"Використовуйте разом із фільтром за першою датою, щоб визначити діапазон дат."
 
 #: data/org.gnome.gitg.gschema.xml.in:244
 msgid "Second Date Filter Value"
@@ -360,12 +358,11 @@ msgstr "Значення фільтра за другою датою"
 #: data/org.gnome.gitg.gschema.xml.in:245
 msgid "Date value for the second filter. Same format as the first."
 msgstr ""
-"Значення другої дати для фільтрування. Формат такий самий, як і для першої да"
-"ти."
+"Значення другої дати для фільтрування. Формат такий самий, як і для першої "
+"дати."
 
 # Автор
 #: data/org.gnome.gitg.gschema.xml.in:251
-#| msgid "Author date"
 msgid "Author Filter"
 msgstr "Фільтр за автором"
 
@@ -375,12 +372,11 @@ msgid ""
 "insensitive regex, like git --author."
 msgstr ""
 "Фільтрувати внески за автором. Відповідність встановлюється за виразом «Ім'я "
-"<пошта>» як формальним виразом без врахування регістру символів, подібно до g"
-"it --author."
+"<пошта>» як формальним виразом без врахування регістру символів, подібно до "
+"git --author."
 
 # Здійснювати
 #: data/org.gnome.gitg.gschema.xml.in:259
-#| msgid "Committer date"
 msgid "Committer Filter"
 msgstr "Фільтра за автором записування"
 
@@ -389,9 +385,9 @@ msgid ""
 "Filter commits by committer. Matches against \"Name <email>\" as a case-"
 "insensitive regex, like git --committer."
 msgstr ""
-"Фільтрувати внески за автором записування. Відповідність встановлюється за ви"
-"разом «Ім'я <пошта>» як формальним виразом без врахування регістру символів, "
-"подібно до git --committer."
+"Фільтрувати внески за автором записування. Відповідність встановлюється за "
+"виразом «Ім'я <пошта>» як формальним виразом без врахування регістру "
+"символів, подібно до git --committer."
 
 #: data/org.gnome.gitg.gschema.xml.in:267
 msgid "Range Filter Type"
@@ -402,8 +398,8 @@ msgid ""
 "Type of range filter: none, \"..\" (range), or \"...\" (symmetric "
 "difference)."
 msgstr ""
-"Тип фільтрування за діапазоном: none, \"..\" (діапазон) або \"...\" (симетрич"
-"на різниця)."
+"Тип фільтрування за діапазоном: none, \"..\" (діапазон) або \"...\" "
+"(симетрична різниця)."
 
 #: data/org.gnome.gitg.gschema.xml.in:274
 msgid "Range Filter Left Ref"
@@ -412,8 +408,8 @@ msgstr "Ліве посилання фільтра за діапазоном"
 #: data/org.gnome.gitg.gschema.xml.in:275
 msgid "Left reference for range filter (e.g. origin/main, HEAD~5, a tag)."
 msgstr ""
-"Ліве посилання для фільтра за діапазоном (Приклади: origin/main, HEAD~5, мітк"
-"а)."
+"Ліве посилання для фільтра за діапазоном (Приклади: origin/main, HEAD~5, "
+"мітка)."
 
 #: data/org.gnome.gitg.gschema.xml.in:281
 msgid "Range Filter Right Ref"
@@ -422,8 +418,8 @@ msgstr "Права посилання фільтра за діапазоном"
 #: data/org.gnome.gitg.gschema.xml.in:282
 msgid "Right reference for range filter (e.g. feature-branch, HEAD)."
 msgstr ""
-"Праве посилання для фільтрування за діапазоном (Приклади: feature-branch, HEA"
-"D)."
+"Праве посилання для фільтрування за діапазоном (Приклади: feature-branch, "
+"HEAD)."
 
 #: data/org.gnome.gitg.gschema.xml.in:288
 msgid "Show Common Ancestry"
@@ -434,8 +430,8 @@ msgid ""
 "When using \"...\" symmetric range, include the merge base commit for "
 "additional context."
 msgstr ""
-"При використанні симетричного діапазону \"...\", включити базовий внесок об'є"
-"днання для додаткового контексту."
+"При використанні симетричного діапазону \"...\", включити базовий внесок "
+"об'єднання для додаткового контексту."
 
 #: data/org.gnome.gitg.gschema.xml.in:298
 msgid "Switch to the new branch on creation"
@@ -637,8 +633,8 @@ msgid ""
 "When enabled, the diff view shows the entire file with unchanged regions "
 "folded, instead of showing only the changed hunks."
 msgstr ""
-"Якщо увімкнено, режим перегляду різниці показуватиме увесь файл, а не лише зм"
-"інені фрагменти зі згортанням незмінених фрагментів."
+"Якщо увімкнено, режим перегляду різниці показуватиме увесь файл, а не лише "
+"змінені фрагменти зі згортанням незмінених фрагментів."
 
 #: data/org.gnome.gitg.gschema.xml.in:442
 #: data/org.gnome.gitg.gschema.xml.in:461
@@ -729,12 +725,12 @@ msgstr "Огляд списку нещодавно використаних сх
 msgid "The Gitg Team"
 msgstr "Команда Gitg"
 
-#: gitg/commit/gitg-commit-dialog.vala:567 gitg/commit/gitg-commit.vala:1096
+#: gitg/commit/gitg-commit-dialog.vala:567 gitg/commit/gitg-commit.vala:1097
 msgid "There are no changes to be committed"
 msgstr "Немає змін, що їх внести"
 
 # Будь ласка, введіть повідомлення зробити перед тим,
-#: gitg/commit/gitg-commit-dialog.vala:568 gitg/commit/gitg-commit.vala:1097
+#: gitg/commit/gitg-commit-dialog.vala:568 gitg/commit/gitg-commit.vala:1098
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "Внести зміни до повідомлення щодо внеску попереднього внеску"
 
@@ -853,28 +849,28 @@ msgid "No dirty submodules"
 msgstr "Немає «брудних» підмодулів"
 
 # Не вдалося створити тег
-#: gitg/commit/gitg-commit.vala:1131
+#: gitg/commit/gitg-commit.vala:1132
 msgid "Failed to commit"
 msgstr "Не вдалося внести"
 
 # Не вдалося вилучити теги
-#: gitg/commit/gitg-commit.vala:1147
+#: gitg/commit/gitg-commit.vala:1148
 msgid "Failed to pass pre-commit"
 msgstr "Не вдалося пропустити попередній внесок"
 
 # Постановка змін
-#: gitg/commit/gitg-commit.vala:1315 gitg/commit/gitg-commit.vala:1465
+#: gitg/commit/gitg-commit.vala:1316 gitg/commit/gitg-commit.vala:1522
 msgid "Discard changes"
 msgstr "Відкинути зміни"
 
 # Ви впевнені, що хочете повернути ці зміни?
-#: gitg/commit/gitg-commit.vala:1316
+#: gitg/commit/gitg-commit.vala:1317
 msgid "Are you sure you want to permanently discard the selected changes?"
 msgstr "Ви справді хочете назавжди відкинути вибрані зміни?"
 
 # Скасувати
-#: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
-#: gitg/commit/gitg-commit.vala:1606
+#: gitg/commit/gitg-commit.vala:1326 gitg/commit/gitg-commit.vala:1548
+#: gitg/commit/gitg-commit.vala:1663
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:469
 #: gitg/gitg-window.vala:218 gitg/gitg-window.vala:880
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
@@ -894,31 +890,37 @@ msgstr "Ви справді хочете назавжди відкинути в�
 msgid "_Cancel"
 msgstr "_Скасувати"
 
-#: gitg/commit/gitg-commit.vala:1326 gitg/commit/gitg-commit.vala:1492
+#: gitg/commit/gitg-commit.vala:1327 gitg/commit/gitg-commit.vala:1549
 msgid "Discard"
 msgstr "Відкинути"
 
 # Не вдалося створити тег
-#: gitg/commit/gitg-commit.vala:1355
+#: gitg/commit/gitg-commit.vala:1356
 msgid "Failed to discard selection"
 msgstr "Не вдалося відкинути вибране"
 
+# Не вдалося зберегти поточний стан індекс
+#: gitg/commit/gitg-commit.vala:1416
+#| msgid "Failed to stash changes: %s"
+msgid "Failed to stash changes"
+msgstr "Не вдалося накопичити зміни"
+
 # Не вдалося створити тег
-#: gitg/commit/gitg-commit.vala:1385
+#: gitg/commit/gitg-commit.vala:1442
 msgid "Failed to stage selection"
 msgstr "Не вдалося позначити вибране"
 
-#: gitg/commit/gitg-commit.vala:1389
+#: gitg/commit/gitg-commit.vala:1446
 msgid "Failed to unstage selection"
 msgstr "Не вдалося зняти позначення з вибраного"
 
 # Не вдалося створити тег
-#: gitg/commit/gitg-commit.vala:1449
+#: gitg/commit/gitg-commit.vala:1506
 msgid "Failed to discard changes"
 msgstr "Не вдалося відкинути зміни"
 
 # Ви впевнені, що хочете повернути ці зміни?
-#: gitg/commit/gitg-commit.vala:1470
+#: gitg/commit/gitg-commit.vala:1527
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the file "
@@ -927,7 +929,7 @@ msgstr ""
 "Ви справді хочете остаточно відкинути усі зміни, які внесено до файла «%s»?"
 
 # Ви впевнені, що хочете об’єднати %s філії<%s>на %s філії<%s>?
-#: gitg/commit/gitg-commit.vala:1481
+#: gitg/commit/gitg-commit.vala:1538
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the files "
@@ -937,11 +939,11 @@ msgstr ""
 "«%s»?"
 
 # Не вдалося зберегти поточний стан індекс
-#: gitg/commit/gitg-commit.vala:1564
+#: gitg/commit/gitg-commit.vala:1621
 msgid "Failed to delete files"
 msgstr "Не вдалося вилучити файли"
 
-#: gitg/commit/gitg-commit.vala:1580
+#: gitg/commit/gitg-commit.vala:1637
 msgid "Delete file"
 msgid_plural "Delete files"
 msgstr[0] "Вилучити файли"
@@ -950,33 +952,33 @@ msgstr[2] "Вилучити файли"
 msgstr[3] "Вилучити файл"
 
 # Ви впевнені, що хочете вилучити тег<%s>?
-#: gitg/commit/gitg-commit.vala:1585
+#: gitg/commit/gitg-commit.vala:1642
 #, c-format
 msgid "Are you sure you want to permanently delete the file “%s”?"
 msgstr "Остаточно вилучити файл «%s»?"
 
 # Ви впевнені, що хочете повернути ці зміни?
-#: gitg/commit/gitg-commit.vala:1596
+#: gitg/commit/gitg-commit.vala:1653
 #, c-format
 msgid "Are you sure you want to permanently delete the files %s and “%s”?"
 msgstr "Ви справді хочете остаточно вилучити файли %s і «%s»?"
 
 # Постановка змін
-#: gitg/commit/gitg-commit.vala:1642
+#: gitg/commit/gitg-commit.vala:1699
 msgid "_Stage changes"
 msgstr "С_формувати зміни"
 
 # Постановка змін
-#: gitg/commit/gitg-commit.vala:1654
+#: gitg/commit/gitg-commit.vala:1711
 msgid "_Unstage changes"
 msgstr "_Скасувати формування змін"
 
 # Постановка змін
-#: gitg/commit/gitg-commit.vala:1666
+#: gitg/commit/gitg-commit.vala:1723
 msgid "_Discard changes"
 msgstr "_Відкинути зміни"
 
-#: gitg/commit/gitg-commit.vala:1678
+#: gitg/commit/gitg-commit.vala:1735
 msgid "D_elete file"
 msgid_plural "D_elete files"
 msgstr[0] "Ви_лучити файли"
@@ -985,7 +987,7 @@ msgstr[2] "Ви_лучити файли"
 msgstr[3] "Ви_лучити файл"
 
 # Змінити
-#: gitg/commit/gitg-commit.vala:1708
+#: gitg/commit/gitg-commit.vala:1765
 msgid "_Edit file"
 msgstr "_Редагувати файл"
 
@@ -1012,7 +1014,7 @@ msgstr ""
 #: gitg/gitg-action-support.vala:133
 #: gitg/gitg-commit-action-cherry-pick.vala:163
 #: gitg/gitg-ref-action-delete.vala:94 gitg/gitg-ref-action-merge.vala:195
-#: gitg/gitg-remove-remote-action.vala:67
+#: gitg/gitg-remove-remote-action.vala:67 gitg/history/gitg-history.vala:1525
 #: libgitg/gitg-repository-list-box.vala:560
 msgid "Cancel"
 msgstr "Скасувати"
@@ -1090,13 +1092,13 @@ msgstr "Не вдалося отримати дані з доданого від
 
 #. Translators: the first %s is the remote url to fetch from,
 #. * the second is a list of references that got updated.
-#: gitg/gitg-add-remote-action.vala:90 gitg/gitg-ref-action-fetch.vala:159
+#: gitg/gitg-add-remote-action.vala:89 gitg/gitg-ref-action-fetch.vala:159
 #, c-format
 msgid "Fetched from %s: %s"
 msgstr "Отримано з %s: %s"
 
 # Не вдалося вилучити теги
-#: gitg/gitg-add-remote-action.vala:132
+#: gitg/gitg-add-remote-action.vala:140
 msgid "Failed to add remote"
 msgstr "Не вдалося додати віддалене сховище"
 
@@ -1567,14 +1569,14 @@ msgid "Deleting branch %s from %s"
 msgstr "Вилучення гілки %s з %s"
 
 # Не вдалося створити філію
-#: gitg/gitg-ref-action-delete.vala:184
+#: gitg/gitg-ref-action-delete.vala:183
 #, c-format
 msgid "Failed to delete branch %s from %s: %s"
 msgstr "Не вдалося вилучити гілку %s з %s: %s"
 
 # Вилучити віддаленого філії
 #. Translators: the %s will get replaced with the remote url,
-#: gitg/gitg-ref-action-delete.vala:192
+#: gitg/gitg-ref-action-delete.vala:191
 #, c-format
 msgid "Deleted from %s"
 msgstr "Вилучено з %s"
@@ -1710,7 +1712,7 @@ msgid "Merge “%s” into branch “%s”"
 msgstr "Злити «%s» до гілки «%s»"
 
 #: gitg/gitg-ref-action-merge.vala:483
-#: gitg/history/gitg-history-refs-list.vala:1267
+#: gitg/history/gitg-history-refs-list.vala:1345
 msgid "Tags"
 msgstr "Мітки"
 
@@ -1907,16 +1909,17 @@ msgid "All commits"
 msgstr "Всі внески"
 
 # Відділення:
-#: gitg/history/gitg-history-refs-list.vala:1265
+#: gitg/history/gitg-history-refs-list.vala:1343
 msgid "Branches"
 msgstr "Гілки"
 
 # Дистанційне керування
-#: gitg/history/gitg-history-refs-list.vala:1266
+#: gitg/history/gitg-history-refs-list.vala:1344
 msgid "Remotes"
 msgstr "Віддалені"
 
-#: gitg/history/gitg-history-refs-list.vala:1268
+#: gitg/history/gitg-history-refs-list.vala:1346
+#: gitg/history/gitg-history.vala:984
 msgid "Stash"
 msgstr "Накопичити"
 
@@ -1931,93 +1934,125 @@ msgstr "Журнал"
 msgid "Examine the history of the repository"
 msgstr "Вивчення журналу сховища"
 
-#: gitg/history/gitg-history.vala:1367
+#: gitg/history/gitg-history.vala:1383
 msgid "Mainline"
 msgstr "Основа"
 
-#: gitg/history/gitg-history.vala:1448
+#: gitg/history/gitg-history.vala:1464
 msgid "Main remote"
 msgstr "Основне віддалене сховище"
 
-#: gitg/history/gitg-history.vala:1822
+#: gitg/history/gitg-history.vala:1499
+msgid "Pop"
+msgstr "Підштовхнути"
+
+# Не вдалося застосувати притон
+#: gitg/history/gitg-history.vala:1510
+#| msgid "Failed to lookup tag"
+msgid "Failed to pop stash"
+msgstr "Не вдалося підштовхнути накопичене"
+
+#: gitg/history/gitg-history.vala:1517 gitg/history/gitg-history.vala:1526
+msgid "Drop"
+msgstr "Відкинути"
+
+#: gitg/history/gitg-history.vala:1521
+#| msgid "Confirm tag deletion"
+msgid "Confirm stash deletion"
+msgstr "Підтвердження вилучення накопиченого"
+
+# Ви впевнені, що хочете вилучити тег<%s>?
+#: gitg/history/gitg-history.vala:1522
+#, c-format
+#| msgid ""
+#| "Are you sure that you want to permanently delete the tag <b><i>“%s”</i></"
+#| "b>?"
+msgid ""
+"Are you sure that you want to permanently delete <b><i>stash@{%zu}</i></b>?"
+msgstr "Ви справді хочете остаточно вилучити<b><i>stash@{%zu}</i></b>?"
+
+# Не вдалося застосувати притон
+#: gitg/history/gitg-history.vala:1541
+#| msgid "Failed to lookup tag"
+msgid "Failed to drop stash"
+msgstr "Не вдалося відкинути накопичене"
+
+#: gitg/history/gitg-history.vala:1921
 msgid "Show only d_ecorated commits"
 msgstr "Показувати лише о_формлені внески"
 
-#: gitg/history/gitg-history.vala:1829
+#: gitg/history/gitg-history.vala:1928
 msgid ""
 "_Path filter (separate patterns with spaces, prefix with :! to exclude)"
 msgstr "Фільтр за _шляхом (окремі взірці з пробілами, префікс :! — виключити)"
 
-#: gitg/history/gitg-history.vala:1844
-#| msgid "Delete file"
-#| msgid_plural "Delete files"
+#: gitg/history/gitg-history.vala:1943
 msgid "_Date filter"
 msgstr "Фільтр за _датою"
 
-#: gitg/history/gitg-history.vala:1851 gitg/history/gitg-history.vala:1876
-#: gitg/history/gitg-history.vala:1943
+#: gitg/history/gitg-history.vala:1950 gitg/history/gitg-history.vala:1975
+#: gitg/history/gitg-history.vala:2042
 msgid "None"
 msgstr "Немає"
 
-#: gitg/history/gitg-history.vala:1852 gitg/history/gitg-history.vala:1877
+#: gitg/history/gitg-history.vala:1951 gitg/history/gitg-history.vala:1976
 msgid "Since"
 msgstr "Початкова дата"
 
-#: gitg/history/gitg-history.vala:1853 gitg/history/gitg-history.vala:1878
+#: gitg/history/gitg-history.vala:1952 gitg/history/gitg-history.vala:1977
 msgid "Until"
 msgstr "Кінцева дата"
 
-#: gitg/history/gitg-history.vala:1854 gitg/history/gitg-history.vala:1879
+#: gitg/history/gitg-history.vala:1953 gitg/history/gitg-history.vala:1978
 msgid "Before"
 msgstr "До"
 
-#: gitg/history/gitg-history.vala:1855 gitg/history/gitg-history.vala:1880
+#: gitg/history/gitg-history.vala:1954 gitg/history/gitg-history.vala:1979
 msgid "After"
 msgstr "Після"
 
-#: gitg/history/gitg-history.vala:1865
+#: gitg/history/gitg-history.vala:1964
 msgid "e.g. 2 weeks ago, 2025-01-01"
 msgstr "Приклад: 2 тижні тому, 2025-01-01"
 
-#: gitg/history/gitg-history.vala:1890
+#: gitg/history/gitg-history.vala:1989
 msgid "e.g. yesterday, 2025-06-15"
 msgstr "Приклади: вчора, 2025-06-15"
 
-#: gitg/history/gitg-history.vala:1900
+#: gitg/history/gitg-history.vala:1999
 msgid "_Author filter (regex on Name <email>)"
 msgstr "Фільтр за _автором (формальний вираз або Ім'я <пошта>)"
 
-#: gitg/history/gitg-history.vala:1908
+#: gitg/history/gitg-history.vala:2007
 msgid "e.g. John, john@example.com"
 msgstr "Приклади: John, john@example.com"
 
-#: gitg/history/gitg-history.vala:1913
+#: gitg/history/gitg-history.vala:2012
 msgid "Co_mmitter filter (regex on Name <email>)"
 msgstr "Фільтр за автором зап_исування (формальний вираз або Ім'я <пошта>)"
 
-#: gitg/history/gitg-history.vala:1921
+#: gitg/history/gitg-history.vala:2020
 msgid "e.g. bot, ci@"
 msgstr "Приклади: bot, ci@"
 
 # Відкрити…
-#: gitg/history/gitg-history.vala:1929
-#| msgid "_Open file"
+#: gitg/history/gitg-history.vala:2028
 msgid "_Range filter"
 msgstr "Фільтр за ді_апазоном"
 
-#: gitg/history/gitg-history.vala:1937
+#: gitg/history/gitg-history.vala:2036
 msgid "e.g. origin/main"
 msgstr "Приклад: origin/main"
 
-#: gitg/history/gitg-history.vala:1955
+#: gitg/history/gitg-history.vala:2054
 msgid "e.g. HEAD"
 msgstr "Приклад: HEAD"
 
-#: gitg/history/gitg-history.vala:1963
+#: gitg/history/gitg-history.vala:2062
 msgid "Show _common ancestry"
 msgstr "Показати с_пільного попередника"
 
-#: gitg/history/gitg-history.vala:1982
+#: gitg/history/gitg-history.vala:2081
 msgid "Use _repo config"
 msgstr "_Налаштування сховища"
 
@@ -2143,7 +2178,7 @@ msgstr "Внести"
 
 # Здійснювати
 #: gitg/resources/ui/gitg-commit-dialog.ui:36
-#: gitg/resources/ui/gitg-commit-paned.ui:111
+#: gitg/resources/ui/gitg-commit-paned.ui:121
 msgid "C_ommit"
 msgstr "В_нести"
 
@@ -2165,15 +2200,20 @@ msgstr "Додати п_ідпис"
 msgid "Filter Files"
 msgstr "Фільтрування файлів"
 
-#: gitg/resources/ui/gitg-commit-paned.ui:101
+#: gitg/resources/ui/gitg-commit-paned.ui:100
 msgid "Skip commit _hooks"
 msgstr "Пропусти _запобіжник внеску"
 
-#: gitg/resources/ui/gitg-commit-paned.ui:121
+#: gitg/resources/ui/gitg-commit-paned.ui:110
+#| msgid "Stash"
+msgid "_Stash"
+msgstr "_Накопичити"
+
+#: gitg/resources/ui/gitg-commit-paned.ui:131
 msgid "S_tage selection"
 msgstr "П_означити вибране"
 
-#: gitg/resources/ui/gitg-commit-paned.ui:132
+#: gitg/resources/ui/gitg-commit-paned.ui:142
 msgid "D_iscard selection"
 msgstr "Від_кинути позначене"
 
@@ -3165,8 +3205,6 @@ msgid "Context:"
 msgstr "Контекст:"
 
 #: libgitg/resources/ui/gitg-diff-view-options.ui:67
-#| msgid "Delete file"
-#| msgid_plural "Delete files"
 msgid "Full file"
 msgstr "Увесь файл"
 
