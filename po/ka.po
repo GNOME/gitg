@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2026-09-27 10:23+0000\n"
-"PO-Revision-Date: 2026-09-29 06:03+0200\n"
+"POT-Creation-Date: 2026-09-30 07:57+0000\n"
+"PO-Revision-Date: 2026-09-30 10:18+0200\n"
 "Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
 "Language-Team: Georgian <(nothing)>\n"
 "Language: ka\n"
@@ -31,7 +31,7 @@ msgstr "Gitg"
 msgid "Git repository browser"
 msgstr "Git რეპოზიტორიის დათვალიერება"
 
-#: data/org.gnome.gitg.desktop.in.in:16
+#: data/org.gnome.gitg.desktop.in.in:15
 msgid "New Window"
 msgstr "ახალი ფანჯარა"
 
@@ -601,11 +601,11 @@ msgstr ""
 msgid "The Gitg Team"
 msgstr ""
 
-#: gitg/commit/gitg-commit-dialog.vala:567 gitg/commit/gitg-commit.vala:1096
+#: gitg/commit/gitg-commit-dialog.vala:567 gitg/commit/gitg-commit.vala:1097
 msgid "There are no changes to be committed"
 msgstr ""
 
-#: gitg/commit/gitg-commit-dialog.vala:568 gitg/commit/gitg-commit.vala:1097
+#: gitg/commit/gitg-commit-dialog.vala:568 gitg/commit/gitg-commit.vala:1098
 msgid "Use amend to change the commit message of the previous commit"
 msgstr ""
 
@@ -713,24 +713,24 @@ msgstr "ქვემოდული"
 msgid "No dirty submodules"
 msgstr ""
 
-#: gitg/commit/gitg-commit.vala:1131
+#: gitg/commit/gitg-commit.vala:1132
 msgid "Failed to commit"
 msgstr "გადაცემის შეცდომა"
 
-#: gitg/commit/gitg-commit.vala:1147
+#: gitg/commit/gitg-commit.vala:1148
 msgid "Failed to pass pre-commit"
 msgstr ""
 
-#: gitg/commit/gitg-commit.vala:1315 gitg/commit/gitg-commit.vala:1465
+#: gitg/commit/gitg-commit.vala:1316 gitg/commit/gitg-commit.vala:1522
 msgid "Discard changes"
 msgstr "ცვლილებების გაუქმება"
 
-#: gitg/commit/gitg-commit.vala:1316
+#: gitg/commit/gitg-commit.vala:1317
 msgid "Are you sure you want to permanently discard the selected changes?"
 msgstr ""
 
-#: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
-#: gitg/commit/gitg-commit.vala:1606
+#: gitg/commit/gitg-commit.vala:1326 gitg/commit/gitg-commit.vala:1548
+#: gitg/commit/gitg-commit.vala:1663
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:469
 #: gitg/gitg-window.vala:218 gitg/gitg-window.vala:880
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
@@ -750,79 +750,84 @@ msgstr ""
 msgid "_Cancel"
 msgstr "გაუქმება"
 
-#: gitg/commit/gitg-commit.vala:1326 gitg/commit/gitg-commit.vala:1492
+#: gitg/commit/gitg-commit.vala:1327 gitg/commit/gitg-commit.vala:1549
 msgid "Discard"
 msgstr "გაუქმება"
 
-#: gitg/commit/gitg-commit.vala:1355
+#: gitg/commit/gitg-commit.vala:1356
 msgid "Failed to discard selection"
 msgstr ""
 
-#: gitg/commit/gitg-commit.vala:1385
+#: gitg/commit/gitg-commit.vala:1416
+#| msgid "Stash changes"
+msgid "Failed to stash changes"
+msgstr ""
+
+#: gitg/commit/gitg-commit.vala:1442
 msgid "Failed to stage selection"
 msgstr ""
 
-#: gitg/commit/gitg-commit.vala:1389
+#: gitg/commit/gitg-commit.vala:1446
 msgid "Failed to unstage selection"
 msgstr ""
 
-#: gitg/commit/gitg-commit.vala:1449
+#: gitg/commit/gitg-commit.vala:1506
 msgid "Failed to discard changes"
 msgstr ""
 
-#: gitg/commit/gitg-commit.vala:1470
+#: gitg/commit/gitg-commit.vala:1527
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the file "
 "“%s”?"
 msgstr ""
 
-#: gitg/commit/gitg-commit.vala:1481
+#: gitg/commit/gitg-commit.vala:1538
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the files "
 "%s and “%s”?"
 msgstr ""
 
-#: gitg/commit/gitg-commit.vala:1564
+#: gitg/commit/gitg-commit.vala:1621
 msgid "Failed to delete files"
 msgstr ""
 
-#: gitg/commit/gitg-commit.vala:1580
+#: gitg/commit/gitg-commit.vala:1637
 msgid "Delete file"
 msgid_plural "Delete files"
 msgstr[0] "ფაილის წაშლა"
 msgstr[1] "ფაილების წაშლა"
 
-#: gitg/commit/gitg-commit.vala:1585
+#: gitg/commit/gitg-commit.vala:1642
 #, c-format
 msgid "Are you sure you want to permanently delete the file “%s”?"
 msgstr ""
 
-#: gitg/commit/gitg-commit.vala:1596
+#: gitg/commit/gitg-commit.vala:1653
 #, c-format
 msgid "Are you sure you want to permanently delete the files %s and “%s”?"
 msgstr ""
 
-#: gitg/commit/gitg-commit.vala:1642
+#: gitg/commit/gitg-commit.vala:1699
 msgid "_Stage changes"
 msgstr ""
 
-#: gitg/commit/gitg-commit.vala:1654
+#: gitg/commit/gitg-commit.vala:1711
 msgid "_Unstage changes"
 msgstr ""
 
-#: gitg/commit/gitg-commit.vala:1666
+#: gitg/commit/gitg-commit.vala:1723
 msgid "_Discard changes"
 msgstr ""
 
-#: gitg/commit/gitg-commit.vala:1678
+#: gitg/commit/gitg-commit.vala:1735
 msgid "D_elete file"
 msgid_plural "D_elete files"
 msgstr[0] "_ფაილის წაშლა"
 msgstr[1] "_ფაილების წაშლა"
 
-#: gitg/commit/gitg-commit.vala:1708
+#: gitg/commit/gitg-commit.vala:1765
 msgid "_Edit file"
 msgstr "ფაილის _ჩასწორება"
 
@@ -844,7 +849,7 @@ msgstr ""
 #: gitg/gitg-action-support.vala:133
 #: gitg/gitg-commit-action-cherry-pick.vala:163
 #: gitg/gitg-ref-action-delete.vala:94 gitg/gitg-ref-action-merge.vala:195
-#: gitg/gitg-remove-remote-action.vala:67
+#: gitg/gitg-remove-remote-action.vala:67 gitg/history/gitg-history.vala:1525
 #: libgitg/gitg-repository-list-box.vala:560
 msgid "Cancel"
 msgstr "გაუქმება"
@@ -910,12 +915,12 @@ msgstr ""
 
 #. Translators: the first %s is the remote url to fetch from,
 #. * the second is a list of references that got updated.
-#: gitg/gitg-add-remote-action.vala:90 gitg/gitg-ref-action-fetch.vala:159
+#: gitg/gitg-add-remote-action.vala:89 gitg/gitg-ref-action-fetch.vala:159
 #, c-format
 msgid "Fetched from %s: %s"
 msgstr ""
 
-#: gitg/gitg-add-remote-action.vala:132
+#: gitg/gitg-add-remote-action.vala:140
 msgid "Failed to add remote"
 msgstr "დაშორებულის დამატების შეცდომა"
 
@@ -1326,13 +1331,13 @@ msgstr ""
 msgid "Deleting branch %s from %s"
 msgstr ""
 
-#: gitg/gitg-ref-action-delete.vala:184
+#: gitg/gitg-ref-action-delete.vala:183
 #, c-format
 msgid "Failed to delete branch %s from %s: %s"
 msgstr "დაშორებული ბრენჩის %s წაშლის შეცდომა %s-დან: %s"
 
 #. Translators: the %s will get replaced with the remote url,
-#: gitg/gitg-ref-action-delete.vala:192
+#: gitg/gitg-ref-action-delete.vala:191
 #, c-format
 msgid "Deleted from %s"
 msgstr "წაიშალა %s-დან"
@@ -1454,7 +1459,7 @@ msgid "Merge “%s” into branch “%s”"
 msgstr ""
 
 #: gitg/gitg-ref-action-merge.vala:483
-#: gitg/history/gitg-history-refs-list.vala:1267
+#: gitg/history/gitg-history-refs-list.vala:1345
 msgid "Tags"
 msgstr "ჭდეები"
 
@@ -1630,15 +1635,16 @@ msgstr ""
 msgid "All commits"
 msgstr ""
 
-#: gitg/history/gitg-history-refs-list.vala:1265
+#: gitg/history/gitg-history-refs-list.vala:1343
 msgid "Branches"
 msgstr "ბრენჩი"
 
-#: gitg/history/gitg-history-refs-list.vala:1266
+#: gitg/history/gitg-history-refs-list.vala:1344
 msgid "Remotes"
 msgstr "დაშორებულები"
 
-#: gitg/history/gitg-history-refs-list.vala:1268
+#: gitg/history/gitg-history-refs-list.vala:1346
+#: gitg/history/gitg-history.vala:984
 msgid "Stash"
 msgstr "საკუჭნაო"
 
@@ -1652,88 +1658,117 @@ msgstr "ისტორია"
 msgid "Examine the history of the repository"
 msgstr ""
 
-#: gitg/history/gitg-history.vala:1367
+#: gitg/history/gitg-history.vala:1383
 msgid "Mainline"
 msgstr ""
 
-#: gitg/history/gitg-history.vala:1448
+#: gitg/history/gitg-history.vala:1464
 msgid "Main remote"
 msgstr "მთავარი დაშორებული"
 
-#: gitg/history/gitg-history.vala:1822
-msgid "Show only d_ecorated commits"
+#: gitg/history/gitg-history.vala:1499
+msgid "Pop"
 msgstr ""
 
-#: gitg/history/gitg-history.vala:1829
-msgid "_Path filter (separate patterns with spaces, prefix with :! to exclude)"
+#: gitg/history/gitg-history.vala:1510
+#| msgid "Failed to commit"
+msgid "Failed to pop stash"
 msgstr ""
 
-#: gitg/history/gitg-history.vala:1844
-msgid "_Date filter"
-msgstr "თარი_ღის ფილტრი"
-
-#: gitg/history/gitg-history.vala:1851 gitg/history/gitg-history.vala:1876
-#: gitg/history/gitg-history.vala:1943
-msgid "None"
-msgstr "არცერთი"
-
-#: gitg/history/gitg-history.vala:1852 gitg/history/gitg-history.vala:1877
-msgid "Since"
-msgstr "საწყისი დრო"
-
-#: gitg/history/gitg-history.vala:1853 gitg/history/gitg-history.vala:1878
-msgid "Until"
-msgstr "დასასრულის დრო"
-
-#: gitg/history/gitg-history.vala:1854 gitg/history/gitg-history.vala:1879
-msgid "Before"
-msgstr "სანამდე"
-
-#: gitg/history/gitg-history.vala:1855 gitg/history/gitg-history.vala:1880
-msgid "After"
-msgstr "შემდეგ"
-
-#: gitg/history/gitg-history.vala:1865
-msgid "e.g. 2 weeks ago, 2025-01-01"
+#: gitg/history/gitg-history.vala:1517 gitg/history/gitg-history.vala:1526
+msgid "Drop"
 msgstr ""
 
-#: gitg/history/gitg-history.vala:1890
-msgid "e.g. yesterday, 2025-06-15"
+#: gitg/history/gitg-history.vala:1521
+#| msgid "Confirm tag deletion"
+msgid "Confirm stash deletion"
 msgstr ""
 
-#: gitg/history/gitg-history.vala:1900
-msgid "_Author filter (regex on Name <email>)"
+#: gitg/history/gitg-history.vala:1522
+#, c-format
+msgid ""
+"Are you sure that you want to permanently delete <b><i>stash@{%zu}</i></b>?"
 msgstr ""
 
-#: gitg/history/gitg-history.vala:1908
-msgid "e.g. John, john@example.com"
-msgstr ""
-
-#: gitg/history/gitg-history.vala:1913
-msgid "Co_mmitter filter (regex on Name <email>)"
+#: gitg/history/gitg-history.vala:1541
+#| msgid "Failed to add remote"
+msgid "Failed to drop stash"
 msgstr ""
 
 #: gitg/history/gitg-history.vala:1921
+msgid "Show only d_ecorated commits"
+msgstr ""
+
+#: gitg/history/gitg-history.vala:1928
+msgid "_Path filter (separate patterns with spaces, prefix with :! to exclude)"
+msgstr ""
+
+#: gitg/history/gitg-history.vala:1943
+msgid "_Date filter"
+msgstr "თარი_ღის ფილტრი"
+
+#: gitg/history/gitg-history.vala:1950 gitg/history/gitg-history.vala:1975
+#: gitg/history/gitg-history.vala:2042
+msgid "None"
+msgstr "არცერთი"
+
+#: gitg/history/gitg-history.vala:1951 gitg/history/gitg-history.vala:1976
+msgid "Since"
+msgstr "საწყისი დრო"
+
+#: gitg/history/gitg-history.vala:1952 gitg/history/gitg-history.vala:1977
+msgid "Until"
+msgstr "დასასრულის დრო"
+
+#: gitg/history/gitg-history.vala:1953 gitg/history/gitg-history.vala:1978
+msgid "Before"
+msgstr "სანამდე"
+
+#: gitg/history/gitg-history.vala:1954 gitg/history/gitg-history.vala:1979
+msgid "After"
+msgstr "შემდეგ"
+
+#: gitg/history/gitg-history.vala:1964
+msgid "e.g. 2 weeks ago, 2025-01-01"
+msgstr ""
+
+#: gitg/history/gitg-history.vala:1989
+msgid "e.g. yesterday, 2025-06-15"
+msgstr ""
+
+#: gitg/history/gitg-history.vala:1999
+msgid "_Author filter (regex on Name <email>)"
+msgstr ""
+
+#: gitg/history/gitg-history.vala:2007
+msgid "e.g. John, john@example.com"
+msgstr ""
+
+#: gitg/history/gitg-history.vala:2012
+msgid "Co_mmitter filter (regex on Name <email>)"
+msgstr ""
+
+#: gitg/history/gitg-history.vala:2020
 msgid "e.g. bot, ci@"
 msgstr ""
 
-#: gitg/history/gitg-history.vala:1929
+#: gitg/history/gitg-history.vala:2028
 msgid "_Range filter"
 msgstr ""
 
-#: gitg/history/gitg-history.vala:1937
+#: gitg/history/gitg-history.vala:2036
 msgid "e.g. origin/main"
 msgstr ""
 
-#: gitg/history/gitg-history.vala:1955
+#: gitg/history/gitg-history.vala:2054
 msgid "e.g. HEAD"
 msgstr ""
 
-#: gitg/history/gitg-history.vala:1963
+#: gitg/history/gitg-history.vala:2062
 msgid "Show _common ancestry"
 msgstr ""
 
-#: gitg/history/gitg-history.vala:1982
+#: gitg/history/gitg-history.vala:2081
 msgid "Use _repo config"
 msgstr ""
 
@@ -1844,7 +1879,7 @@ msgid "Commit"
 msgstr "გადაცემა"
 
 #: gitg/resources/ui/gitg-commit-dialog.ui:36
-#: gitg/resources/ui/gitg-commit-paned.ui:111
+#: gitg/resources/ui/gitg-commit-paned.ui:121
 msgid "C_ommit"
 msgstr "_კომიტი"
 
@@ -1864,15 +1899,20 @@ msgstr ""
 msgid "Filter Files"
 msgstr "ფილტრის ფაილები"
 
-#: gitg/resources/ui/gitg-commit-paned.ui:101
+#: gitg/resources/ui/gitg-commit-paned.ui:100
 msgid "Skip commit _hooks"
 msgstr ""
 
-#: gitg/resources/ui/gitg-commit-paned.ui:121
+#: gitg/resources/ui/gitg-commit-paned.ui:110
+#| msgid "Stash"
+msgid "_Stash"
+msgstr ""
+
+#: gitg/resources/ui/gitg-commit-paned.ui:131
 msgid "S_tage selection"
 msgstr ""
 
-#: gitg/resources/ui/gitg-commit-paned.ui:132
+#: gitg/resources/ui/gitg-commit-paned.ui:142
 msgid "D_iscard selection"
 msgstr "მონ_იშნულის მოცილება"
 
@@ -2186,11 +2226,11 @@ msgstr "Diff"
 msgid "Text mode:"
 msgstr "ტექსტური რეჟიმი:"
 
-#: gitg/resources/ui/gitg-preferences-interface.ui:348
+#: gitg/resources/ui/gitg-preferences-interface.ui:347
 msgid "Enable syntax highlighting of source code in diff views"
 msgstr ""
 
-#: gitg/resources/ui/gitg-preferences-interface.ui:374
+#: gitg/resources/ui/gitg-preferences-interface.ui:373
 msgid "Syntax highlighting color scheme:"
 msgstr ""
 
