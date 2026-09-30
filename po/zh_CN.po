@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2026-09-27 10:23+0000\n"
-"PO-Revision-Date: 2026-09-28 09:44+0800\n"
+"POT-Creation-Date: 2026-09-29 13:54+0000\n"
+"PO-Revision-Date: 2026-09-30 08:19+0800\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -188,12 +188,12 @@ msgstr "设置是否以拓扑顺序显示历史。"
 
 #: data/org.gnome.gitg.gschema.xml.in:145
 msgid "Show Stashed Changes"
-msgstr "显示储藏变更"
+msgstr "显示贮藏变更"
 
 #: data/org.gnome.gitg.gschema.xml.in:146
 msgid ""
 "Setting that indicates whether to show items for the stash in the history."
-msgstr "设置是否在历史记录中显示进度保存的项目。"
+msgstr "设置是否在历史中显示贮藏项目。"
 
 #: data/org.gnome.gitg.gschema.xml.in:153
 msgid "Show Staged Changes"
@@ -632,11 +632,11 @@ msgstr "当前所用仓库的概览"
 msgid "The Gitg Team"
 msgstr "Gitg 团队"
 
-#: gitg/commit/gitg-commit-dialog.vala:567 gitg/commit/gitg-commit.vala:1096
+#: gitg/commit/gitg-commit-dialog.vala:567 gitg/commit/gitg-commit.vala:1097
 msgid "There are no changes to be committed"
 msgstr "没有要提交的变更"
 
-#: gitg/commit/gitg-commit-dialog.vala:568 gitg/commit/gitg-commit.vala:1097
+#: gitg/commit/gitg-commit-dialog.vala:568 gitg/commit/gitg-commit.vala:1098
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "请使用 amend （修补）更改上次提交的提交说明"
 
@@ -745,24 +745,24 @@ msgstr "子模组"
 msgid "No dirty submodules"
 msgstr "不允许脏工作区的子模块"
 
-#: gitg/commit/gitg-commit.vala:1131
+#: gitg/commit/gitg-commit.vala:1132
 msgid "Failed to commit"
 msgstr "提交失败"
 
-#: gitg/commit/gitg-commit.vala:1147
+#: gitg/commit/gitg-commit.vala:1148
 msgid "Failed to pass pre-commit"
 msgstr "通过预提交失败"
 
-#: gitg/commit/gitg-commit.vala:1315 gitg/commit/gitg-commit.vala:1465
+#: gitg/commit/gitg-commit.vala:1316 gitg/commit/gitg-commit.vala:1522
 msgid "Discard changes"
 msgstr "丢弃变更"
 
-#: gitg/commit/gitg-commit.vala:1316
+#: gitg/commit/gitg-commit.vala:1317
 msgid "Are you sure you want to permanently discard the selected changes?"
 msgstr "确定要永久丢弃选中的变更吗？"
 
-#: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491
-#: gitg/commit/gitg-commit.vala:1606
+#: gitg/commit/gitg-commit.vala:1326 gitg/commit/gitg-commit.vala:1548
+#: gitg/commit/gitg-commit.vala:1663
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:469
 #: gitg/gitg-window.vala:218 gitg/gitg-window.vala:880
 #: gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
@@ -782,84 +782,88 @@ msgstr "确定要永久丢弃选中的变更吗？"
 msgid "_Cancel"
 msgstr "取消(_C)"
 
-#: gitg/commit/gitg-commit.vala:1326 gitg/commit/gitg-commit.vala:1492
+#: gitg/commit/gitg-commit.vala:1327 gitg/commit/gitg-commit.vala:1549
 msgid "Discard"
 msgstr "丢弃"
 
-#: gitg/commit/gitg-commit.vala:1355
+#: gitg/commit/gitg-commit.vala:1356
 msgid "Failed to discard selection"
 msgstr "丢弃选中项失败"
 
-#: gitg/commit/gitg-commit.vala:1385
+#: gitg/commit/gitg-commit.vala:1416
+msgid "Failed to stash changes"
+msgstr "贮藏变更失败"
+
+#: gitg/commit/gitg-commit.vala:1442
 msgid "Failed to stage selection"
 msgstr "暂存选中项失败"
 
-#: gitg/commit/gitg-commit.vala:1389
+#: gitg/commit/gitg-commit.vala:1446
 msgid "Failed to unstage selection"
 msgstr "取消暂存选中项失败"
 
-#: gitg/commit/gitg-commit.vala:1449
+#: gitg/commit/gitg-commit.vala:1506
 msgid "Failed to discard changes"
 msgstr "丢弃变更失败"
 
-#: gitg/commit/gitg-commit.vala:1470
+#: gitg/commit/gitg-commit.vala:1527
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the file "
 "“%s”?"
 msgstr "确定要永久丢弃对文件“%s”的所有变更吗？"
 
-#: gitg/commit/gitg-commit.vala:1481
+#: gitg/commit/gitg-commit.vala:1538
 #, c-format
 msgid ""
 "Are you sure you want to permanently discard all changes made to the files "
 "%s and “%s”?"
 msgstr "确定要永久丢弃对文件 %s 和“%s”的所有变更吗？"
 
-#: gitg/commit/gitg-commit.vala:1564
+#: gitg/commit/gitg-commit.vala:1621
 msgid "Failed to delete files"
 msgstr "删除文件失败"
 
-#: gitg/commit/gitg-commit.vala:1580
+#: gitg/commit/gitg-commit.vala:1637
 msgid "Delete file"
 msgid_plural "Delete files"
 msgstr[0] "删除文件"
 
-#: gitg/commit/gitg-commit.vala:1585
+#: gitg/commit/gitg-commit.vala:1642
 #, c-format
 msgid "Are you sure you want to permanently delete the file “%s”?"
 msgstr "您确定要永久删除文件“%s”吗？"
 
-#: gitg/commit/gitg-commit.vala:1596
+#: gitg/commit/gitg-commit.vala:1653
 #, c-format
 msgid "Are you sure you want to permanently delete the files %s and “%s”?"
 msgstr "您确定要永久删除文件 %s 和“%s”吗？"
 
-#: gitg/commit/gitg-commit.vala:1642
+#: gitg/commit/gitg-commit.vala:1699
 msgid "_Stage changes"
 msgstr "暂存变更(_S)"
 
-#: gitg/commit/gitg-commit.vala:1654
+#: gitg/commit/gitg-commit.vala:1711
 msgid "_Unstage changes"
 msgstr "取消暂存变更(_U)"
 
-#: gitg/commit/gitg-commit.vala:1666
+#: gitg/commit/gitg-commit.vala:1723
 msgid "_Discard changes"
 msgstr "丢弃变更(_D)"
 
-#: gitg/commit/gitg-commit.vala:1678
+#: gitg/commit/gitg-commit.vala:1735
 msgid "D_elete file"
 msgid_plural "D_elete files"
 msgstr[0] "删除文件(_E)"
 
-#: gitg/commit/gitg-commit.vala:1708
+#: gitg/commit/gitg-commit.vala:1765
 msgid "_Edit file"
 msgstr "编辑文件(_E)"
 
 #: gitg/gitg-action-support.vala:95
 #, c-format
 msgid "Failed to stash changes: %s"
-msgstr "储藏变更失败：%s"
+msgstr "贮藏变更失败：%s"
 
 #: gitg/gitg-action-support.vala:130
 msgid "Unstaged changes"
@@ -869,19 +873,19 @@ msgstr "未暂存的变更"
 msgid ""
 "You appear to have unstaged changes in your working directory. Would you "
 "like to stash the changes before the checkout?"
-msgstr "您的工作目录中似乎有未暂存的更改。您希望先储藏变更再检出吗？"
+msgstr "您的工作目录中似乎有未暂存的更改。您希望先贮藏变更再检出吗？"
 
 #: gitg/gitg-action-support.vala:133
 #: gitg/gitg-commit-action-cherry-pick.vala:163
 #: gitg/gitg-ref-action-delete.vala:94 gitg/gitg-ref-action-merge.vala:195
-#: gitg/gitg-remove-remote-action.vala:67
+#: gitg/gitg-remove-remote-action.vala:67 gitg/history/gitg-history.vala:1525
 #: libgitg/gitg-repository-list-box.vala:560
 msgid "Cancel"
 msgstr "取消"
 
 #: gitg/gitg-action-support.vala:134
 msgid "Stash changes"
-msgstr "储藏变更"
+msgstr "贮藏变更"
 
 #: gitg/gitg-action-support.vala:138 gitg/gitg-action-support.vala:165
 msgid "Failed with conflicts"
@@ -940,12 +944,12 @@ msgstr "从添加的远程仓库获取失败"
 
 #. Translators: the first %s is the remote url to fetch from,
 #. * the second is a list of references that got updated.
-#: gitg/gitg-add-remote-action.vala:90 gitg/gitg-ref-action-fetch.vala:159
+#: gitg/gitg-add-remote-action.vala:89 gitg/gitg-ref-action-fetch.vala:159
 #, c-format
 msgid "Fetched from %s: %s"
 msgstr "已从 %s 获取：%s"
 
-#: gitg/gitg-add-remote-action.vala:132
+#: gitg/gitg-add-remote-action.vala:140
 msgid "Failed to add remote"
 msgstr "添加远程仓库失败"
 
@@ -1374,13 +1378,13 @@ msgstr "远程分支 %s 无法删除：%s"
 msgid "Deleting branch %s from %s"
 msgstr "正在从 %2$s 删除分支 %1$s"
 
-#: gitg/gitg-ref-action-delete.vala:184
+#: gitg/gitg-ref-action-delete.vala:183
 #, c-format
 msgid "Failed to delete branch %s from %s: %s"
 msgstr "从 %2$s 删除分支 %1$s 失败：%3$s"
 
 #. Translators: the %s will get replaced with the remote url,
-#: gitg/gitg-ref-action-delete.vala:192
+#: gitg/gitg-ref-action-delete.vala:191
 #, c-format
 msgid "Deleted from %s"
 msgstr "已从 %s 删除"
@@ -1507,7 +1511,7 @@ msgid "Merge “%s” into branch “%s”"
 msgstr "将“%s”合并进分支“%s”"
 
 #: gitg/gitg-ref-action-merge.vala:483
-#: gitg/history/gitg-history-refs-list.vala:1267
+#: gitg/history/gitg-history-refs-list.vala:1345
 msgid "Tags"
 msgstr "标签"
 
@@ -1683,17 +1687,18 @@ msgstr "%zu 在后"
 msgid "All commits"
 msgstr "所有提交"
 
-#: gitg/history/gitg-history-refs-list.vala:1265
+#: gitg/history/gitg-history-refs-list.vala:1343
 msgid "Branches"
 msgstr "分支"
 
-#: gitg/history/gitg-history-refs-list.vala:1266
+#: gitg/history/gitg-history-refs-list.vala:1344
 msgid "Remotes"
 msgstr "远程"
 
-#: gitg/history/gitg-history-refs-list.vala:1268
+#: gitg/history/gitg-history-refs-list.vala:1346
+#: gitg/history/gitg-history.vala:984
 msgid "Stash"
-msgstr "储藏"
+msgstr "贮藏"
 
 #: gitg/history/gitg-history.vala:363
 #: gitg/preferences/gitg-preferences-history.vala:226
@@ -1705,88 +1710,114 @@ msgstr "历史"
 msgid "Examine the history of the repository"
 msgstr "查看仓库的历史"
 
-#: gitg/history/gitg-history.vala:1367
+#: gitg/history/gitg-history.vala:1383
 msgid "Mainline"
 msgstr "主线"
 
-#: gitg/history/gitg-history.vala:1448
+#: gitg/history/gitg-history.vala:1464
 msgid "Main remote"
 msgstr "主要远程仓库"
 
-#: gitg/history/gitg-history.vala:1822
+#: gitg/history/gitg-history.vala:1499
+msgid "Pop"
+msgstr "弹出"
+
+#: gitg/history/gitg-history.vala:1510
+msgid "Failed to pop stash"
+msgstr "弹出贮藏失败"
+
+#: gitg/history/gitg-history.vala:1517 gitg/history/gitg-history.vala:1526
+msgid "Drop"
+msgstr "丢弃"
+
+#: gitg/history/gitg-history.vala:1521
+msgid "Confirm stash deletion"
+msgstr "贮藏删除确认"
+
+#: gitg/history/gitg-history.vala:1522
+#, c-format
+msgid ""
+"Are you sure that you want to permanently delete <b><i>stash@{%zu}</i></b>?"
+msgstr "您确定要永久删除<b><i>贮藏@{%zu}</i></b> 吗？"
+
+#: gitg/history/gitg-history.vala:1541
+msgid "Failed to drop stash"
+msgstr "丢弃贮藏失败"
+
+#: gitg/history/gitg-history.vala:1921
 msgid "Show only d_ecorated commits"
 msgstr "仅显示带标记的提交(_E)"
 
-#: gitg/history/gitg-history.vala:1829
+#: gitg/history/gitg-history.vala:1928
 msgid "_Path filter (separate patterns with spaces, prefix with :! to exclude)"
 msgstr "路径筛选（用空格分隔模式，用前缀 :! 排除）(_P)"
 
-#: gitg/history/gitg-history.vala:1844
+#: gitg/history/gitg-history.vala:1943
 msgid "_Date filter"
 msgstr "日期筛选(_D)"
 
-#: gitg/history/gitg-history.vala:1851 gitg/history/gitg-history.vala:1876
-#: gitg/history/gitg-history.vala:1943
+#: gitg/history/gitg-history.vala:1950 gitg/history/gitg-history.vala:1975
+#: gitg/history/gitg-history.vala:2042
 msgid "None"
 msgstr "无"
 
-#: gitg/history/gitg-history.vala:1852 gitg/history/gitg-history.vala:1877
+#: gitg/history/gitg-history.vala:1951 gitg/history/gitg-history.vala:1976
 msgid "Since"
 msgstr "始于"
 
-#: gitg/history/gitg-history.vala:1853 gitg/history/gitg-history.vala:1878
+#: gitg/history/gitg-history.vala:1952 gitg/history/gitg-history.vala:1977
 msgid "Until"
 msgstr "直到"
 
-#: gitg/history/gitg-history.vala:1854 gitg/history/gitg-history.vala:1879
+#: gitg/history/gitg-history.vala:1953 gitg/history/gitg-history.vala:1978
 msgid "Before"
 msgstr "之前"
 
-#: gitg/history/gitg-history.vala:1855 gitg/history/gitg-history.vala:1880
+#: gitg/history/gitg-history.vala:1954 gitg/history/gitg-history.vala:1979
 msgid "After"
 msgstr "之后"
 
-#: gitg/history/gitg-history.vala:1865
+#: gitg/history/gitg-history.vala:1964
 msgid "e.g. 2 weeks ago, 2025-01-01"
 msgstr "例如：2 weeks ago、2025-01-01"
 
-#: gitg/history/gitg-history.vala:1890
+#: gitg/history/gitg-history.vala:1989
 msgid "e.g. yesterday, 2025-06-15"
 msgstr "例如：yesterday、2025-06-15"
 
-#: gitg/history/gitg-history.vala:1900
+#: gitg/history/gitg-history.vala:1999
 msgid "_Author filter (regex on Name <email>)"
 msgstr "作者筛选（Name <email> 上的正则表达式）(_A)"
 
-#: gitg/history/gitg-history.vala:1908
+#: gitg/history/gitg-history.vala:2007
 msgid "e.g. John, john@example.com"
 msgstr "例如：John、john@example.com"
 
-#: gitg/history/gitg-history.vala:1913
+#: gitg/history/gitg-history.vala:2012
 msgid "Co_mmitter filter (regex on Name <email>)"
 msgstr "提交者筛选（Name <email> 上的正则表达式）(_M)"
 
-#: gitg/history/gitg-history.vala:1921
+#: gitg/history/gitg-history.vala:2020
 msgid "e.g. bot, ci@"
 msgstr "例如：bot、ci@"
 
-#: gitg/history/gitg-history.vala:1929
+#: gitg/history/gitg-history.vala:2028
 msgid "_Range filter"
 msgstr "范围筛选(_R)"
 
-#: gitg/history/gitg-history.vala:1937
+#: gitg/history/gitg-history.vala:2036
 msgid "e.g. origin/main"
 msgstr "例如：origin/main"
 
-#: gitg/history/gitg-history.vala:1955
+#: gitg/history/gitg-history.vala:2054
 msgid "e.g. HEAD"
 msgstr "例如：HEAD"
 
-#: gitg/history/gitg-history.vala:1963
+#: gitg/history/gitg-history.vala:2062
 msgid "Show _common ancestry"
 msgstr "显示共同起源(_C)"
 
-#: gitg/history/gitg-history.vala:1982
+#: gitg/history/gitg-history.vala:2081
 msgid "Use _repo config"
 msgstr "使用仓库配置(_R)"
 
@@ -1897,7 +1928,7 @@ msgid "Commit"
 msgstr "提交"
 
 #: gitg/resources/ui/gitg-commit-dialog.ui:36
-#: gitg/resources/ui/gitg-commit-paned.ui:111
+#: gitg/resources/ui/gitg-commit-paned.ui:121
 msgid "C_ommit"
 msgstr "提交(_O)"
 
@@ -1917,15 +1948,19 @@ msgstr "添加签名(_G)"
 msgid "Filter Files"
 msgstr "筛选文件"
 
-#: gitg/resources/ui/gitg-commit-paned.ui:101
+#: gitg/resources/ui/gitg-commit-paned.ui:100
 msgid "Skip commit _hooks"
 msgstr "跳过提交钩子(_H)"
 
-#: gitg/resources/ui/gitg-commit-paned.ui:121
+#: gitg/resources/ui/gitg-commit-paned.ui:110
+msgid "_Stash"
+msgstr "贮藏(_S)"
+
+#: gitg/resources/ui/gitg-commit-paned.ui:131
 msgid "S_tage selection"
 msgstr "暂存选中项(_T)"
 
-#: gitg/resources/ui/gitg-commit-paned.ui:132
+#: gitg/resources/ui/gitg-commit-paned.ui:142
 msgid "D_iscard selection"
 msgstr "丢弃选中项(_I)"
 
