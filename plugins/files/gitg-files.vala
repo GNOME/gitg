@@ -41,6 +41,15 @@ namespace GitgFiles
 		private Gitg.WhenMapped d_whenMapped;
 		private Gitg.FontManager d_font_manager;
 
+		private Gtk.TreeView d_tree_view;
+		private Gtk.Revealer d_revealer_options;
+		private BlameRenderer? d_blame_renderer;
+		private bool d_blame_active;
+		private string? d_current_file_path;
+		private string? d_pending_reselect_path;
+		private ulong d_loaded_handler_id;
+		private uint d_unreveal_options_timeout;
+
 		construct
 		{
 			d_model = new TreeStore();
@@ -83,13 +92,87 @@ namespace GitgFiles
 
 		private void on_selection_changed(GitgExt.History history)
 		{
+			d_pending_reselect_path = d_current_file_path;
+
+			if (d_loaded_handler_id != 0)
+			{
+				d_model.disconnect(d_loaded_handler_id);
+				d_loaded_handler_id = 0;
+			}
+
 			history.foreach_selected((commit) => {
 				d_whenMapped.update(() => {
 					d_model.tree = commit.get_tree();
+
+					if (d_pending_reselect_path != null)
+					{
+						d_loaded_handler_id = d_model.loaded.connect(() => {
+							var path = d_pending_reselect_path;
+							d_pending_reselect_path = null;
+							d_model.disconnect(d_loaded_handler_id);
+							d_loaded_handler_id = 0;
+
+							if (path != null)
+							{
+								select_file_by_path(path);
+							}
+						});
+					}
 				}, this);
 
 				return false;
 			});
+		}
+
+		private void select_file_by_path(string file_path)
+		{
+			var parts = file_path.split(Path.DIR_SEPARATOR_S);
+			Gtk.TreeIter iter;
+			Gtk.TreeIter? parent = null;
+
+			for (var i = 0; i < parts.length; i++)
+			{
+				bool found = false;
+				bool valid;
+
+				if (parent == null)
+				{
+					valid = d_model.iter_children(out iter, null);
+				}
+				else
+				{
+					valid = d_model.iter_children(out iter, parent);
+				}
+
+				while (valid)
+				{
+					if (d_model.get_name(iter) == parts[i])
+					{
+						if (i < parts.length - 1)
+						{
+							var tree_path = d_model.get_path(iter);
+							d_tree_view.expand_row(tree_path, false);
+						}
+
+						parent = iter;
+						found = true;
+						break;
+					}
+					valid = d_model.iter_next(ref iter);
+				}
+
+				if (!found)
+				{
+					return;
+				}
+			}
+
+			if (parent != null)
+			{
+				var tree_path = d_model.get_path(parent);
+				d_tree_view.get_selection().select_path(tree_path);
+				d_tree_view.scroll_to_cell(tree_path, null, false, 0, 0);
+			}
 		}
 
 		private void update_style()
@@ -121,9 +204,12 @@ namespace GitgFiles
 			                                  "scrolled_window_files",
 			                                  "tree_view_files",
 			                                  "source_view_file",
-			                                  "scrolled_window_file");
+			                                  "scrolled_window_file",
+			                                  "check_button_blame",
+			                                  "revealer_options");
 
-			var tv = ret["tree_view_files"] as Gtk.TreeView;
+			d_tree_view = ret["tree_view_files"] as Gtk.TreeView;
+			var tv = d_tree_view;
 			tv.model = d_model;
 
 			tv.get_selection().changed.connect(selection_changed);
@@ -140,13 +226,22 @@ namespace GitgFiles
 							                   null,
 							                   null);
 							tv.get_selection().select_path(path);
+
+							Gtk.TreeIter citer;
+							if (!d_model.get_iter(out citer, path) || d_model.get_isdir(citer))
+							{
+								return false;
+							}
+
 							Gtk.Menu menu = new Gtk.Menu ();
-							Gtk.MenuItem menu_item = new Gtk.MenuItem.with_label (_("Open externally"));
-							menu_item.activate.connect(()=> {
+
+							Gtk.MenuItem open_item = new Gtk.MenuItem.with_label (_("Open externally"));
+							open_item.activate.connect(()=> {
 								open_file_externally(path, null);
 							});
+							menu.add (open_item);
+
 							menu.attach_to_widget (tv, null);
-							menu.add (menu_item);
 							menu.show_all ();
 							menu.popup_at_pointer (event);
 							return true;
@@ -157,6 +252,33 @@ namespace GitgFiles
 			d_source = ret["source_view_file"] as Gtk.SourceView;
 			d_paned = ret["paned_files"] as Gtk.Paned;
 			d_scrolled = ret["scrolled_window_file"] as Gtk.ScrolledWindow;
+
+			var blame_check = ret["check_button_blame"] as Gtk.CheckButton;
+			blame_check.toggled.connect(() => {
+				d_blame_active = blame_check.active;
+				if (d_blame_active && d_current_file_path != null)
+				{
+					load_blame(d_current_file_path);
+				}
+				else
+				{
+					clear_blame();
+				}
+			});
+
+			d_revealer_options = ret["revealer_options"] as Gtk.Revealer;
+			d_revealer_options.add_events(Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
+			d_revealer_options.enter_notify_event.connect(() => {
+				cancel_unreveal_timeout();
+				return false;
+			});
+			d_revealer_options.leave_notify_event.connect(() => {
+				if (d_revealer_options.reveal_child)
+				{
+					start_unreveal_timeout();
+				}
+				return false;
+			});
 
 			d_font_manager = new Gitg.FontManager(d_source, true);
 
@@ -220,8 +342,11 @@ namespace GitgFiles
 			var buf = d_source.get_buffer() as Gtk.SourceBuffer;
 			buf.set_text("");
 
+			clear_blame();
+
 			if (!selection.get_selected(out mod, out iter) || d_model.get_isdir(iter))
 			{
+				d_current_file_path = null;
 				set_viewer(d_source);
 				return;
 			}
@@ -235,11 +360,13 @@ namespace GitgFiles
 			}
 			catch
 			{
+				d_current_file_path = null;
 				set_viewer(d_source);
 				return;
 			}
 
 			var fname = d_model.get_full_path(iter);
+			d_current_file_path = fname;
 			unowned uint8[] content = blob.get_raw_content();
 
 			var ct = ContentType.guess(fname, content, null);
@@ -266,13 +393,108 @@ namespace GitgFiles
 			{
 				var manager = Gtk.SourceLanguageManager.get_default();
 
-				buf.set_text((string)content);
+				var len = content.length;
+				unowned string raw = (string)content;
+				string text;
+
+				if (raw.validate(len))
+				{
+					text = raw.substring(0, len);
+				}
+				else
+				{
+					try
+					{
+						text = GLib.convert(raw, len, "UTF-8", "ISO-8859-1");
+					}
+					catch
+					{
+						text = raw.substring(0, len).make_valid();
+					}
+				}
+
+				buf.set_text(text);
 				buf.language = manager.guess_language(fname, ct);
 
 				wid = d_source;
+
+				if (d_blame_active)
+				{
+					load_blame(fname);
+				}
 			}
 
 			set_viewer(wid);
+		}
+
+		private void load_blame(string path)
+		{
+			clear_blame();
+
+			var repo = application.repository;
+			var workdir = repo.get_workdir();
+
+			if (workdir == null)
+			{
+				return;
+			}
+
+			var file = workdir.get_child(path);
+
+			new Thread<void>("blame", () => {
+				Ggit.Blame? blame = null;
+				try
+				{
+					blame = repo.blame_file(file, null);
+				}
+				catch (Error e)
+				{
+					stderr.printf("Failed to load blame: %s\n", e.message);
+				}
+
+				Idle.add(() => {
+					if (blame != null && d_blame_active && d_blame_renderer == null)
+					{
+						d_blame_renderer = new BlameRenderer();
+						d_blame_renderer.commit_clicked.connect(on_blame_commit_clicked);
+
+						var gutter = d_source.get_gutter(Gtk.TextWindowType.LEFT);
+						gutter.insert(d_blame_renderer, 0);
+						d_blame_renderer.set_blame(blame);
+						d_source.queue_draw();
+					}
+					return false;
+				});
+			});
+		}
+
+		private void clear_blame()
+		{
+			if (d_blame_renderer != null)
+			{
+				var gutter = d_source.get_gutter(Gtk.TextWindowType.LEFT);
+				gutter.remove(d_blame_renderer);
+				d_blame_renderer = null;
+			}
+		}
+
+		private void on_blame_commit_clicked(Ggit.OId oid)
+		{
+			Idle.add(() => {
+				try
+				{
+					var commit = application.repository.lookup<Gitg.Commit>(oid);
+					if (commit != null)
+					{
+						history.select(commit);
+					}
+				}
+				catch (Error e)
+				{
+					stderr.printf("Failed to lookup commit: %s\n", e.message);
+				}
+				return false;
+			});
 		}
 
 		private void open_file_externally(Gtk.TreePath path, Gtk.TreeViewColumn? column)
@@ -342,6 +564,98 @@ namespace GitgFiles
 			{
 				// TODO
 				return true;
+			}
+		}
+
+		private void start_unreveal_timeout()
+		{
+			if (d_unreveal_options_timeout != 0)
+			{
+				Source.remove(d_unreveal_options_timeout);
+			}
+
+			d_unreveal_options_timeout = Timeout.add(3000, () => {
+				d_unreveal_options_timeout = 0;
+				d_revealer_options.reveal_child = false;
+				return false;
+			});
+		}
+
+		private void cancel_unreveal_timeout()
+		{
+			if (d_unreveal_options_timeout != 0)
+			{
+				Source.remove(d_unreveal_options_timeout);
+				d_unreveal_options_timeout = 0;
+			}
+		}
+
+		public override void toggle_options()
+		{
+			if (d_revealer_options != null)
+			{
+				d_revealer_options.reveal_child = !d_revealer_options.reveal_child;
+
+				if (d_revealer_options.reveal_child)
+				{
+					start_unreveal_timeout();
+				}
+				else
+				{
+					cancel_unreveal_timeout();
+				}
+			}
+		}
+
+		public override void cancel_options_timeout()
+		{
+			if (d_revealer_options != null && d_revealer_options.reveal_child)
+			{
+				cancel_unreveal_timeout();
+			}
+		}
+
+		public override void restart_options_timeout()
+		{
+			if (d_revealer_options != null && d_revealer_options.reveal_child)
+			{
+				start_unreveal_timeout();
+			}
+		}
+
+		public override void navigate_to_file(string path)
+		{
+			if (d_paned == null)
+			{
+				build_ui();
+			}
+
+			Gtk.TreeIter iter;
+			if (d_model.iter_children(out iter, null))
+			{
+				select_file_by_path(path);
+			}
+			else
+			{
+				d_pending_reselect_path = path;
+
+				if (d_loaded_handler_id != 0)
+				{
+					d_model.disconnect(d_loaded_handler_id);
+					d_loaded_handler_id = 0;
+				}
+
+				d_loaded_handler_id = d_model.loaded.connect(() => {
+					var p = d_pending_reselect_path;
+					d_pending_reselect_path = null;
+					d_model.disconnect(d_loaded_handler_id);
+					d_loaded_handler_id = 0;
+
+					if (p != null)
+					{
+						select_file_by_path(p);
+					}
+				});
 			}
 		}
 

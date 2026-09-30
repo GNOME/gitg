@@ -6,6 +6,7 @@ install_data(
 sources = files(
   'gitg-files.vala',
   'gitg-files-tree-store.vala',
+  'gitg-files-blame-renderer.vala',
 )
 
 resource_data = files('resources/view-files.ui')

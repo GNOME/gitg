@@ -31,6 +31,8 @@ public class TreeStore : Gtk.TreeStore
 	private uint d_update_id;
 	private Ggit.Tree d_tree;
 
+	public signal void loaded();
+
 	public Ggit.Tree? tree
 	{
 		get { return d_tree; }
@@ -190,6 +192,7 @@ public class TreeStore : Gtk.TreeStore
 			if (items == null)
 			{
 				d_update_id = 0;
+				loaded();
 				return false;
 			}
 

@@ -40,6 +40,8 @@ class Gitg.DiffViewFile : Gtk.Grid
 
 	private bool d_expanded;
 
+	public signal void request_open_in_files_view(string path);
+
 	public Gee.ArrayList<DiffViewFileRenderer> renderer_list {get; private set;}
 
 	public bool new_is_workdir { get; construct set; }
@@ -264,25 +266,37 @@ class Gitg.DiffViewFile : Gtk.Grid
 		var oldpath = delta.get_old_file().get_path();
 		var newpath = delta.get_new_file().get_path();
 
-		var open_file = new Gtk.MenuItem.with_mnemonic(_("_Open file"));
-		open_file.show();
-
 		File? location = null;
+		string? file_path = null;
 
 		var repository = info.repository;
 		if (newpath != null && newpath != "")
 		{
 			location = repository.get_workdir().get_child(newpath);
+			file_path = newpath;
 		}
 		else if (oldpath != null && oldpath != "")
 		{
 			location = repository.get_workdir().get_child(oldpath);
+			file_path = oldpath;
 		}
 
 		if (location == null)
 		{
 			return;
 		}
+
+		var open_in_files = new Gtk.MenuItem.with_mnemonic(_("_Navigate to file"));
+		open_in_files.show();
+
+		open_in_files.activate.connect(() => {
+			request_open_in_files_view(file_path);
+		});
+
+		menu.add(open_in_files);
+
+		var open_file = new Gtk.MenuItem.with_mnemonic(_("Open file _externally"));
+		open_file.show();
 
 		open_file.activate.connect(() => {
 			try

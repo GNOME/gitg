@@ -42,6 +42,22 @@ public interface HistoryPanel : Object, UIElement
 	 * is created.
 	 */
 	public abstract GitgExt.History? history { owned get; construct set; }
+
+	public virtual void navigate_to_file(string path)
+	{
+	}
+
+	public virtual void toggle_options()
+	{
+	}
+
+	public virtual void cancel_options_timeout()
+	{
+	}
+
+	public virtual void restart_options_timeout()
+	{
+	}
 }
 
 }
