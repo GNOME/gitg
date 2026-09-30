@@ -615,6 +615,15 @@ namespace GitgHistory
 						d_main.commit_list_view.grab_focus();
 					}
 				});
+
+				diff_view.request_open_in_files_view.connect((path) => {
+					var files_panel = d_panels.lookup("/org/gnome/gitg/Panels/Files");
+					if (files_panel != null)
+					{
+						files_panel.navigate_to_file(path);
+						d_panels.current = files_panel;
+					}
+				});
 			}
 		}
 
@@ -661,6 +670,24 @@ namespace GitgHistory
 			d_main.key_press_event.connect((event) => {
 				var mod = event.state & Gtk.accelerator_get_default_mod_mask();
 
+				if (event.keyval == Gdk.Key.Alt_L || event.keyval == Gdk.Key.Alt_R)
+				{
+					var visible = d_main.stack_panel.get_visible_child();
+					var dv = visible as Gitg.DiffView;
+					if (dv != null)
+					{
+						dv.cancel_options_timeout();
+					}
+					else
+					{
+						var current = d_panels.current;
+						if (current != null)
+						{
+							current.cancel_options_timeout();
+						}
+					}
+				}
+
 				if (mod == Gdk.ModifierType.MOD1_MASK)
 				{
 					var win = d_main.get_toplevel() as Gtk.Window;
@@ -705,6 +732,28 @@ switch (event.keyval)
 					}
 				}
 
+				if (mod == Gdk.ModifierType.CONTROL_MASK)
+				{
+					if (event.keyval == Gdk.Key.s)
+					{
+						var visible = d_main.stack_panel.get_visible_child();
+
+						var diff_view = visible as Gitg.DiffView;
+						if (diff_view != null)
+						{
+							diff_view.toggle_options();
+							return true;
+						}
+
+						var current = d_panels.current;
+						if (current != null)
+						{
+							current.toggle_options();
+							return true;
+						}
+					}
+				}
+
 				if (mod == (Gdk.ModifierType.SHIFT_MASK | Gdk.ModifierType.CONTROL_MASK))
 				{
 					switch (event.keyval)
@@ -729,6 +778,33 @@ switch (event.keyval)
 				}
 
 				return false;
+			});
+
+			d_main.realize.connect(() => {
+				var win = d_main.get_toplevel() as Gtk.Window;
+				if (win != null)
+				{
+					win.key_release_event.connect((event) => {
+						if (event.keyval == Gdk.Key.Alt_L || event.keyval == Gdk.Key.Alt_R)
+						{
+							var visible = d_main.stack_panel.get_visible_child();
+							var dv = visible as Gitg.DiffView;
+							if (dv != null)
+							{
+								dv.restart_options_timeout();
+							}
+							else
+							{
+								var current = d_panels.current;
+								if (current != null)
+								{
+									current.restart_options_timeout();
+								}
+							}
+						}
+						return false;
+					});
+				}
 			});
 
 			d_main.stack_panel.notify["visible-child"].connect(() => {

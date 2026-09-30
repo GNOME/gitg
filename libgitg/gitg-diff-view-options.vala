@@ -26,8 +26,8 @@ public class Gitg.DiffViewOptions : Gtk.Toolbar
 	[GtkChild (name = "check_button_full_file")]
 	private unowned Gtk.CheckButton d_check_button_full_file;
 
-	[GtkChild (name = "tool_button_spacing")]
-	private unowned Gtk.ToolButton d_tool_button_spacing;
+	[GtkChild (name = "button_spacing")]
+	private unowned Gtk.Button d_button_spacing;
 
 	public int context_lines { get; set; }
 	public bool show_full_file { get; set; }
@@ -66,7 +66,7 @@ public class Gitg.DiffViewOptions : Gtk.Toolbar
 		d_bindings = new Gee.LinkedList<Binding>();
 
 		d_popover_spacing = new DiffViewOptionsSpacing();
-		d_popover_spacing.relative_to = d_tool_button_spacing;
+		d_popover_spacing.relative_to = d_button_spacing;
 	}
 
 	public override void dispose()
@@ -159,7 +159,7 @@ public class Gitg.DiffViewOptions : Gtk.Toolbar
 	}
 
 	[GtkCallback]
-	private void clicked_on_tool_button_spacing(Gtk.Widget widget)
+	private void clicked_on_button_spacing(Gtk.Widget widget)
 	{
 		d_popover_spacing.show();
 	}

@@ -156,6 +156,59 @@ public class Gitg.DiffView : Gtk.Grid
 	public bool highlight { get; construct set; default = true; }
 
 	public signal void request_navigate_out(int direction);
+	public signal void request_open_in_files_view(string path);
+
+	public void toggle_options()
+	{
+		if (d_reveal_options_timeout != 0)
+		{
+			Source.remove(d_reveal_options_timeout);
+			d_reveal_options_timeout = 0;
+		}
+
+		if (d_unreveal_options_timeout != 0)
+		{
+			Source.remove(d_unreveal_options_timeout);
+			d_unreveal_options_timeout = 0;
+		}
+
+		d_revealer_options.reveal_child = !d_revealer_options.reveal_child;
+
+		if (d_revealer_options.reveal_child)
+		{
+			d_unreveal_options_timeout = Timeout.add(3000, () => {
+				d_unreveal_options_timeout = 0;
+				d_revealer_options.reveal_child = false;
+				return false;
+			});
+		}
+	}
+
+	public void cancel_options_timeout()
+	{
+		if (d_revealer_options.reveal_child && d_unreveal_options_timeout != 0)
+		{
+			Source.remove(d_unreveal_options_timeout);
+			d_unreveal_options_timeout = 0;
+		}
+	}
+
+	public void restart_options_timeout()
+	{
+		if (d_revealer_options.reveal_child)
+		{
+			if (d_unreveal_options_timeout != 0)
+			{
+				Source.remove(d_unreveal_options_timeout);
+			}
+
+			d_unreveal_options_timeout = Timeout.add(3000, () => {
+				d_unreveal_options_timeout = 0;
+				d_revealer_options.reveal_child = false;
+				return false;
+			});
+		}
+	}
 
 	private bool d_show_full_file;
 	private int d_user_context_lines;
@@ -1279,6 +1332,10 @@ public class Gitg.DiffView : Gtk.Grid
 			{
 				file.vexpand = true;
 			}
+
+			file.request_open_in_files_view.connect((path) => {
+				request_open_in_files_view(path);
+			});
 
 			file.show();
 			d_grid_files.add(file);
