@@ -96,6 +96,7 @@ namespace GitgHistory
 				if (d_repository != value)
 				{
 					d_repository = value;
+					clear_lane_highlights();
 					reload();
 				}
 			}
@@ -157,6 +158,22 @@ namespace GitgHistory
 			});
 
 			d_settings.changed["path-filter"].connect((s, k) => {
+				update_walker();
+			});
+
+			d_settings.changed["collapse-inactive-lanes-enabled"].connect((s, k) => {
+				update_walker();
+			});
+
+			d_settings.changed["collapse-inactive-lanes"].connect((s, k) => {
+				update_walker();
+			});
+
+			d_settings.changed["collapse-inactive-lanes-max"].connect((s, k) => {
+				update_walker();
+			});
+
+			d_settings.changed["collapse-inactive-lanes-gap"].connect((s, k) => {
 				update_walker();
 			});
 
@@ -507,6 +524,22 @@ namespace GitgHistory
 			get { return d_main.refs_list; }
 		}
 
+		private void clear_lane_highlights()
+		{
+			foreach (var column in d_main.commit_list_view.get_columns())
+			{
+				foreach (var cell in column.get_cells())
+				{
+					var lanes = cell as Gitg.CellRendererLanes;
+
+					if (lanes != null)
+					{
+						lanes.clear_highlights();
+					}
+				}
+			}
+		}
+
 		private void reload()
 		{
 			if (d_walker_update_idle_id != 0)
@@ -755,6 +788,12 @@ switch (event.keyval)
 				});
 			});
 
+			d_main.commit_list_view.button_press_event.connect(on_lane_arrow_button_press);
+			d_main.commit_list_view.motion_notify_event.connect(on_lane_arrow_motion);
+
+			d_main.commit_list_view.set_has_tooltip(true);
+			d_main.commit_list_view.query_tooltip.connect(on_lane_query_tooltip);
+
 			d_main.refs_list.row_activated.connect(on_ref_list_row_activated);
 
 			var engine = Gitg.PluginsEngine.get_default();
@@ -811,6 +850,243 @@ switch (event.keyval)
 					return false;
 				});
 			}
+		}
+
+		private bool on_lane_query_tooltip(int x, int y, bool keyboard_mode, Gtk.Tooltip tooltip)
+		{
+			if (keyboard_mode || d_repository == null)
+			{
+				return false;
+			}
+
+			int bin_x;
+			int bin_y;
+			d_main.commit_list_view.convert_widget_to_bin_window_coords(x, y, out bin_x, out bin_y);
+
+			int cell_x;
+			int cell_y;
+			int cell_w;
+			Gtk.TreePath path;
+			Gtk.TreeViewColumn column;
+
+			if (!d_main.commit_list_view.get_path_at_pos(bin_x, bin_y,
+			                                             out path,
+			                                             out column,
+			                                             out cell_x,
+			                                             out cell_y))
+			{
+				return false;
+			}
+
+			var cell = d_main.commit_list_view.find_cell_at_pos(column, path, cell_x, out cell_w) as Gitg.CellRendererLanes;
+
+			if (cell == null)
+			{
+				return false;
+			}
+
+			var lane = cell.get_lane_at_pos(d_main.commit_list_view, cell_x, cell_w);
+
+			if (lane == null || lane.tip_id == null)
+			{
+				return false;
+			}
+
+			unowned SList<Gitg.Ref> refs = d_repository.refs_for_id(lane.tip_id);
+
+			if (refs == null)
+			{
+				return false;
+			}
+
+			var names = new StringBuilder();
+
+			foreach (unowned Gitg.Ref r in refs)
+			{
+				if (names.len > 0)
+				{
+					names.append(", ");
+				}
+
+				names.append(r.parsed_name.shortname);
+			}
+
+			tooltip.set_text(names.str);
+			return true;
+		}
+
+		private bool on_lane_arrow_motion(Gdk.EventMotion event)
+		{
+			int cell_x;
+			int cell_y;
+			int cell_w;
+			Gtk.TreePath path;
+			Gtk.TreeViewColumn column;
+
+			var dominated = d_main.commit_list_view.get_path_at_pos((int)event.x,
+			                                                        (int)event.y,
+			                                                        out path,
+			                                                        out column,
+			                                                        out cell_x,
+			                                                        out cell_y);
+
+			bool jumpable = false;
+
+			if (dominated)
+			{
+				var cell = d_main.commit_list_view.find_cell_at_pos(column, path, cell_x, out cell_w) as Gitg.CellRendererLanes;
+
+				if (cell != null)
+				{
+					int lane_idx;
+					var lane = cell.get_lane_at_pos(d_main.commit_list_view, cell_x, cell_w, out lane_idx);
+
+					if (lane != null && lane.boundary_id != null &&
+					    ((lane.tag & Gitg.LaneTag.START) != 0 || (lane.tag & Gitg.LaneTag.END) != 0))
+					{
+						var model = (Gitg.CommitModel)d_main.commit_list_view.model;
+						jumpable = model.path_from_oid(lane.boundary_id) != null;
+					}
+				}
+			}
+
+			var win = d_main.commit_list_view.get_bin_window();
+
+			if (jumpable)
+			{
+				var cursor = new Gdk.Cursor.for_display(d_main.commit_list_view.get_display(),
+				                                        Gdk.CursorType.HAND2);
+				win.set_cursor(cursor);
+			}
+			else
+			{
+				win.set_cursor(null);
+			}
+
+			return false;
+		}
+
+		private bool on_lane_arrow_button_press(Gdk.EventButton event)
+		{
+			if (event.button != 1)
+			{
+				return false;
+			}
+
+			int cell_x;
+			int cell_y;
+			int cell_w;
+			Gtk.TreePath path;
+			Gtk.TreeViewColumn column;
+
+			if (!d_main.commit_list_view.get_path_at_pos((int)event.x,
+			                                             (int)event.y,
+			                                             out path,
+			                                             out column,
+			                                             out cell_x,
+			                                             out cell_y))
+			{
+				return false;
+			}
+
+			var cell = d_main.commit_list_view.find_cell_at_pos(column, path, cell_x, out cell_w) as Gitg.CellRendererLanes;
+
+			if (cell == null)
+			{
+				return false;
+			}
+
+			int clicked_lane_idx;
+			var lane = cell.get_lane_at_pos(d_main.commit_list_view, cell_x, cell_w, out clicked_lane_idx);
+
+			if (lane == null || clicked_lane_idx < 0)
+			{
+				cell.clear_highlights();
+				d_main.commit_list_view.queue_draw();
+				return false;
+			}
+
+			if (event.type == Gdk.EventType.BUTTON_PRESS)
+			{
+				cell.highlight_color_idx = (int)lane.color.idx;
+				d_main.commit_list_view.queue_draw();
+				return true;
+			}
+
+			if (event.type != Gdk.EventType.2BUTTON_PRESS)
+			{
+				return false;
+			}
+
+			if ((lane.tag & Gitg.LaneTag.START) == 0 && (lane.tag & Gitg.LaneTag.END) == 0)
+			{
+				return false;
+			}
+
+			if (lane.boundary_id == null)
+			{
+				return false;
+			}
+
+			var model = (Gitg.CommitModel)d_main.commit_list_view.model;
+			var boundary_path = model.path_from_oid(lane.boundary_id);
+
+			if (boundary_path == null)
+			{
+				return true;
+			}
+
+			int boundary_row = boundary_path.get_indices()[0];
+			bool looking_for_start = ((lane.tag & Gitg.LaneTag.END) != 0);
+			uint target_color_idx = lane.color.idx;
+
+			Gtk.TreePath? match_path = null;
+
+			for (int offset = -30; offset <= 30; offset++)
+			{
+				int row = boundary_row + offset;
+
+				if (row < 0)
+				{
+					continue;
+				}
+
+				var row_path = new Gtk.TreePath.from_indices(row);
+				var row_commit = model.commit_from_path(row_path);
+
+				if (row_commit == null)
+				{
+					break;
+				}
+
+				foreach (var l in row_commit.get_lanes())
+				{
+					bool tag_matches = looking_for_start ?
+						((l.tag & Gitg.LaneTag.START) != 0) :
+						((l.tag & Gitg.LaneTag.END) != 0);
+
+					if (tag_matches && l.color.idx == target_color_idx)
+					{
+						match_path = row_path;
+						break;
+					}
+				}
+
+				if (match_path != null)
+				{
+					break;
+				}
+			}
+
+			if (match_path != null)
+			{
+				var sel = d_main.commit_list_view.get_selection();
+				sel.unselect_all();
+				sel.select_path(match_path);
+				d_main.commit_list_view.scroll_to_cell(match_path, null, true, 0.5f, 0);
+			}
+
+			return true;
 		}
 
 		private Gtk.Menu? popup_on_ref(Gdk.EventButton? event)

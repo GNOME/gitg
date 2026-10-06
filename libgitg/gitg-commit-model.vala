@@ -1223,6 +1223,19 @@ namespace Gitg
 			}
 		}
 
+		public Gtk.TreePath? path_from_oid(Ggit.OId id)
+		{
+			lock(d_id_hash)
+			{
+				if (!d_id_hash.has_key(id))
+				{
+					return null;
+				}
+
+				return new Gtk.TreePath.from_indices(d_id_hash.get(id));
+			}
+		}
+
 		public Commit? commit_from_path(Gtk.TreePath path)
 		{
 			int[] indices = path.get_indices();

@@ -47,6 +47,7 @@ public class Lanes : Object
 			this.from = from;
 			this.to = to;
 			this.lane = new Lane.with_color(color);
+			this.lane.tip_id = to;
 			this.inactive = 0;
 		}
 
@@ -101,12 +102,14 @@ public class Lanes : Object
 		public uint index;
 		public Ggit.OId? from;
 		public Ggit.OId? to;
+		public Ggit.OId? tip_id;
 
 		public CollapsedLane(LaneContainer container)
 		{
 			color = container.lane.color;
 			from = container.from;
 			to = container.to;
+			tip_id = container.lane.tip_id;
 		}
 	}
 
@@ -125,6 +128,16 @@ public class Lanes : Object
 		settings.bind("collapse-inactive-lanes",
 		              this,
 		              "inactive-collapse",
+		              SettingsBindFlags.GET | SettingsBindFlags.SET);
+
+		settings.bind("collapse-inactive-lanes-max",
+		              this,
+		              "inactive-max",
+		              SettingsBindFlags.GET | SettingsBindFlags.SET);
+
+		settings.bind("collapse-inactive-lanes-gap",
+		              this,
+		              "inactive-gap",
 		              SettingsBindFlags.GET | SettingsBindFlags.SET);
 
 		reset();
@@ -515,6 +528,7 @@ public class Lanes : Object
 	{
 		var index = lane.index;
 		var ln = new Lane.with_color(lane.color);
+		ln.tip_id = lane.tip_id;
 		var len = d_lanes.size;
 
 		if (index > len)
@@ -527,6 +541,7 @@ public class Lanes : Object
 		var container = new LaneContainer.with_color(lane.from,
 		                                             lane.to,
 		                                             lane.color);
+		container.lane.tip_id = lane.tip_id;
 
 		update_current_lane_merge_indices((int)index, 1);
 
@@ -542,7 +557,7 @@ public class Lanes : Object
 		{
 			var commit = ptr.data;
 
-			if (cnt == inactive_collapse)
+			if (cnt > inactive_collapse)
 			{
 				break;
 			}
@@ -551,7 +566,7 @@ public class Lanes : Object
 			Lane copy = ln.copy();
 			unowned SList<Lane> lns = commit.get_lanes();
 
-			if (ptr.next == null || cnt + 1 == inactive_collapse)
+			if (ptr.next == null || cnt == inactive_collapse)
 			{
 				copy.boundary_id = lane.from;
 				copy.tag |= LaneTag.START;
@@ -640,7 +655,8 @@ public class Lanes : Object
 
 		foreach (var container in d_lanes)
 		{
-			ret.append(container.lane.copy());
+			var lane = container.lane.copy();
+			ret.append(lane);
 		}
 
 		return ret;

@@ -35,6 +35,12 @@ public class PreferencesHistory : Gtk.Grid, GitgExt.Preferences
 	[GtkChild (name = "collapse_inactive_lanes")]
 	private unowned Gtk.Scale d_collapse_inactive_lanes;
 
+	[GtkChild (name = "inactive_max")]
+	private unowned Gtk.SpinButton d_inactive_max;
+
+	[GtkChild (name = "inactive_gap")]
+	private unowned Gtk.SpinButton d_inactive_gap;
+
 	[GtkChild (name = "topological_order")]
 	private unowned Gtk.CheckButton d_topological_order;
 
@@ -76,6 +82,16 @@ public class PreferencesHistory : Gtk.Grid, GitgExt.Preferences
 		settings.bind("collapse-inactive-lanes-enabled",
 		              d_collapse_inactive_lanes_enabled,
 		              "active",
+		              SettingsBindFlags.GET | SettingsBindFlags.SET);
+
+		settings.bind("collapse-inactive-lanes-max",
+		              d_inactive_max,
+		              "value",
+		              SettingsBindFlags.GET | SettingsBindFlags.SET);
+
+		settings.bind("collapse-inactive-lanes-gap",
+		              d_inactive_gap,
+		              "value",
 		              SettingsBindFlags.GET | SettingsBindFlags.SET);
 
 		settings.bind("topological-order",

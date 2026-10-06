@@ -30,6 +30,8 @@ namespace Gitg
 
 		private int d_last_height;
 
+		public int highlight_color_idx = -1;
+
 		private delegate double DirectionFunc(double i);
 
 		private uint num_visible_lanes
@@ -87,13 +89,19 @@ namespace Gitg
 		private void draw_arrow(Cairo.Context context,
 		                        Gdk.Rectangle area,
 		                        uint          laneidx,
-		                        bool          top)
+		                        bool          top,
+		                        bool          highlighted = false)
 		{
 			double cw = lane_width;
 			double xpos = area.x + laneidx * cw + cw / 2.0;
 			double df = (top ? -1 : 1) * 0.25 * area.height;
 			double ypos = area.y + area.height / 2.0 + df;
 			double q = cw / 4.0;
+
+			if (highlighted)
+			{
+				context.set_line_width(4.0);
+			}
 
 			context.move_to(xpos - q, ypos + (top ? q : -q));
 			context.line_to(xpos, ypos);
@@ -103,6 +111,16 @@ namespace Gitg
 			context.move_to(xpos, ypos);
 			context.line_to(xpos, ypos - df);
 			context.stroke();
+
+			if (highlighted)
+			{
+				context.set_line_width(2.0);
+			}
+		}
+
+		public void clear_highlights()
+		{
+			highlight_color_idx = -1;
 		}
 
 		private void draw_arrows(Cairo.Context context,
@@ -115,13 +133,15 @@ namespace Gitg
 				var color = lane.color;
 				context.set_source_rgb(color.r, color.g, color.b);
 
-				if (lane.tag == LaneTag.START)
+				bool highlighted = highlight_color_idx >= 0 && (int)color.idx == highlight_color_idx;
+
+				if ((lane.tag & LaneTag.START) != 0)
 				{
-					draw_arrow(context, area, to, true);
+					draw_arrow(context, area, to, true, highlighted);
 				}
-				else if (lane.tag == LaneTag.END)
+				else if ((lane.tag & LaneTag.END) != 0)
 				{
-					draw_arrow(context, area, to, false);
+					draw_arrow(context, area, to, false, highlighted);
 				}
 
 				++to;
@@ -154,6 +174,13 @@ namespace Gitg
 				var color = lane.color;
 				context.set_source_rgb(color.r, color.g, color.b);
 
+				bool highlighted = highlight_color_idx >= 0 && (int)color.idx == highlight_color_idx;
+
+				if (highlighted)
+				{
+					context.set_line_width(4.0);
+				}
+
 				foreach (var from in lane.from)
 				{
 					double x1 = area.x + f(from * cw + cw / 2.0);
@@ -165,6 +192,11 @@ namespace Gitg
 					context.move_to(x1, y1);
 					context.curve_to(x1, y2, x2, y2, x2, y3);
 					context.stroke();
+				}
+
+				if (highlighted)
+				{
+					context.set_line_width(2.0);
 				}
 
 				++to;
@@ -351,6 +383,49 @@ namespace Gitg
 			                                    x - offset,
 			                                    out hot_x);
 		}
+
+		public Lane? get_lane_at_pos(Gtk.Widget widget,
+		                             int        x,
+		                             int        cell_w,
+		                             out int    lane_index = null)
+		{
+			lane_index = -1;
+
+			if (commit == null)
+			{
+				return null;
+			}
+
+			var rtl = (widget.get_style_context().get_state() & Gtk.StateFlags.DIR_RTL) != 0;
+
+			if (rtl)
+			{
+				x = cell_w - x;
+			}
+
+			uint idx = 0;
+			double cw = lane_width;
+
+			foreach (var lane in commit.get_lanes())
+			{
+				if ((lane.tag & LaneTag.HIDDEN) == 0)
+				{
+					double lane_start = idx * cw;
+					double lane_end = lane_start + cw;
+
+					if (x >= lane_start && x <= lane_end)
+					{
+						lane_index = (int)idx;
+						return lane;
+					}
+				}
+
+				++idx;
+			}
+
+			return null;
+		}
+
 	}
 }
 

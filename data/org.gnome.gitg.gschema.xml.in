@@ -133,6 +133,22 @@
         to control when lanes should be collapsed.
       </description>
     </key>
+    <key name="collapse-inactive-lanes-max" type="i">
+      <default>30</default>
+      <summary>Inactive Lanes Maximum</summary>
+      <description>
+        Number of rows a lane can be inactive before it becomes eligible
+        for collapsing. Higher values let lanes stay visible longer.
+      </description>
+    </key>
+    <key name="collapse-inactive-lanes-gap" type="i">
+      <default>10</default>
+      <summary>Inactive Lanes Gap</summary>
+      <description>
+        Additional rows of inactivity after the maximum before the lane
+        is actually collapsed. Acts as a buffer zone.
+      </description>
+    </key>
     <key name="topological-order" type="b">
       <default>false</default>
       <summary>Show History in Topological Order</summary>

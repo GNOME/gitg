@@ -9,6 +9,20 @@
     <property name="page_increment">1</property>
     <property name="page_size">1</property>
   </object>
+  <object class="GtkAdjustment" id="adjustment_inactive_max">
+    <property name="lower">5</property>
+    <property name="upper">200</property>
+    <property name="value">30</property>
+    <property name="step_increment">5</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="adjustment_inactive_gap">
+    <property name="lower">1</property>
+    <property name="upper">50</property>
+    <property name="value">10</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">5</property>
+  </object>
   <template class="GitgPreferencesHistory" parent="GtkGrid">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -245,6 +259,62 @@
                   <packing>
                     <property name="left_attach">1</property>
                     <property name="top_attach">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="label_inactive_max">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">start</property>
+                    <property name="label" translatable="yes">Inactive threshold</property>
+                    <property name="margin_top">6</property>
+                    <property name="tooltip_text" translatable="yes">Number of rows a lane must be inactive before it can be collapsed</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkSpinButton" id="inactive_max">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="halign">end</property>
+                    <property name="adjustment">adjustment_inactive_max</property>
+                    <property name="margin_top">6</property>
+                    <property name="tooltip_text" translatable="yes">Number of rows a lane must be inactive before it can be collapsed</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">1</property>
+                    <property name="top_attach">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="label_inactive_gap">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">start</property>
+                    <property name="label" translatable="yes">Gap before collapse</property>
+                    <property name="margin_top">6</property>
+                    <property name="tooltip_text" translatable="yes">Additional rows of inactivity after the threshold before the lane is collapsed</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">3</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkSpinButton" id="inactive_gap">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="halign">end</property>
+                    <property name="adjustment">adjustment_inactive_gap</property>
+                    <property name="margin_top">6</property>
+                    <property name="tooltip_text" translatable="yes">Additional rows of inactivity after the threshold before the lane is collapsed</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">1</property>
+                    <property name="top_attach">3</property>
                   </packing>
                 </child>
               </object>
