@@ -705,10 +705,35 @@ switch (event.keyval)
 					}
 				}
 
+				if (mod == Gdk.ModifierType.CONTROL_MASK)
+				{
+					switch (event.keyval)
+					{
+					case Gdk.Key.c:
+					case Gdk.Key.C:
+					case Gdk.Key.Insert:
+						var clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD);
+						foreach_selected((commit) => {
+							clipboard.set_text(commit.get_id().to_string(), -1);
+							return false;
+						});
+						return true;
+					}
+				}
+
 				if (mod == (Gdk.ModifierType.SHIFT_MASK | Gdk.ModifierType.CONTROL_MASK))
 				{
 					switch (event.keyval)
 					{
+					case Gdk.Key.c:
+					case Gdk.Key.C:
+					case Gdk.Key.Insert:
+						var clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD);
+						foreach_selected((commit) => {
+							clipboard.set_text(commit.get_id().to_string().substring(0, 7), -1);
+							return false;
+						});
+						return true;
 					case Gdk.Key.minus:
 					case Gdk.Key.underscore:
 						var diff_view = d_main.stack_panel.get_visible_child() as Gitg.DiffView;
@@ -991,6 +1016,47 @@ switch (event.keyval)
 			sep.show();
 			menu.append(sep);
 
+			var history_item = new Gtk.MenuItem.with_label(_("History till here"));
+			history_item.activate.connect(() => {
+				var oid = commit.get_id();
+				d_commit_list_model.set_include(new Ggit.OId[] { oid });
+				d_commit_list_model.set_exclude(new Ggit.OId[0]);
+				d_commit_list_model.reload();
+			});
+			history_item.show();
+			menu.append(history_item);
+
+			sep = new Gtk.SeparatorMenuItem();
+			sep.show();
+			menu.append(sep);
+
+			var copy_submenu = new Gtk.Menu();
+
+			var copy_sha_item = new Gtk.MenuItem.with_label(_("SHA"));
+			copy_sha_item.activate.connect(() => {
+				var clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD);
+				clipboard.set_text(commit.get_id().to_string(), -1);
+			});
+			copy_sha_item.show();
+			copy_submenu.append(copy_sha_item);
+
+			var copy_short_sha_item = new Gtk.MenuItem.with_label(_("Short SHA"));
+			copy_short_sha_item.activate.connect(() => {
+				var clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD);
+				clipboard.set_text(commit.get_id().to_string().substring(0, 7), -1);
+			});
+			copy_short_sha_item.show();
+			copy_submenu.append(copy_short_sha_item);
+
+			var copy_item = new Gtk.MenuItem.with_label(_("Copy"));
+			copy_item.submenu = copy_submenu;
+			copy_item.show();
+			menu.append(copy_item);
+
+			sep = new Gtk.SeparatorMenuItem();
+			sep.show();
+			menu.append(sep);
+
 			menu.append (add_visible_columns_action());
 
 			sep = new Gtk.SeparatorMenuItem();
@@ -1036,52 +1102,58 @@ switch (event.keyval)
 
 		private string get_effective_path_filter()
 		{
-			if (application.repository != null)
-			{
-				try
-				{
-					var config = application.repository.get_config().snapshot();
-					if (config.get_bool("gitg.filter.path-use-repo-config"))
-					{
-						try
-						{
-							return config.get_string("gitg.filter.path") ?? "";
-						}
-						catch
-						{
-							return "";
-						}
-					}
-				}
-				catch {}
-			}
-
-			return d_settings.get_string("path-filter") ?? "";
+			return get_effective_string("gitg.filter.path", "path-filter");
 		}
 
 		private bool get_effective_decorated()
+		{
+			return get_effective_bool("gitg.filter.decorated", "skip-non-decorated");
+		}
+
+		private bool is_repo_config_active()
 		{
 			if (application.repository != null)
 			{
 				try
 				{
-					var config = application.repository.get_config().snapshot();
-					if (config.get_bool("gitg.filter.path-use-repo-config"))
-					{
-						try
-						{
-							return config.get_bool("gitg.filter.decorated");
-						}
-						catch
-						{
-							return false;
-						}
-					}
+					return application.repository.get_config().snapshot().get_bool("gitg.filter.path-use-repo-config");
 				}
 				catch {}
 			}
 
-			return d_settings.get_boolean("skip-non-decorated");
+			return false;
+		}
+
+		private string get_effective_string(string repo_key, string gsettings_key)
+		{
+			if (is_repo_config_active())
+			{
+				try
+				{
+					return application.repository.get_config().snapshot().get_string(repo_key) ?? "";
+				}
+				catch {}
+
+				return "";
+			}
+
+			return d_settings.get_string(gsettings_key) ?? "";
+		}
+
+		private bool get_effective_bool(string repo_key, string gsettings_key)
+		{
+			if (is_repo_config_active())
+			{
+				try
+				{
+					return application.repository.get_config().snapshot().get_bool(repo_key);
+				}
+				catch {}
+
+				return false;
+			}
+
+			return d_settings.get_boolean(gsettings_key);
 		}
 
 		private void save_filters(string filter, bool decorated, bool in_repo,
@@ -1089,23 +1161,25 @@ switch (event.keyval)
 		                          string date_type2 = "none", string date_value2 = "",
 		                          string author_filter = "", string committer_filter = "",
 		                          string range_type = "none", string range_left = "",
-		                          string range_right = "", bool range_ancestry = false)
+		                          string range_right = "", bool range_ancestry = false,
+		                          bool first_parent = false, bool merges_only = false)
 		{
-			d_settings.set_string("date-filter-type", date_type);
-			d_settings.set_string("date-filter-value", date_value);
-			d_settings.set_string("date-filter-type2", date_type2);
-			d_settings.set_string("date-filter-value2", date_value2);
-			d_settings.set_string("author-filter", author_filter);
-			d_settings.set_string("committer-filter", committer_filter);
-			d_settings.set_string("range-filter-type", range_type);
-			d_settings.set_string("range-filter-left", range_left);
-			d_settings.set_string("range-filter-right", range_right);
-			d_settings.set_boolean("range-show-ancestry", range_ancestry);
-
 			if (application.repository == null)
 			{
 				d_settings.set_string("path-filter", filter);
 				d_settings.set_boolean("skip-non-decorated", decorated);
+				d_settings.set_string("date-filter-type", date_type);
+				d_settings.set_string("date-filter-value", date_value);
+				d_settings.set_string("date-filter-type2", date_type2);
+				d_settings.set_string("date-filter-value2", date_value2);
+				d_settings.set_string("author-filter", author_filter);
+				d_settings.set_string("committer-filter", committer_filter);
+				d_settings.set_string("range-filter-type", range_type);
+				d_settings.set_string("range-filter-left", range_left);
+				d_settings.set_string("range-filter-right", range_right);
+				d_settings.set_boolean("range-show-ancestry", range_ancestry);
+				d_settings.set_boolean("first-parent", first_parent);
+				d_settings.set_boolean("merges-only", merges_only);
 				update_walker();
 				return;
 			}
@@ -1127,17 +1201,53 @@ switch (event.keyval)
 					}
 
 					config.set_bool("gitg.filter.decorated", decorated);
+					config.set_string("gitg.filter.date-type", date_type);
+					config.set_string("gitg.filter.date-value", date_value);
+					config.set_string("gitg.filter.date-type2", date_type2);
+					config.set_string("gitg.filter.date-value2", date_value2);
+					config.set_string("gitg.filter.author", author_filter);
+					config.set_string("gitg.filter.committer", committer_filter);
+					config.set_string("gitg.filter.range-type", range_type);
+					config.set_string("gitg.filter.range-left", range_left);
+					config.set_string("gitg.filter.range-right", range_right);
+					config.set_bool("gitg.filter.range-ancestry", range_ancestry);
+					config.set_bool("gitg.filter.first-parent", first_parent);
+					config.set_bool("gitg.filter.merges-only", merges_only);
 				}
 				else
 				{
 					d_settings.set_string("path-filter", filter);
 					d_settings.set_boolean("skip-non-decorated", decorated);
+					d_settings.set_string("date-filter-type", date_type);
+					d_settings.set_string("date-filter-value", date_value);
+					d_settings.set_string("date-filter-type2", date_type2);
+					d_settings.set_string("date-filter-value2", date_value2);
+					d_settings.set_string("author-filter", author_filter);
+					d_settings.set_string("committer-filter", committer_filter);
+					d_settings.set_string("range-filter-type", range_type);
+					d_settings.set_string("range-filter-left", range_left);
+					d_settings.set_string("range-filter-right", range_right);
+					d_settings.set_boolean("range-show-ancestry", range_ancestry);
+					d_settings.set_boolean("first-parent", first_parent);
+					d_settings.set_boolean("merges-only", merges_only);
 				}
 			}
 			catch
 			{
 				d_settings.set_string("path-filter", filter);
 				d_settings.set_boolean("skip-non-decorated", decorated);
+				d_settings.set_string("date-filter-type", date_type);
+				d_settings.set_string("date-filter-value", date_value);
+				d_settings.set_string("date-filter-type2", date_type2);
+				d_settings.set_string("date-filter-value2", date_value2);
+				d_settings.set_string("author-filter", author_filter);
+				d_settings.set_string("committer-filter", committer_filter);
+				d_settings.set_string("range-filter-type", range_type);
+				d_settings.set_string("range-filter-left", range_left);
+				d_settings.set_string("range-filter-right", range_right);
+				d_settings.set_boolean("range-show-ancestry", range_ancestry);
+				d_settings.set_boolean("first-parent", first_parent);
+				d_settings.set_boolean("merges-only", merges_only);
 			}
 
 			update_walker();
@@ -1430,7 +1540,12 @@ switch (event.keyval)
 				var y = d_main.refs_list.y_in_window((int)event.y, event.window);
 				var row = d_main.refs_list.get_row_at_y(y);
 				selection = row;
-				d_main.refs_list.select_row(row);
+
+				if (row != null && !row.is_selected())
+				{
+					d_main.refs_list.unselect_all();
+					d_main.refs_list.select_row(row);
+				}
 			}
 
 			var references = d_main.refs_list.selection;
@@ -1682,9 +1797,9 @@ switch (event.keyval)
 
 			d_commit_list_model.set_permanent_lanes(permanent);
 
-			var range_type = d_settings.get_string("range-filter-type");
-			var range_left = d_settings.get_string("range-filter-left").strip();
-			var range_right = d_settings.get_string("range-filter-right").strip();
+			var range_type = get_effective_string("gitg.filter.range-type", "range-filter-type");
+			var range_left = get_effective_string("gitg.filter.range-left", "range-filter-left").strip();
+			var range_right = get_effective_string("gitg.filter.range-right", "range-filter-right").strip();
 
 			var exclude = new Gee.HashSet<Ggit.OId>((Gee.HashDataFunc)Ggit.OId.hash,
 			                                        (Gee.EqualDataFunc)Ggit.OId.equal);
@@ -1719,7 +1834,7 @@ switch (event.keyval)
 								var mb = application.repository.merge_base(left_oid, right_oid);
 								if (mb != null)
 								{
-									if (d_settings.get_boolean("range-show-ancestry"))
+									if (get_effective_bool("gitg.filter.range-ancestry", "range-show-ancestry"))
 									{
 										var mb_commit = application.repository.lookup<Ggit.Commit>(mb);
 										var parents = mb_commit.get_parents();
@@ -1764,18 +1879,21 @@ switch (event.keyval)
 				d_commit_list_model.set_pathspec(null);
 			}
 
-			var date_type_str = d_settings.get_string("date-filter-type");
-			var date_value_str = d_settings.get_string("date-filter-value");
-			var date_type_str2 = d_settings.get_string("date-filter-type2");
-			var date_value_str2 = d_settings.get_string("date-filter-value2");
+			var date_type_str = get_effective_string("gitg.filter.date-type", "date-filter-type");
+			var date_value_str = get_effective_string("gitg.filter.date-value", "date-filter-value");
+			var date_type_str2 = get_effective_string("gitg.filter.date-type2", "date-filter-type2");
+			var date_value_str2 = get_effective_string("gitg.filter.date-value2", "date-filter-value2");
 			d_commit_list_model.set_date_filter(
 				Gitg.DateFilterType.from_string(date_type_str),
 				date_value_str,
 				Gitg.DateFilterType.from_string(date_type_str2),
 				date_value_str2);
 
-			d_commit_list_model.set_author_filter(d_settings.get_string("author-filter"));
-			d_commit_list_model.set_committer_filter(d_settings.get_string("committer-filter"));
+			d_commit_list_model.set_author_filter(get_effective_string("gitg.filter.author", "author-filter"));
+			d_commit_list_model.set_committer_filter(get_effective_string("gitg.filter.committer", "committer-filter"));
+
+			d_commit_list_model.first_parent = get_effective_bool("gitg.filter.first-parent", "first-parent");
+			d_commit_list_model.merges_only = get_effective_bool("gitg.filter.merges-only", "merges-only");
 
 			d_commit_list_model.reload();
 		}
@@ -1922,6 +2040,14 @@ switch (event.keyval)
 			decorated_check.active = get_effective_decorated();
 			box.add(decorated_check);
 
+			var first_parent_check = new Gtk.CheckButton.with_mnemonic(_("_First parent"));
+			first_parent_check.active = get_effective_bool("gitg.filter.first-parent", "first-parent");
+			box.add(first_parent_check);
+
+			var merges_check = new Gtk.CheckButton.with_mnemonic(_("_Merges only"));
+			merges_check.active = get_effective_bool("gitg.filter.merges-only", "merges-only");
+			box.add(merges_check);
+
 			var separator = new Gtk.Separator(Gtk.Orientation.HORIZONTAL);
 			box.add(separator);
 
@@ -1952,15 +2078,15 @@ switch (event.keyval)
 			date_combo.append("until", _("Until"));
 			date_combo.append("before", _("Before"));
 			date_combo.append("after", _("After"));
-			date_combo.active_id = d_settings.get_string("date-filter-type");
-			if (date_combo.active_id == null)
+			date_combo.active_id = get_effective_string("gitg.filter.date-type", "date-filter-type");
+			if (date_combo.active_id == null || date_combo.active_id == "")
 			{
 				date_combo.active_id = "none";
 			}
 			date_box.pack_start(date_combo, false, false, 0);
 
 			var date_entry = new Gtk.Entry();
-			date_entry.text = d_settings.get_string("date-filter-value");
+			date_entry.text = get_effective_string("gitg.filter.date-value", "date-filter-value");
 			date_entry.placeholder_text = _("e.g. 2 weeks ago, 2025-01-01");
 			date_entry.hexpand = true;
 			date_entry.sensitive = date_combo.active_id != "none";
@@ -1977,15 +2103,15 @@ switch (event.keyval)
 			date_combo2.append("until", _("Until"));
 			date_combo2.append("before", _("Before"));
 			date_combo2.append("after", _("After"));
-			date_combo2.active_id = d_settings.get_string("date-filter-type2");
-			if (date_combo2.active_id == null)
+			date_combo2.active_id = get_effective_string("gitg.filter.date-type2", "date-filter-type2");
+			if (date_combo2.active_id == null || date_combo2.active_id == "")
 			{
 				date_combo2.active_id = "none";
 			}
 			date_box2.pack_start(date_combo2, false, false, 0);
 
 			var date_entry2 = new Gtk.Entry();
-			date_entry2.text = d_settings.get_string("date-filter-value2");
+			date_entry2.text = get_effective_string("gitg.filter.date-value2", "date-filter-value2");
 			date_entry2.placeholder_text = _("e.g. yesterday, 2025-06-15");
 			date_entry2.hexpand = true;
 			date_entry2.sensitive = date_combo2.active_id != "none";
@@ -2003,20 +2129,20 @@ switch (event.keyval)
 			box.add(author_label);
 
 			var author_entry = new Gtk.Entry();
-			author_entry.text = d_settings.get_string("author-filter");
+			author_entry.text = get_effective_string("gitg.filter.author", "author-filter");
 			author_entry.placeholder_text = _("e.g. John, john@example.com");
 			author_entry.hexpand = true;
 			author_label.mnemonic_widget = author_entry;
 			box.add(author_entry);
 
-			var committer_label = new Gtk.Label.with_mnemonic(_("Co_mmitter filter (regex on Name <email>)"));
+			var committer_label = new Gtk.Label.with_mnemonic(_("C_ommitter filter (regex on Name <email>)"));
 			committer_label.halign = Gtk.Align.START;
 			committer_label.wrap = true;
 			committer_label.max_width_chars = 40;
 			box.add(committer_label);
 
 			var committer_entry = new Gtk.Entry();
-			committer_entry.text = d_settings.get_string("committer-filter");
+			committer_entry.text = get_effective_string("gitg.filter.committer", "committer-filter");
 			committer_entry.placeholder_text = _("e.g. bot, ci@");
 			committer_entry.hexpand = true;
 			committer_label.mnemonic_widget = committer_entry;
@@ -2032,7 +2158,7 @@ switch (event.keyval)
 			var range_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 6);
 
 			var range_left_entry = new Gtk.Entry();
-			range_left_entry.text = d_settings.get_string("range-filter-left");
+			range_left_entry.text = get_effective_string("gitg.filter.range-left", "range-filter-left");
 			range_left_entry.placeholder_text = _("e.g. origin/main");
 			range_left_entry.hexpand = true;
 			range_label.mnemonic_widget = range_left_entry;
@@ -2042,15 +2168,15 @@ switch (event.keyval)
 			range_combo.append("none", _("None"));
 			range_combo.append("..", "..");
 			range_combo.append("...", "...");
-			range_combo.active_id = d_settings.get_string("range-filter-type");
-			if (range_combo.active_id == null)
+			range_combo.active_id = get_effective_string("gitg.filter.range-type", "range-filter-type");
+			if (range_combo.active_id == null || range_combo.active_id == "")
 			{
 				range_combo.active_id = "none";
 			}
 			range_box.pack_start(range_combo, false, false, 0);
 
 			var range_right_entry = new Gtk.Entry();
-			range_right_entry.text = d_settings.get_string("range-filter-right");
+			range_right_entry.text = get_effective_string("gitg.filter.range-right", "range-filter-right");
 			range_right_entry.placeholder_text = _("e.g. HEAD");
 			range_right_entry.hexpand = true;
 			range_right_entry.sensitive = range_combo.active_id != "none";
@@ -2060,7 +2186,7 @@ switch (event.keyval)
 			box.add(range_box);
 
 			var range_ancestry_check = new Gtk.CheckButton.with_mnemonic(_("Show _common ancestry"));
-			range_ancestry_check.active = d_settings.get_boolean("range-show-ancestry");
+			range_ancestry_check.active = get_effective_bool("gitg.filter.range-ancestry", "range-show-ancestry");
 			range_ancestry_check.sensitive = range_combo.active_id == "...";
 			box.add(range_ancestry_check);
 
@@ -2094,7 +2220,28 @@ switch (event.keyval)
 				             date_combo2.active_id, date_entry2.text,
 				             author_entry.text, committer_entry.text,
 				             range_combo.active_id, range_left_entry.text,
-				             range_right_entry.text, range_ancestry_check.active);
+				             range_right_entry.text, range_ancestry_check.active,
+			             first_parent_check.active, merges_check.active);
+			});
+
+			first_parent_check.toggled.connect(() => {
+				save_filters(entry.text, decorated_check.active, repo_check.active,
+				             date_combo.active_id, date_entry.text,
+				             date_combo2.active_id, date_entry2.text,
+				             author_entry.text, committer_entry.text,
+				             range_combo.active_id, range_left_entry.text,
+				             range_right_entry.text, range_ancestry_check.active,
+				             first_parent_check.active, merges_check.active);
+			});
+
+			merges_check.toggled.connect(() => {
+				save_filters(entry.text, decorated_check.active, repo_check.active,
+				             date_combo.active_id, date_entry.text,
+				             date_combo2.active_id, date_entry2.text,
+				             author_entry.text, committer_entry.text,
+				             range_combo.active_id, range_left_entry.text,
+				             range_right_entry.text, range_ancestry_check.active,
+				             first_parent_check.active, merges_check.active);
 			});
 
 			entry.changed.connect(() => {
@@ -2110,7 +2257,8 @@ switch (event.keyval)
 					             date_combo2.active_id, date_entry2.text,
 					             author_entry.text, committer_entry.text,
 					             range_combo.active_id, range_left_entry.text,
-					             range_right_entry.text);
+					             range_right_entry.text, range_ancestry_check.active,
+			             first_parent_check.active, merges_check.active);
 					return false;
 				});
 			});
@@ -2122,7 +2270,8 @@ switch (event.keyval)
 				             date_combo2.active_id, date_entry2.text,
 				             author_entry.text, committer_entry.text,
 				             range_combo.active_id, range_left_entry.text,
-				             range_right_entry.text, range_ancestry_check.active);
+				             range_right_entry.text, range_ancestry_check.active,
+			             first_parent_check.active, merges_check.active);
 			});
 
 			date_entry.changed.connect(() => {
@@ -2138,7 +2287,8 @@ switch (event.keyval)
 					             date_combo2.active_id, date_entry2.text,
 					             author_entry.text, committer_entry.text,
 					             range_combo.active_id, range_left_entry.text,
-					             range_right_entry.text);
+					             range_right_entry.text, range_ancestry_check.active,
+			             first_parent_check.active, merges_check.active);
 					return false;
 				});
 			});
@@ -2150,7 +2300,8 @@ switch (event.keyval)
 				             date_combo2.active_id, date_entry2.text,
 				             author_entry.text, committer_entry.text,
 				             range_combo.active_id, range_left_entry.text,
-				             range_right_entry.text, range_ancestry_check.active);
+				             range_right_entry.text, range_ancestry_check.active,
+			             first_parent_check.active, merges_check.active);
 			});
 
 			date_entry2.changed.connect(() => {
@@ -2166,7 +2317,8 @@ switch (event.keyval)
 					             date_combo2.active_id, date_entry2.text,
 					             author_entry.text, committer_entry.text,
 					             range_combo.active_id, range_left_entry.text,
-					             range_right_entry.text);
+					             range_right_entry.text, range_ancestry_check.active,
+			             first_parent_check.active, merges_check.active);
 					return false;
 				});
 			});
@@ -2184,7 +2336,8 @@ switch (event.keyval)
 					             date_combo2.active_id, date_entry2.text,
 					             author_entry.text, committer_entry.text,
 					             range_combo.active_id, range_left_entry.text,
-					             range_right_entry.text);
+					             range_right_entry.text, range_ancestry_check.active,
+			             first_parent_check.active, merges_check.active);
 					return false;
 				});
 			});
@@ -2202,7 +2355,8 @@ switch (event.keyval)
 					             date_combo2.active_id, date_entry2.text,
 					             author_entry.text, committer_entry.text,
 					             range_combo.active_id, range_left_entry.text,
-					             range_right_entry.text);
+					             range_right_entry.text, range_ancestry_check.active,
+			             first_parent_check.active, merges_check.active);
 					return false;
 				});
 			});
@@ -2216,7 +2370,8 @@ switch (event.keyval)
 				             date_combo2.active_id, date_entry2.text,
 				             author_entry.text, committer_entry.text,
 				             range_combo.active_id, range_left_entry.text,
-				             range_right_entry.text, range_ancestry_check.active);
+				             range_right_entry.text, range_ancestry_check.active,
+			             first_parent_check.active, merges_check.active);
 			});
 
 			range_ancestry_check.toggled.connect(() => {
@@ -2225,7 +2380,8 @@ switch (event.keyval)
 				             date_combo2.active_id, date_entry2.text,
 				             author_entry.text, committer_entry.text,
 				             range_combo.active_id, range_left_entry.text,
-				             range_right_entry.text, range_ancestry_check.active);
+				             range_right_entry.text, range_ancestry_check.active,
+			             first_parent_check.active, merges_check.active);
 			});
 
 			uint range_left_timeout_id = 0;
@@ -2244,7 +2400,8 @@ switch (event.keyval)
 					             date_combo2.active_id, date_entry2.text,
 					             author_entry.text, committer_entry.text,
 					             range_combo.active_id, range_left_entry.text,
-					             range_right_entry.text);
+					             range_right_entry.text, range_ancestry_check.active,
+			             first_parent_check.active, merges_check.active);
 					return false;
 				});
 			});
@@ -2262,7 +2419,8 @@ switch (event.keyval)
 					             date_combo2.active_id, date_entry2.text,
 					             author_entry.text, committer_entry.text,
 					             range_combo.active_id, range_left_entry.text,
-					             range_right_entry.text);
+					             range_right_entry.text, range_ancestry_check.active,
+			             first_parent_check.active, merges_check.active);
 					return false;
 				});
 			});
@@ -2270,32 +2428,81 @@ switch (event.keyval)
 			repo_check.toggled.connect(() => {
 				if (repo_check.active)
 				{
-					string repo_val = "";
 					if (application.repository != null)
 					{
-						try
-						{
-							repo_val = application.repository.get_config().snapshot().get_string("gitg.filter.path");
-						}
-						catch {}
-					}
-					entry.text = repo_val;
+						var config_snap = application.repository.get_config().snapshot();
 
-					bool repo_decorated = false;
-					if (application.repository != null)
-					{
-						try
-						{
-							repo_decorated = application.repository.get_config().snapshot().get_bool("gitg.filter.decorated");
-						}
-						catch {}
+						try { entry.text = config_snap.get_string("gitg.filter.path"); }
+						catch { entry.text = ""; }
+
+						try { decorated_check.active = config_snap.get_bool("gitg.filter.decorated"); }
+						catch { decorated_check.active = false; }
+
+						try { first_parent_check.active = config_snap.get_bool("gitg.filter.first-parent"); }
+						catch { first_parent_check.active = false; }
+
+						try { merges_check.active = config_snap.get_bool("gitg.filter.merges-only"); }
+						catch { merges_check.active = false; }
+
+						try { date_combo.active_id = config_snap.get_string("gitg.filter.date-type"); }
+						catch { date_combo.active_id = "none"; }
+						if (date_combo.active_id == null || date_combo.active_id == "")
+							date_combo.active_id = "none";
+
+						try { date_entry.text = config_snap.get_string("gitg.filter.date-value"); }
+						catch { date_entry.text = ""; }
+
+						try { date_combo2.active_id = config_snap.get_string("gitg.filter.date-type2"); }
+						catch { date_combo2.active_id = "none"; }
+						if (date_combo2.active_id == null || date_combo2.active_id == "")
+							date_combo2.active_id = "none";
+
+						try { date_entry2.text = config_snap.get_string("gitg.filter.date-value2"); }
+						catch { date_entry2.text = ""; }
+
+						try { author_entry.text = config_snap.get_string("gitg.filter.author"); }
+						catch { author_entry.text = ""; }
+
+						try { committer_entry.text = config_snap.get_string("gitg.filter.committer"); }
+						catch { committer_entry.text = ""; }
+
+						try { range_combo.active_id = config_snap.get_string("gitg.filter.range-type"); }
+						catch { range_combo.active_id = "none"; }
+						if (range_combo.active_id == null || range_combo.active_id == "")
+							range_combo.active_id = "none";
+
+						try { range_left_entry.text = config_snap.get_string("gitg.filter.range-left"); }
+						catch { range_left_entry.text = ""; }
+
+						try { range_right_entry.text = config_snap.get_string("gitg.filter.range-right"); }
+						catch { range_right_entry.text = ""; }
+
+						try { range_ancestry_check.active = config_snap.get_bool("gitg.filter.range-ancestry"); }
+						catch { range_ancestry_check.active = false; }
 					}
-					decorated_check.active = repo_decorated;
 				}
 				else
 				{
 					entry.text = d_settings.get_string("path-filter");
 					decorated_check.active = d_settings.get_boolean("skip-non-decorated");
+					first_parent_check.active = d_settings.get_boolean("first-parent");
+					merges_check.active = d_settings.get_boolean("merges-only");
+					date_combo.active_id = d_settings.get_string("date-filter-type");
+					if (date_combo.active_id == null || date_combo.active_id == "")
+						date_combo.active_id = "none";
+					date_entry.text = d_settings.get_string("date-filter-value");
+					date_combo2.active_id = d_settings.get_string("date-filter-type2");
+					if (date_combo2.active_id == null || date_combo2.active_id == "")
+						date_combo2.active_id = "none";
+					date_entry2.text = d_settings.get_string("date-filter-value2");
+					author_entry.text = d_settings.get_string("author-filter");
+					committer_entry.text = d_settings.get_string("committer-filter");
+					range_combo.active_id = d_settings.get_string("range-filter-type");
+					if (range_combo.active_id == null || range_combo.active_id == "")
+						range_combo.active_id = "none";
+					range_left_entry.text = d_settings.get_string("range-filter-left");
+					range_right_entry.text = d_settings.get_string("range-filter-right");
+					range_ancestry_check.active = d_settings.get_boolean("range-show-ancestry");
 				}
 
 				save_filters(entry.text, decorated_check.active, repo_check.active,
@@ -2303,7 +2510,8 @@ switch (event.keyval)
 				             date_combo2.active_id, date_entry2.text,
 				             author_entry.text, committer_entry.text,
 				             range_combo.active_id, range_left_entry.text,
-				             range_right_entry.text, range_ancestry_check.active);
+				             range_right_entry.text, range_ancestry_check.active,
+				             first_parent_check.active, merges_check.active);
 			});
 
 			popover.closed.connect(() => {
@@ -2340,7 +2548,8 @@ switch (event.keyval)
 				             date_combo2.active_id, date_entry2.text,
 				             author_entry.text, committer_entry.text,
 				             range_combo.active_id, range_left_entry.text,
-				             range_right_entry.text, range_ancestry_check.active);
+				             range_right_entry.text, range_ancestry_check.active,
+			             first_parent_check.active, merges_check.active);
 			});
 
 			box.show_all();

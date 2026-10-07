@@ -291,6 +291,20 @@
          for additional context.
       </description>
     </key>
+    <key name="first-parent" type="b">
+      <default>false</default>
+      <summary>First Parent</summary>
+      <description>
+         Show only the first parent chain, hiding side branches.
+      </description>
+    </key>
+    <key name="merges-only" type="b">
+      <default>false</default>
+      <summary>Merges Only</summary>
+      <description>
+         Show only merge commits (commits with more than one parent).
+      </description>
+    </key>
   </schema>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="@APPLICATION_ID@.preferences.branch" path="@SCHEMA_PATH@/preferences/branch/">
     <key name="checkout-created-branch" type="b">

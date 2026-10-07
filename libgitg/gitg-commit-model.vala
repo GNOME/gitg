@@ -175,6 +175,9 @@ namespace Gitg
 		private string d_author_filter = "";
 		private string d_committer_filter = "";
 
+		private bool d_first_parent;
+		private bool d_merges_only;
+
 		private uint d_size;
 		private int d_stamp;
 
@@ -412,6 +415,18 @@ namespace Gitg
 		public void set_committer_filter(string pattern)
 		{
 			d_committer_filter = pattern.strip();
+		}
+
+		public bool first_parent
+		{
+			get { return d_first_parent; }
+			set { d_first_parent = value; }
+		}
+
+		public bool merges_only
+		{
+			get { return d_merges_only; }
+			set { d_merges_only = value; }
 		}
 
 		private bool commit_matches_person_filter(Ggit.Signature sig, string pattern)
@@ -799,6 +814,8 @@ namespace Gitg
 			GLib.DateTime? date_value2 = d_date_filter_value2;
 			string author_filter = d_author_filter;
 			string committer_filter = d_committer_filter;
+			bool first_parent_mode = d_first_parent;
+			bool merges_only_mode = d_merges_only;
 
 			uint limit = this.limit;
 
@@ -867,6 +884,18 @@ namespace Gitg
 
 				d_lanes.reset(permanent, incset);
 
+				var first_parent_set = new Gee.HashSet<Ggit.OId>(
+					(Gee.HashDataFunc<Ggit.OId>)Ggit.OId.hash,
+					(Gee.EqualDataFunc<Ggit.OId>)Ggit.OId.equal);
+
+				if (first_parent_mode)
+				{
+					foreach (Ggit.OId oid in included)
+					{
+						first_parent_set.add(oid);
+					}
+				}
+
 				uint size;
 				uint hidden_size;
 
@@ -915,6 +944,27 @@ namespace Gitg
 					} catch { break; }
 
 					if (decorated_only && decorated_set != null && !decorated_set.contains(id))
+					{
+						d_lanes.skip_commit(commit);
+						continue;
+					}
+
+					if (first_parent_mode && !first_parent_set.contains(id))
+					{
+						d_lanes.skip_commit(commit);
+						continue;
+					}
+
+					if (first_parent_mode)
+					{
+						var parents = commit.get_parents();
+						if (parents.size > 0)
+						{
+							first_parent_set.add(parents.get_id(0));
+						}
+					}
+
+					if (merges_only_mode && commit.get_parents().size < 2)
 					{
 						d_lanes.skip_commit(commit);
 						continue;

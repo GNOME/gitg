@@ -611,7 +611,7 @@ public class RefsList : Gtk.ListBox
 
 	private Gitg.Repository? d_repository;
 	private Gee.HashMap<Gitg.Ref, RefRow> d_ref_map;
-	private Gtk.ListBoxRow? d_selected_row;
+	private Gee.LinkedList<Gtk.ListBoxRow> d_selected_rows;
 	private Gitg.Remote[] d_remotes;
 	private RefRow? d_all_commits;
 	private RefHeader? d_all_branches;
@@ -694,10 +694,15 @@ public class RefsList : Gtk.ListBox
 	{
 		d_header_map = new Gee.HashMap<string, RemoteHeader>();
 		d_ref_map = new Gee.HashMap<Gitg.Ref, RefRow>();
-		selection_mode = Gtk.SelectionMode.BROWSE;
+		d_selected_rows = new Gee.LinkedList<Gtk.ListBoxRow>();
+		selection_mode = Gtk.SelectionMode.MULTIPLE;
 		d_remotes = new Gitg.Remote[0];
 
 		set_activate_on_single_click(false);
+
+		selected_rows_changed.connect(() => {
+			notify_property("selection");
+		});
 
 		set_sort_func(sort_rows);
 		set_filter_func(filter_func);
@@ -930,49 +935,57 @@ public class RefsList : Gtk.ListBox
 
 	private void reselect_row(Gtk.ListBoxRow a)
 	{
-		if (d_selected_row == null)
+		if (d_selected_rows.size == 0)
 		{
 			return;
 		}
 
 		var ah = a as RefHeader;
-		var bh = d_selected_row as RefHeader;
+		var ar = a as RefRow;
 
-		if ((ah != null) != (bh != null))
-		{
-			return;
-		}
+		var iter = d_selected_rows.iterator();
 
-		if (ah != null)
+		while (iter.next())
 		{
-			if (ah.ref_type == bh.ref_type && ah.ref_name == bh.ref_name)
+			var saved = iter.get();
+			var bh = saved as RefHeader;
+			var br = saved as RefRow;
+
+			if ((ah != null) != (bh != null))
 			{
-				select_row(a);
-				d_selected_row = null;
+				continue;
 			}
 
-			return;
-		}
+			if (ah != null)
+			{
+				if (ah.ref_type == bh.ref_type && ah.ref_name == bh.ref_name)
+				{
+					select_row(a);
+					iter.remove();
+					return;
+				}
 
-		var ar = a as RefRow;
-		var br = d_selected_row as RefRow;
+				continue;
+			}
 
-		if (ar.reference == null && br.reference == null)
-		{
-			select_row(a);
-			d_selected_row = null;
-			return;
-		}
+			if (ar.reference == null && br.reference == null)
+			{
+				select_row(a);
+				iter.remove();
+				return;
+			}
 
-		if (ar.reference == null || br.reference == null)
-		{
-			return;
-		}
+			if (ar.reference == null || br.reference == null)
+			{
+				continue;
+			}
 
-		if (ar.reference.get_name() == br.reference.get_name())
-		{
-			select_row(a);
-			d_selected_row = null;
+			if (ar.reference.get_name() == br.reference.get_name())
+			{
+				select_row(a);
+				iter.remove();
+				return;
+			}
 		}
 	}
 
@@ -1144,17 +1157,26 @@ public class RefsList : Gtk.ListBox
 
 	public void replace_ref(Gitg.Ref old_ref, Gitg.Ref new_ref)
 	{
-		bool select = false;
+		bool was_selected = false;
 
 		if (d_ref_map.has_key(old_ref))
 		{
-			select = (get_selected_row() == d_ref_map[old_ref]);
+			var old_row = d_ref_map[old_ref];
+
+			foreach (var row in get_selected_rows())
+			{
+				if (row == old_row)
+				{
+					was_selected = true;
+					break;
+				}
+			}
 		}
 
 		var removed = remove_ref_internal(old_ref, RefAnimation.ANIMATE);
 		var newrow = add_ref_internal(new_ref, RefAnimation.ANIMATE);
 
-		if (select)
+		if (was_selected)
 		{
 			select_row(newrow);
 		}
@@ -1253,6 +1275,7 @@ public class RefsList : Gtk.ListBox
 			return false;
 		}
 
+		unselect_all();
 		select_row(row);
 		scroll_to_row(row);
 
@@ -1296,6 +1319,7 @@ public class RefsList : Gtk.ListBox
 			{
 				var row = d_ref_map[ourref];
 
+				unselect_all();
 				select_row(row);
 				scroll_to_row(row);
 				return true;
@@ -1327,14 +1351,20 @@ public class RefsList : Gtk.ListBox
 	{
 		freeze_notify();
 
-		d_selected_row = get_selected_row();
+		d_selected_rows = new Gee.LinkedList<Gtk.ListBoxRow>();
+
+		foreach (var row in get_selected_rows())
+		{
+			d_selected_rows.add(row);
+		}
+
 		store_expanded_state();
 
 		clear();
 
 		if (d_repository == null)
 		{
-			d_selected_row = null;
+			d_selected_rows.clear();
 			thaw_notify();
 			return;
 		}
@@ -1411,11 +1441,11 @@ public class RefsList : Gtk.ListBox
 			});
 		} catch {}
 
-		d_selected_row = null;
+		d_selected_rows.clear();
 
-		var sel = get_selected_row();
+		var sel = get_selected_rows();
 
-		if (sel == null)
+		if (sel.length() == 0)
 		{
 			var settings = new Settings(Gitg.Config.APPLICATION_ID + ".preferences.history");
 			var default_selection = (DefaultSelection)settings.get_enum("default-selection");
@@ -1499,21 +1529,40 @@ public class RefsList : Gtk.ListBox
 
 	public bool is_header
 	{
-		get { return (get_selected_row() as RefHeader) != null; }
+		get
+		{
+			foreach (var row in get_selected_rows())
+			{
+				if (row is RefHeader)
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
 	}
 
 	public bool is_stash_selected
 	{
 		get
 		{
-			var row = get_selected_row();
-			if (row == null) return false;
+			foreach (var row in get_selected_rows())
+			{
+				if (row is StashRow)
+				{
+					return true;
+				}
 
-			var stash_row = row as StashRow;
-			if (stash_row != null) return true;
+				var header = row as RefHeader;
 
-			var header = row as RefHeader;
-			return header != null && header.ref_type == Gitg.RefType.STASH;
+				if (header != null && header.ref_type == Gitg.RefType.STASH)
+				{
+					return true;
+				}
+			}
+
+			return false;
 		}
 	}
 
@@ -1521,22 +1570,27 @@ public class RefsList : Gtk.ListBox
 	{
 		owned get
 		{
-			var row = get_selected_row();
-			if (row == null) return new Ggit.OId[0];
+			var ret = new Ggit.OId[0];
 
-			var stash_row = row as StashRow;
-			if (stash_row != null)
+			foreach (var row in get_selected_rows())
 			{
-				return new Ggit.OId[] { stash_row.stash_oid };
+				var stash_row = row as StashRow;
+
+				if (stash_row != null)
+				{
+					ret += stash_row.stash_oid;
+					continue;
+				}
+
+				var header = row as RefHeader;
+
+				if (header != null && header.ref_type == Gitg.RefType.STASH)
+				{
+					return stash_oids;
+				}
 			}
 
-			var header = row as RefHeader;
-			if (header != null && header.ref_type == Gitg.RefType.STASH)
-			{
-				return stash_oids;
-			}
-
-			return new Ggit.OId[0];
+			return ret;
 		}
 	}
 
@@ -1544,16 +1598,62 @@ public class RefsList : Gtk.ListBox
 	{
 		get
 		{
-			var row = get_selected_row();
+			var selected = get_selected_rows();
 
-			if (row == null)
+			if (selected.length() == 0)
 			{
 				return true;
 			}
 
-			var ref_row = get_ref_row(row);
+			foreach (var row in selected)
+			{
+				var ref_row = get_ref_row(row);
 
-			return (ref_row != null && ref_row.reference == null);
+				if (ref_row != null && ref_row.reference == null)
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+	}
+
+	private void add_refs_for_header(RefHeader ref_header, Gee.List<Gitg.Ref> ret)
+	{
+		if (ref_header.ref_type == Gitg.RefType.STASH)
+		{
+			return;
+		}
+
+		bool found = false;
+
+		foreach (var child in get_children())
+		{
+			if (found)
+			{
+				var nrow = child as Gtk.ListBoxRow;
+				var nref_row = get_ref_row(nrow);
+
+				if (nref_row == null)
+				{
+					var nref_header = get_ref_header(nrow);
+
+					if (ref_header.is_sub_header_remote ||
+						nref_header.ref_type != ref_header.ref_type)
+					{
+						break;
+					}
+				}
+				else
+				{
+					ret.add(nref_row.reference);
+				}
+			}
+			else if (child == ref_header)
+			{
+				found = true;
+			}
 		}
 	}
 
@@ -1561,68 +1661,40 @@ public class RefsList : Gtk.ListBox
 	{
 		owned get
 		{
-			var row = get_selected_row();
+			var selected = get_selected_rows();
 
-			if (row == null)
+			if (selected.length() == 0)
 			{
 				return all;
 			}
 
-			if (row is StashRow)
-			{
-				return new Gee.LinkedList<Gitg.Ref>();
-			}
-
-			var ref_row = get_ref_row(row);
 			var ret = new Gee.LinkedList<Gitg.Ref>();
 
-			if (ref_row != null)
+			foreach (var row in selected)
 			{
-				if (ref_row.reference == null)
+				if (row is StashRow)
 				{
-					return all;
+					continue;
+				}
+
+				var ref_row = get_ref_row(row);
+
+				if (ref_row != null)
+				{
+					if (ref_row.reference == null)
+					{
+						return all;
+					}
+
+					ret.add(ref_row.reference);
 				}
 				else
 				{
-					ret.add(ref_row.reference);
-				}
-			}
-			else
-			{
-				var ref_header = get_ref_header(row);
+					var ref_header = get_ref_header(row);
 
-				if (ref_header != null && ref_header.ref_type == Gitg.RefType.STASH)
-				{
-					return ret;
-				}
-
-				bool found = false;
-
-				foreach (var child in get_children())
-				{
-					if (found)
+					if (ref_header != null)
 					{
-						var nrow = child as Gtk.ListBoxRow;
-						var nref_row = get_ref_row(nrow);
-
-						if (nref_row == null)
-						{
-							var nref_header = get_ref_header(nrow);
-
-							if (ref_header.is_sub_header_remote ||
-								nref_header.ref_type != ref_header.ref_type)
-							{
-								break;
-							}
-						}
-						else
-						{
-							ret.add(nref_row.reference);
-						}
-					}
-					else if (child == row)
-					{
-						found = true;
+						add_refs_for_header(ref_header, ret);
 					}
 				}
 			}
@@ -1638,13 +1710,7 @@ public class RefsList : Gtk.ListBox
 
 	protected override void move_cursor(Gtk.MovementStep step, int n)
 	{
-		var selrow = get_selected_row();
 		base.move_cursor(step, n);
-
-		if (selrow != get_selected_row())
-		{
-			notify_property("selection");
-		}
 	}
 
 	public void edit(Gitg.Ref reference, owned GitgExt.RefNameEditingDone done)
@@ -1688,17 +1754,7 @@ public class RefsList : Gtk.ListBox
 
 	protected override bool button_release_event(Gdk.EventButton button)
 	{
-		var ret = base.button_release_event(button);
-
-		var y = y_in_window((int)button.y, button.window);
-		var row = get_row_at_y(y);
-
-		if (row != null && row != get_selected_row())
-		{
-			select_row(row);
-		}
-
-		return ret;
+		return base.button_release_event(button);
 	}
 
 	private void scroll_to_row(Gtk.ListBoxRow row)
