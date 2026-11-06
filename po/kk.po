@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gitg master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gitg/issues\n"
-"POT-Creation-Date: 2026-09-27 10:23+0000\n"
-"PO-Revision-Date: 2026-09-27 17:09+0500\n"
+"POT-Creation-Date: 2026-10-06 21:02+0000\n"
+"PO-Revision-Date: 2026-11-06 21:35+0500\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <kk_KZ@googlegroups.com>\n"
 "Language: kk\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.9\n"
+"X-Generator: Poedit 3.10\n"
 
 #: contrib/xml/xml-reader.c:327
 #, c-format
@@ -31,7 +31,7 @@ msgstr "Gitg"
 msgid "Git repository browser"
 msgstr "Git репозиторийлерінің браузері"
 
-#: data/org.gnome.gitg.desktop.in.in:16
+#: data/org.gnome.gitg.desktop.in.in:15
 msgid "New Window"
 msgstr "Жаңа терезе"
 
@@ -570,11 +570,11 @@ msgstr "Жақында қолданылған репозиторийлерді �
 msgid "The Gitg Team"
 msgstr "Gitg командасы"
 
-#: gitg/commit/gitg-commit-dialog.vala:567 gitg/commit/gitg-commit.vala:1096
+#: gitg/commit/gitg-commit-dialog.vala:567 gitg/commit/gitg-commit.vala:1097
 msgid "There are no changes to be committed"
 msgstr "Коммиттелетін өзгерістер жоқ"
 
-#: gitg/commit/gitg-commit-dialog.vala:568 gitg/commit/gitg-commit.vala:1097
+#: gitg/commit/gitg-commit-dialog.vala:568 gitg/commit/gitg-commit.vala:1098
 msgid "Use amend to change the commit message of the previous commit"
 msgstr "Алдыңғы коммиттің хабарламасын өзгерту үшін amend қолданыңыз"
 
@@ -680,23 +680,23 @@ msgstr "Ішкі модуль"
 msgid "No dirty submodules"
 msgstr "Өзгертілген ішкі модульдер жоқ"
 
-#: gitg/commit/gitg-commit.vala:1131
+#: gitg/commit/gitg-commit.vala:1132
 msgid "Failed to commit"
 msgstr "Коммиттеу сәтсіз аяқталды"
 
-#: gitg/commit/gitg-commit.vala:1147
+#: gitg/commit/gitg-commit.vala:1148
 msgid "Failed to pass pre-commit"
 msgstr "Pre-commit ілмегінен өту сәтсіз аяқталды"
 
-#: gitg/commit/gitg-commit.vala:1315 gitg/commit/gitg-commit.vala:1465
+#: gitg/commit/gitg-commit.vala:1316 gitg/commit/gitg-commit.vala:1522
 msgid "Discard changes"
 msgstr "Өзгерістерден бас тарту"
 
-#: gitg/commit/gitg-commit.vala:1316
+#: gitg/commit/gitg-commit.vala:1317
 msgid "Are you sure you want to permanently discard the selected changes?"
 msgstr "Таңдалған өзгерістерден біржолата бас тартқыңыз келетініне сенімдісіз бе?"
 
-#: gitg/commit/gitg-commit.vala:1325 gitg/commit/gitg-commit.vala:1491 gitg/commit/gitg-commit.vala:1606
+#: gitg/commit/gitg-commit.vala:1326 gitg/commit/gitg-commit.vala:1548 gitg/commit/gitg-commit.vala:1663
 #: gitg/gitg-commit-action-create-patch.vala:154 gitg/gitg-dash-view.vala:469 gitg/gitg-window.vala:218
 #: gitg/gitg-window.vala:880 gitg/resources/ui/gitg-add-remote-action-dialog.ui:18
 #: gitg/resources/ui/gitg-author-details-dialog.ui:20 gitg/resources/ui/gitg-checkout-remote-branch-dialog.ui:18
@@ -709,73 +709,77 @@ msgstr "Таңдалған өзгерістерден біржолата бас 
 msgid "_Cancel"
 msgstr "_Бас тарту"
 
-#: gitg/commit/gitg-commit.vala:1326 gitg/commit/gitg-commit.vala:1492
+#: gitg/commit/gitg-commit.vala:1327 gitg/commit/gitg-commit.vala:1549
 msgid "Discard"
 msgstr "Бас тарту"
 
-#: gitg/commit/gitg-commit.vala:1355
+#: gitg/commit/gitg-commit.vala:1356
 msgid "Failed to discard selection"
 msgstr "Таңдалғаннан бас тарту сәтсіз аяқталды"
 
-#: gitg/commit/gitg-commit.vala:1385
+#: gitg/commit/gitg-commit.vala:1416
+msgid "Failed to stash changes"
+msgstr "Өзгерістерді жасыру (stash) сақтау сәтсіз аяқталды"
+
+#: gitg/commit/gitg-commit.vala:1442
 msgid "Failed to stage selection"
 msgstr "Таңдалғанды индекстеу сәтсіз аяқталды"
 
-#: gitg/commit/gitg-commit.vala:1389
+#: gitg/commit/gitg-commit.vala:1446
 msgid "Failed to unstage selection"
 msgstr "Таңдалғанды индекстеуден алып тастау сәтсіз аяқталды"
 
-#: gitg/commit/gitg-commit.vala:1449
+#: gitg/commit/gitg-commit.vala:1506
 msgid "Failed to discard changes"
 msgstr "Өзгерістерден бас тарту сәтсіз аяқталды"
 
-#: gitg/commit/gitg-commit.vala:1470
+#: gitg/commit/gitg-commit.vala:1527
 #, c-format
 msgid "Are you sure you want to permanently discard all changes made to the file “%s”?"
 msgstr "«%s» файлына жасалған барлық өзгерістерден біржолата бас тартқыңыз келетініне сенімдісіз бе?"
 
-#: gitg/commit/gitg-commit.vala:1481
+#: gitg/commit/gitg-commit.vala:1538
 #, c-format
 msgid "Are you sure you want to permanently discard all changes made to the files %s and “%s”?"
 msgstr "%s және «%s» файлдарына жасалған барлық өзгерістерден біржолата бас тартқыңыз келетініне сенімдісіз бе?"
 
-#: gitg/commit/gitg-commit.vala:1564
+#: gitg/commit/gitg-commit.vala:1621
 msgid "Failed to delete files"
 msgstr "Файлдарды өшіру сәтсіз аяқталды"
 
-#: gitg/commit/gitg-commit.vala:1580
+#: gitg/commit/gitg-commit.vala:1637
 msgid "Delete file"
 msgid_plural "Delete files"
 msgstr[0] "Файлдарды өшіру"
 
-#: gitg/commit/gitg-commit.vala:1585
+#: gitg/commit/gitg-commit.vala:1642
 #, c-format
 msgid "Are you sure you want to permanently delete the file “%s”?"
 msgstr "«%s» файлын біржолата өшіргіңіз келетініне сенімдісіз бе?"
 
-#: gitg/commit/gitg-commit.vala:1596
+#: gitg/commit/gitg-commit.vala:1653
 #, c-format
 msgid "Are you sure you want to permanently delete the files %s and “%s”?"
 msgstr "%s және «%s» файлдарын біржолата өшіргіңіз келетініне сенімдісіз бе?"
 
-#: gitg/commit/gitg-commit.vala:1642
+#: gitg/commit/gitg-commit.vala:1699
 msgid "_Stage changes"
 msgstr "Өзгерістерді _индекстеу"
 
-#: gitg/commit/gitg-commit.vala:1654
+#: gitg/commit/gitg-commit.vala:1711
 msgid "_Unstage changes"
 msgstr "Өзгерістерді индекстеуден _алып тастау"
 
-#: gitg/commit/gitg-commit.vala:1666
+#: gitg/commit/gitg-commit.vala:1723
 msgid "_Discard changes"
 msgstr "Өзгерістерден б_ас тарту"
 
-#: gitg/commit/gitg-commit.vala:1678
+#: gitg/commit/gitg-commit.vala:1735
 msgid "D_elete file"
 msgid_plural "D_elete files"
 msgstr[0] "Файлдарды ө_шіру"
 
-#: gitg/commit/gitg-commit.vala:1708
+#: gitg/commit/gitg-commit.vala:1765
 msgid "_Edit file"
 msgstr "Файлды _түзету"
 
@@ -794,7 +798,8 @@ msgid ""
 msgstr "Жұмыс бумасында индекстелмеген өзгерістер бар сияқты. Ауысудың (checkout) алдында өзгерістерді жасырғыңыз келе ме?"
 
 #: gitg/gitg-action-support.vala:133 gitg/gitg-commit-action-cherry-pick.vala:163 gitg/gitg-ref-action-delete.vala:94
-#: gitg/gitg-ref-action-merge.vala:195 gitg/gitg-remove-remote-action.vala:67 libgitg/gitg-repository-list-box.vala:560
+#: gitg/gitg-ref-action-merge.vala:195 gitg/gitg-remove-remote-action.vala:67 gitg/history/gitg-history.vala:1525
+#: libgitg/gitg-repository-list-box.vala:560
 msgid "Cancel"
 msgstr "Бас тарту"
 
@@ -859,12 +864,12 @@ msgstr "Қосылған қашықтағы репозиторийден алу 
 
 #. Translators: the first %s is the remote url to fetch from,
 #. * the second is a list of references that got updated.
-#: gitg/gitg-add-remote-action.vala:90 gitg/gitg-ref-action-fetch.vala:159
+#: gitg/gitg-add-remote-action.vala:89 gitg/gitg-ref-action-fetch.vala:159
 #, c-format
 msgid "Fetched from %s: %s"
 msgstr "%s ішінен алынды: %s"
 
-#: gitg/gitg-add-remote-action.vala:132
+#: gitg/gitg-add-remote-action.vala:140
 msgid "Failed to add remote"
 msgstr "Қашықтағы репозиторийді қосу сәтсіз аяқталды"
 
@@ -1275,13 +1280,13 @@ msgstr "%s қашықтағы тармағын өшіру мүмкін емес:
 msgid "Deleting branch %s from %s"
 msgstr "%s тармағы %s ішінен өшірілуде"
 
-#: gitg/gitg-ref-action-delete.vala:184
+#: gitg/gitg-ref-action-delete.vala:183
 #, c-format
 msgid "Failed to delete branch %s from %s: %s"
 msgstr "%s тармағын %s ішінен өшіру сәтсіз аяқталды: %s"
 
 #. Translators: the %s will get replaced with the remote url,
-#: gitg/gitg-ref-action-delete.vala:192
+#: gitg/gitg-ref-action-delete.vala:191
 #, c-format
 msgid "Deleted from %s"
 msgstr "%s ішінен өшірілді"
@@ -1405,7 +1410,7 @@ msgstr "«%s» тармағы «%s» ішіне сәтті біріктіріл�
 msgid "Merge “%s” into branch “%s”"
 msgstr "«%s» тармағын «%s» тармағына біріктіру"
 
-#: gitg/gitg-ref-action-merge.vala:483 gitg/history/gitg-history-refs-list.vala:1267
+#: gitg/gitg-ref-action-merge.vala:483 gitg/history/gitg-history-refs-list.vala:1345
 msgid "Tags"
 msgstr "Тегтер"
 
@@ -1574,15 +1579,15 @@ msgstr "%zu артта"
 msgid "All commits"
 msgstr "Барлық коммиттер"
 
-#: gitg/history/gitg-history-refs-list.vala:1265
+#: gitg/history/gitg-history-refs-list.vala:1343
 msgid "Branches"
 msgstr "Тармақтар"
 
-#: gitg/history/gitg-history-refs-list.vala:1266
+#: gitg/history/gitg-history-refs-list.vala:1344
 msgid "Remotes"
 msgstr "Қашықтағылар"
 
-#: gitg/history/gitg-history-refs-list.vala:1268
+#: gitg/history/gitg-history-refs-list.vala:1346 gitg/history/gitg-history.vala:984
 msgid "Stash"
 msgstr "Stash"
 
@@ -1595,87 +1600,112 @@ msgstr "Тарих"
 msgid "Examine the history of the repository"
 msgstr "Репозиторий тарихын зерттеу"
 
-#: gitg/history/gitg-history.vala:1367
+#: gitg/history/gitg-history.vala:1383
 msgid "Mainline"
 msgstr "Негізгі тармақ"
 
-#: gitg/history/gitg-history.vala:1448
+#: gitg/history/gitg-history.vala:1464
 msgid "Main remote"
 msgstr "Негізгі қашықтағы репозиторий"
 
-#: gitg/history/gitg-history.vala:1822
+#: gitg/history/gitg-history.vala:1499
+msgid "Pop"
+msgstr "Шығарып алу"
+
+#: gitg/history/gitg-history.vala:1510
+msgid "Failed to pop stash"
+msgstr "Жасырылғанды (stash) шығарып алу сәтсіз аяқталды"
+
+#: gitg/history/gitg-history.vala:1517 gitg/history/gitg-history.vala:1526
+msgid "Drop"
+msgstr "Тастау"
+
+#: gitg/history/gitg-history.vala:1521
+msgid "Confirm stash deletion"
+msgstr "Жасырын (stash) өшіруді растау"
+
+#: gitg/history/gitg-history.vala:1522
+#, c-format
+msgid "Are you sure that you want to permanently delete <b><i>stash@{%zu}</i></b>?"
+msgstr "<b><i>stash@{%zu}</i></b> толығымен өшіру керек пе?"
+
+#: gitg/history/gitg-history.vala:1541
+msgid "Failed to drop stash"
+msgstr "Жасырынды (stash) тастау сәтсіз аяқталды"
+
+#: gitg/history/gitg-history.vala:1921
 msgid "Show only d_ecorated commits"
 msgstr "Тек б_езендірілген коммиттерді көрсету"
 
-#: gitg/history/gitg-history.vala:1829
+#: gitg/history/gitg-history.vala:1928
 msgid "_Path filter (separate patterns with spaces, prefix with :! to exclude)"
 msgstr "_Жол сүзгісі (үлгілерді бос орындармен бөліңіз, алып тастау үшін алдына :! тіркеңіз)"
 
-#: gitg/history/gitg-history.vala:1844
+#: gitg/history/gitg-history.vala:1943
 msgid "_Date filter"
 msgstr "_Күн сүзгісі"
 
-#: gitg/history/gitg-history.vala:1851 gitg/history/gitg-history.vala:1876 gitg/history/gitg-history.vala:1943
+#: gitg/history/gitg-history.vala:1950 gitg/history/gitg-history.vala:1975 gitg/history/gitg-history.vala:2042
 msgid "None"
 msgstr "Жоқ"
 
-#: gitg/history/gitg-history.vala:1852 gitg/history/gitg-history.vala:1877
+#: gitg/history/gitg-history.vala:1951 gitg/history/gitg-history.vala:1976
 msgid "Since"
 msgstr "Бастап"
 
-#: gitg/history/gitg-history.vala:1853 gitg/history/gitg-history.vala:1878
+#: gitg/history/gitg-history.vala:1952 gitg/history/gitg-history.vala:1977
 msgid "Until"
 msgstr "Дейін"
 
-#: gitg/history/gitg-history.vala:1854 gitg/history/gitg-history.vala:1879
+#: gitg/history/gitg-history.vala:1953 gitg/history/gitg-history.vala:1978
 msgid "Before"
 msgstr "Дейін"
 
-#: gitg/history/gitg-history.vala:1855 gitg/history/gitg-history.vala:1880
+#: gitg/history/gitg-history.vala:1954 gitg/history/gitg-history.vala:1979
 msgid "After"
 msgstr "Кейін"
 
-#: gitg/history/gitg-history.vala:1865
+#: gitg/history/gitg-history.vala:1964
 msgid "e.g. 2 weeks ago, 2025-01-01"
 msgstr "мыс., 2 weeks ago, 2025-01-01"
 
-#: gitg/history/gitg-history.vala:1890
+#: gitg/history/gitg-history.vala:1989
 msgid "e.g. yesterday, 2025-06-15"
 msgstr "мыс., кеше, 2025-06-15"
 
-#: gitg/history/gitg-history.vala:1900
+#: gitg/history/gitg-history.vala:1999
 msgid "_Author filter (regex on Name <email>)"
 msgstr "_Автор сүзгісі (Аты <email> бойынша тұрақты өрнек)"
 
-#: gitg/history/gitg-history.vala:1908
+#: gitg/history/gitg-history.vala:2007
 msgid "e.g. John, john@example.com"
 msgstr "мыс., John, john@example.com"
 
-#: gitg/history/gitg-history.vala:1913
+#: gitg/history/gitg-history.vala:2012
 msgid "Co_mmitter filter (regex on Name <email>)"
 msgstr "_Коммит жасаушы сүзгісі (Аты <email> бойынша тұрақты өрнек)"
 
-#: gitg/history/gitg-history.vala:1921
+#: gitg/history/gitg-history.vala:2020
 msgid "e.g. bot, ci@"
 msgstr "мыс., bot, ci@"
 
-#: gitg/history/gitg-history.vala:1929
+#: gitg/history/gitg-history.vala:2028
 msgid "_Range filter"
 msgstr "_Ауқым сүзгісі"
 
-#: gitg/history/gitg-history.vala:1937
+#: gitg/history/gitg-history.vala:2036
 msgid "e.g. origin/main"
 msgstr "мыс., origin/main"
 
-#: gitg/history/gitg-history.vala:1955
+#: gitg/history/gitg-history.vala:2054
 msgid "e.g. HEAD"
 msgstr "мыс., HEAD"
 
-#: gitg/history/gitg-history.vala:1963
+#: gitg/history/gitg-history.vala:2062
 msgid "Show _common ancestry"
 msgstr "Ортақ _түпнұсқаны көрсету"
 
-#: gitg/history/gitg-history.vala:1982
+#: gitg/history/gitg-history.vala:2081
 msgid "Use _repo config"
 msgstr "_Репозиторий конфигін пайдалану"
 
@@ -1777,7 +1807,7 @@ msgctxt "Create Dialog"
 msgid "Commit"
 msgstr "Коммит"
 
-#: gitg/resources/ui/gitg-commit-dialog.ui:36 gitg/resources/ui/gitg-commit-paned.ui:111
+#: gitg/resources/ui/gitg-commit-dialog.ui:36 gitg/resources/ui/gitg-commit-paned.ui:121
 msgid "C_ommit"
 msgstr "К_оммиттеу"
 
@@ -1797,15 +1827,19 @@ msgstr "Қолтаңбаны қо_су"
 msgid "Filter Files"
 msgstr "Файлдарды сүзгілеу"
 
-#: gitg/resources/ui/gitg-commit-paned.ui:101
+#: gitg/resources/ui/gitg-commit-paned.ui:100
 msgid "Skip commit _hooks"
 msgstr "Коммит ілмектерін (hooks) _аттап өту"
 
-#: gitg/resources/ui/gitg-commit-paned.ui:121
+#: gitg/resources/ui/gitg-commit-paned.ui:110
+msgid "_Stash"
+msgstr "Жа_сыру (stash)"
+
+#: gitg/resources/ui/gitg-commit-paned.ui:131
 msgid "S_tage selection"
 msgstr "Таңдалғанды і_ндекстеу"
 
-#: gitg/resources/ui/gitg-commit-paned.ui:132
+#: gitg/resources/ui/gitg-commit-paned.ui:142
 msgid "D_iscard selection"
 msgstr "Таңдалғаннан б_ас тарту"
 
@@ -2105,11 +2139,11 @@ msgstr "Айырмашылық"
 msgid "Text mode:"
 msgstr "Мәтін режимі:"
 
-#: gitg/resources/ui/gitg-preferences-interface.ui:348
+#: gitg/resources/ui/gitg-preferences-interface.ui:347
 msgid "Enable syntax highlighting of source code in diff views"
 msgstr "Айырмашылық көріністерінде бастапқы кодтың синтаксисін түспен ерекшелеуді іске қосу"
 
-#: gitg/resources/ui/gitg-preferences-interface.ui:374
+#: gitg/resources/ui/gitg-preferences-interface.ui:373
 msgid "Syntax highlighting color scheme:"
 msgstr "Синтаксисті түспен ерекшелеудің түстер схемасы:"
 
